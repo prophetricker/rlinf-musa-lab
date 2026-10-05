@@ -1,0 +1,14 @@
+{
+  "rlinf": {
+    "url": "https://github.com/RLinf/RLinf.git",
+    "route2": {
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+      "ref": "main observed 2026-10-04",
+      "branch": "research/s4000-current",
+      "worktree": "worktrees/rlinf-route2",
+      "local_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+      "expected_tree": "b78ed3694bcd1d69afd887e6ce11b780d7528ecf"
+    }
+  },
+  "acquisition": "Restore pinned RLinf source and apply the included route 2 patch."
+}

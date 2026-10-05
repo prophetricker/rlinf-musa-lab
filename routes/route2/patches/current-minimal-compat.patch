@@ -1,0 +1,693 @@
+diff --git a/docs/source-en/rst_source/concepts/channel.rst b/docs/source-en/rst_source/concepts/channel.rst
+index db7a4140..bcc4d6dc 100644
+--- a/docs/source-en/rst_source/concepts/channel.rst
++++ b/docs/source-en/rst_source/concepts/channel.rst
+@@ -40,6 +40,30 @@ A distributed channel binds each ``key`` to one replica the first time that key
+ Code already running inside a worker may instead call
+ ``self.create_channel(...)`` or ``self.connect_channel("Samples")``.
+ 
++Select Ray CPU Object Transport
++-------------------------------
++
++Worker handles use collective send/recv by default. To exchange CPU tensors and
++serializable objects through Ray without initializing a collective group, select
++the transport explicitly:
++
++.. code-block:: python
++
++   sample_channel = Channel.create(name="SamplesCPU", transport="ray")
++   producer_group.produce(sample_channel)
++   consumer_group.consume(sample_channel)
++
++The setting travels with a serialized handle. A new connection by name must
++select it again with ``self.connect_channel("SamplesCPU", transport="ray")`` or
++``Channel.connect(name, current_worker, transport="ray")``. The existing queue
++can serve either type of handle; the transport belongs to the handle. Collectors,
++dispatcher consumer routing, keys, weights, and async operations still apply.
++
++Ray object transport is intended for CPU payloads. Copy accelerator tensors to
++CPU before putting them into the channel. It does not validate GPU collective
++communication or provide the same throughput, and cannot be combined with
++``local=True``.
++
+ Put, Get, and Batch Items
+ -------------------------
+ 
+diff --git a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+index 7c2c8c23..207b8284 100644
+--- a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+@@ -24,6 +24,12 @@ Verify device access before installing a model environment:
+    mthreads-gmi
+    python -c "import torch, torch_musa; print(torch.musa.device_count())"
+ 
++If MTML cannot enumerate devices inside the container while Torch-MUSA can,
++set ``RLINF_MUSA_TORCH_DETECTION_FALLBACK=1`` before launching RLinf. The
++scheduler then uses ``torch.musa`` for device count and model name when MTML
++raises an error. This opt-in probe can initialize the MUSA runtime; it does
++not change the driver or relax model and runtime compatibility requirements.
++
+ .. warning::
+ 
+    Resolve a zero device count before training. Keep the image's matching
+diff --git a/docs/source-zh/rst_source/concepts/channel.rst b/docs/source-zh/rst_source/concepts/channel.rst
+index 2bd88ad2..1b18fcc2 100644
+--- a/docs/source-zh/rst_source/concepts/channel.rst
++++ b/docs/source-zh/rst_source/concepts/channel.rst
+@@ -34,6 +34,26 @@ Worker 后，通信会自动绑定到该 Worker。已经在 Worker 内运行的
+ 
+ 分布式 channel 会在某个 ``key`` 第一次被使用时把它绑定到一个副本上，选的是调用方所在节点的那个副本，数据因此留在产生它的地方。只有当同一个 key 总是从同一个节点产生时这才划算；如果 key 来自任意节点，就只剩下路由开销而没有局部性，此时 ``distributed`` 保持 False 即可。
+ 
++选择 Ray CPU 对象传输
++----------------------
++
++Worker 内的句柄默认使用 collective send/recv。如果需要通过 Ray 交换 CPU tensor 和
++可序列化对象，并避免初始化 collective group，可显式选择传输方式：
++
++.. code-block:: python
++
++   sample_channel = Channel.create(name="SamplesCPU", transport="ray")
++   producer_group.produce(sample_channel)
++   consumer_group.consume(sample_channel)
++
++序列化句柄会保留这一设置。按名称新建连接时需要再次指定：
++``self.connect_channel("SamplesCPU", transport="ray")`` 或
++``Channel.connect(name, current_worker, transport="ray")``。同一个队列可供两类句柄使用，
++传输方式属于句柄。Collector、Dispatcher 消费者路由、key、weight 和异步操作仍有效。
++
++Ray 对象传输用于 CPU payload；accelerator tensor 应先复制到 CPU 再入队。
++这一方式不验证 GPU collective 通信，也不提供相同的吞吐量，不能与 ``local=True`` 组合。
++
+ 放入、获取和批量获取数据
+ --------------------------
+ 
+diff --git a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+index e00d88be..926bd0a9 100644
+--- a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+@@ -18,6 +18,8 @@ MUSA 使用摩尔线程 training-suite 镜像中相互匹配的 PyTorch 与 ``to
+    mthreads-gmi
+    python -c "import torch, torch_musa; print(torch.musa.device_count())"
+ 
++如果容器内 MTML 无法枚举设备，但 Torch-MUSA 可以访问设备，请在启动 RLinf 前设置 ``RLINF_MUSA_TORCH_DETECTION_FALLBACK=1``。MTML 报错时，scheduler 会通过 ``torch.musa`` 获取设备数量和型号。该选项可能初始化 MUSA runtime；它不会修改驱动，也不会降低模型与 runtime 的兼容性要求。
++
+ .. warning::
+ 
+    若设备数量为零，请先解决设备访问问题。保留镜像中配套的 PyTorch 与 ``torch_musa``，安装通用 torch wheel 可能覆盖 MUSA 版本。具身示例使用 Hugging Face rollout 后端，因为 MUSA 安装会跳过仅支持 CUDA 的 vLLM 与 SGLang kernel。
+diff --git a/rlinf/scheduler/channel/channel.py b/rlinf/scheduler/channel/channel.py
+index 69cc08a7..71f5fb21 100644
+--- a/rlinf/scheduler/channel/channel.py
++++ b/rlinf/scheduler/channel/channel.py
+@@ -143,6 +143,7 @@ class Channel:
+     """
+ 
+     local_channel_map: dict[int, "LocalChannel"] = {}
++    _use_ray_transport: bool = False
+ 
+     @classmethod
+     def create(
+@@ -159,6 +160,7 @@ class Channel:
+         producers: Any = None,
+         consumers: Any = None,
+         hook_options: Optional[dict[str, Any]] = None,
++        transport: str = "collective",
+     ) -> "Channel":
+         """Create a new channel with the specified name, node ID, and accelerator ID.
+ 
+@@ -182,6 +184,9 @@ class Channel:
+                 size read from the worker manager, so a dealing dispatcher can split work
+                 evenly across them.
+             hook_options (dict): Free-form options handed to the hooks' ``setup``.
++            transport (str): Use ``"collective"`` (default) for Worker send/recv,
++                or ``"ray"`` for Ray object transport, including inside Workers.
++                Ray transport is intended for CPU payloads and cannot be local.
+ 
+         Returns:
+             Channel: A new instance of the Channel class.
+@@ -189,8 +194,13 @@ class Channel:
+         """
+         from .channel_worker import ChannelWorker, LocalChannel
+ 
++        if transport not in {"collective", "ray"}:
++            raise ValueError(f"Unsupported channel transport: {transport}")
++        if local and transport == "ray":
++            raise ValueError("Ray transport cannot be used with a local channel")
+         cluster = Cluster()
+         channel = cls()
++        channel._use_ray_transport = transport == "ray"
+         if local:
+             # Local channel does not need to be launched, just create a local channel object
+             local_channel = LocalChannel(maxsize=maxsize)
+@@ -240,7 +250,7 @@ class Channel:
+             )
+         except ValueError:
+             Worker.logger.warning(f"Channel {name} already exists, connecting to it.")
+-            return cls.connect(name, Worker.current_worker)
++            return cls.connect(name, Worker.current_worker, transport=transport)
+ 
+         # Distributed channel actors
+         channel_actors: dict[int, ray.actor.ActorHandle] = {
+@@ -259,12 +269,16 @@ class Channel:
+         return channel
+ 
+     @classmethod
+-    def connect(cls, name: str, current_worker: Worker) -> "Channel":
++    def connect(
++        cls, name: str, current_worker: Worker, transport: str = "collective"
++    ) -> "Channel":
+         """Connect to an existing channel.
+ 
+         Args:
+             name (str): The name of the channel to connect to.
+             current_worker (Worker): The current worker that is connecting to the channel.
++            transport (str): Transport for this handle: ``"collective"`` or
++                ``"ray"``. Specify ``"ray"`` again when reconnecting by name.
+ 
+         Returns:
+             Channel: An instance of the Channel class connected to the specified channel.
+@@ -272,6 +286,8 @@ class Channel:
+         """
+         from .channel_worker import ChannelWorker
+ 
++        if transport not in {"collective", "ray"}:
++            raise ValueError(f"Unsupported channel transport: {transport}")
+         channel_worker_group = WorkerGroup.from_group_name(ChannelWorker, name)
+         channel_actors: dict[int, ray.actor.ActorHandle] = {
+             worker.rank: worker.worker
+@@ -280,6 +296,7 @@ class Channel:
+         maxsize = channel_worker_group.execute_on(0).maxsize().wait()[0]
+ 
+         channel = cls()
++        channel._use_ray_transport = transport == "ray"
+         channel._initialize(
+             channel_name=name,
+             channel_worker_group=channel_worker_group,
+@@ -432,7 +449,7 @@ class Channel:
+         target_actor = self._get_channel_actor(target_rank)
+ 
+         # First run async put to avoid send blocking put
+-        if self._current_worker is not None:
++        if self._current_worker is not None and not self._use_ray_transport:
+             # Inside a worker, use send/recv
+             put_kwargs = {
+                 "src_addr": self._current_worker.worker_address,
+@@ -457,7 +474,7 @@ class Channel:
+             else:
+                 async_channel_work.wait()
+         else:
+-            # Outside a worker, use ray comm
++            # Use Ray objects outside workers or with explicit Ray transport.
+             put_kwargs = {"item": item, "weight": weight, "key": key}
+             async_channel_work = AsyncRayWork(
+                 target_actor.put_via_ray.remote(**put_kwargs)
+@@ -488,7 +505,7 @@ class Channel:
+         target_rank = self._get_channel_rank_by_key(key)
+         target_actor = self._get_channel_actor(target_rank)
+ 
+-        if self._current_worker is not None:
++        if self._current_worker is not None and not self._use_ray_transport:
+             put_kwargs = {
+                 "src_addr": self._current_worker.worker_address,
+                 "nowait": True,
+@@ -537,7 +554,7 @@ class Channel:
+         target_rank = self._get_channel_rank_by_key(key)
+         target_actor = self._get_channel_actor(target_rank)
+ 
+-        if self._current_worker is not None:
++        if self._current_worker is not None and not self._use_ray_transport:
+             # Inside a worker, use send/recv
+             query_id = uuid.uuid4().int
+             get_kwargs = {
+@@ -560,8 +577,10 @@ class Channel:
+                 data, _ = async_comm_work.wait()
+                 return data
+         else:
+-            # Outside a worker, use ray comm
++            # Use Ray objects outside workers or with explicit Ray transport.
+             get_kwargs = {"key": key}
++            if self._current_worker is not None:
++                get_kwargs["consumer"] = self._current_worker.worker_address.get_name()
+             async_channel_work = AsyncRayWork(
+                 target_actor.get_via_ray.remote(**get_kwargs)
+             )
+@@ -590,7 +609,7 @@ class Channel:
+         target_rank = self._get_channel_rank_by_key(key)
+         target_actor = self._get_channel_actor(target_rank)
+ 
+-        if self._current_worker is not None:
++        if self._current_worker is not None and not self._use_ray_transport:
+             query_id = uuid.uuid4().int
+             get_kwargs = {
+                 "dst_addr": self._current_worker.worker_address,
+@@ -605,6 +624,8 @@ class Channel:
+             return data
+         else:
+             get_kwargs = {"key": key, "nowait": True}
++            if self._current_worker is not None:
++                get_kwargs["consumer"] = self._current_worker.worker_address.get_name()
+             return ray.get(target_actor.get_via_ray.remote(**get_kwargs))
+ 
+     def get_batch(
+@@ -634,7 +655,7 @@ class Channel:
+         target_rank = self._get_channel_rank_by_key(key)
+         target_actor = self._get_channel_actor(target_rank)
+ 
+-        if self._current_worker is not None:
++        if self._current_worker is not None and not self._use_ray_transport:
+             query_id = uuid.uuid4().int
+             get_kwargs = {
+                 "dst_addr": self._current_worker.worker_address,
+@@ -658,6 +679,8 @@ class Channel:
+                 return data
+         else:
+             get_kwargs = {"target_weight": target_weight, "key": key}
++            if self._current_worker is not None:
++                get_kwargs["consumer"] = self._current_worker.worker_address.get_name()
+             async_channel_work = AsyncRayWork(
+                 target_actor.get_batch_via_ray.remote(**get_kwargs)
+             )
+diff --git a/rlinf/scheduler/channel/channel_worker.py b/rlinf/scheduler/channel/channel_worker.py
+index a89f480f..01d103a5 100644
+--- a/rlinf/scheduler/channel/channel_worker.py
++++ b/rlinf/scheduler/channel/channel_worker.py
+@@ -509,19 +509,29 @@ class ChannelWorker(Worker):
+             piggyback_payload=query_id,
+         )
+ 
+-    async def get_via_ray(self, key: Any = DEFAULT_KEY, nowait: bool = False) -> Any:
++    async def get_via_ray(
++        self,
++        key: Any = DEFAULT_KEY,
++        nowait: bool = False,
++        consumer: str | None = None,
++    ) -> Any:
+         """Get an item from the channel queue via Ray's communication. Useful when there is no worker.
+ 
+         Args:
+             key (Any): The key to get the item from. A unique identifier for a specific set of items.
+             When a key is given, the channel will look for the item in the queue associated with that key.
+             nowait (bool): If True, directly raise asyncio.QueueEmpty if the queue is empty. Defaults to False.
++            consumer (str): Worker name used by a dealing dispatcher. Leaving it
++                unset reads the shared queue, as for an external caller.
+ 
+         """
+-        self.create_queue(key, self.maxsize())
+-        if nowait:
++        if consumer is not None:
++            weighted_item = await self._take(key, consumer, nowait)
++        elif nowait:
++            self.create_queue(key, self.maxsize())
+             weighted_item: WeightedItem = self._queue_map[key].get_nowait()
+         else:
++            self.create_queue(key, self.maxsize())
+             weighted_item: WeightedItem = await self._queue_map[key].get()
+         return weighted_item.item
+ 
+@@ -564,7 +574,10 @@ class ChannelWorker(Worker):
+         )
+ 
+     async def get_batch_via_ray(
+-        self, target_weight: int, key: Any = DEFAULT_KEY
++        self,
++        target_weight: int,
++        key: Any = DEFAULT_KEY,
++        consumer: str | None = None,
+     ) -> list[Any]:
+         """Get a batch of items from the channel queue via Ray's communication based on the batch weight.
+ 
+@@ -572,17 +585,23 @@ class ChannelWorker(Worker):
+             target_weight (int): The target weight for the batch. The batch will contain items until the total weight reaches this value.
+             key (Any): The key to get the item from. A unique identifier for a specific set of items.
+             When a key is given, the channel will look for the item in the queue associated with that key.
++            consumer (str): Worker name used by a dealing dispatcher. Leaving it
++                unset reads the shared queue, as for an external caller.
+ 
+         """
+-        self.create_queue(key, self.maxsize())
++        if consumer is None:
++            self.create_queue(key, self.maxsize())
++            queue = self._queue_map[key]
++        else:
++            queue = self._queue_for_get(key, consumer)
+         batch = []
+         current_weight = 0
+         while True:
+-            next_item: WeightedItem = await self._queue_map[key].peek()
++            next_item: WeightedItem = await queue.peek()
+             if next_item is None or current_weight + next_item.weight > target_weight:
+                 break
+             current_weight += next_item.weight
+-            item = await self._queue_map[key].get()
++            item = await queue.get()
+             batch.append(item.item)
+             if current_weight >= target_weight:
+                 break
+diff --git a/rlinf/scheduler/hardware/accelerators/musa_gpu.py b/rlinf/scheduler/hardware/accelerators/musa_gpu.py
+index 0c471af7..5f0f0241 100644
+--- a/rlinf/scheduler/hardware/accelerators/musa_gpu.py
++++ b/rlinf/scheduler/hardware/accelerators/musa_gpu.py
+@@ -32,6 +32,19 @@ class MUSAGPUProfileConfig(ProfileConfig):
+ class MUSAGPUManager(AcceleratorManager):
+     """Utility Class for MUSA GPU."""
+ 
++    @staticmethod
++    def _get_torch_detection_fallback():
++        """Return the opt-in runtime probe when container MTML cannot enumerate."""
++        if os.environ.get("RLINF_MUSA_TORCH_DETECTION_FALLBACK") != "1":
++            return None
++        try:
++            import torch
++            import torch_musa  # noqa: F401
++
++            return torch.musa if torch.musa.is_available() else None
++        except Exception:
++            return None
++
+     @staticmethod
+     def get_num_devices():
+         """Get the number of MUSA GPU devices on the node."""
+@@ -42,10 +55,15 @@ class MUSAGPUManager(AcceleratorManager):
+             pymtml.mtmlLibraryInit()
+             initialized = True
+             device_count = pymtml.mtmlLibraryCountDevice()
+-            pymtml.mtmlLibraryShutDown()
+             return device_count
+         except Exception:
+-            return 0
++            platform = MUSAGPUManager._get_torch_detection_fallback()
++            if platform is None:
++                return 0
++            try:
++                return platform.device_count()
++            except Exception:
++                return 0
+         finally:
+             if initialized:
+                 try:
+@@ -76,7 +94,13 @@ class MUSAGPUManager(AcceleratorManager):
+             else:
+                 return "UNKNOWN"
+         except Exception:
+-            return "UNKNOWN"
++            platform = MUSAGPUManager._get_torch_detection_fallback()
++            if platform is None:
++                return "UNKNOWN"
++            try:
++                return platform.get_device_name(0)
++            except Exception:
++                return "UNKNOWN"
+         finally:
+             if initialized:
+                 try:
+diff --git a/rlinf/scheduler/worker/worker.py b/rlinf/scheduler/worker/worker.py
+index e28e6dd8..5722f46e 100644
+--- a/rlinf/scheduler/worker/worker.py
++++ b/rlinf/scheduler/worker/worker.py
+@@ -811,6 +811,7 @@ class Worker(metaclass=WorkerMeta):
+         distributed: bool = False,
+         node_rank: Optional[int] = None,
+         local: bool = False,
++        transport: str = "collective",
+     ):
+         """Create a new channel with the specified placement rank and maximum size.
+ 
+@@ -820,6 +821,8 @@ class Worker(metaclass=WorkerMeta):
+             distributed (bool): Whether the channel should be distributed. A distributed channel creates a distributed worker on each node, and routes communications to the channel worker on the same node as the current worker, benefitting from the locality of the data. The routing is based on the key of the put/get APIs. So if you expect the key to be randomly distributed, you should set this to False to avoid unnecessary routing overhead.
+             node_rank (int): The node to place the channel on. Only valid when distributed is False. Defaults to None, which places the channel on the creating worker's node.
+             local (bool): Create the channel for intra-process communication. A local channel cannot be connected by other workers, and its data cannot be shared among different processes.
++            transport (str): Worker communication via ``"collective"`` (default)
++                or Ray CPU objects via ``"ray"``.
+ 
+         Returns:
+             Channel: A new instance of the Channel class.
+@@ -833,13 +836,16 @@ class Worker(metaclass=WorkerMeta):
+             distributed=distributed,
+             node_rank=node_rank,
+             local=local,
++            transport=transport,
+         )
+ 
+-    def connect_channel(self, channel_name: str):
++    def connect_channel(self, channel_name: str, transport: str = "collective"):
+         """Connect to an existing channel.
+ 
+         Args:
+             channel_name (str): The name of the channel to connect to.
++            transport (str): Transport for this handle. Specify ``"ray"`` again
++                when reconnecting a Ray object channel by name.
+ 
+         Returns:
+             Channel: An instance of the Channel class connected to the specified channel.
+@@ -847,7 +853,9 @@ class Worker(metaclass=WorkerMeta):
+         """
+         from ..channel.channel import Channel
+ 
+-        return Channel.connect(name=channel_name, current_worker=self)
++        return Channel.connect(
++            name=channel_name, current_worker=self, transport=transport
++        )
+ 
+     def send_to(
+         self,
+diff --git a/rlinf/utils/utils.py b/rlinf/utils/utils.py
+index 3ce180ae..11e4d383 100644
+--- a/rlinf/utils/utils.py
++++ b/rlinf/utils/utils.py
+@@ -25,9 +25,13 @@ from typing import Any, Callable, Iterable, Literal, Optional
+ import numpy as np
+ import torch
+ import torch.nn.functional as F
+-from torch.distributed.tensor import DTensor
+ from torch.optim import Optimizer
+ 
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
++
+ from rlinf.scheduler import Worker
+ from rlinf.utils.metric_utils import compute_loss_mask
+ 
+diff --git a/tests/unit_tests/test_channel.py b/tests/unit_tests/test_channel.py
+index 29f62f78..7be0a433 100644
+--- a/tests/unit_tests/test_channel.py
++++ b/tests/unit_tests/test_channel.py
+@@ -1574,3 +1574,121 @@ def test_returns_none_when_nothing_resolves(group_type):
+ def test_unregistered_group_name_is_skipped(group_type):
+     """An unknown name yields None instead of raising, so creation can proceed."""
+     assert resolve_colocation_node_rank("Missing") is None
++
++
++class RayTransportWorker(Worker):
++    """CPU producer/consumer that rejects collective communication."""
++
++    def send(self, *args, **kwargs):
++        raise AssertionError("Ray transport must not invoke Worker.send")
++
++    def recv(self, *args, **kwargs):
++        raise AssertionError("Ray transport must not invoke Worker.recv")
++
++    def produce(self, channel, mode):
++        payload = {"tensor": torch.arange(4), "label": "CPU payload"}
++        if mode == "nowait":
++            channel.put_nowait(payload, weight=1, key="test")
++        elif mode == "async":
++            channel.put(payload, weight=1, key="test", async_op=True).wait()
++        else:
++            channel.put(payload, weight=1, key="test")
++
++    def consume(self, channel, mode, reconnect=False):
++        if reconnect:
++            channel = self.connect_channel(channel, transport="ray")
++        if mode == "nowait":
++            payload = channel.get_nowait(key="test")
++        elif mode == "async":
++            payload = channel.get(key="test", async_op=True).wait()
++        elif mode == "batch":
++            payload = channel.get_batch(target_weight=1, key="test")[0]
++        else:
++            payload = channel.get(key="test")
++        return (
++            payload["tensor"].tolist(),
++            payload["tensor"].device.type,
++            payload["label"],
++        )
++
++    def check_empty(self, channel):
++        with pytest.raises(asyncio.QueueEmpty):
++            channel.get_nowait(key="empty")
++        return True
++
++
++class TestRayChannelTransport:
++    """Exercise Ray payloads through real CPU Workers and named reconnection."""
++
++    @pytest.fixture(autouse=True)
++    def stub_manager(self):
++        """Use the real manager for actor-based transport tests."""
++
++    @pytest.fixture(scope="class")
++    def cpu_workers(self, cluster):
++        placement = NodePlacementStrategy([0])
++        producer = RayTransportWorker.create_group().launch(
++            cluster,
++            name=f"ray_producer_{uuid.uuid4().hex}",
++            placement_strategy=placement,
++        )
++        consumer = RayTransportWorker.create_group().launch(
++            cluster,
++            name=f"ray_consumer_{uuid.uuid4().hex}",
++            placement_strategy=placement,
++        )
++        return producer, consumer
++
++    @pytest.mark.parametrize("mode", ["sync", "async", "nowait", "batch"])
++    def test_cpu_payload_inside_workers(self, cpu_workers, mode):
++        producer, consumer = cpu_workers
++        channel = Channel.create(
++            name=f"ray_payload_{uuid.uuid4().hex}", transport="ray"
++        )
++        producer.produce(channel, mode).wait()
++        assert consumer.consume(channel, mode).wait()[0] == (
++            [0, 1, 2, 3],
++            "cpu",
++            "CPU payload",
++        )
++        assert consumer.check_empty(channel).wait()[0]
++
++    def test_duplicate_creation_and_named_reconnection(self, cpu_workers):
++        producer, consumer = cpu_workers
++        name = f"ray_reconnect_{uuid.uuid4().hex}"
++        original = Channel.create(name=name, transport="ray")
++        assert original.qsize() == 0
++        reconnected = Channel.create(name=name, transport="ray")
++        producer.produce(reconnected, "sync").wait()
++        assert consumer.consume(name, "sync", reconnect=True).wait()[0] == (
++            [0, 1, 2, 3],
++            "cpu",
++            "CPU payload",
++        )
++
++    def test_invalid_transport(self):
++        with pytest.raises(ValueError, match="Unsupported channel transport"):
++            Channel.create(name="invalid", transport="unknown")
++        with pytest.raises(ValueError, match="Ray transport cannot"):
++            Channel.create(name="invalid", local=True, transport="ray")
++        with pytest.raises(ValueError, match="Unsupported channel transport"):
++            Channel.connect(name="invalid", current_worker=None, transport="unknown")
++
++
++@pytest.mark.parametrize("batch", [False, True])
++def test_ray_get_preserves_dispatcher_consumer_routing(batch):
++    async def run():
++        worker = _stub_worker(dispatcher="round_robin")
++        for index in range(6):
++            await worker.put_via_ray(index, weight=1, key="k")
++        if batch:
++            return await worker.get_batch_via_ray(
++                target_weight=2, key="k", consumer="actor:1"
++            )
++        first = await worker.get_via_ray(key="k", consumer="actor:1")
++        second = await worker.get_via_ray(key="k", nowait=True, consumer="actor:1")
++        with pytest.raises(asyncio.QueueEmpty):
++            await worker.get_via_ray(key="k", nowait=True, consumer="actor:1")
++        return [first, second]
++
++    assert asyncio.run(run()) == [1, 4]
+diff --git a/tests/unit_tests/test_utils.py b/tests/unit_tests/test_utils.py
+index b871234a..26e2604d 100644
+--- a/tests/unit_tests/test_utils.py
++++ b/tests/unit_tests/test_utils.py
+@@ -34,6 +34,28 @@ from rlinf.runners.reasoning_runner import ReasoningRunner
+ from rlinf.utils.metric_utils import compute_evaluate_metrics, compute_rollout_metrics
+ 
+ 
++def test_materialize_tensor_supports_legacy_dtensor_namespace():
++    """Keep the shared utility importable with the Torch 2.2 DTensor namespace."""
++    code = textwrap.dedent(
++        """
++        import builtins
++        import torch
++        original_import = builtins.__import__
++        def import_with_legacy_dtensor(name, globals=None, locals=None, fromlist=(), level=0):
++            if name == "torch.distributed.tensor" and "DTensor" in fromlist:
++                raise ImportError("DTensor is available only through the legacy namespace")
++            return original_import(name, globals, locals, fromlist, level)
++        builtins.__import__ = import_with_legacy_dtensor
++        from rlinf.utils.utils import DTensor, materialize_tensor
++        from torch.distributed._tensor import DTensor as LegacyDTensor
++        assert DTensor is LegacyDTensor
++        tensor = torch.tensor([1.0, 2.0])
++        assert materialize_tensor(tensor) is tensor
++        """
++    )
++    subprocess.run([sys.executable, "-c", code], check=True)
++
++
+ def test_compute_evaluate_metrics_reports_interact_delay_wait_time_stats():
+     metrics = compute_evaluate_metrics(
+         [
+diff --git a/tests/unit_tests/test_worker.py b/tests/unit_tests/test_worker.py
+index ee82cdfc..9bdd6a8f 100644
+--- a/tests/unit_tests/test_worker.py
++++ b/tests/unit_tests/test_worker.py
+@@ -46,6 +46,7 @@ from rlinf.scheduler import (
+ )
+ from rlinf.scheduler.cluster.utils import DistributedRayLogCollector
+ from rlinf.scheduler.hardware.accelerators.intel_gpu import IntelGPUManager
++from rlinf.scheduler.hardware.accelerators.musa_gpu import MUSAGPUManager
+ from rlinf.scheduler.hardware.accelerators.nvidia_gpu import NvidiaGPUManager
+ from rlinf.scheduler.manager.coll_manager import CollectiveManager
+ from rlinf.scheduler.manager.manager import Manager
+@@ -60,6 +61,51 @@ def accelerator_is_available():
+     )
+ 
+ 
++class TestMUSADetectionFallback:
++    """Test runtime detection when a container cannot enumerate through MTML."""
++
++    @pytest.fixture
++    def unavailable_mtml(self, monkeypatch):
++        """Supply a failed vendor probe without touching any real device."""
++        mtml = ModuleType("pymtml")
++        mtml.mtmlLibraryInit = mock.Mock(side_effect=RuntimeError("not found"))
++        monkeypatch.setitem(sys.modules, "pymtml", mtml)
++
++    def test_requires_explicit_opt_in(self, monkeypatch, unavailable_mtml):
++        monkeypatch.delenv("RLINF_MUSA_TORCH_DETECTION_FALLBACK", raising=False)
++        assert MUSAGPUManager.get_num_devices() == 0
++        assert MUSAGPUManager.get_accelerator_model() == "UNKNOWN"
++
++    def test_detects_runtime_devices(self, monkeypatch, unavailable_mtml):
++        import torch
++
++        monkeypatch.setenv("RLINF_MUSA_TORCH_DETECTION_FALLBACK", "1")
++        monkeypatch.setitem(sys.modules, "torch_musa", ModuleType("torch_musa"))
++        monkeypatch.setattr(
++            torch,
++            "musa",
++            SimpleNamespace(
++                is_available=lambda: True,
++                device_count=lambda: 1,
++                get_device_name=lambda index: "MTT S4000",
++            ),
++            raising=False,
++        )
++        assert MUSAGPUManager.get_num_devices() == 1
++        assert MUSAGPUManager.get_accelerator_model() == "MTT S4000"
++
++    def test_does_not_report_unavailable_runtime(self, monkeypatch, unavailable_mtml):
++        import torch
++
++        monkeypatch.setenv("RLINF_MUSA_TORCH_DETECTION_FALLBACK", "1")
++        monkeypatch.setitem(sys.modules, "torch_musa", ModuleType("torch_musa"))
++        monkeypatch.setattr(
++            torch, "musa", SimpleNamespace(is_available=lambda: False), raising=False
++        )
++        assert MUSAGPUManager.get_num_devices() == 0
++        assert MUSAGPUManager.get_accelerator_model() == "UNKNOWN"
++
++
+ # Fixture to provide a ClusterResource instance for the test session
+ @pytest.fixture(scope="module")
+ def cluster():

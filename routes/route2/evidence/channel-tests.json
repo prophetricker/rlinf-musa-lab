@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-04",
+  "source_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "test_selection": "TestRayChannelTransport or test_ray_get_preserves_dispatcher_consumer_routing",
+  "status": "pass",
+  "passed": 8,
+  "deselected": 131,
+  "seconds": 36.26,
+  "gpu_payloads_tested": false,
+  "worker_collective_send_recv_allowed": false,
+  "server_log": "/root/autodl-tmp/s4000-research/route2/results/channel-tests-final.log",
+  "previous_failures": [
+    {
+      "error": "Ray child ModuleNotFoundError: No module named 'test_channel'",
+      "resolution": "Include source/tests/unit_tests in PYTHONPATH for driver and Ray children."
+    },
+    {
+      "error": "Immediate duplicate creation found actor name reserved before WorkerManager registration.",
+      "resolution": "Wait for first handle qsize() before testing named reconnection; production startup behavior remains unchanged."
+    }
+  ]
+}

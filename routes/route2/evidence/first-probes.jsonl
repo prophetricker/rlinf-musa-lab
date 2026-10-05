@@ -1,0 +1,32 @@
+{"probe": "source", "status": "info", "source": "/root/autodl-tmp/s4000-research/route2/RLinf", "phase": "imports", "device": "cpu", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "info", "package": "torch", "version": "2.2.0a0+git8ac9b20", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "info", "package": "torch_musa", "version": "1.3.0", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "info", "package": "ray", "version": "2.59.0", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "info", "package": "omegaconf", "version": "2.3.1", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "missing", "package": "transformers", "evidence_file": "imports.jsonl"}
+{"probe": "package", "status": "info", "package": "accelerate", "version": "1.15.0", "evidence_file": "imports.jsonl"}
+{"probe": "torch_musa", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch_musa/__init__.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch.distributed.tensor", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/tensor/__init__.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch.distributed._tensor", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/__init__.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch.distributed.device_mesh", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/device_mesh.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch.distributed.checkpoint.state_dict", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch.distributed.checkpoint.stateful", "status": "pass", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/stateful.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.scheduler", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/scheduler/__init__.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.utils.utils", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/utils/utils.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.algorithms.advantages", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/algorithms/advantages.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.algorithms.losses", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/algorithms/losses.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.models.embodiment.mlp_policy.mlp_policy", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/models/embodiment/mlp_policy/mlp_policy.py", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.hybrid_engines.fsdp", "status": "blocked", "error_type": "ImportError", "error": "Unsupported torch version: 2.2.0", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.workers.actor.embodied_fsdp_actor_worker", "status": "blocked", "error_type": "ImportError", "error": "Unsupported torch version: 2.2.0", "evidence_file": "imports.jsonl"}
+{"probe": "rlinf.models.embodiment.gr00t.gr00t_n1d5.musa_patches", "status": "pass", "file": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py", "evidence_file": "imports.jsonl"}
+{"probe": "flash_attn.flash_attn_interface", "status": "blocked", "error_type": "ModuleNotFoundError", "error": "No module named 'flash_attn'", "evidence_file": "imports.jsonl"}
+{"probe": "fsdp1_native", "status": "info", "file": "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", "evidence_file": "imports.jsonl"}
+{"probe": "torch_api", "status": "info", "torch_version": "2.2.0", "torch_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py", "scaled_dot_product_attention": true, "device_mesh": true, "evidence_file": "imports.jsonl"}
+{"probe": "elapsed", "status": "info", "seconds": 1.18, "evidence_file": "imports.jsonl"}
+{"probe": "source", "status": "info", "source": "/root/autodl-tmp/s4000-research/route2/RLinf", "phase": "local", "device": "cpu", "evidence_file": "local-cpu.jsonl"}
+{"probe": "current_rlinf_local_ppo", "status": "pass", "device": "cpu", "loss": -0.45213282108306885, "actor_loss": -0.7406561374664307, "value_loss": 0.5770466327667236, "max_parameter_delta": 0.0010045170783996582, "gradient_tensors": 16, "gae_cpu_parity": true, "checkpoint_output_parity": true, "checkpoint_continued_update_parity": true, "policy_path": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/models/embodiment/mlp_policy/mlp_policy.py", "optimizer_state_entries": 16, "metric_keys": ["actor/approx_kl", "actor/clip_fraction", "actor/clipped_ratio", "actor/dual_cliped_ratio", "actor/policy_loss", "actor/policy_loss_abs", "actor/ratio", "actor/ratio_abs"], "evidence_file": "local-cpu.jsonl"}
+{"probe": "elapsed", "status": "info", "seconds": 1.171, "evidence_file": "local-cpu.jsonl"}
+{"probe": "source", "status": "info", "source": "/root/autodl-tmp/s4000-research/route2/RLinf", "phase": "worker", "device": "musa", "evidence_file": "worker-musa.log"}
+{"probe": "cluster", "status": "pass", "num_accelerators": 1, "worker_accelerator": "MUSA_GPU", "worker_device": "musa", "evidence_file": "worker-musa.log"}
+{"probe": "current_rlinf_worker_ppo", "status": "pass", "device": "musa:0", "loss": -0.45213285088539124, "actor_loss": -0.7406561374664307, "value_loss": 0.5770465731620789, "max_parameter_delta": 0.0010045170783996582, "gradient_tensors": 16, "gae_cpu_parity": true, "checkpoint_output_parity": true, "checkpoint_continued_update_parity": true, "policy_path": "/root/autodl-tmp/s4000-research/route2/RLinf/rlinf/models/embodiment/mlp_policy/mlp_policy.py", "optimizer_state_entries": 16, "metric_keys": ["actor/approx_kl", "actor/clip_fraction", "actor/clipped_ratio", "actor/dual_cliped_ratio", "actor/policy_loss", "actor/policy_loss_abs", "actor/ratio", "actor/ratio_abs"], "rank": 0, "world_size": 1, "accelerator_type": "AcceleratorType.MUSA_GPU", "scheduler_device_type": "musa", "evidence_file": "worker-musa.log"}
+{"probe": "elapsed", "status": "info", "seconds": 21.046, "evidence_file": "worker-musa.log"}

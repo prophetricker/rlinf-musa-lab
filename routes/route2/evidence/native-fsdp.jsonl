@@ -1,0 +1,2 @@
+{"probe": "native_torch_fsdp1_worker", "status": "pass", "device": "musa", "backend": "mccl", "strategy": "NO_SHARD", "world_size": 1, "max_parameter_delta": 0.0010024309158325195, "loss": 1.067227840423584, "rlinf_fsdp_package_used": false, "rank": 0, "accelerator_type": "AcceleratorType.MUSA_GPU", "scheduler_device_type": "musa"}
+{"probe": "elapsed", "status": "info", "seconds": 18.587}
