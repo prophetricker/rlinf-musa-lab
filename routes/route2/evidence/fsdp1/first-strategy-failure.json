@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-05",
+  "experimental_patch_sha256": "59f970f17df26a516937f8d46bb688441a14915748685abcef222487df880e72",
+  "stage": "gradient_reduction_group after create_device_mesh",
+  "error": "Cannot slice a DeviceMesh with 1 dimension.",
+  "trace_excerpt": [
+    "File \"/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1/rlinf/scheduler/worker/worker.py\", line 82, in sync_func",
+    "File \"/root/autodl-tmp/s4000-research/route2/fsdp_probes/fsdp1_backend_probe.py\", line 373, in update",
+    "File \"/root/autodl-tmp/s4000-research/route2/fsdp_probes/fsdp1_backend_probe.py\", line 274, in strategy_update",
+    "File \"/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1/rlinf/hybrid_engines/fsdp/utils.py\", line 119, in gradient_reduction_group",
+    "File \"/root/miniconda3/lib/python3.10/site-packages/torch/distributed/device_mesh.py\", line 339, in __getitem__",
+    "RuntimeError: Cannot slice a DeviceMesh with 1 dimension."
+  ]
+}

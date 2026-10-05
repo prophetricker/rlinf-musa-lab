@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "scope": "Real Gymnasium CPU simulation and fixed NumPy linear policy; no GPU API, no learning benchmark",
+  "env_id": "HalfCheetah-v5",
+  "episodes": 3,
+  "seed_start": 30000,
+  "versions": {
+    "gymnasium": "1.1.1",
+    "mujoco": "3.3.7",
+    "numpy": "1.26.4",
+    "torch": "2.2.0a0+git8ac9b20"
+  },
+  "serial": [
+    {
+      "seed": 30000,
+      "return": 0.7689235698143466,
+      "length": 1000
+    },
+    {
+      "seed": 30001,
+      "return": 0.9105956022118127,
+      "length": 1000
+    },
+    {
+      "seed": 30002,
+      "return": -1.122929348564491,
+      "length": 1000
+    }
+  ],
+  "batched": [
+    {
+      "seed": 30000,
+      "return": 0.7689235698143466,
+      "length": 1000
+    },
+    {
+      "seed": 30001,
+      "return": 0.9105956022118127,
+      "length": 1000
+    },
+    {
+      "seed": 30002,
+      "return": -1.122929348564491,
+      "length": 1000
+    }
+  ],
+  "return_max_abs_error": 0.0,
+  "lengths_equal": true,
+  "rng_unchanged": {
+    "setup": {
+      "python": true,
+      "numpy": true,
+      "torch_cpu": true
+    },
+    "serial": {
+      "python": true,
+      "numpy": true,
+      "torch_cpu": true
+    },
+    "batched": {
+      "python": true,
+      "numpy": true,
+      "torch_cpu": true
+    }
+  },
+  "policy_calls": {
+    "serial": 3000,
+    "batched": 1000
+  },
+  "timing_seconds": {
+    "serial": 0.2191942110657692,
+    "batched": 0.21077685058116913
+  },
+  "timing_serial_over_batched": 1.0399349381176877,
+  "timing_scope": "One warmed paired run, including environment creation/reset/close; indicative CPU timing only",
+  "comparison_tolerance": {
+    "rtol": 1e-10,
+    "atol": 1e-08
+  }
+}

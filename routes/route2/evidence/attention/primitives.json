@@ -1,0 +1,367 @@
+{
+  "scope": "Synthetic operator numerical and memory gate, not a GR00T model/inference/training result",
+  "torch_version": "2.2.0",
+  "platform": "Linux-5.15.0-105-generic-x86_64-with-glibc2.35",
+  "arguments": {
+    "device": "musa",
+    "phase": "primitives",
+    "profile": "small",
+    "dtypes": "fp32,bf16",
+    "kinds": "sdpa,sdpa_layout,eager_native,eager_qwen,eager_fp32",
+    "sdpa_backend": "auto",
+    "cases": "all",
+    "max_score_mib": 128,
+    "seed": 20261005,
+    "output": "results/attention/primitives.json"
+  },
+  "rows": [
+    {
+      "phase": "primitives",
+      "device": "cpu",
+      "dtype": "fp32",
+      "operators": [
+        "linear/matmul",
+        "gathered category weight + bmm",
+        "RMSNorm fp32 reduction",
+        "LayerNorm",
+        "GELU tanh",
+        "SiLU",
+        "rotary cos/sin/rotate_half"
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.510932030247886e-07,
+        "relative_l2": 1.6788690321511986e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 9.942283277220021e-08,
+          "relative_l2": 2.5613547449602256e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.9803734579180183e-08,
+          "relative_l2": 1.7222339260812435e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.400763670142638e-08,
+          "relative_l2": 1.492521031528402e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.6333866381668116e-07,
+          "relative_l2": 2.1835468570047327e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "primitives",
+      "device": "musa",
+      "dtype": "fp32",
+      "operators": [
+        "linear/matmul",
+        "gathered category weight + bmm",
+        "RMSNorm fp32 reduction",
+        "LayerNorm",
+        "GELU tanh",
+        "SiLU",
+        "rotary cos/sin/rotate_half"
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 5.163383964834622e-07,
+        "relative_l2": 1.306073218700797e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 8.132844582509069e-08,
+          "relative_l2": 2.3619607831874853e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 8.087405578560691e-08,
+          "relative_l2": 1.9990139133752534e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.228923521423013e-08,
+          "relative_l2": 1.700933189333712e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.783384237924457e-07,
+          "relative_l2": 2.606752936412524e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 9.5367431640625e-07,
+        "relative_l2": 2.0119827462569682e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.2665987014770508e-07,
+          "relative_l2": 3.6743661746385835e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 7.450580596923828e-08,
+          "relative_l2": 2.660763970234299e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 7.450580596923828e-08,
+          "relative_l2": 2.551048693748171e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.980232238769531e-07,
+          "relative_l2": 3.8917075386498466e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "primitives",
+      "device": "cpu",
+      "dtype": "bf16",
+      "operators": [
+        "linear/matmul",
+        "gathered category weight + bmm",
+        "RMSNorm fp32 reduction",
+        "LayerNorm",
+        "GELU tanh",
+        "SiLU",
+        "rotary cos/sin/rotate_half"
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.023517124040802084,
+        "relative_l2": 0.005091881815171691,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.0038198202220559307,
+          "relative_l2": 0.008718132294417862,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.002070981291599494,
+          "relative_l2": 0.006881944579476597,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0025978922719329667,
+          "relative_l2": 0.006471551087788932,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0051508564757623,
+          "relative_l2": 0.006118284398431749,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "primitives",
+      "device": "musa",
+      "dtype": "bf16",
+      "operators": [
+        "linear/matmul",
+        "gathered category weight + bmm",
+        "RMSNorm fp32 reduction",
+        "LayerNorm",
+        "GELU tanh",
+        "SiLU",
+        "rotary cos/sin/rotate_half"
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.023517124040802084,
+        "relative_l2": 0.0052052884509000774,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.0031040988208804465,
+          "relative_l2": 0.008368362409178938,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.002070981291599494,
+          "relative_l2": 0.006840896687036227,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0025978922719329667,
+          "relative_l2": 0.006360427252411373,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0045223632420557935,
+          "relative_l2": 0.005789409081931608,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.015625,
+        "relative_l2": 0.001665635773331108,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.00390625,
+          "relative_l2": 0.007079174059780744,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.001953125,
+          "relative_l2": 0.003314657798578117,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0009765625,
+          "relative_l2": 0.0018927217933958208,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.00390625,
+          "relative_l2": 0.0037299151654724533,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "musa_device": "MTT S4000",
+  "musa_tensor_device": "musa:0",
+  "musa_tensor_is_cuda": false,
+  "musa_tensor_is_musa": true,
+  "sdpa_backend_note": "Requested via shared ATen context; no profiler claim about the dispatched kernel",
+  "required_numerics_pass": true
+}

@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-05",
+  "scope": "ordinary-module RLinf Worker learning baseline, not official FSDP runner",
+  "source_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "config": {
+    "device": "cpu",
+    "env_id": "HalfCheetah-v5",
+    "num_envs": 4,
+    "horizon": 32,
+    "iterations": 2,
+    "epochs": 2,
+    "minibatch": 64,
+    "eval_episodes": 1,
+    "eval_interval": 2,
+    "eval_seed": 10000,
+    "test_seed": 20000,
+    "test_episodes": 1,
+    "seed": 7,
+    "lr": 0.0003,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "reward_scale": 0.1,
+    "entropy_coef": 0.0,
+    "value_clip": null,
+    "huber_delta": 10.0,
+    "normalize_observations": true,
+    "resume_check": true,
+    "source_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+    "output": "results/learning/normalized-smoke-cpu.json"
+  },
+  "initialization": {
+    "device": "cpu",
+    "torch_version": "2.2.0",
+    "torch_musa_version": null,
+    "accelerator_name": "CPU",
+    "parameters": 11085
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "transitions": 128,
+      "seconds": 1.9730704426765442,
+      "collection": {
+        "policy_version": 0,
+        "completed_episodes": [],
+        "finite_rollout": true,
+        "action_element_clip_fraction": 0.3111979166666667,
+        "observation_samples": 128
+      },
+      "communication": {
+        "transitions": 128,
+        "channel_messages": 65
+      },
+      "update": {
+        "policy_version": 1,
+        "parameter_l1_delta": 8.34491533297114,
+        "optimizer_steps": 4,
+        "update_seconds": 0.014259576797485352,
+        "normalizer_count": 128.0001,
+        "metrics": {
+          "loss": 0.2296854928135872,
+          "actor_loss": -0.0056902337819337845,
+          "critic_loss": 0.47075144946575165,
+          "grad_norm": 2.121791660785675,
+          "approx_kl_k3": 0.00011075264774262905,
+          "latent_entropy": 8.514036655426025
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "transitions": 256,
+      "seconds": 0.14323005825281143,
+      "collection": {
+        "policy_version": 1,
+        "completed_episodes": [],
+        "finite_rollout": true,
+        "action_element_clip_fraction": 0.3203125,
+        "observation_samples": 128
+      },
+      "communication": {
+        "transitions": 128,
+        "channel_messages": 65
+      },
+      "update": {
+        "policy_version": 2,
+        "parameter_l1_delta": 6.287551346933469,
+        "optimizer_steps": 4,
+        "update_seconds": 0.013861335813999176,
+        "normalizer_count": 256.0001,
+        "metrics": {
+          "loss": 0.22650699317455292,
+          "actor_loss": -0.002211262471973896,
+          "critic_loss": 0.4574365168809891,
+          "grad_norm": 1.726737141609192,
+          "approx_kl_k3": 3.0346447601914406e-05,
+          "latent_entropy": 8.515384435653687
+        }
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "transitions": 0,
+      "initial_policy": [
+        {
+          "seed": 10000,
+          "return": -0.6645746383365256,
+          "length": 1000
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 10000,
+          "return": -0.6645746383365256,
+          "length": 1000
+        }
+      ],
+      "initial_mean_return": -0.6645746383365256,
+      "trained_mean_return": -0.6645746383365256,
+      "split": "validation",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards",
+      "initial_weights_trained_normalizer": [
+        {
+          "seed": 10000,
+          "return": -0.6645746383365256,
+          "length": 1000
+        }
+      ]
+    },
+    {
+      "transitions": 256,
+      "initial_policy": [
+        {
+          "seed": 10000,
+          "return": -0.6645746383365256,
+          "length": 1000
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 10000,
+          "return": -0.6762607845306101,
+          "length": 1000
+        }
+      ],
+      "initial_mean_return": -0.6645746383365256,
+      "trained_mean_return": -0.6762607845306101,
+      "split": "validation",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards",
+      "initial_weights_trained_normalizer": [
+        {
+          "seed": 10000,
+          "return": -0.6776105778151519,
+          "length": 1000
+        }
+      ]
+    },
+    {
+      "transitions": 256,
+      "initial_policy": [
+        {
+          "seed": 20000,
+          "return": 1.0542648118938,
+          "length": 1000
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 20000,
+          "return": 1.0403591923747897,
+          "length": 1000
+        }
+      ],
+      "initial_mean_return": 1.0542648118938,
+      "trained_mean_return": 1.0403591923747897,
+      "split": "test",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards",
+      "initial_weights_trained_normalizer": [
+        {
+          "seed": 20000,
+          "return": 1.0203791344484174,
+          "length": 1000
+        }
+      ]
+    }
+  ],
+  "status": "completed",
+  "communication": "Ray CPU objects; rollout/update share an ActorWorker",
+  "critic_clipping": "disabled",
+  "resume_regression": {
+    "status": "passed",
+    "parameter_max_abs_error": 0.0,
+    "optimizer_max_abs_error": 0.0,
+    "policy_version": 1,
+    "optimizer_steps": 4,
+    "resumed_update": {
+      "policy_version": 1,
+      "parameter_l1_delta": 8.34491533297114,
+      "optimizer_steps": 4,
+      "update_seconds": 0.014259576797485352,
+      "normalizer_count": 128.0001,
+      "metrics": {
+        "loss": 0.2296854928135872,
+        "actor_loss": -0.0056902337819337845,
+        "critic_loss": 0.47075144946575165,
+        "grad_norm": 2.121791660785675,
+        "approx_kl_k3": 0.00011075264774262905,
+        "latent_entropy": 8.514036655426025
+      }
+    },
+    "scope": "same PPO batch restart, no simulator-state resume",
+    "pending_observations_restored": true,
+    "normalizer_exact_parity": true,
+    "fixed_policy_output_exact_parity": true,
+    "rng_post_update_exact_parity": true,
+    "normalization_enabled": true
+  },
+  "learning_claim": "Inspect held-out returns across all predeclared seeds; updates alone are insufficient."
+}

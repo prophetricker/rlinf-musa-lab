@@ -1,0 +1,13 @@
+{
+  "status": "static_audit_complete; numerical_runs_owned_by_coordinator",
+  "probe_sha256": "704b68ef1e7bcde4b0578519f6d9c2c0a51298fd8a5e27527754718ce693b775",
+  "source_manifest": "audit_sources/manifest.json",
+  "audit": "../planning/attention-audit.md",
+  "local_checks": [
+    "AST parse all downloaded Python + probe",
+    "Source SHA256 verification",
+    "attention_probe.py --help"
+  ],
+  "gpu_jobs_run_by_this_agent": 0,
+  "weights_downloaded": false
+}

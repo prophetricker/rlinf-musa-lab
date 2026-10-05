@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-05",
+  "environment": "Pendulum-v1",
+  "runs": [
+    {
+      "file": "pendulum-seed7.json",
+      "seed": 7,
+      "env_id": "Pendulum-v1",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 170.86511601507664,
+      "test_episodes": 20,
+      "initial_mean_return": -1191.1211010636055,
+      "final_mean_return": -286.313313568772,
+      "paired_mean_gain": 904.8077874948335,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 47.657163925352506,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8898071497678757,
+          "normalizer_count": 0.0001,
+          "metrics": {
+            "loss": 24.70478458404541,
+            "actor_loss": -0.003502845694310963,
+            "critic_loss": 49.41657485961914,
+            "grad_norm": 9.091129088401795,
+            "approx_kl_k3": 0.0034122654353268443,
+            "latent_entropy": 1.415134334564209
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume"
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -1025.0034410749697
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -957.4510573165605
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -1041.4298077946216
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -1036.7220737691919
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -833.3118716341894
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": -1025.0034410749697,
+          "trained_mean_return": -215.09319110489133
+        }
+      ]
+    },
+    {
+      "file": "pendulum-seed17.json",
+      "seed": 17,
+      "env_id": "Pendulum-v1",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 171.39596248418093,
+      "test_episodes": 20,
+      "initial_mean_return": -1180.2368482614643,
+      "final_mean_return": -435.3681871716071,
+      "paired_mean_gain": 744.8686610898571,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 37.20826087752357,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8328331485390663,
+          "normalizer_count": 0.0001,
+          "metrics": {
+            "loss": 18.977392816543578,
+            "actor_loss": -0.00045363116078078747,
+            "critic_loss": 37.95569257736206,
+            "grad_norm": 7.098705697059631,
+            "approx_kl_k3": 7.023955695331096e-05,
+            "latent_entropy": 1.4152871876955033
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume"
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -1046.1664948073496
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -1063.9666798474384
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -926.4570498955869
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -952.6255272667617
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -729.7552207480812
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": -1046.1664948073496,
+          "trained_mean_return": -155.66596800160875
+        }
+      ]
+    },
+    {
+      "file": "pendulum-seed27.json",
+      "seed": 27,
+      "env_id": "Pendulum-v1",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 170.22065540403128,
+      "test_episodes": 20,
+      "initial_mean_return": -1186.0401585169845,
+      "final_mean_return": -606.4124787783015,
+      "paired_mean_gain": 579.627679738683,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 47.58633352257311,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8166904151439667,
+          "normalizer_count": 0.0001,
+          "metrics": {
+            "loss": 25.445348596572877,
+            "actor_loss": -0.002864809543825686,
+            "critic_loss": 50.89642696380615,
+            "grad_norm": 8.973267579078675,
+            "approx_kl_k3": 0.0028661129879765214,
+            "latent_entropy": 1.4140267938375473
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume"
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -1023.5376869075284
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -964.8329940142348
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -873.2360660162925
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -1018.6817261882431
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -853.5993160352751
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": -1023.5376869075284,
+          "trained_mean_return": -479.01330644650443
+        }
+      ]
+    }
+  ],
+  "training_seeds_complete": true,
+  "positive_gain_runs": 3,
+  "gain_mean_across_training_seeds": 743.1013761077912,
+  "gain_median_across_training_seeds": 744.8686610898571,
+  "final_return_mean_across_training_seeds": -442.6979931728935,
+  "final_return_sample_std_across_training_seeds": 160.17541457405937,
+  "pendulum_engineering_target_met": true,
+  "statistical_scope": "Training seed is the outer unit. Three runs do not establish statistical significance.",
+  "integration_scope": "Ordinary-module Worker, shared rollout/update, CPU Ray transport; official FSDP/VLA unverified."
+}

@@ -10,5 +10,18 @@
       "expected_tree": "b78ed3694bcd1d69afd887e6ce11b780d7528ecf"
     }
   },
-  "acquisition": "Restore pinned RLinf source and apply the included route 2 patch."
+  "acquisition": "Restore pinned RLinf source and apply the included route 2 patch.",
+  "experiments": {
+    "route2_fsdp1": {
+      "baseline_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+      "local_commit": "f9b74d95f97ad4234311580ab32c7b586e1dc7af",
+      "expected_tree": "1a4eef5dd1f4984652168ebecce1d3cc194ec598",
+      "worktree": "worktrees/rlinf-route2",
+      "restore_worktree": "worktrees/rlinf-route2-fsdp1",
+      "patch": "routes/route2/patches/fsdp1-experimental.patch",
+      "patch_sha256": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4",
+      "opt_in": "RLINF_EXPERIMENTAL_FSDP1_TORCH22=1",
+      "scope": "single-card FP32 NO_SHARD RLinf FSDPStrategy update; checkpoint/official Actor unvalidated"
+    }
+  }
 }

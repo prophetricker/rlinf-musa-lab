@@ -1,0 +1,480 @@
+diff --git a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+index 207b8284..a0466033 100644
+--- a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+@@ -50,3 +50,27 @@ To build an RLinf image from your checkout, use BuildKit on the host:
+ The runtime injects the MUSA driver libraries, so image-build steps cannot
+ import torch before a device-aware container starts. BuildKit also avoids
+ resolving unrelated CUDA and ROCm base-image stages.
++
++Experimental Torch 2.2 FSDP1 import path
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++The research patch exposes the real Torch 2.2 FSDP1 APIs only when
++``RLINF_EXPERIMENTAL_FSDP1_TORCH22=1`` is set before importing RLinf. Select
++``fsdp_config.strategy=fsdp`` explicitly; requesting ``fsdp2`` fails because
++the required FSDP2 APIs are absent. Without the opt-in, Torch 2.2 remains
++unsupported by this package. The gate also recognizes vendor Torch 2.2
++prerelease version strings.
++
++This path is for a single-rank FP32 ``NO_SHARD`` strategy probe. It does not
++establish support for the official embodied Actor, model environments,
++checkpointing, offload, mixed precision, or multiple ranks. In particular,
++the existing DCP save call uses ``checkpoint_id``, which is incompatible
++with Torch 2.2's ``storage_writer`` API and is unchanged in this patch.
++
++Keep the vendor-matched Torch and Torch-MUSA pair in an isolated environment;
++the opt-in does not upgrade the driver, Toolkit, or dependencies. On MUSA,
++the probe creates an explicit MCCL default group with RLinf's configured
++collective timeout before calling the real RLinf device-mesh helper.
++The gradient-reduction helper reads the real group directly for a one-dimensional
++mesh named ``fsdp``; Torch 2.2 cannot slice that mesh. Multi-dimensional meshes
++still select the ``fsdp`` dimension explicitly.
+diff --git a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+index 926bd0a9..0f868b11 100644
+--- a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+@@ -35,3 +35,14 @@ MUSA 使用摩尔线程 training-suite 镜像中相互匹配的 PyTorch 与 ``to
+       -t rlinf:embodied-maniskill_libero-musa .
+ 
+ MUSA 驱动库由 runtime 注入，因此设备感知容器启动前，镜像构建步骤不能导入 torch。BuildKit 还能避免解析无关的 CUDA 与 ROCm 基础镜像阶段。
++
++Torch 2.2 FSDP1 实验导入路径
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++研究补丁仅在导入 RLinf 前显式设置 ``RLINF_EXPERIMENTAL_FSDP1_TORCH22=1`` 时开放真正的 Torch 2.2 FSDP1 API。配置必须选择 ``fsdp_config.strategy=fsdp``；若请求 ``fsdp2``，会因缺少 FSDP2 API 而明确报错。未启用该选项时，本包仍拒绝 Torch 2.2。版本判断也识别厂商的 Torch 2.2 预发布版本字符串。
++
++该路径用于单进程 FP32 ``NO_SHARD`` strategy 探针，不代表官方具身 Actor、模型环境、checkpoint、offload、混合精度或多进程已经适配。现有 DCP 保存调用使用 ``checkpoint_id``，与 Torch 2.2 的 ``storage_writer`` API 不兼容，本补丁暂不修改该行为。
++
++请在隔离环境中保留厂商配套的 Torch 与 Torch-MUSA。实验选项不会升级驱动、Toolkit 或依赖。在 MUSA 上，探针先按 RLinf 配置的 collective timeout 显式创建 MCCL 默认组，再调用真实的 RLinf device-mesh helper。
++
++对于唯一维命名为 ``fsdp`` 的一维 mesh，梯度归约 helper 直接取得真实 process group，因为 Torch 2.2 不允许对此 mesh 切片。多维 mesh 仍显式选择 ``fsdp`` 维。
+diff --git a/rlinf/hybrid_engines/fsdp/__init__.py b/rlinf/hybrid_engines/fsdp/__init__.py
+index 78fabaa9..eabc1a01 100644
+--- a/rlinf/hybrid_engines/fsdp/__init__.py
++++ b/rlinf/hybrid_engines/fsdp/__init__.py
+@@ -13,6 +13,8 @@
+ # limitations under the License.
+ 
+ 
++import os
++
+ import torch
+ from packaging import version
+ 
+@@ -50,5 +52,24 @@ elif version.parse(torch.__version__) >= version.parse("2.4.0"):
+     from torch.distributed.fsdp.fully_sharded_data_parallel import (
+         FullyShardedDataParallel as FSDP,  # noqa: F401
+     )
++elif (
++    version.parse(torch.__version__).release[:2] == (2, 2)
++    and os.environ.get("RLINF_EXPERIMENTAL_FSDP1_TORCH22") == "1"
++):
++    from torch.distributed.fsdp import (  # noqa: F401
++        BackwardPrefetch,
++        CPUOffload,
++        ShardingStrategy,
++    )
++    from torch.distributed.fsdp import FullyShardedDataParallel as FSDP  # noqa: F401
+ else:
+     raise ImportError(f"Unsupported torch version: {version.parse(torch.__version__)}")
++
++
++def require_fsdp2() -> None:
++    """Reject FSDP2 when the runtime only exposes FSDP1."""
++    if "fully_shard" not in globals():
++        raise ImportError(
++            f"FSDP2 is unavailable with torch {torch.__version__}; "
++            "the experimental Torch 2.2 path requires fsdp_config.strategy=fsdp."
++        )
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/base.py b/rlinf/hybrid_engines/fsdp/strategy/base.py
+index e2b7f9b6..4f36f7b0 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/base.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/base.py
+@@ -12,6 +12,8 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ import os
+ from abc import ABC, abstractmethod
+ from collections.abc import Iterable
+@@ -27,11 +29,10 @@ from torch.distributed.checkpoint.state_dict import (
+     set_model_state_dict,
+ )
+ from torch.distributed.device_mesh import DeviceMesh
+-from torch.distributed.tensor import DTensor
+ from torch.optim import Optimizer
+ from torch.optim.lr_scheduler import LRScheduler
+ 
+-from rlinf.hybrid_engines.fsdp import FSDP, FSDPModule
++from rlinf.hybrid_engines.fsdp import FSDP, DTensor, require_fsdp2
+ from rlinf.hybrid_engines.fsdp.strategy.checkpoint import Checkpoint
+ from rlinf.hybrid_engines.fsdp.utils import (
+     FSDPVersion,
+@@ -40,6 +41,7 @@ from rlinf.scheduler import Worker
+ from rlinf.utils.utils import clear_memory
+ 
+ if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
+     from rlinf.workers.actor.fsdp_actor_worker import FSDPActor
+     from rlinf.workers.inference.fsdp_inference_worker import FSDPInference
+ 
+@@ -96,6 +98,7 @@ class FSDPStrategyBase(ABC):
+                     logger=logger,
+                 )
+             case FSDPVersion.FSDP2:
++                require_fsdp2()
+                 from .fsdp2 import FSDP2Strategy
+ 
+                 return FSDP2Strategy(
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py b/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
+index 7af38de2..a62793f2 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
+@@ -12,8 +12,10 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ from collections.abc import Iterable
+-from typing import Union
++from typing import TYPE_CHECKING, Union
+ 
+ import torch
+ from torch.distributed.checkpoint.state_dict import (
+@@ -25,11 +27,14 @@ from torch.distributed.checkpoint.stateful import Stateful
+ from torch.optim import Optimizer
+ from torch.optim.lr_scheduler import LRScheduler
+ 
+-from rlinf.hybrid_engines.fsdp import FSDP, DTensor, FSDPModule
++from rlinf.hybrid_engines.fsdp import FSDP, DTensor
+ from rlinf.hybrid_engines.fsdp.utils import FSDPVersion, to_local_if_dtensor
+ from rlinf.utils.logging import get_logger
+ from rlinf.utils.utils import get_rng_state, set_rng_state
+ 
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
++
+ 
+ class Checkpoint(Stateful):
+     """Training state; DCP state dictionaries must be built on every rank."""
+diff --git a/rlinf/hybrid_engines/fsdp/utils.py b/rlinf/hybrid_engines/fsdp/utils.py
+index 9775561c..5890a29b 100644
+--- a/rlinf/hybrid_engines/fsdp/utils.py
++++ b/rlinf/hybrid_engines/fsdp/utils.py
+@@ -26,11 +26,13 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ import functools
+ import math
+ import warnings
+ from enum import Enum
+-from typing import ContextManager, Iterable, Optional, Union
++from typing import TYPE_CHECKING, ContextManager, Iterable, Optional, Union
+ 
+ import torch
+ from accelerate import init_empty_weights
+@@ -41,23 +43,26 @@ from torch.distributed.fsdp.wrap import (
+     transformer_auto_wrap_policy,
+ )
+ from torch.optim import Optimizer
+-from transformers.trainer_pt_utils import get_module_class_from_name
+ 
+ from rlinf.config import SupportedModel
+ from rlinf.hybrid_engines.fsdp import (
+     FSDP,
+     BackwardPrefetch,
+-    CPUOffloadPolicy,
+     DTensor,
+-    FSDPModule,
+-    MixedPrecisionPolicy,
+     ShardingStrategy,
+-    fully_shard,
++    require_fsdp2,
+ )
+ from rlinf.scheduler import Worker
+ from rlinf.scheduler.cluster import Cluster, ClusterEnvVar
+ from rlinf.utils.logging import get_logger
+ 
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import (
++        CPUOffloadPolicy,
++        FSDPModule,
++        MixedPrecisionPolicy,
++    )
++
+ 
+ class FSDPVersion(str, Enum):
+     FSDP = "fsdp"
+@@ -111,6 +116,11 @@ def gradient_reduction_group(device_mesh: DeviceMesh) -> torch.distributed.Proce
+     Returns:
+         torch.distributed.ProcessGroup: The group behind the ``fsdp`` dimension.
+     """
++    if device_mesh.ndim == 1:
++        if device_mesh.mesh_dim_names != ("fsdp",):
++            raise KeyError("The one-dimensional mesh must be named 'fsdp'.")
++        # Torch 2.2 rejects slicing a 1-D mesh, even by its only dimension name.
++        return device_mesh.get_group()
+     return device_mesh["fsdp"].get_group()
+ 
+ 
+@@ -147,6 +157,8 @@ def _normalize_wrap_targets(value):
+ 
+ 
+ def _resolve_module_classes_to_wrap(module, module_classes_to_wrap):
++    from transformers.trainer_pt_utils import get_module_class_from_name
++
+     resolved_module_classes = set()
+     for module_class in _normalize_wrap_targets(module_classes_to_wrap) or []:
+         if isinstance(module_class, str):
+@@ -375,6 +387,8 @@ def get_fsdp_wrap_policy(module, config=None, is_lora=False, model_type=None):
+ 
+     # Add transformer layer policies
+     if fsdp_transformer_layer_cls_to_wrap is not None:
++        from transformers.trainer_pt_utils import get_module_class_from_name
++
+         transformer_cls_to_wrap = set()
+         for layer_class in fsdp_transformer_layer_cls_to_wrap:
+             transformer_cls = get_module_class_from_name(module, layer_class)
+@@ -459,6 +473,9 @@ def apply_fsdp2_to_model(
+     Returns:
+         The sharded model
+     """
++    require_fsdp2()
++    from rlinf.hybrid_engines.fsdp import fully_shard
++
+     if config is None:
+         config = {}
+     wrap_policy_config = config.get("wrap_policy", {}) or {}
+diff --git a/tests/unit_tests/test_fsdp.py b/tests/unit_tests/test_fsdp.py
+index 1bf3785d..805359b0 100644
+--- a/tests/unit_tests/test_fsdp.py
++++ b/tests/unit_tests/test_fsdp.py
+@@ -40,14 +40,20 @@ The units. A model that reads embedding weights directly sets
+ import logging
+ import os
+ import socket
++import subprocess
++import sys
+ from datetime import timedelta
+ 
+ import pytest
+ import torch
+ import torch.distributed as dist
+-from torch.distributed.fsdp import FSDPModule, MixedPrecisionPolicy, OffloadPolicy
+ 
+-from rlinf.hybrid_engines.fsdp.utils import apply_fsdp2_to_model, create_device_mesh
++import rlinf.hybrid_engines.fsdp as fsdp_backend
++from rlinf.hybrid_engines.fsdp.utils import (
++    apply_fsdp2_to_model,
++    create_device_mesh,
++    gradient_reduction_group,
++)
+ from rlinf.scheduler import Worker
+ from rlinf.scheduler.cluster import Cluster
+ 
+@@ -136,7 +142,7 @@ def test_mesh_group_uses_the_configured_timeout(single_rank_env, monkeypatch):
+ 
+     mesh = create_device_mesh(1)
+ 
+-    assert group_timeout(mesh["fsdp"].get_group()) == CONFIGURED_TIMEOUT
++    assert group_timeout(mesh.get_group()) == CONFIGURED_TIMEOUT
+ 
+ 
+ def test_mesh_group_defaults_above_the_torch_watchdog(single_rank_env, monkeypatch):
+@@ -145,7 +151,7 @@ def test_mesh_group_defaults_above_the_torch_watchdog(single_rank_env, monkeypat
+ 
+     mesh = create_device_mesh(1)
+ 
+-    assert group_timeout(mesh["fsdp"].get_group()) == RLINF_DEFAULT_TIMEOUT
++    assert group_timeout(mesh.get_group()) == RLINF_DEFAULT_TIMEOUT
+ 
+ 
+ def test_existing_process_group_is_left_alone(single_rank_env, monkeypatch, caplog):
+@@ -163,7 +169,7 @@ def test_existing_process_group_is_left_alone(single_rank_env, monkeypatch, capl
+     with caplog.at_level(logging.WARNING):
+         mesh = create_device_mesh(1)
+ 
+-    assert group_timeout(mesh["fsdp"].get_group()) == timedelta(minutes=11)
++    assert group_timeout(mesh.get_group()) == timedelta(minutes=11)
+     assert "RLINF_TIMEOUT" in caplog.text
+ 
+ 
+@@ -216,7 +222,7 @@ def test_torch_still_installs_the_short_timeout_on_its_own(single_rank_env):
+     finally:
+         os.environ.pop("RLINF_TIMEOUT", None)
+ 
+-    group = mesh["fsdp"].get_group()
++    group = mesh.get_group()
+     assert group is dist.distributed_c10d._get_default_group()
+     timeout = group_timeout(group)
+     assert timeout != CONFIGURED_TIMEOUT
+@@ -231,7 +237,27 @@ def test_mesh_dimension_reuses_the_default_group(single_rank_env):
+     dimension *is* the default group, so setting that group's timeout is enough.
+     """
+     mesh = create_device_mesh(1)
+-    assert mesh["fsdp"].get_group() is dist.distributed_c10d._get_default_group()
++    assert mesh.get_group() is dist.distributed_c10d._get_default_group()
++
++
++def test_one_dimensional_sharding_group_does_not_slice(single_rank_env, monkeypatch):
++    """A real Gloo mesh works when slicing raises as it does in Torch 2.2."""
++    from torch.distributed.device_mesh import init_device_mesh
++
++    dist.init_process_group(backend="gloo", timeout=CONFIGURED_TIMEOUT)
++    mesh = init_device_mesh("cpu", (1,), mesh_dim_names=["fsdp"])
++    expected_group = mesh.get_group()
++
++    def reject_slice(mesh, dimension):
++        raise RuntimeError("Cannot slice a DeviceMesh with 1 dimension.")
++
++    monkeypatch.setattr(type(mesh), "__getitem__", reject_slice)
++    group = gradient_reduction_group(mesh)
++    assert group is expected_group
++    assert group is dist.distributed_c10d._get_default_group()
++    value = torch.tensor([3.0])
++    dist.all_reduce(value, group=group)
++    torch.testing.assert_close(value, torch.tensor([3.0]))
+ 
+ 
+ def test_gradients_reduce_over_the_sharding_dimension(single_rank_env):
+@@ -246,10 +272,8 @@ def test_gradients_reduce_over_the_sharding_dimension(single_rank_env):
+     """
+     from torch.distributed.device_mesh import init_device_mesh
+ 
+-    from rlinf.hybrid_engines.fsdp.utils import gradient_reduction_group
+-
+     sharded = create_device_mesh(1)
+-    assert gradient_reduction_group(sharded) is sharded["fsdp"].get_group()
++    assert gradient_reduction_group(sharded) is sharded.get_group()
+ 
+     hybrid = init_device_mesh("cpu", (1, 1), mesh_dim_names=["ddp", "fsdp"])
+     assert gradient_reduction_group(hybrid) is hybrid["fsdp"].get_group()
+@@ -258,6 +282,10 @@ def test_gradients_reduce_over_the_sharding_dimension(single_rank_env):
+     with pytest.raises(KeyError):
+         gradient_reduction_group(replicated_only)
+ 
++    unnamed = init_device_mesh("cpu", (1,))
++    with pytest.raises(KeyError):
++        gradient_reduction_group(unnamed)
++
+ 
+ class _DomainTable(torch.nn.Module):
+     """Reads its embedding weights directly, like cosmos ``DomainAwareLinear``."""
+@@ -291,6 +319,8 @@ class _Policy(torch.nn.Module):
+ 
+ 
+ def _shard(policy: torch.nn.Module) -> torch.nn.Module:
++    from rlinf.hybrid_engines.fsdp import MixedPrecisionPolicy, OffloadPolicy
++
+     return apply_fsdp2_to_model(
+         policy,
+         {},
+@@ -301,15 +331,99 @@ def _shard(policy: torch.nn.Module) -> torch.nn.Module:
+     )
+ 
+ 
++@pytest.mark.skipif(
++    not hasattr(fsdp_backend, "fully_shard"), reason="FSDP2 APIs are unavailable"
++)
+ def test_embeddings_are_sharded_as_their_own_units_by_default(single_rank_env):
+     policy = _shard(_Policy())
+ 
+-    assert isinstance(policy.block.head.table, FSDPModule)
++    assert isinstance(policy.block.head.table, fsdp_backend.FSDPModule)
+ 
+ 
++@pytest.mark.skipif(
++    not hasattr(fsdp_backend, "fully_shard"), reason="FSDP2 APIs are unavailable"
++)
+ def test_a_model_can_keep_its_embeddings_in_the_enclosing_unit(single_rank_env):
+     policy = _Policy()
+     policy._fsdp_wrap_embeddings = False
+     policy = _shard(policy)
+ 
+-    assert not isinstance(policy.block.head.table, FSDPModule)
++    assert not isinstance(policy.block.head.table, fsdp_backend.FSDPModule)
++
++
++@pytest.mark.parametrize("version_string", ["2.2.0", "2.2.0a0+git8ac9b20"])
++def test_legacy_fsdp1_still_requires_explicit_opt_in(version_string):
++    code = """
++import os
++import sys
++import torch
++torch.__version__ = sys.argv[1]
++os.environ.pop("RLINF_EXPERIMENTAL_FSDP1_TORCH22", None)
++try:
++    import rlinf.hybrid_engines.fsdp
++except ImportError as error:
++    assert "Unsupported torch version" in str(error)
++else:
++    raise AssertionError("Torch 2.2 was accepted without the experimental opt-in")
++"""
++    subprocess.run([sys.executable, "-c", code, version_string], check=True)
++
++
++@pytest.mark.parametrize("version_string", ["2.2.0", "2.2.0a0+git8ac9b20"])
++def test_legacy_fsdp1_imports_real_types_and_rejects_fsdp2(version_string):
++    code = """
++import os
++import sys
++import torch
++from omegaconf import OmegaConf
++from torch.distributed.fsdp import FullyShardedDataParallel
++
++torch.__version__ = sys.argv[1]
++os.environ["RLINF_EXPERIMENTAL_FSDP1_TORCH22"] = "1"
++import rlinf.hybrid_engines.fsdp as backend
++from rlinf.hybrid_engines.fsdp.strategy.base import FSDPStrategyBase
++from rlinf.hybrid_engines.fsdp.strategy.fsdp import FSDPStrategy
++from rlinf.hybrid_engines.fsdp.utils import apply_fsdp2_to_model
++
++assert backend.FSDP is FullyShardedDataParallel
++assert not hasattr(backend, "FSDPModule")
++assert not hasattr(backend, "fully_shard")
++strategy = FSDPStrategyBase.create(
++    OmegaConf.create({"fsdp_config": {"strategy": "fsdp"}}), world_size=1
++)
++assert isinstance(strategy, FSDPStrategy)
++
++for operation in [
++    backend.require_fsdp2,
++    lambda: FSDPStrategyBase.create(
++        OmegaConf.create({"fsdp_config": {"strategy": "fsdp2"}}), world_size=1
++    ),
++    lambda: apply_fsdp2_to_model(torch.nn.Linear(2, 2), {}, None, None, None, False),
++]:
++    try:
++        operation()
++    except ImportError as error:
++        assert "FSDP2 is unavailable" in str(error)
++    else:
++        raise AssertionError("Missing FSDP2 APIs were silently accepted")
++"""
++    subprocess.run([sys.executable, "-c", code, version_string], check=True)
++
++
++@pytest.mark.parametrize("version_string", ["2.1.0", "2.3.0"])
++def test_legacy_fsdp1_opt_in_is_limited_to_torch22(version_string):
++    code = """
++import os
++import sys
++import torch
++
++torch.__version__ = sys.argv[1]
++os.environ["RLINF_EXPERIMENTAL_FSDP1_TORCH22"] = "1"
++try:
++    import rlinf.hybrid_engines.fsdp
++except ImportError as error:
++    assert "Unsupported torch version" in str(error)
++else:
++    raise AssertionError("The Torch 2.2 opt-in accepted another unsupported release")
++"""
++    subprocess.run([sys.executable, "-c", code, version_string], check=True)

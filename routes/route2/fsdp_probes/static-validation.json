@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-05",
+  "revision": 3,
+  "change": "normalize list/tuple mesh_dim_names; real get_group for 1-D fsdp; preserve multi-D slicing",
+  "validation_kind": "local_static_checks_with_linked_coordinator_runtime_evidence",
+  "source_baseline_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+  "source_upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "python": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "dependencies_present": {
+    "torch": false,
+    "pytest": false,
+    "ray": false,
+    "omegaconf": false,
+    "accelerate": false
+  },
+  "changed_source_files": [
+    "docs/source-en/rst_source/examples/embodied/_musa_libero.rst",
+    "docs/source-zh/rst_source/examples/embodied/_musa_libero.rst",
+    "rlinf/hybrid_engines/fsdp/__init__.py",
+    "rlinf/hybrid_engines/fsdp/strategy/base.py",
+    "rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+    "rlinf/hybrid_engines/fsdp/utils.py",
+    "tests/unit_tests/test_fsdp.py"
+  ],
+  "patch_sha256": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4",
+  "probe_sha256": "2209978841d37d329e8b6b6326b083196c3a72702e84525d9e50d07f08230c35",
+  "baseline_patch_sha256": "58be67a342ede79f3a639a0e7ffec49ec0443cacc979fbf3f4384672707d847a",
+  "previous_patch_sha256": "13e1ec639779e60889ff08ed07cbda7ac0acf8bd986ca1783caa37323ce1b5c3",
+  "previous_static_record": "routes/route2/fsdp_probes/history/static-validation-v2.json",
+  "coordinator_report_on_previous_patch": {
+    "cpu_regression": "6 passed / 2 failed; vendor mesh_dim_names preserves list, rejected by tuple comparison"
+  },
+  "checks": [
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/__init__.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/utils.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "format",
+        "--check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/__init__.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/utils.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "6 files already formatted\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: fsdp1_backend_probe.py [-h] --source SOURCE\n                              [--phase {imports,strategy}] [--enable-torch22]\n\nProbe actual RLinf FSDP1 imports and a scheduled single-rank MUSA update. The\nimports phase does not create a Cluster, process group, or GPU tensor. The\nstrategy phase must be scheduled by the GPU coordinator. It exercises a tiny\nFP32 MSE update, not PPO, checkpointing, an official Actor, or a simulator.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --source SOURCE\n  --phase {imports,strategy}\n  --enable-torch22\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--cached",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/fsdp1-experimental.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--reverse",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/fsdp1-experimental.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "py_compile probe to a temporary directory",
+      "exit_code": 0
+    },
+    {
+      "command": "AST parse the 3 embedded regression-test subprocess bodies and all test source",
+      "exit_code": 0,
+      "test_functions": [
+        "test_legacy_fsdp1_still_requires_explicit_opt_in",
+        "test_legacy_fsdp1_imports_real_types_and_rejects_fsdp2",
+        "test_legacy_fsdp1_opt_in_is_limited_to_torch22"
+      ]
+    }
+  ],
+  "coordinator_runtime_evidence_on_current_source": {
+    "cpu_regression": {
+      "path": "routes/route2/evidence/fsdp1/imports-regression-third.txt",
+      "sha256": "eca39af700ec4136da35f15951548e296d4dac24026c6b1371fd3a19e2b13719",
+      "result": "9 passed / 11 deselected"
+    },
+    "strategy": {
+      "path": "routes/route2/evidence/fsdp1/strategy-third.jsonl",
+      "sha256": "16c12fa38c2191ecdd161f25d5f07f3625c941893e1dccd97b7456d0cf5b7a7b",
+      "result": "pass",
+      "five_fsdp_source_file_hashes_match": true,
+      "probe_hash_matches": true,
+      "record": {
+        "probe": "rlinf_fsdp1_strategy_update",
+        "status": "pass",
+        "device": "musa:0",
+        "backend": "mccl",
+        "world_size": 1,
+        "rank": 0,
+        "scheduler_device_type": "musa",
+        "strategy_class": "rlinf.hybrid_engines.fsdp.strategy.fsdp.FSDPStrategy",
+        "strategy_source": "/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1/rlinf/hybrid_engines/fsdp/strategy/fsdp.py",
+        "real_fsdp1_type": true,
+        "sharding_strategy": "NO_SHARD",
+        "mesh_device_type": "musa",
+        "mesh_dim_names": [
+          "fsdp"
+        ],
+        "collective_timeout_seconds": 10800.0,
+        "default_group_backend_explicit": true,
+        "precision": "fp32",
+        "loss": 0.8063545227050781,
+        "cpu_reference_loss": 0.8063545227050781,
+        "gradient_norm": 0.865447461605072,
+        "clipped_gradient_norm": 0.8654475067997095,
+        "cpu_reference_gradient_norm": 0.8654475212097168,
+        "gradient_tensors": 4,
+        "raw_gradient_max_abs_error": 2.2351741790771484e-08,
+        "clipped_gradient_max_abs_error": 2.2351741790771484e-08,
+        "parameter_max_abs_error": 1.4901161193847656e-08,
+        "max_parameter_delta": 0.0010024309158325195,
+        "parity_rtol": 0.0003,
+        "parity_atol": 3e-06,
+        "cpu_reference_update_parity": true,
+        "official_actor_used": false,
+        "checkpoint_executed": false,
+        "offload_executed": false,
+        "ppo_executed": false,
+        "simulator_used": false
+      }
+    },
+    "active_gradient_scaling_exercised": false,
+    "scope": "single-rank MUSA/MCCL FP32 NO_SHARD real RLinf FSDPStrategy update"
+  },
+  "runtime_imports_executed_locally": false,
+  "pytest_executed_locally": false,
+  "gpu_executed_locally": false,
+  "docs_build_executed": false,
+  "checkpoint_implemented": false,
+  "checkpoint_plan": "routes/route2/fsdp_probes/checkpoint-plan.md",
+  "next_node": "local_shard checkpoint reconstruction and continued-update parity",
+  "unverified_boundaries": [
+    "active gradient scaling",
+    "checkpoint",
+    "Manager",
+    "official Actor",
+    "PPO",
+    "offload",
+    "multi-rank sharding",
+    "simulator",
+    "implicit default backend selection"
+  ]
+}

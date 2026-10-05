@@ -1,0 +1,178 @@
+{
+  "retrieved_utc": "2026-10-05T04:34:26Z",
+  "rlinf_upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "sources": [
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/action_head/cross_attention_dit.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/action_head/cross_attention_dit.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py",
+      "sha256": "1366e3f80c0e076953965eeb43d800cb354fdcdf681ab54f0c2ad8f1d6c9fe62"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/action_head/flow_matching_action_head.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/action_head/flow_matching_action_head.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/flow_matching_action_head.py",
+      "sha256": "8a8e6cf7ec63e2a335559990c4ab62bbb81e487d82ea4a969f452a93e0dbdd69"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle_backbone.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle_backbone.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle_backbone.py",
+      "sha256": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/config.json",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/config.json",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+      "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "sha256": "96554c1ca204cc6fb0bff636356b1f878d2ee47678b4a82e6378b59e98bb01d0"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/radio_model.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/radio_model.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/radio_model.py",
+      "sha256": "5a4338eb7617606565189b3cec9827c4ca2559c9178ae3a9873e6fb37724d514"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/gr00t_n1.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/gr00t_n1.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/gr00t_n1.py",
+      "sha256": "1b4a9653f3818f7417f2e99aa558be0abf19dc1cd05e3d026a987dde294f8138"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/models/qwen2/modeling_qwen2.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/models/qwen2/modeling_qwen2.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/models/qwen2/modeling_qwen2.py",
+      "sha256": "1760c628019995d3564c8572be6c5149f488b6c3aa95ceda16099c2516e146ff"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/modeling_flash_attention_utils.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/modeling_flash_attention_utils.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/modeling_flash_attention_utils.py",
+      "sha256": "4df602de66cc07f46142bb4235e825ce9bc694864fb5c0accf2b55b3713d172f"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/modeling_attn_mask_utils.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/modeling_attn_mask_utils.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/modeling_attn_mask_utils.py",
+      "sha256": "75189bb86ad79bb0337b008eb564ea43e29682a886e3730b9605bfe1ae0d61c2"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/integrations/sdpa_attention.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/integrations/sdpa_attention.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/integrations/sdpa_attention.py",
+      "sha256": "5a2d607459531430503dd3cb1adc8778885037c1d0be7e6ca0e82a1a852f4d8b"
+    },
+    {
+      "repo": "huggingface/diffusers",
+      "commit": "f63c12633f154c2a1d79c17f4238fb073133652c",
+      "path": "src/diffusers/models/attention_processor.py",
+      "url": "https://raw.githubusercontent.com/huggingface/diffusers/f63c12633f154c2a1d79c17f4238fb073133652c/src/diffusers/models/attention_processor.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/diffusers/src/diffusers/models/attention_processor.py",
+      "sha256": "afe47ff6d33c865af745e28eed4bd8048b66fd52de7c2b3bad37867e826776c9"
+    },
+    {
+      "repo": "huggingface/diffusers",
+      "commit": "f63c12633f154c2a1d79c17f4238fb073133652c",
+      "path": "src/diffusers/models/attention.py",
+      "url": "https://raw.githubusercontent.com/huggingface/diffusers/f63c12633f154c2a1d79c17f4238fb073133652c/src/diffusers/models/attention.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/diffusers/src/diffusers/models/attention.py",
+      "sha256": "6c562515fe3a168e91e9bb35cef4cbaaf8dc0de6f95e6679ac89c1d649a9d7e5"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/models/qwen3/modeling_qwen3.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/models/qwen3/modeling_qwen3.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/models/qwen3/modeling_qwen3.py",
+      "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+    },
+    {
+      "repo": "huggingface/transformers",
+      "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "path": "src/transformers/integrations/flash_attention.py",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/5f4ecf2d9f867a1255131d2461d75793c0cf1db2/src/transformers/integrations/flash_attention.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/integrations/flash_attention.py",
+      "sha256": "e68dca31905749794ef572efe012bf08b801229d20b723d042be70b0eee2013f"
+    }
+  ],
+  "local_read_sources": [
+    {
+      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py",
+      "sha256": "a47e7dc68840f32c57c807e643ed2b54fd3b9f77a43502ab0a226973155f76ec",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py",
+      "sha256": "05ee691b3e9d2e8f59361b1726fa05e3451840c5252f0a9e34e6f23c93a5f316",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py",
+      "sha256": "ef87783a8a756e4a20c8e1335f2a25b81015a52fa589b386917254d29e0fec7f",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/rlinf/utils/attention.py",
+      "sha256": "8eb175287efcb7e36d0ecbf1bf0ef1e88071b43efe43cc84366654b63d7e63a7",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/requirements/embodied/models/gr00t.txt",
+      "sha256": "654116c1b2dc384c334aae4b5e62b38a31134592e1d8347bd0e7210763bb0bb7",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/requirements/install.sh",
+      "sha256": "e98805bd5e8454eb366d72175bc85ac8d4fa47eee83d1f9294e7b866e1059f31",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    },
+    {
+      "file": "worktrees/rlinf-route2/examples/embodiment/config/model/gr00t.yaml",
+      "sha256": "8effbb7e68c8788c54a70d84a36628162552b9d3e479fde867fad565ba8926aa",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    }
+  ]
+}

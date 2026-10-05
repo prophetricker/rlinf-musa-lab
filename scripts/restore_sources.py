@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -16,7 +17,14 @@ def run(*arguments: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply-patches", action="store_true")
+    parser.add_argument(
+        "--fsdp1-experimental",
+        action="store_true",
+        help="Also restore a separate opt-in FSDP1 source tree (requires --apply-patches).",
+    )
     args = parser.parse_args()
+    if args.fsdp1_experimental and not args.apply_patches:
+        parser.error("--fsdp1-experimental requires --apply-patches")
     root = Path(__file__).resolve().parents[1]
     sources = json.loads((root / "locks/sources.json").read_text())
     patches = {
@@ -89,6 +97,24 @@ def main() -> None:
             if args.apply_patches and patch and not existing:
                 run("-C", str(target), "apply", "--check", str(patch))
                 run("-C", str(target), "apply", str(patch))
+
+    if args.fsdp1_experimental:
+        info = sources["experiments"]["route2_fsdp1"]
+        target = root / info["restore_worktree"]
+        if target.exists():
+            print(f"Keep existing experimental worktree: {target}")
+            return
+        incremental = root / info["patch"]
+        if hashlib.sha256(incremental.read_bytes()).hexdigest() != info["patch_sha256"]:
+            raise ValueError("Experimental FSDP1 patch does not match its source lock")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        run(
+            "-C", str(root / "external/RLinf"), "worktree", "add", "--detach",
+            str(target), sources["rlinf"]["route2"]["upstream_commit"],
+        )
+        for patch in (patches["route2"], incremental):
+            run("-C", str(target), "apply", "--check", str(patch))
+            run("-C", str(target), "apply", str(patch))
 
 
 if __name__ == "__main__":

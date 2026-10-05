@@ -45,3 +45,41 @@ bash scripts/run_probes.sh loop
 loop 模式固定首轮配方：seed 7、4 env、32 horizon、2 iterations、2 epochs、minibatch 64、1 eval episode、同批恢复检查。结果应该是 256 transitions、8 次 optimizer step、130 条 Channel 消息；浮点值与耗时可能随系统变化。resume 对照不包含模拟器状态。可通过 `ROUTE2_SOURCE` 指定另一固定源树，通过 `ROUTE2_RESULTS` 指定输出目录。
 
 这不是 GR00T 或完整官方 RLinf benchmark 的启动脚本。扩大学习预算及周期性评估见 [后续节点](ROADMAP.md)。
+
+## 4. 学习版
+
+详见 [固定预算协议](routes/route2/learning/README.md)。恢复源码后，仓库根目录配置共用 runner 与学习模块路径，再顺序跑三个 seed：
+
+```bash
+export PYTHONPATH="$PWD/worktrees/rlinf-route2:$PWD/probes:$PWD/routes/route2/learning"
+export RLINF_MUSA_TORCH_DETECTION_FALLBACK=1
+for seed in 7 17 27; do
+  "$ROUTE2_PYTHON" routes/route2/learning/ppo_learning.py \
+    --source-commit c70606f08cdca259b8dec03d4430926b5b8fac9d \
+    --seed "$seed" --resume-check --output "results/learning/pendulum-seed$seed.json"
+done
+"$ROUTE2_PYTHON" routes/route2/learning/summarize_learning.py \
+  results/learning/pendulum-seed7.json results/learning/pendulum-seed17.json \
+  results/learning/pendulum-seed27.json --output results/learning/summary.json
+```
+
+默认是 Pendulum-v1、每 seed 102,400 transitions、固定 5 validation/20 test episodes。修改预算或测试协议需另记配方，不能沿用历史结论。
+
+HalfCheetah 三种子保持同一预算，增加 `--env-id HalfCheetah-v5 --normalize-observations --batch-evaluation`。这是 MuJoCo 训练；Pendulum 本身不是 MuJoCo 环境。批量 helper 的实机 CPU 对照与 MUSA smoke 已验证，不把串行前测的中断结果计入汇总。
+
+也可运行便携固定配方入口：`bash scripts/run_learning.sh pendulum` 或 `bash scripts/run_learning.sh halfcheetah`，顺序执行。便携入口通过路径与 Bash 语法检查，历史 GPU 结果来自上述同等原命令，未重复跑新入口；默认不画图，安装已有匹配 matplotlib 时可对汇总命令添加 `--plot`。
+
+## 5. 可选 FSDP1 增量
+
+基线补丁保持不变。显式恢复另一份源码，避免把后端实验覆盖到学习基线：
+
+```bash
+python3 scripts/restore_sources.py --apply-patches --fsdp1-experimental
+"$ROUTE2_PYTHON" routes/route2/fsdp_probes/fsdp1_backend_probe.py \
+  --source "$PWD/worktrees/rlinf-route2-fsdp1" --phase imports --enable-torch22
+RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 \
+  "$ROUTE2_PYTHON" routes/route2/fsdp_probes/fsdp1_backend_probe.py \
+  --source "$PWD/worktrees/rlinf-route2-fsdp1" --phase strategy --enable-torch22
+```
+
+恢复 tree 为 `1a4eef5dd1f4984652168ebecce1d3cc194ec598`。GPU strategy 顺序运行；只验证单卡 FP32 NO_SHARD RLinf 后端的 MSE 更新，不含 PPO/官方 Actor/checkpoint。详细 CPU 测试及失败历史见 [FSDP 说明](routes/route2/fsdp_probes/README.md)。默认不开放旧 Torch，FSDP2 仍拒绝。

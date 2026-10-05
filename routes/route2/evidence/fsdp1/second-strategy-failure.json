@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-05",
+  "status": "failed",
+  "patch_revision": 2,
+  "patch_sha256": "13e1ec639779e60889ff08ed07cbda7ac0acf8bd986ca1783caa37323ce1b5c3",
+  "phase": "gradient_reduction_group before model wrapping",
+  "error": "KeyError: The one-dimensional mesh must be named 'fsdp'.",
+  "actual_mesh_dim_names": ["fsdp"],
+  "cause": "Torch 2.2 vendor DeviceMesh preserves list metadata, while revision 2 compared it to a tuple",
+  "cpu_regression": {"passed": 6, "failed": 2},
+  "resolution": "Revision 3 normalizes mesh_dim_names to tuple; actual CPU 9/9 and MUSA strategy update passed",
+  "raw_log_location": "/root/autodl-tmp/s4000-research/route2/fsdp_probes/strategy-second.log"
+}

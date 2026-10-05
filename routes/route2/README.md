@@ -1,6 +1,10 @@
 # 路线 2：当前 RLinf 在 S4000 默认栈上的最小适配
 
-路线 2 已在当前 RLinf 源码上完成单卡 S4000 的真实 scheduler/Worker、MuJoCo HalfCheetah CPU 环境、Ray CPU Channel 与 MUSA PPO 更新的限定闭环，原生 Torch FSDP1 单进程 `NO_SHARD` 前反向也实测通过。该结果支持保留新框架、逐步适配旧 MUSA 栈的研究路线；官方 `EmbodiedFSDPActor` 和 GR00T 尚未验证通过，短闭环也没有建立学习效果。
+2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。
+
+真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和 CPU 数值对照，见 [独立实验说明](fsdp_probes/README.md)。[GR00T attention 分析](planning/attention-results-analysis.md) 记录可用 eager 路径及 SDPA 具体失败。官方 `EmbodiedFSDPActor`、完整 GR00T/LIBERO 尚未验证。
+
+以下保留 2026-10-04 首轮限定闭环的证据与历史边界；首轮 256 transitions 的更新短测没有建立学习收益。
 
 ## 固定来源与环境
 

@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-05",
+  "revision": 2,
+  "change": "real get_group on 1-D named fsdp mesh; preserve multi-D slicing",
+  "validation_kind": "local_static_only",
+  "source_baseline_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+  "source_upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "python": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "dependencies_present": {
+    "torch": false,
+    "pytest": false,
+    "ray": false,
+    "omegaconf": false,
+    "accelerate": false
+  },
+  "changed_source_files": [
+    "docs/source-en/rst_source/examples/embodied/_musa_libero.rst",
+    "docs/source-zh/rst_source/examples/embodied/_musa_libero.rst",
+    "rlinf/hybrid_engines/fsdp/__init__.py",
+    "rlinf/hybrid_engines/fsdp/strategy/base.py",
+    "rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+    "rlinf/hybrid_engines/fsdp/utils.py",
+    "tests/unit_tests/test_fsdp.py"
+  ],
+  "patch_sha256": "13e1ec639779e60889ff08ed07cbda7ac0acf8bd986ca1783caa37323ce1b5c3",
+  "probe_sha256": "2209978841d37d329e8b6b6326b083196c3a72702e84525d9e50d07f08230c35",
+  "baseline_patch_sha256": "58be67a342ede79f3a639a0e7ffec49ec0443cacc979fbf3f4384672707d847a",
+  "previous_patch_sha256": "59f970f17df26a516937f8d46bb688441a14915748685abcef222487df880e72",
+  "previous_static_record": "routes/route2/fsdp_probes/history/static-validation-v1.json",
+  "coordinator_report_on_previous_patch": {
+    "runtime_imports": "all passed",
+    "legacy_fsdp1_cpu_tests": "6 passed",
+    "strategy": "blocked at gradient_reduction_group with RuntimeError Cannot slice a DeviceMesh with 1 dimension",
+    "report_source": "parent agent message; raw runtime evidence retained by coordinator"
+  },
+  "checks": [
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/__init__.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/utils.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "format",
+        "--check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/__init__.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/utils.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "6 files already formatted\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/fsdp1_backend_probe.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: fsdp1_backend_probe.py [-h] --source SOURCE\n                              [--phase {imports,strategy}] [--enable-torch22]\n\nProbe actual RLinf FSDP1 imports and a scheduled single-rank MUSA update. The\nimports phase does not create a Cluster, process group, or GPU tensor. The\nstrategy phase must be scheduled by the GPU coordinator. It exercises a tiny\nFP32 MSE update, not PPO, checkpointing, an official Actor, or a simulator.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --source SOURCE\n  --phase {imports,strategy}\n  --enable-torch22\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--cached",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/fsdp1-experimental.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--reverse",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/fsdp1-experimental.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "py_compile probe to a temporary directory",
+      "exit_code": 0
+    },
+    {
+      "command": "AST parse the 3 embedded regression-test subprocess bodies and all test source",
+      "exit_code": 0,
+      "test_functions": [
+        "test_legacy_fsdp1_still_requires_explicit_opt_in",
+        "test_legacy_fsdp1_imports_real_types_and_rejects_fsdp2",
+        "test_legacy_fsdp1_opt_in_is_limited_to_torch22"
+      ]
+    }
+  ],
+  "runtime_imports_executed_locally": false,
+  "pytest_executed_locally": false,
+  "gpu_executed_locally": false,
+  "docs_build_executed": false,
+  "pending_on_current_revision": [
+    "2 actual CPU/Gloo DeviceMesh regression cases",
+    "coordinator-scheduled single-rank RLinf FSDP1 NO_SHARD update"
+  ]
+}

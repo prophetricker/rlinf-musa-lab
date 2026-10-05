@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-05",
+  "scope": "fixed-budget learning and single-card strategy milestone; not full embodied training",
+  "checks": {
+    "learning_semantics_and_evaluation": "10 passed on matched route2 interpreter; CPU tests during serial GPU training",
+    "fsdp_imports_mesh": "9 passed, 11 deselected on real Torch2.2; no GPU",
+    "fsdp_strategy": "actual RLinf FSDPStrategy MUSA/MCCL NO_SHARD update and CPU parity passed",
+    "halfcheetah_learning": "all 3 predeclared training seeds completed with independent final test; wrapper exit0",
+    "source_restoration": {
+      "baseline_tree": "b78ed3694bcd1d69afd887e6ce11b780d7528ecf",
+      "fsdp1_tree": "1a4eef5dd1f4984652168ebecce1d3cc194ec598",
+      "both_exact_matches": true
+    },
+    "syntax": "Python AST, Bash syntax, Ruff targeted files and git diff --check passed"
+  },
+  "files_sha256": {
+    "routes/route2/learning/ppo_learning.py": "0282eaef0d41a3b5c3d812f7cc7dd64f62f9cbcefc211c0338710df67ea4c559",
+    "routes/route2/learning/evaluation.py": "f9b471935a68915a6cc86a996f8a68d850da96bc4df8ed218a2d07bf154bddeb",
+    "routes/route1/mujoco_ppo_worker.py": "7df08e78507b586219691dc3d36d155b41b8d387cbfd63531d86fd0d0934eaf3",
+    "routes/route2/patches/current-minimal-compat.patch": "58be67a342ede79f3a639a0e7ffec49ec0443cacc979fbf3f4384672707d847a",
+    "routes/route2/patches/fsdp1-experimental.patch": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4"
+  }
+}

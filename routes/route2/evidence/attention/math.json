@@ -1,0 +1,7753 @@
+{
+  "scope": "Synthetic operator numerical and memory gate, not a GR00T model/inference/training result",
+  "torch_version": "2.2.0",
+  "platform": "Linux-5.15.0-105-generic-x86_64-with-glibc2.35",
+  "arguments": {
+    "device": "musa",
+    "phase": "numerics",
+    "profile": "small",
+    "dtypes": "fp32,bf16",
+    "kinds": "sdpa,sdpa_layout,eager_fp32",
+    "sdpa_backend": "math",
+    "cases": "all",
+    "max_score_mib": 128,
+    "seed": 20261005,
+    "output": "results/attention/math.json"
+  },
+  "rows": [
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0007056966423988342,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.332768309220583e-08,
+        "relative_l2": 1.250984343718408e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.4645923206851874e-09,
+          "relative_l2": 1.9324138945650948e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.6876622339206948e-09,
+          "relative_l2": 1.841984538853419e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.8644166084196288e-09,
+          "relative_l2": 1.0550766869954358e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005345866084098816,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.332768309220583e-08,
+        "relative_l2": 1.250984343718408e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.4645923206851874e-09,
+          "relative_l2": 1.9324138945650948e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.6876622339206948e-09,
+          "relative_l2": 1.841984538853419e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.8644166084196288e-09,
+          "relative_l2": 1.0550766869954358e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005177333950996399,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.637322063131947e-08,
+        "relative_l2": 1.242326569746534e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.957366797290805e-09,
+          "relative_l2": 1.9284615666867157e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.9204928775745644e-09,
+          "relative_l2": 1.8157636394366853e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.8644166084196288e-09,
+          "relative_l2": 1.0635894973264469e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 1.1168697699904442,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.241328464109188e-08,
+        "relative_l2": 1.2723629792611118e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.711166259162113e-06,
+          "relative_l2": 0.00040988532030165187,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.296770764712193e-06,
+          "relative_l2": 0.0004124585529241515,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 5.799968558493462e-06,
+          "relative_l2": 0.0002975063428361975,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 7.450580596923828e-08,
+        "relative_l2": 1.2645823566027225e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.711312845349312e-06,
+          "relative_l2": 0.00040988219092623525,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.296408638358116e-06,
+          "relative_l2": 0.00041245645662544824,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 5.799869541078806e-06,
+          "relative_l2": 0.0002975083232996256,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0010498985648155212,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.241328464109188e-08,
+        "relative_l2": 1.2723629792611118e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.711166259162113e-06,
+          "relative_l2": 0.00040988532030165187,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.296770764712193e-06,
+          "relative_l2": 0.0004124585529241515,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 5.799968558493462e-06,
+          "relative_l2": 0.0002975063428361975,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 7.450580596923828e-08,
+        "relative_l2": 1.2645823566027225e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.711312845349312e-06,
+          "relative_l2": 0.00040988219092623525,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.296408638358116e-06,
+          "relative_l2": 0.00041245645662544824,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 5.799869541078806e-06,
+          "relative_l2": 0.0002975083232996256,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 1.2908032163977623,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.241328464109188e-08,
+        "relative_l2": 1.2723629792611118e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.1901974409446745e-09,
+          "relative_l2": 1.9731058288365858e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.3861541648823037e-09,
+          "relative_l2": 1.8559795688246168e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.971227961584555e-09,
+          "relative_l2": 1.0861363388818062e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 7.450580596923828e-08,
+        "relative_l2": 1.1491523930743648e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.3969838619232178e-09,
+          "relative_l2": 1.1982115597070347e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.984919309616089e-10,
+          "relative_l2": 1.1000822328363694e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.7939677238464355e-09,
+          "relative_l2": 1.085206024808451e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0025913193821907043,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0013244912776863016,
+        "relative_l2": 0.002467459807559241,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.894587881829101e-05,
+          "relative_l2": 0.00408837312085748,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.3512613439286185e-05,
+          "relative_l2": 0.0041076399913056085,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.0930770979154896e-05,
+          "relative_l2": 0.002502453106231359,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0012029781937599182,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0013244912776863016,
+        "relative_l2": 0.002467459807559241,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.894587881829101e-05,
+          "relative_l2": 0.00408837312085748,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.3512613439286185e-05,
+          "relative_l2": 0.0041076399913056085,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.0930770979154896e-05,
+          "relative_l2": 0.002502453106231359,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0006598085165023804,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009748754419420802,
+        "relative_l2": 0.0016723147030795527,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.518960545774349e-05,
+          "relative_l2": 0.001664478362729818,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5174383706069265e-05,
+          "relative_l2": 0.0016506473178429203,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.873629172971779e-05,
+          "relative_l2": 0.0016534752432079344,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0027296096086502075,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0012548931015900489,
+        "relative_l2": 0.0024074646819527983,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.2425782756447295e-05,
+          "relative_l2": 0.0033057044084792908,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.196075604419265e-05,
+          "relative_l2": 0.0033487219116295586,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.665257800557862e-05,
+          "relative_l2": 0.002414834855846101,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.0026037103018195598,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.0038536110719071086,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.003922940681468831,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0025180999947738273,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0009341463446617126,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0012548931015900489,
+        "relative_l2": 0.0024074646819527983,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.2425782756447295e-05,
+          "relative_l2": 0.0033057044084792908,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.196075604419265e-05,
+          "relative_l2": 0.0033487219116295586,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.665257800557862e-05,
+          "relative_l2": 0.002414834855846101,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.0026037103018195598,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.0038536110719071086,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.003922940681468831,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0025180999947738273,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_cross_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.002810530364513397,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009748754419420802,
+        "relative_l2": 0.0016723147030814234,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.518960545774349e-05,
+          "relative_l2": 0.0016644783628052098,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5174383706069265e-05,
+          "relative_l2": 0.0016506473183414026,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.873629172971779e-05,
+          "relative_l2": 0.0016534752369881266,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 3.814697265625e-06,
+        "relative_l2": 4.3676267007313955e-07,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.4901161193847656e-08,
+          "relative_l2": 1.1574080903084016e-07,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.1920928955078125e-07,
+          "relative_l2": 9.679480738554244e-07,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 7.62939453125e-06,
+          "relative_l2": 1.4585011220578611e-05,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004191547632217407,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.150065042289434e-08,
+        "relative_l2": 1.0405390859830588e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.929283257890574e-09,
+          "relative_l2": 1.9161304590197192e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.6972807638515608e-09,
+          "relative_l2": 1.895980261254006e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.728740541498633e-09,
+          "relative_l2": 9.998771824279416e-08,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0003970488905906677,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.150065042289434e-08,
+        "relative_l2": 1.0405390859830588e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.929283257890574e-09,
+          "relative_l2": 1.9161304590197192e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.6972807638515608e-09,
+          "relative_l2": 1.895980261254006e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.728740541498633e-09,
+          "relative_l2": 9.998771824279416e-08,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00045678019523620605,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.9342234615698e-08,
+        "relative_l2": 1.0303523833533318e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.2495013213275072e-09,
+          "relative_l2": 1.8931880188315715e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.029168013088431e-09,
+          "relative_l2": 1.8837761572137577e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.035424025662261e-09,
+          "relative_l2": 9.848481154746744e-08,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0011885613203048706,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.41218640301733e-08,
+        "relative_l2": 1.0605089965694448e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.984432821017804e-06,
+          "relative_l2": 0.00041501853979588796,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 3.507074914537063e-06,
+          "relative_l2": 0.00041062955857813993,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 9.054073160427029e-06,
+          "relative_l2": 0.00027915688008893735,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.1513561818851533e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.98408155888319e-06,
+          "relative_l2": 0.00041501297180863,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 3.5071279853582382e-06,
+          "relative_l2": 0.00041062631455485903,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 9.053386747837067e-06,
+          "relative_l2": 0.0002791561842053605,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0008288547396659851,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.41218640301733e-08,
+        "relative_l2": 1.0605089965694448e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.984432821017804e-06,
+          "relative_l2": 0.00041501853979588796,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 3.507074914537063e-06,
+          "relative_l2": 0.00041062955857813993,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 9.054073160427029e-06,
+          "relative_l2": 0.00027915688008893735,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.1513561818851533e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.98408155888319e-06,
+          "relative_l2": 0.00041501297180863,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 3.5071279853582382e-06,
+          "relative_l2": 0.00041062631455485903,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 9.053386747837067e-06,
+          "relative_l2": 0.0002791561842053605,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00199165940284729,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.41218640301733e-08,
+        "relative_l2": 1.0605089965694448e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.104700189305142e-09,
+          "relative_l2": 1.8947380457250493e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.1657790222687212e-09,
+          "relative_l2": 1.892289136520764e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.982871414094259e-09,
+          "relative_l2": 1.0041542198711121e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.0694039726033367e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.3969838619232178e-09,
+          "relative_l2": 1.1167489466994938e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.3969838619232178e-09,
+          "relative_l2": 1.1224277996524555e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.587935447692871e-09,
+          "relative_l2": 1.0332040711458201e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.002153143286705017,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0015386990757170205,
+        "relative_l2": 0.0025130653487081497,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 5.444528267333371e-05,
+          "relative_l2": 0.004096191200232129,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.9516339729474036e-05,
+          "relative_l2": 0.004169821474157823,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.00015297296238107883,
+          "relative_l2": 0.002362687254138499,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0012401193380355835,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0015386990757170205,
+        "relative_l2": 0.0025130653487081497,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 5.444528267333371e-05,
+          "relative_l2": 0.004096191200232129,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.9516339729474036e-05,
+          "relative_l2": 0.004169821474157823,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.00015297296238107883,
+          "relative_l2": 0.002362687254138499,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005781054496765137,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009760170539207524,
+        "relative_l2": 0.0016558524867061736,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.768469573081675e-05,
+          "relative_l2": 0.0016587857580210939,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.8272546546219066e-05,
+          "relative_l2": 0.0016501386592534036,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 9.116766261892117e-05,
+          "relative_l2": 0.0016357438591081918,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0010131746530532837,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0013718438001923405,
+        "relative_l2": 0.0024316151943578126,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 4.306134546088261e-05,
+          "relative_l2": 0.0034034538460162994,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.808311027271062e-05,
+          "relative_l2": 0.0034163233365065806,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0001225742088034297,
+          "relative_l2": 0.002325256851064518,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002518789275885376,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.003969266107308946,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0040704601522440756,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.000244140625,
+          "relative_l2": 0.0022644678058044484,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0008588507771492004,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0013718438001923405,
+        "relative_l2": 0.0024316151943578126,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 4.306134546088261e-05,
+          "relative_l2": 0.0034034538460162994,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.808311027271062e-05,
+          "relative_l2": 0.0034163233365065806,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0001225742088034297,
+          "relative_l2": 0.002325256851064518,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002518789275885376,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.003969266107308946,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0040704601522440756,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.000244140625,
+          "relative_l2": 0.0022644678058044484,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "action_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0023067742586135864,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          4352,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009760170539207524,
+        "relative_l2": 0.0016558524865961004,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.768469573081675e-05,
+          "relative_l2": 0.0016587857580210939,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.8272546546219066e-05,
+          "relative_l2": 0.0016501386592590594,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 9.116766261892117e-05,
+          "relative_l2": 0.0016357438620694118,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.52587890625e-05,
+        "relative_l2": 1.336633689847617e-06,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 7.450580596923828e-09,
+          "relative_l2": 4.507459020143797e-08,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 7.62939453125e-06,
+          "relative_l2": 1.0179819021792129e-05,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005416572093963623,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0097552896604078e-07,
+        "relative_l2": 1.2556293877939515e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.4132084907685083e-09,
+          "relative_l2": 2.0480835012787137e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.285236109812432e-09,
+          "relative_l2": 2.0848918739175644e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.515383501656588e-09,
+          "relative_l2": 1.2613508504244615e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005135238170623779,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0097552896604078e-07,
+        "relative_l2": 1.2556293877939515e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.4132084907685083e-09,
+          "relative_l2": 2.0480835012787137e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.285236109812432e-09,
+          "relative_l2": 2.0848918739175644e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.515383501656588e-09,
+          "relative_l2": 1.2613508504244615e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0006169676780700684,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.012917959183575e-08,
+        "relative_l2": 1.256423366407304e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.2961412438131092e-09,
+          "relative_l2": 1.968022736524689e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.0550479973177318e-09,
+          "relative_l2": 2.0021678190963638e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.423940163852946e-09,
+          "relative_l2": 1.260691020751189e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0011261999607086182,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.345068857635752e-08,
+        "relative_l2": 1.2811826251776298e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.108769117250154e-06,
+          "relative_l2": 0.00041578480508721043,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.146922787271688e-06,
+          "relative_l2": 0.00042393844485864716,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 6.643921180732792e-06,
+          "relative_l2": 0.00029718383077392585,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.3236416172179334e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.109096385538578e-06,
+          "relative_l2": 0.000415786009911186,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.146465703845024e-06,
+          "relative_l2": 0.0004239401933497566,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 6.644288077950478e-06,
+          "relative_l2": 0.0002971835340918406,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0008362382650375366,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.345068857635752e-08,
+        "relative_l2": 1.2811826251776298e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.108769117250154e-06,
+          "relative_l2": 0.00041578480508721043,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.146922787271688e-06,
+          "relative_l2": 0.00042393844485864716,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 6.643921180732792e-06,
+          "relative_l2": 0.00029718383077392585,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.3236416172179334e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.109096385538578e-06,
+          "relative_l2": 0.000415786009911186,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 2.146465703845024e-06,
+          "relative_l2": 0.0004239401933497566,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        {
+          "finite": true,
+          "max_abs": 6.644288077950478e-06,
+          "relative_l2": 0.0002971835340918406,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0021078363060951233,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.345068857635752e-08,
+        "relative_l2": 1.2811826251776298e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.167988611643772e-09,
+          "relative_l2": 1.9904893290702582e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.2141270940013715e-09,
+          "relative_l2": 2.0147200833044872e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.423940163852946e-09,
+          "relative_l2": 1.2847364882963252e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.940696716308594e-08,
+        "relative_l2": 1.2238271713798365e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.1641532182693481e-09,
+          "relative_l2": 1.2619339058197377e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 9.313225746154785e-10,
+          "relative_l2": 1.2643990429072125e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.587935447692871e-09,
+          "relative_l2": 1.243259215382455e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0024161264300346375,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0011980168560568605,
+        "relative_l2": 0.002436294849973105,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.787462533926713e-05,
+          "relative_l2": 0.004102982099502667,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.3337305733864234e-05,
+          "relative_l2": 0.004183760116850032,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.1842204284681045e-05,
+          "relative_l2": 0.002485276310062766,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0014497041702270508,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0011980168560568605,
+        "relative_l2": 0.002436294849973105,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.787462533926713e-05,
+          "relative_l2": 0.004102982099502667,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.3337305733864234e-05,
+          "relative_l2": 0.004183760116850032,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.1842204284681045e-05,
+          "relative_l2": 0.002485276310062766,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.000752568244934082,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.000961714267641578,
+        "relative_l2": 0.0016436966067840553,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5150123488600654e-05,
+          "relative_l2": 0.0016777363080566522,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.2376467456443052e-05,
+          "relative_l2": 0.0016478950721136585,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.045742716821856e-05,
+          "relative_l2": 0.0016774375100684752,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0010164231061935425,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0011807534136997755,
+        "relative_l2": 0.0023633815225041345,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.6284001056434978e-05,
+          "relative_l2": 0.0032942382019490006,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.8637042343183164e-05,
+          "relative_l2": 0.00335646091866116,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.942205735085185e-05,
+          "relative_l2": 0.00241524145419433,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002496558439611277,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.0038252337513015565,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.003886868952943182,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0025089809056472344,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0008589178323745728,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0011807534136997755,
+        "relative_l2": 0.0023633815225041345,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.6284001056434978e-05,
+          "relative_l2": 0.0032942382019490006,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.8637042343183164e-05,
+          "relative_l2": 0.00335646091866116,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.942205735085185e-05,
+          "relative_l2": 0.00241524145419433,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002496558439611277,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.0038252337513015565,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.0517578125e-05,
+          "relative_l2": 0.003886868952943182,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.103515625e-05,
+          "relative_l2": 0.0025089809056472344,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vl_self_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 31,
+        "k": 31,
+        "d": 64,
+        "mask": "none",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.002424389123916626,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.000961714267641578,
+        "relative_l2": 0.0016436966068429453,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5150123488600654e-05,
+          "relative_l2": 0.0016777363262313798,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.2376467456443052e-05,
+          "relative_l2": 0.001647895075122922,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.045742716821856e-05,
+          "relative_l2": 0.0016774375100684752,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.52587890625e-05,
+        "relative_l2": 1.2796837227929177e-06,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.9073486328125e-06,
+          "relative_l2": 1.4939078280947917e-05,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 9.5367431640625e-07,
+          "relative_l2": 7.646357316213895e-06,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004126429557800293,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.5655989610285914e-07,
+        "relative_l2": 8.096685754296118e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0003069639205932617,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.5655989610285914e-07,
+        "relative_l2": 8.096685754296118e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00040002912282943726,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.5213723114637645e-07,
+        "relative_l2": 8.385632495080435e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0011327117681503296,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0485030044193877e-07,
+        "relative_l2": 8.558094949915726e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 2.384185791015625e-07,
+        "relative_l2": 1.124660406969121e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004103854298591614,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0485030044193877e-07,
+        "relative_l2": 8.558094949915726e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 2.384185791015625e-07,
+        "relative_l2": 1.124660406969121e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.04352715611457825,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0485030044193877e-07,
+        "relative_l2": 8.558094949915726e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.7881393432617188e-07,
+        "relative_l2": 8.223120217060347e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0012301281094551086,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.005034411961067242,
+        "relative_l2": 0.0021480234105800576,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00045108795166015625,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.005034411961067242,
+        "relative_l2": 0.0021480234105800576,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.000511854887008667,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0028158259784734074,
+        "relative_l2": 0.0014344519627998533,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0011552348732948303,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.004996674021526593,
+        "relative_l2": 0.002096689374972867,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0020066040596071854,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004143640398979187,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.004996674021526593,
+        "relative_l2": 0.002096689374972867,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0020066040596071854,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_gqa_causal_rightpad",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_right",
+        "backward": false,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0016814246773719788,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0028158259784734074,
+        "relative_l2": 0.0014344519630905897,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.0001220703125,
+        "relative_l2": 3.910738882347756e-06,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0001703128218650818,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.769652399236548e-08,
+        "relative_l2": 1.0126633197291156e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00012933462858200073,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.769652399236548e-08,
+        "relative_l2": 1.0126633197291156e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0001642480492591858,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.310252008232212e-08,
+        "relative_l2": 1.0237755899487169e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004201456904411316,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0111741033380639e-07,
+        "relative_l2": 1.0548213367961829e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.7881393432617188e-07,
+        "relative_l2": 1.257950412864864e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00030440837144851685,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0111741033380639e-07,
+        "relative_l2": 1.0548213367961829e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.7881393432617188e-07,
+        "relative_l2": 1.257950412864864e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0013484060764312744,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.0111741033380639e-07,
+        "relative_l2": 1.0548213367961829e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.1920928955078125e-07,
+        "relative_l2": 1.064544367160596e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0014582723379135132,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.0024888829898887127,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0007929950952529907,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.0024888829898887127,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0002373829483985901,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.0017000028145273739,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004533231258392334,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.002421437672248689,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002570215607159633,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00032033026218414307,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.002421437672248689,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 0.001953125,
+        "relative_l2": 0.002570215607159633,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "vision_packed_unmasked",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 17,
+        "d": 72,
+        "mask": "none",
+        "backward": false,
+        "required": true,
+        "packed": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0011800751090049744,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ],
+        [
+          14688,
+          72,
+          864,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0018429259545512666,
+        "relative_l2": 0.0017000028145352749,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 2.384185791015625e-07,
+        "relative_l2": 2.6741227208910916e-08,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005126819014549255,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.224079639518322e-08,
+        "relative_l2": 1.204175452879291e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.29135380201001e-09,
+          "relative_l2": 1.980144257941843e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5320012927526327e-09,
+          "relative_l2": 1.8995787266261976e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.096532419366582e-09,
+          "relative_l2": 1.0785787575815801e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00047315657138824463,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.224079639518322e-08,
+        "relative_l2": 1.204175452879291e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.29135380201001e-09,
+          "relative_l2": 1.980144257941843e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5320012927526327e-09,
+          "relative_l2": 1.8995787266261976e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.096532419366582e-09,
+          "relative_l2": 1.0785787575815801e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005762204527854919,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.40573651292209e-08,
+        "relative_l2": 1.2050244950382133e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.1822736170212798e-09,
+          "relative_l2": 1.9115614393086045e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.7648319364065024e-09,
+          "relative_l2": 1.8452700596086114e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.2411313763067162e-09,
+          "relative_l2": 1.0685693796476202e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 35, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 41, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.002659350633621216,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.058892947415686e-08,
+        "relative_l2": 1.2595466577567325e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.0585231583561403e-09,
+          "relative_l2": 1.967495154537814e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.2304932237142416e-09,
+          "relative_l2": 1.897124866431144e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.943609089117727e-09,
+          "relative_l2": 1.1324169742272895e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.195638656616211e-08,
+        "relative_l2": 1.1915097192781474e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.7939677238464355e-09,
+          "relative_l2": 1.2580470784515135e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.984919309616089e-10,
+          "relative_l2": 1.1583911631991113e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.7939677238464355e-09,
+          "relative_l2": 1.1257830225368388e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0007859319448471069,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0014277717805774581,
+        "relative_l2": 0.0024917575520221284,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.1505828928208874e-05,
+          "relative_l2": 0.004138875632345838,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.676785799234172e-05,
+          "relative_l2": 0.004144166418891084,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0024345400438451244,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0007130950689315796,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0014277717805774581,
+        "relative_l2": 0.0024917575520221284,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.1505828928208874e-05,
+          "relative_l2": 0.004138875632345838,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.676785799234172e-05,
+          "relative_l2": 0.004144166418891084,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0024345400438451244,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0006837025284767151,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009752138586938686,
+        "relative_l2": 0.0016743905525703005,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5109843444049108e-05,
+          "relative_l2": 0.0016475863557643864,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.4859485930155368e-05,
+          "relative_l2": 0.0016704754357749622,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0016503097489887553,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 35, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 41, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_bool_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_bool",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0029402896761894226,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009752138586938686,
+        "relative_l2": 0.0016743905525990145,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5109843444049108e-05,
+          "relative_l2": 0.0016475863557643864,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.4859485930155368e-05,
+          "relative_l2": 0.0016704754351567453,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0016503097490035584,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 3.814697265625e-06,
+        "relative_l2": 4.1055899064197403e-07,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.76837158203125e-07,
+          "relative_l2": 3.638895813417407e-06,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.1920928955078125e-07,
+          "relative_l2": 2.1454603144719404e-07,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004899278283119202,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.224079639518322e-08,
+        "relative_l2": 1.204175452879291e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.29135380201001e-09,
+          "relative_l2": 1.980144257941843e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5320012927526327e-09,
+          "relative_l2": 1.8995787266261976e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.096532419366582e-09,
+          "relative_l2": 1.0785787575815801e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004583969712257385,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.224079639518322e-08,
+        "relative_l2": 1.204175452879291e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.29135380201001e-09,
+          "relative_l2": 1.980144257941843e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.5320012927526327e-09,
+          "relative_l2": 1.8995787266261976e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.096532419366582e-09,
+          "relative_l2": 1.0785787575815801e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005570948123931885,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 7.40573651292209e-08,
+        "relative_l2": 1.2050244950382133e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.1822736170212798e-09,
+          "relative_l2": 1.9115614393086045e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.7648319364065024e-09,
+          "relative_l2": 1.8452700596086114e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.2411313763067162e-09,
+          "relative_l2": 1.0685693796476202e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 35, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 41, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.1584029570221901,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 8.058892947415686e-08,
+        "relative_l2": 1.2595466577567325e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.0585231583561403e-09,
+          "relative_l2": 1.967495154537814e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.2304932237142416e-09,
+          "relative_l2": 1.897124866431144e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.943609089117727e-09,
+          "relative_l2": 1.1324169742272895e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 8.195638656616211e-08,
+        "relative_l2": 1.1915097192781474e-07,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 2.7939677238464355e-09,
+          "relative_l2": 1.2580470784515135e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 6.984919309616089e-10,
+          "relative_l2": 1.1583911631991113e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 2.7939677238464355e-09,
+          "relative_l2": 1.1257830225368388e-07,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0007707104086875916,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0014277717805774581,
+        "relative_l2": 0.0024917575520221284,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.1505828928208874e-05,
+          "relative_l2": 0.004138875632345838,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.676785799234172e-05,
+          "relative_l2": 0.004144166418891084,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0024345400438451244,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0006785094738006592,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0014277717805774581,
+        "relative_l2": 0.0024917575520221284,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 3.1505828928208874e-05,
+          "relative_l2": 0.004138875632345838,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 3.676785799234172e-05,
+          "relative_l2": 0.004144166418891084,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0024345400438451244,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0006531849503517151,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009752138586938686,
+        "relative_l2": 0.0016743905525703005,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5109843444049108e-05,
+          "relative_l2": 0.0016475863557643864,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.4859485930155368e-05,
+          "relative_l2": 0.0016704754357749622,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0016503097489887553,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 35, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "pass": false,
+      "error": "RuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 180, in numerics\n    actual = run_kernel(torch, case, inputs, mask, upstream, kind, device, case[\"backward\"])\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 130, in run_kernel\n    output = attention(torch, *xs, local_mask, kind)\n  File \"/root/autodl-tmp/s4000-research/route2/model_probes/attention_probe.py\", line 41, in attention\n    return torch.nn.functional.scaled_dot_product_attention(\nRuntimeError: MuDNNMathSDPAFwd MUDNN failed in: Run SDPA\n"
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "padding_additive_contract",
+        "b": 2,
+        "h": 4,
+        "kv": 4,
+        "q": 17,
+        "k": 31,
+        "d": 64,
+        "mask": "key_additive",
+        "backward": true,
+        "required": true
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0025825724005699158,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          4352,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ],
+        [
+          7936,
+          64,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0009752138586938686,
+        "relative_l2": 0.0016743905525990145,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 1.5109843444049108e-05,
+          "relative_l2": 0.0016475863557643864,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.4859485930155368e-05,
+          "relative_l2": 0.0016704754351567453,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 5.63047577363876e-05,
+          "relative_l2": 0.0016503097490035584,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 3.814697265625e-06,
+        "relative_l2": 4.1055899064197403e-07,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": [
+        {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 4.76837158203125e-07,
+          "relative_l2": 3.638895813417407e-06,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        },
+        {
+          "finite": true,
+          "max_abs": 1.1920928955078125e-07,
+          "relative_l2": 2.1454603144719404e-07,
+          "atol": 0.025,
+          "rtol": 0.04,
+          "relative_l2_limit": 0.04,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00042223185300827026,
+      "finite": false,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0002937242388725281,
+      "finite": false,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00037060678005218506,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 9.963057934214703e-08,
+        "relative_l2": 7.974108706881662e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0005870535969734192,
+      "finite": false,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0003717467188835144,
+      "finite": false,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "fp32",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0015053898096084595,
+      "finite": true,
+      "output_dtype": "torch.float32",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 1.4134937775800438e-07,
+        "relative_l2": 8.663547559683826e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 2.384185791015625e-07,
+        "relative_l2": 8.047698016564667e-08,
+        "atol": 0.0002,
+        "rtol": 0.0002,
+        "relative_l2_limit": 0.0002,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004600808024406433,
+      "finite": false,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00039733201265335083,
+      "finite": false,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "cpu",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0004547387361526489,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0036894015770274624,
+        "relative_l2": 0.0014657288653768241,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "sdpa",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00047878921031951904,
+      "finite": false,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "sdpa_layout",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.00034315139055252075,
+      "finite": false,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "gradient_errors": [],
+      "pass": false,
+      "cpu_peer_forward_error": {
+        "finite": false,
+        "pass": false,
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "cpu_peer_gradient_errors": []
+    },
+    {
+      "phase": "numerics",
+      "case": {
+        "name": "eagle_leftpad_empty_rows_edge",
+        "b": 2,
+        "h": 4,
+        "kv": 2,
+        "q": 31,
+        "k": 31,
+        "d": 128,
+        "mask": "causal_left",
+        "backward": false,
+        "required": false
+      },
+      "dtype": "bf16",
+      "kind": "eager_fp32",
+      "device": "musa",
+      "reference": "CPU FP64 on the same quantized inputs; deterministic VJP",
+      "seconds": 0.0015688985586166382,
+      "finite": true,
+      "output_dtype": "torch.bfloat16",
+      "input_strides": [
+        [
+          15872,
+          128,
+          512,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ],
+        [
+          7936,
+          128,
+          256,
+          1
+        ]
+      ],
+      "inputs_contiguous": [
+        false,
+        false,
+        false
+      ],
+      "forward_error": {
+        "finite": true,
+        "max_abs": 0.0036894015770274624,
+        "relative_l2": 0.0014657288653770883,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "gradient_errors": [],
+      "pass": true,
+      "cpu_peer_forward_error": {
+        "finite": true,
+        "max_abs": 1.1920928955078125e-07,
+        "relative_l2": 4.174392139407775e-09,
+        "atol": 0.025,
+        "rtol": 0.04,
+        "relative_l2_limit": 0.04,
+        "pass": true
+      },
+      "cpu_peer_gradient_errors": []
+    }
+  ],
+  "musa_device": "MTT S4000",
+  "musa_tensor_device": "musa:0",
+  "musa_tensor_is_cuda": false,
+  "musa_tensor_is_musa": true,
+  "sdpa_backend_note": "Requested via shared ATen context; no profiler claim about the dispatched kernel",
+  "required_numerics_pass": false
+}

@@ -6,12 +6,14 @@
 
 | 导出文件 | 本地研究仓库中的来源 |
 |---|---|
-| `README.md`、`ROADMAP.md`、`REPRODUCE.md`、本文件、`.gitignore`、`scripts/run_probes.sh` | `routes/route2/publishing/` 的发布模板 |
+| `README.md`、`ROADMAP.md`、`REPRODUCE.md`、本文件、`.gitignore`、`scripts/run_probes.sh`、`scripts/run_learning.sh` | `routes/route2/publishing/` 的发布模板 |
 | `routes/route2/README.md`、`patches/`、`probes/`、`evidence/` | `routes/route2/` 对应文件，原样复制 |
+| `routes/route2/learning/`、`planning/`、`model_probes/`、`fsdp_probes/` | 存在时复制路线二新增材料；audit_sources 只复制 URL/hash manifest，不复制下载源码缓存 |
 | `probes/mujoco_ppo_worker.py` | `routes/route1/mujoco_ppo_worker.py`，共用 runner，原样复制；入口显式传路线二 commit/label |
 | `locks/sources.json` | `locks/sources.json`，只选择 RLinf 路线二并记录预期源码 tree |
 | `locks/environment.md`、`locks/route2-environment.txt` | 同路径原始环境记录；文档涉及路线一的描述保留作历史背景 |
 | `scripts/restore_sources.py`、`scripts/summarize_log.py` | 同路径共用脚本 |
+| `reports/route2-learning.md`、`reports/route2-handoff.md` | 同路径路线二报告 |
 | `UPSTREAM_LICENSE.txt` | 固定上游 commit 的 `LICENSE` |
 
 `EXPORT_MANIFEST.json` 记录每个导出文件的 SHA256、路径、字节数与来源 commit，记录复制后的包内容。共用 MuJoCo runner 的 SHA256 与研究仓库原文件完全相同，保留首轮可验证性。
@@ -19,3 +21,5 @@
 包不包含上游完整 Git 历史、其他路线的补丁/结果、虚拟环境、模型权重或 checkpoint。历史 server paths 只是证据产物位置；SSH 连接信息和密钥没有复制到包中。
 
 官方 MUSA 支持的参考：[#1464](https://github.com/RLinf/RLinf/pull/1464)、[#1578](https://github.com/RLinf/RLinf/pull/1578)、[GR00T 配方](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/gr00t.html)。这些上游记录不替代本项目 S4000/旧栈的具体实测。
+
+FSDP1 增量对应本地提交 `f9b74d95f97ad4234311580ab32c7b586e1dc7af`，独立 patch SHA256 `f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4`，不覆盖 Worker 学习基线。实际复测版本由 source/probe hash 关联；历史失败补丁保存在 `fsdp_probes/history/`。

@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-05",
+  "status": "interrupted_by_coordinator",
+  "reason": "serial held-out evaluation dominated latency; restarted from initial state with batched evaluation after CPU equivalence and MUSA smoke",
+  "snapshot_iterations": 94,
+  "final_test_present": false,
+  "used_in_learning_summary": false,
+  "snapshot_sha256": "0610ac6cfcb30769f3b95193abeefaff7084a01dabaed0866d96ea570612523f",
+  "original_json_status_retained": "running"
+}

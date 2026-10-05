@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-05",
+  "environment": "HalfCheetah-v5",
+  "runs": [
+    {
+      "file": "halfcheetah-seed7.json",
+      "seed": 7,
+      "env_id": "HalfCheetah-v5",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 179.93803346902132,
+      "test_episodes": 20,
+      "initial_mean_return": -0.3280699264582196,
+      "final_mean_return": 693.6936169806402,
+      "paired_mean_gain": 694.0216869070983,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 53.94830639474094,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8667667955160141,
+          "normalizer_count": 1024.0001,
+          "metrics": {
+            "loss": 0.16651426069438457,
+            "actor_loss": -0.017893369239754976,
+            "critic_loss": 0.3688152596354485,
+            "grad_norm": 0.93951156437397,
+            "approx_kl_k3": 0.0045338338182773445,
+            "latent_entropy": 8.508915209770203
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume",
+        "pending_observations_restored": true,
+        "normalizer_exact_parity": true,
+        "fixed_policy_output_exact_parity": true,
+        "rng_post_update_exact_parity": true,
+        "normalization_enabled": true
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 0.00866259823752764
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 379.85438309318556
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 295.5279104746019
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 617.9056478376358
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 647.0158409998751
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": 0.00866259823752764,
+          "trained_mean_return": 696.3342812969397
+        }
+      ]
+    },
+    {
+      "file": "halfcheetah-seed17.json",
+      "seed": 17,
+      "env_id": "HalfCheetah-v5",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 178.04160288721323,
+      "test_episodes": 20,
+      "initial_mean_return": -0.31699615372732143,
+      "final_mean_return": 884.9398651666293,
+      "paired_mean_gain": 885.2568613203566,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 59.456484854221344,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8501012921333313,
+          "normalizer_count": 1024.0001,
+          "metrics": {
+            "loss": 0.268201519548893,
+            "actor_loss": -0.018827868020161988,
+            "critic_loss": 0.5740587711334229,
+            "grad_norm": 1.0651245832443237,
+            "approx_kl_k3": 0.005253054952481762,
+            "latent_entropy": 8.51485800743103
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume",
+        "pending_observations_restored": true,
+        "normalizer_exact_parity": true,
+        "fixed_policy_output_exact_parity": true,
+        "rng_post_update_exact_parity": true,
+        "normalization_enabled": true
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 0.005923507765546732
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 131.95101019924618
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 423.91306887775227
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 494.2932778903711
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 649.6602668994202
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": 0.005923507765546732,
+          "trained_mean_return": 889.0342473298335
+        }
+      ]
+    },
+    {
+      "file": "halfcheetah-seed27.json",
+      "seed": 27,
+      "env_id": "HalfCheetah-v5",
+      "device": "musa",
+      "transitions": 102400,
+      "optimizer_steps": 4000,
+      "iteration_seconds_total": 178.08871485292912,
+      "test_episodes": 20,
+      "initial_mean_return": -0.32526395788150225,
+      "final_mean_return": 678.255745793756,
+      "paired_mean_gain": 678.5810097516375,
+      "paired_positive_episode_fraction": 1.0,
+      "resume_regression": {
+        "status": "passed",
+        "parameter_max_abs_error": 0.0,
+        "optimizer_max_abs_error": 0.0,
+        "policy_version": 1,
+        "optimizer_steps": 40,
+        "resumed_update": {
+          "policy_version": 1,
+          "parameter_l1_delta": 53.232468608766794,
+          "optimizer_steps": 40,
+          "update_seconds": 0.8561578840017319,
+          "normalizer_count": 1024.0001,
+          "metrics": {
+            "loss": 0.2322477439418435,
+            "actor_loss": -0.022479880996979774,
+            "critic_loss": 0.5094552472233772,
+            "grad_norm": 0.9847012430429458,
+            "approx_kl_k3": 0.006571718666236848,
+            "latent_entropy": 8.512309408187866
+          }
+        },
+        "scope": "same PPO batch restart, no simulator-state resume",
+        "pending_observations_restored": true,
+        "normalizer_exact_parity": true,
+        "fixed_policy_output_exact_parity": true,
+        "rng_post_update_exact_parity": true,
+        "normalization_enabled": true
+      },
+      "validation_curve": [
+        {
+          "transitions": 0,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": 0.01360588275142154
+        },
+        {
+          "transitions": 20480,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": -51.18019449477261
+        },
+        {
+          "transitions": 40960,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": 233.79524144912384
+        },
+        {
+          "transitions": 61440,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": 532.808398366379
+        },
+        {
+          "transitions": 81920,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": 684.6844534974668
+        },
+        {
+          "transitions": 102400,
+          "initial_mean_return": 0.01360588275142154,
+          "trained_mean_return": 723.7914535047701
+        }
+      ]
+    }
+  ],
+  "training_seeds_complete": true,
+  "positive_gain_runs": 3,
+  "gain_mean_across_training_seeds": 752.6198526596975,
+  "gain_median_across_training_seeds": 694.0216869070983,
+  "final_return_mean_across_training_seeds": 752.2964093136751,
+  "final_return_sample_std_across_training_seeds": 115.13164965445709,
+  "pendulum_engineering_target_met": null,
+  "statistical_scope": "Training seed is the outer unit. Three runs do not establish statistical significance.",
+  "integration_scope": "Ordinary-module Worker, shared rollout/update, CPU Ray transport; official FSDP/VLA unverified."
+}

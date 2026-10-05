@@ -1,0 +1,215 @@
+{
+  "date": "2026-10-05",
+  "scope": "ordinary-module RLinf Worker learning baseline, not official FSDP runner",
+  "source_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "config": {
+    "device": "cpu",
+    "env_id": "Pendulum-v1",
+    "num_envs": 4,
+    "horizon": 32,
+    "iterations": 2,
+    "epochs": 2,
+    "minibatch": 64,
+    "eval_episodes": 1,
+    "eval_interval": 1,
+    "eval_seed": 10000,
+    "test_seed": 20000,
+    "test_episodes": 1,
+    "seed": 7,
+    "lr": 0.0003,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "reward_scale": 0.1,
+    "entropy_coef": 0.0,
+    "value_clip": null,
+    "huber_delta": 10.0,
+    "normalize_observations": false,
+    "resume_check": true,
+    "source_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+    "output": "results/learning/smoke-cpu.json"
+  },
+  "initialization": {
+    "device": "cpu",
+    "torch_version": "2.2.0",
+    "torch_musa_version": null,
+    "accelerator_name": "CPU",
+    "parameters": 8963
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "transitions": 128,
+      "seconds": 4.975960910320282,
+      "collection": {
+        "policy_version": 0,
+        "completed_episodes": [],
+        "finite_rollout": true,
+        "action_element_clip_fraction": 0.3671875,
+        "observation_samples": 128
+      },
+      "communication": {
+        "transitions": 128,
+        "channel_messages": 65
+      },
+      "update": {
+        "policy_version": 1,
+        "parameter_l1_delta": 4.543112909654155,
+        "optimizer_steps": 4,
+        "update_seconds": 0.012188464403152466,
+        "normalizer_count": 0.0001,
+        "metrics": {
+          "loss": 13.117920875549316,
+          "actor_loss": -0.00033304374665021896,
+          "critic_loss": 26.236507415771484,
+          "grad_norm": 6.897179126739502,
+          "approx_kl_k3": 5.058757960796356e-05,
+          "latent_entropy": 1.419270098209381
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "transitions": 256,
+      "seconds": 0.13137494027614594,
+      "collection": {
+        "policy_version": 1,
+        "completed_episodes": [],
+        "finite_rollout": true,
+        "action_element_clip_fraction": 0.3046875,
+        "observation_samples": 128
+      },
+      "communication": {
+        "transitions": 128,
+        "channel_messages": 65
+      },
+      "update": {
+        "policy_version": 2,
+        "parameter_l1_delta": 4.607369203004055,
+        "optimizer_steps": 4,
+        "update_seconds": 0.012129165232181549,
+        "normalizer_count": 0.0001,
+        "metrics": {
+          "loss": 13.05601978302002,
+          "actor_loss": -0.0004436774179339409,
+          "critic_loss": 26.112926959991455,
+          "grad_norm": 7.472272634506226,
+          "approx_kl_k3": 1.8850434571504593e-05,
+          "latent_entropy": 1.4196616411209106
+        }
+      }
+    }
+  ],
+  "evaluations": [
+    {
+      "transitions": 0,
+      "initial_policy": [
+        {
+          "seed": 10000,
+          "return": -503.83560792540493,
+          "length": 200
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 10000,
+          "return": -503.83560792540493,
+          "length": 200
+        }
+      ],
+      "initial_mean_return": -503.83560792540493,
+      "trained_mean_return": -503.83560792540493,
+      "split": "validation",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards"
+    },
+    {
+      "transitions": 128,
+      "initial_policy": [
+        {
+          "seed": 10000,
+          "return": -503.83560792540493,
+          "length": 200
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 10000,
+          "return": -855.4009388171044,
+          "length": 200
+        }
+      ],
+      "initial_mean_return": -503.83560792540493,
+      "trained_mean_return": -855.4009388171044,
+      "split": "validation",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards"
+    },
+    {
+      "transitions": 256,
+      "initial_policy": [
+        {
+          "seed": 10000,
+          "return": -503.83560792540493,
+          "length": 200
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 10000,
+          "return": -941.9112463917722,
+          "length": 200
+        }
+      ],
+      "initial_mean_return": -503.83560792540493,
+      "trained_mean_return": -941.9112463917722,
+      "split": "validation",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards"
+    },
+    {
+      "transitions": 256,
+      "initial_policy": [
+        {
+          "seed": 20000,
+          "return": -631.3639666123095,
+          "length": 200
+        }
+      ],
+      "trained_policy": [
+        {
+          "seed": 20000,
+          "return": -965.4133868553305,
+          "length": 200
+        }
+      ],
+      "initial_mean_return": -631.3639666123095,
+      "trained_mean_return": -965.4133868553305,
+      "split": "test",
+      "protocol": "same held-out seeds; initial vs trained complete policy+normalizer bundles; raw rewards"
+    }
+  ],
+  "status": "completed",
+  "communication": "Ray CPU objects; rollout/update share an ActorWorker",
+  "critic_clipping": "disabled",
+  "resume_regression": {
+    "status": "passed",
+    "parameter_max_abs_error": 0.0,
+    "optimizer_max_abs_error": 0.0,
+    "policy_version": 1,
+    "optimizer_steps": 4,
+    "resumed_update": {
+      "policy_version": 1,
+      "parameter_l1_delta": 4.543112909654155,
+      "optimizer_steps": 4,
+      "update_seconds": 0.012188464403152466,
+      "normalizer_count": 0.0001,
+      "metrics": {
+        "loss": 13.117920875549316,
+        "actor_loss": -0.00033304374665021896,
+        "critic_loss": 26.236507415771484,
+        "grad_norm": 6.897179126739502,
+        "approx_kl_k3": 5.058757960796356e-05,
+        "latent_entropy": 1.419270098209381
+      }
+    },
+    "scope": "same PPO batch restart, no simulator-state resume"
+  },
+  "learning_claim": "Inspect held-out returns across all predeclared seeds; updates alone are insufficient."
+}
