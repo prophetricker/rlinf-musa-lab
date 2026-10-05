@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-05",
+  "interpreter": "/root/autodl-tmp/s4000-research/envs/route2-models/bin/python",
+  "inheritance": "system-site-packages; .pth adds validated research-base packages",
+  "mutation_scope": "only this new isolated model environment; Worker/FSDP env and system stack unchanged",
+  "installed_with_no_dependencies": {
+    "diffusers": "0.30.2"
+  },
+  "inherited_runtime": {
+    "torch": "2.2.0",
+    "torch_distribution": "2.2.0a0+git8ac9b20",
+    "torch_musa_runtime": "1.3.0+81caf0a",
+    "huggingface_hub": "1.33.0",
+    "accelerate": "1.15.0",
+    "safetensors": "0.8.0",
+    "einops": "0.8.2"
+  },
+  "source_checks": {
+    "diffusers_attention_processor_sha256": "afe47ff6d33c865af745e28eed4bd8048b66fd52de7c2b3bad37867e826776c9"
+  },
+  "preparation_script": "scripts/prepare_route2_model_env.sh"
+}

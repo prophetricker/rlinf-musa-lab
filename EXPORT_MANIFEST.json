@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-05",
-  "research_commit": "986fbf07b82a3802302eef3b99a5bc78f80a3b63",
+  "research_commit": "71cd04dd3485dbbb0e6ab246bc09307cfda40aab",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,20 +21,20 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 3048,
-      "sha256": "f3ff42ae855ecd560004a4cab9d0f312c6ce4f475ef33736a3853eac95908e22"
+      "bytes": 3813,
+      "sha256": "c9004742f9d8c16bdd033be2789e961dc6238e9458f1be009a0363edf42bc890"
     },
     {
       "path": "REPRODUCE.md",
       "research_source": "routes/route2/publishing/REPRODUCE.md",
-      "bytes": 5868,
-      "sha256": "dada0ad1fa95276f1e12b6f62fc8137eed44382864f4a3a458cec93c6e742261"
+      "bytes": 8093,
+      "sha256": "b09caf18bfbe9bdd25d6e757560ce4d410940b44a2eef716465304eb83e9274c"
     },
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 3240,
-      "sha256": "fac8e87b9b12471f0241f395df2900c01fb08ad9afd0485f3f84397ccd184017"
+      "bytes": 3447,
+      "sha256": "e4f63db7cb64eaad53d5f8abe8ef5e3f34c30a4fed8372555902503ae7a8ef28"
     },
     {
       "path": "UPSTREAM_LICENSE.txt",
@@ -55,10 +55,16 @@
       "sha256": "b1e3bc83630b28b4dc168155988c387766d37cc9d16e12a84b9654bb36d8de0b"
     },
     {
+      "path": "locks/route2-models-environment.json",
+      "research_source": "locks/route2-models-environment.json",
+      "bytes": 825,
+      "sha256": "d535696ff40a98956370187936cff51f9dd3037525865b298464897cd176af7c"
+    },
+    {
       "path": "locks/sources.json",
       "research_source": "generated from pinned source/lock",
-      "bytes": 1179,
-      "sha256": "5ea86110dca94d9ba5535c226bbba7899ea4f5f6bf3e7fd823550bf244e09320"
+      "bytes": 2790,
+      "sha256": "b97d469ddc40ca8fc8bbedc7f93b39ea796a7ef07ac2fc230fbd6b007cbfa6da"
     },
     {
       "path": "probes/mujoco_ppo_worker.py",
@@ -69,20 +75,50 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 2482,
-      "sha256": "0fe2c32a753a828d65a6f6828e6919e83f1d75847334dd08798aa23943304b06"
+      "bytes": 3092,
+      "sha256": "9230bff7f39c7fa4b7d10f2a07e206aac19f8a314594362e3edd9fd48f7af7be"
     },
     {
       "path": "reports/route2-learning.md",
       "research_source": "reports/route2-learning.md",
-      "bytes": 7232,
-      "sha256": "f9cf8436ce312bc541ecfaa208830145ea529664aa16a1dd46c8b878b696fb6d"
+      "bytes": 7804,
+      "sha256": "ff2fbc631c54ffd77e9637701f2f0b10ba8e6674dcdd312450ec03696475092c"
     },
     {
       "path": "routes/route2/README.md",
       "research_source": "routes/route2/README.md",
-      "bytes": 10200,
-      "sha256": "8d6f9fd8cfa441906ffb121ab44f2c4ad6f781e5a8927b8100e8e21bebab7bb0"
+      "bytes": 10536,
+      "sha256": "95d373ef725be5baa7879da48a9ba15c78c48aa64e39611f48801c6a111ce516"
+    },
+    {
+      "path": "routes/route2/evidence/action-interface/action-interface-cpu-first.json",
+      "research_source": "routes/route2/evidence/action-interface/action-interface-cpu-first.json",
+      "bytes": 362102,
+      "sha256": "385bcfdeb5d969f46481765cc471e8b36cb2eab00311e22399d8a9b7e6a6f134"
+    },
+    {
+      "path": "routes/route2/evidence/action-interface/action-interface-musa-attention-first.json",
+      "research_source": "routes/route2/evidence/action-interface/action-interface-musa-attention-first.json",
+      "bytes": 368327,
+      "sha256": "250c509c09cc53827ca833fd7e2551cafa4962b3b1870283e36520a01ac9e6ea"
+    },
+    {
+      "path": "routes/route2/evidence/action-interface/action-interface-musa-final.json",
+      "research_source": "routes/route2/evidence/action-interface/action-interface-musa-final.json",
+      "bytes": 1075713,
+      "sha256": "cb49537e34aa25a3031e6f7267c7c77ff1b1211623657ab8238d947ad2e3f202"
+    },
+    {
+      "path": "routes/route2/evidence/action-interface/action-interface-musa-second.json",
+      "research_source": "routes/route2/evidence/action-interface/action-interface-musa-second.json",
+      "bytes": 624541,
+      "sha256": "b0f36c440d0d8dc2e563a98daedfa5ee7673a98f156d3e1bd45e2037e88e7311"
+    },
+    {
+      "path": "routes/route2/evidence/action-interface/action-interface-musa-semantic.json",
+      "research_source": "routes/route2/evidence/action-interface/action-interface-musa-semantic.json",
+      "bytes": 1091523,
+      "sha256": "7aa6d33cbe8d99dfd5a1d51531d4e82210968aad9c3cb14e0cb54bd899c0bf39"
     },
     {
       "path": "routes/route2/evidence/attention/auto.json",
@@ -145,6 +181,24 @@
       "sha256": "5758397f639c13e9f7b1325f13d87e397f270d698ac15f2d95b18cde756eea5a"
     },
     {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-cpu-first.txt",
+      "research_source": "routes/route2/evidence/fsdp1/checkpoint-cpu-first.txt",
+      "bytes": 466,
+      "sha256": "521c2b722737766b09d4bb65af6d062d069d617dc0af9e9b694c64471cdb4bfc"
+    },
+    {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-dcp-first.jsonl",
+      "research_source": "routes/route2/evidence/fsdp1/checkpoint-dcp-first.jsonl",
+      "bytes": 2944,
+      "sha256": "8afeb050c1ee1f0d8cdd9e8e1bf2e293c3b87948f908366532fe94764cc279f7"
+    },
+    {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-local-first.jsonl",
+      "research_source": "routes/route2/evidence/fsdp1/checkpoint-local-first.jsonl",
+      "bytes": 2931,
+      "sha256": "3f1bd35ee1681c8e5584c03b2b575d60f599ad9f22f3eb477763803ee8cabc23"
+    },
+    {
       "path": "routes/route2/evidence/fsdp1/first-strategy-failure.json",
       "research_source": "routes/route2/evidence/fsdp1/first-strategy-failure.json",
       "bytes": 954,
@@ -167,6 +221,12 @@
       "research_source": "routes/route2/evidence/fsdp1/imports-regression-third.txt",
       "bytes": 491,
       "sha256": "eca39af700ec4136da35f15951548e296d4dac24026c6b1371fd3a19e2b13719"
+    },
+    {
+      "path": "routes/route2/evidence/fsdp1/mccl-control.json",
+      "research_source": "routes/route2/evidence/fsdp1/mccl-control.json",
+      "bytes": 540,
+      "sha256": "f01c09a6b1265c9f7bd3bb2bfe6efb53e794e905331f9cb10b64f1d82063881d"
     },
     {
       "path": "routes/route2/evidence/fsdp1/second-strategy-failure.json",
@@ -315,14 +375,38 @@
     {
       "path": "routes/route2/fsdp_probes/README.md",
       "research_source": "routes/route2/fsdp_probes/README.md",
-      "bytes": 7794,
-      "sha256": "4dd14f1dd94662b808a5438265e75a2090900dc32bd0c41418a88c53415a5a5b"
+      "bytes": 8049,
+      "sha256": "26b1112be78766e1bb6f0e1bba0690b8dcec4b43790a5151aa29b1d7d5884b7a"
+    },
+    {
+      "path": "routes/route2/fsdp_probes/checkpoint-README.md",
+      "research_source": "routes/route2/fsdp_probes/checkpoint-README.md",
+      "bytes": 6969,
+      "sha256": "6c8016df9f1f68390f9ef56f7a003593214eaa20a99f7b4cac58f91b09d91aab"
     },
     {
       "path": "routes/route2/fsdp_probes/checkpoint-plan.md",
       "research_source": "routes/route2/fsdp_probes/checkpoint-plan.md",
-      "bytes": 7894,
-      "sha256": "8817af5ad9a786d2f57493110f8476cd0c37cadcc82fc28c0c61aedb9fd99fca"
+      "bytes": 7959,
+      "sha256": "4dc2581bd02dd5bbf39cbe8e9dcb7216f84ab38a2f74888a9f06bb9b0f5ac15b"
+    },
+    {
+      "path": "routes/route2/fsdp_probes/checkpoint-process-plan.md",
+      "research_source": "routes/route2/fsdp_probes/checkpoint-process-plan.md",
+      "bytes": 6150,
+      "sha256": "deee7a2a42232dfb4a13c37a97175b0ba7bbe43968e2df3629d8fe8a51536fc2"
+    },
+    {
+      "path": "routes/route2/fsdp_probes/checkpoint-static-validation.json",
+      "research_source": "routes/route2/fsdp_probes/checkpoint-static-validation.json",
+      "bytes": 11732,
+      "sha256": "410702acd0b991689335d2f11d4e1b39acb28f795f58eba71d693f480f9071fd"
+    },
+    {
+      "path": "routes/route2/fsdp_probes/checkpoint_probe.py",
+      "research_source": "routes/route2/fsdp_probes/checkpoint_probe.py",
+      "bytes": 23865,
+      "sha256": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79"
     },
     {
       "path": "routes/route2/fsdp_probes/fsdp1_backend_probe.py",
@@ -427,6 +511,54 @@
       "sha256": "c4af7f361816c8ad618252c1128837ca52d0912ee5ea657863d1b14e818ec417"
     },
     {
+      "path": "routes/route2/model_probes/fp32_attention_processor.py",
+      "research_source": "routes/route2/model_probes/fp32_attention_processor.py",
+      "bytes": 6655,
+      "sha256": "0edcb656696bcd3a47e014c3d549cf029a268c4a2f3f9694bea9993bd9d53a6f"
+    },
+    {
+      "path": "routes/route2/model_probes/gr00t_action_interface_probe.py",
+      "research_source": "routes/route2/model_probes/gr00t_action_interface_probe.py",
+      "bytes": 25906,
+      "sha256": "c1a0e36336cbefc5499ffa8bb7c1f38bfe2384f64505c55f7a976d8dad3645f4"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v1/attention_probe.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v1/attention_probe.py",
+      "bytes": 21001,
+      "sha256": "704b68ef1e7bcde4b0578519f6d9c2c0a51298fd8a5e27527754718ce693b775"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v1/fp32_attention_processor.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v1/fp32_attention_processor.py",
+      "bytes": 6651,
+      "sha256": "324a31fc3924c1df6f5c7d10d204990bb91e73f1d0a457b661764299f6c200b3"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v1/gr00t_action_interface_probe.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v1/gr00t_action_interface_probe.py",
+      "bytes": 22345,
+      "sha256": "8477a503348e316208121e64b0e73c81f5de046b1ee5f34204a7a2d33fcab9dc"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v2/attention_probe.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v2/attention_probe.py",
+      "bytes": 21001,
+      "sha256": "704b68ef1e7bcde4b0578519f6d9c2c0a51298fd8a5e27527754718ce693b775"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v2/fp32_attention_processor.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v2/fp32_attention_processor.py",
+      "bytes": 6655,
+      "sha256": "0edcb656696bcd3a47e014c3d549cf029a268c4a2f3f9694bea9993bd9d53a6f"
+    },
+    {
+      "path": "routes/route2/model_probes/history/action-interface-v2/gr00t_action_interface_probe.py",
+      "research_source": "routes/route2/model_probes/history/action-interface-v2/gr00t_action_interface_probe.py",
+      "bytes": 23892,
+      "sha256": "46ab074d0b319472fef88ea082658046eea2edb364598dfe9d3cf4444b760925"
+    },
+    {
       "path": "routes/route2/model_probes/mask_contract_probe.py",
       "research_source": "routes/route2/model_probes/mask_contract_probe.py",
       "bytes": 10500,
@@ -439,6 +571,12 @@
       "sha256": "5457d53581ef53121f565724ad6330aa6d7cac4dadab279702f1a7e2f9c0817b"
     },
     {
+      "path": "routes/route2/patches/checkpoint-compat.patch",
+      "research_source": "routes/route2/patches/checkpoint-compat.patch",
+      "bytes": 11554,
+      "sha256": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9"
+    },
+    {
       "path": "routes/route2/patches/current-minimal-compat.patch",
       "research_source": "routes/route2/patches/current-minimal-compat.patch",
       "bytes": 31482,
@@ -449,6 +587,12 @@
       "research_source": "routes/route2/patches/fsdp1-experimental.patch",
       "bytes": 19923,
       "sha256": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4"
+    },
+    {
+      "path": "routes/route2/planning/action-interface-probe.md",
+      "research_source": "routes/route2/planning/action-interface-probe.md",
+      "bytes": 17246,
+      "sha256": "69e607eae15e67afa60ff611ca98f96a22a70d3c94e2a67259d23671eb0bb148"
     },
     {
       "path": "routes/route2/planning/attention-audit.md",
@@ -487,10 +631,28 @@
       "sha256": "b10d429d0d092412f25c4f4a1bbb2a15327301e617169e7a6ce721ad637f0cb3"
     },
     {
+      "path": "scripts/prepare_route2_model_env.sh",
+      "research_source": "scripts/prepare_route2_model_env.sh",
+      "bytes": 1538,
+      "sha256": "38e34b12d6d26fb67a5b75e7daec790fe80bb89ace1aa5e4c399ea398d027605"
+    },
+    {
+      "path": "scripts/probe_route2_mccl_control.py",
+      "research_source": "scripts/probe_route2_mccl_control.py",
+      "bytes": 2962,
+      "sha256": "6e33da98f7213ff8f0ffe236ffbf13df5e14a9a53a5497f6217c2bbdf9269ef1"
+    },
+    {
+      "path": "scripts/restore_model_audit.py",
+      "research_source": "scripts/restore_model_audit.py",
+      "bytes": 2212,
+      "sha256": "32b1b99ce23b92d8980c8787ed51f92914418adead2cb9a6dee0c5c9fa251508"
+    },
+    {
       "path": "scripts/restore_sources.py",
       "research_source": "scripts/restore_sources.py",
-      "bytes": 4437,
-      "sha256": "8be7f07b4f0a7f3e1dab027f64044b6ff0e2c665915e7ec71795955177da6cb5"
+      "bytes": 5141,
+      "sha256": "c37145b9c53eb9c43033681edeee14f97c6132ba1d81a3743f562cc006dd10f6"
     },
     {
       "path": "scripts/run_learning.sh",

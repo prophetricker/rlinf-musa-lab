@@ -1,0 +1,257 @@
+diff --git a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+index a0466033..33f5cf05 100644
+--- a/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-en/rst_source/examples/embodied/_musa_libero.rst
+@@ -64,8 +64,10 @@ prerelease version strings.
+ This path is for a single-rank FP32 ``NO_SHARD`` strategy probe. It does not
+ establish support for the official embodied Actor, model environments,
+ checkpointing, offload, mixed precision, or multiple ranks. In particular,
+-the existing DCP save call uses ``checkpoint_id``, which is incompatible
+-with Torch 2.2's ``storage_writer`` API and is unchanged in this patch.
++the FSDP1 import patch alone does not adapt Torch 2.2's DCP save signature.
++The separate checkpoint experiment uses a real ``FileSystemWriter`` with
++``storage_writer`` on Torch 2.2 and keeps ``checkpoint_id`` on newer runtimes.
++It still requires actual checkpoint restoration tests before use.
+ 
+ Keep the vendor-matched Torch and Torch-MUSA pair in an isolated environment;
+ the opt-in does not upgrade the driver, Toolkit, or dependencies. On MUSA,
+diff --git a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+index 0f868b11..08339206 100644
+--- a/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
++++ b/docs/source-zh/rst_source/examples/embodied/_musa_libero.rst
+@@ -41,7 +41,7 @@ Torch 2.2 FSDP1 实验导入路径
+ 
+ 研究补丁仅在导入 RLinf 前显式设置 ``RLINF_EXPERIMENTAL_FSDP1_TORCH22=1`` 时开放真正的 Torch 2.2 FSDP1 API。配置必须选择 ``fsdp_config.strategy=fsdp``；若请求 ``fsdp2``，会因缺少 FSDP2 API 而明确报错。未启用该选项时，本包仍拒绝 Torch 2.2。版本判断也识别厂商的 Torch 2.2 预发布版本字符串。
+ 
+-该路径用于单进程 FP32 ``NO_SHARD`` strategy 探针，不代表官方具身 Actor、模型环境、checkpoint、offload、混合精度或多进程已经适配。现有 DCP 保存调用使用 ``checkpoint_id``，与 Torch 2.2 的 ``storage_writer`` API 不兼容，本补丁暂不修改该行为。
++该路径用于单进程 FP32 ``NO_SHARD`` strategy 探针，不代表官方具身 Actor、模型环境、checkpoint、offload、混合精度或多进程已经适配。FSDP1 导入补丁本身不修改 Torch 2.2 的 DCP 保存签名；独立的 checkpoint 实验在 Torch 2.2 使用真正的 ``FileSystemWriter`` 与 ``storage_writer``，新版本保留 ``checkpoint_id``。使用前仍须完成实际保存与恢复验证。
+ 
+ 请在隔离环境中保留厂商配套的 Torch 与 Torch-MUSA。实验选项不会升级驱动、Toolkit 或依赖。在 MUSA 上，探针先按 RLinf 配置的 collective timeout 显式创建 MCCL 默认组，再调用真实的 RLinf device-mesh helper。
+ 
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/base.py b/rlinf/hybrid_engines/fsdp/strategy/base.py
+index 4f36f7b0..b2e340ea 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/base.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/base.py
+@@ -23,6 +23,7 @@ from typing import TYPE_CHECKING, ContextManager, Optional, Union
+ import torch
+ import torch.nn as nn
+ from omegaconf import DictConfig
++from packaging import version
+ from torch.distributed.checkpoint.state_dict import (
+     StateDictOptions,
+     get_model_state_dict,
+@@ -236,10 +237,14 @@ class FSDPStrategyBase(ABC):
+                 from torch.distributed import checkpoint as dcp
+ 
+                 dcp_save_path = os.path.join(save_path, "dcp_checkpoint")
+-                dcp.save(
+-                    {"fsdp_checkpoint": training_state},
+-                    checkpoint_id=dcp_save_path,
+-                )
++                payload = {"fsdp_checkpoint": training_state}
++                if version.parse(torch.__version__).release[:2] == (2, 2):
++                    # The explicitly enabled Torch 2.2 path has no checkpoint_id.
++                    dcp.save(
++                        payload, storage_writer=dcp.FileSystemWriter(dcp_save_path)
++                    )
++                else:
++                    dcp.save(payload, checkpoint_id=dcp_save_path)
+ 
+         except BaseException as e:
+             import traceback
+diff --git a/tests/unit_tests/test_fsdp_checkpoint.py b/tests/unit_tests/test_fsdp_checkpoint.py
+new file mode 100644
+index 00000000..e3322749
+--- /dev/null
++++ b/tests/unit_tests/test_fsdp_checkpoint.py
+@@ -0,0 +1,190 @@
++# Copyright 2025 The RLinf Authors.
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#     https://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++"""Actual CPU/Gloo checkpoint control flow, separate from MUSA/FSDP coverage.
++
++The model is a real ordinary CPU module, not a substitute for GPU FSDP. Only
++GPU cache housekeeping is replaced with CPU gc.collect; stateful checkpoint
++save/load, DCP, Gloo, AdamW, StepLR and CPU RNG operations are executed normally.
++"""
++
++import copy
++import gc
++import random
++from collections.abc import Mapping
++
++import numpy as np
++import pytest
++import torch
++import torch.distributed as dist
++
++import rlinf.hybrid_engines.fsdp.strategy.base as strategy_base
++from rlinf.hybrid_engines.fsdp.strategy.fsdp import FSDPStrategy
++from rlinf.scheduler import Worker
++from rlinf.utils.utils import get_rng_state, warmup_optimizer_state
++
++
++@pytest.fixture
++def cpu_checkpoint_group(tmp_path, monkeypatch):
++    monkeypatch.setattr(Worker, "torch_device_type", "cpu")
++    # get_rng_state must not inspect the installed machine's accelerator.
++    monkeypatch.setattr(Worker, "torch_platform", None)
++    monkeypatch.setattr(strategy_base, "clear_memory", gc.collect)
++    assert not dist.is_initialized()
++    dist.init_process_group(
++        backend="gloo",
++        rank=0,
++        world_size=1,
++        init_method=f"file://{tmp_path / 'rendezvous'}",
++    )
++    try:
++        yield
++    finally:
++        dist.destroy_process_group()
++
++
++def assert_equal_tree(actual, expected):
++    if isinstance(expected, torch.Tensor):
++        torch.testing.assert_close(actual, expected, rtol=0, atol=0)
++    elif isinstance(expected, np.ndarray):
++        np.testing.assert_array_equal(actual, expected)
++    elif isinstance(expected, Mapping):
++        assert actual.keys() == expected.keys()
++        for key in expected:
++            assert_equal_tree(actual[key], expected[key])
++    elif isinstance(expected, (list, tuple)):
++        assert type(actual) is type(expected)
++        assert len(actual) == len(expected)
++        for index in range(len(expected)):
++            assert_equal_tree(actual[index], expected[index])
++    else:
++        assert actual == expected
++
++
++def make_model():
++    return torch.nn.Sequential(
++        torch.nn.Linear(3, 8), torch.nn.Tanh(), torch.nn.Linear(8, 2)
++    )
++
++
++def training_state(model, optimizer, scheduler):
++    return copy.deepcopy(
++        {
++            "model": model.state_dict(),
++            "optimizer": optimizer.state_dict(),
++            "scheduler": scheduler.state_dict(),
++        }
++    )
++
++
++def update(model, optimizer, scheduler, inputs, targets):
++    optimizer.zero_grad(set_to_none=True)
++    loss = 16 * (model(inputs) - targets).square().mean()
++    loss.backward()
++    norm = float(torch.nn.utils.clip_grad_norm_(model.parameters(), 0.25))
++    assert norm > 0.25
++    optimizer.step()
++    scheduler.step()
++    optimizer.zero_grad(set_to_none=True)
++
++
++def rng_samples():
++    return {
++        "python": [random.random() for _ in range(4)],
++        "numpy": np.random.rand(4),
++        "torch_cpu": torch.rand(4),
++    }
++
++
++@pytest.mark.parametrize("checkpoint_format", ["local_shard", "dcp"])
++def test_cpu_checkpoint_restores_momentum_scheduler_rng_and_next_update(
++    cpu_checkpoint_group, tmp_path, checkpoint_format
++):
++    torch.manual_seed(42)
++    np.random.seed(43)
++    random.seed(44)
++    model = make_model()
++    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
++    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
++    inputs = [torch.randn(8, 3), torch.randn(8, 3)]
++    targets = [torch.randn(8, 2), torch.randn(8, 2)]
++    update(model, optimizer, scheduler, inputs[0], targets[0])
++    saved = training_state(model, optimizer, scheduler)
++    assert any(
++        bool(value["exp_avg"].abs().sum() > 0)
++        for value in saved["optimizer"]["state"].values()
++    )
++    saved_rng = copy.deepcopy(get_rng_state())
++    assert set(saved_rng) == {"cpu", "numpy", "random"}
++    checkpoint_dir = tmp_path / checkpoint_format
++    FSDPStrategy.save_checkpoint(
++        model,
++        optimizer,
++        scheduler,
++        str(checkpoint_dir),
++        save_full_model_weights=False,
++        checkpoint_format=checkpoint_format,
++    )
++    assert_equal_tree(training_state(model, optimizer, scheduler), saved)
++    assert_equal_tree(get_rng_state(), saved_rng)
++    expected_samples = rng_samples()
++    update(model, optimizer, scheduler, inputs[1], targets[1])
++    expected = training_state(model, optimizer, scheduler)
++    expected_end_rng = copy.deepcopy(get_rng_state())
++
++    rebuilt = make_model()
++    assert rebuilt is not model
++    assert {id(value) for value in rebuilt.parameters()}.isdisjoint(
++        {id(value) for value in model.parameters()}
++    )
++    rebuilt_optimizer = torch.optim.AdamW(rebuilt.parameters(), lr=1e-3)
++    rebuilt_scheduler = torch.optim.lr_scheduler.StepLR(
++        rebuilt_optimizer, step_size=1, gamma=0.9
++    )
++    assert not rebuilt_optimizer.state
++    assert all(value.grad is None for value in rebuilt.parameters())
++    before_warmup = copy.deepcopy(rebuilt.state_dict())
++    warmup_optimizer_state(rebuilt_optimizer)
++    assert_equal_tree(rebuilt.state_dict(), before_warmup)
++    assert len(rebuilt_optimizer.state) == len(list(rebuilt.parameters()))
++    assert all(
++        float(value["step"]) == 0
++        and bool(value["exp_avg"].eq(0).all())
++        and bool(value["exp_avg_sq"].eq(0).all())
++        for value in rebuilt_optimizer.state.values()
++    )
++    FSDPStrategy.load_checkpoint(
++        rebuilt,
++        rebuilt_optimizer,
++        rebuilt_scheduler,
++        str(checkpoint_dir),
++        checkpoint_format=checkpoint_format,
++    )
++    assert_equal_tree(
++        training_state(rebuilt, rebuilt_optimizer, rebuilt_scheduler), saved
++    )
++    assert_equal_tree(get_rng_state(), saved_rng)
++    assert_equal_tree(rng_samples(), expected_samples)
++    update(rebuilt, rebuilt_optimizer, rebuilt_scheduler, inputs[1], targets[1])
++    assert_equal_tree(
++        training_state(rebuilt, rebuilt_optimizer, rebuilt_scheduler), expected
++    )
++    assert_equal_tree(get_rng_state(), expected_end_rng)
++    if checkpoint_format == "dcp":
++        assert (checkpoint_dir / "dcp_checkpoint" / ".metadata").is_file()
++        assert list((checkpoint_dir / "dcp_checkpoint").glob("*.distcp"))
++    else:
++        assert (
++            checkpoint_dir / "local_shard_checkpoint" / "checkpoint_rank_0.pt"
++        ).is_file()

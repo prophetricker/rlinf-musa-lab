@@ -1,0 +1,26 @@
+{
+  "scope": "single-rank MCCL control-plane APIs; not cross-rank validation",
+  "torch": "2.2.0",
+  "torch_musa": "1.3.0+81caf0a",
+  "world_size": 1,
+  "probe_sha256": "6e33da98f7213ff8f0ffe236ffbf13df5e14a9a53a5497f6217c2bbdf9269ef1",
+  "rows": [
+    {
+      "api": "all_gather_object",
+      "pass": true
+    },
+    {
+      "api": "gather_object",
+      "pass": true
+    },
+    {
+      "api": "broadcast_object_list",
+      "pass": true
+    },
+    {
+      "api": "scatter_object_list",
+      "pass": true
+    }
+  ],
+  "all_pass": true
+}

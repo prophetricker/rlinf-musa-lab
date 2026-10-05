@@ -1,0 +1,287 @@
+{
+  "date": "2026-10-05",
+  "validation_kind": "local_static_checks_with_linked_coordinator_runtime_evidence",
+  "source_baseline_commit": "f9b74d95f97ad4234311580ab32c7b586e1dc7af",
+  "source_upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "changed_source_files": [
+    "docs/source-en/rst_source/examples/embodied/_musa_libero.rst",
+    "docs/source-zh/rst_source/examples/embodied/_musa_libero.rst",
+    "rlinf/hybrid_engines/fsdp/strategy/base.py",
+    "tests/unit_tests/test_fsdp_checkpoint.py"
+  ],
+  "new_test_included_in_patch": true,
+  "python": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "dependencies_present": {
+    "torch": false,
+    "pytest": false,
+    "ray": false,
+    "omegaconf": false,
+    "accelerate": false
+  },
+  "patch_sha256": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9",
+  "probe_sha256": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
+  "verified_fsdp1_patch_preserved_sha256": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4",
+  "checks": [
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp_checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "format",
+        "--check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/rlinf/hybrid_engines/fsdp/strategy/base.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2/tests/unit_tests/test_fsdp_checkpoint.py",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "3 files already formatted\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_probe.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: checkpoint_probe.py [-h] --source SOURCE [--phase {imports,checkpoint}]\n                           [--format {local_shard,dcp}]\n                           [--checkpoint-dir CHECKPOINT_DIR]\n                           [--enable-torch22]\n\nProbe real RLinf FSDP1 checkpoint restoration into new training objects. Run\nAPI imports without a Worker first. The coordinator then schedules one format\nper invocation: local_shard before dcp. The GPU phase creates a real single-\nrank MUSA FSDPStrategy, saves after update 1, rebuilds FSDP/AdamW/StepLR, and\ncompares restored states/RNG and update 2 with uninterrupted training.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --source SOURCE\n  --phase {imports,checkpoint}\n  --format {local_shard,dcp}\n  --checkpoint-dir CHECKPOINT_DIR\n  --enable-torch22\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--cached",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/checkpoint-compat.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/worktrees/rlinf-route2",
+        "apply",
+        "--check",
+        "--reverse",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/patches/checkpoint-compat.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "py_compile checkpoint probe and CPU test in temporary directory",
+      "exit_code": 0
+    },
+    {
+      "command": "AST parse checkpoint probe and CPU test",
+      "exit_code": 0
+    }
+  ],
+  "coordinator_runtime_evidence": {
+    "local_shard": {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-local-first.jsonl",
+      "sha256": "3f1bd35ee1681c8e5584c03b2b575d60f599ad9f22f3eb477763803ee8cabc23",
+      "six_source_file_hashes_match": true,
+      "probe_hash_matches": true,
+      "record": {
+        "probe": "rlinf_fsdp1_checkpoint",
+        "status": "pass",
+        "format": "local_shard",
+        "checkpoint_dir": "/root/autodl-tmp/s4000-research/route2/results/fsdp1/local-shard-first",
+        "files": [
+          {
+            "path": "local_shard_checkpoint/checkpoint_rank_0.pt",
+            "bytes": 28348
+          }
+        ],
+        "device": "musa:0",
+        "backend": "mccl",
+        "world_size": 1,
+        "rank": 0,
+        "strategy_class": "rlinf.hybrid_engines.fsdp.strategy.fsdp.FSDPStrategy",
+        "precision": "fp32",
+        "sharding_strategy": "NO_SHARD",
+        "fresh_objects": true,
+        "fresh_process": false,
+        "warmup_parameter_no_op": true,
+        "warmup_step_zero": true,
+        "active_gradient_scaling": true,
+        "clip_grad": 0.25,
+        "loss_scale": 16.0,
+        "update1": {
+          "loss": 14.316112518310547,
+          "gradient_norm": 12.791156768798828,
+          "clipped_gradient_norm": 0.2499999848660077,
+          "learning_rate": 0.0009000000000000001
+        },
+        "uninterrupted_update2": {
+          "loss": 24.08443832397461,
+          "gradient_norm": 19.060243606567383,
+          "clipped_gradient_norm": 0.24999998765997558,
+          "learning_rate": 0.0008100000000000001
+        },
+        "restored_update2": {
+          "loss": 24.08443832397461,
+          "gradient_norm": 19.060243606567383,
+          "clipped_gradient_norm": 0.24999998765997558,
+          "learning_rate": 0.0008100000000000001
+        },
+        "cpu_update1_parameter_max_abs_error": 1.4901161193847656e-08,
+        "cpu_update2_parameter_max_abs_error": 1.4901161193847656e-08,
+        "continued_model_max_abs_error": 0.0,
+        "continued_optimizer_max_abs_error": 0.0,
+        "restored_model_optimizer_scheduler_exact": true,
+        "continued_model_optimizer_scheduler_exact": true,
+        "rng_streams": [
+          "python",
+          "numpy",
+          "torch_cpu",
+          "musa"
+        ],
+        "rng_state_and_next_samples_exact": true,
+        "cpu_reference_rtol": 0.0003,
+        "cpu_reference_atol": 3e-06,
+        "gpu_housekeeping_skipped": false,
+        "full_model_weights_exported": false,
+        "official_actor_used": false,
+        "offload_executed": false,
+        "ppo_executed": false,
+        "simulator_used": false
+      }
+    },
+    "dcp": {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-dcp-first.jsonl",
+      "sha256": "8afeb050c1ee1f0d8cdd9e8e1bf2e293c3b87948f908366532fe94764cc279f7",
+      "six_source_file_hashes_match": true,
+      "probe_hash_matches": true,
+      "record": {
+        "probe": "rlinf_fsdp1_checkpoint",
+        "status": "pass",
+        "format": "dcp",
+        "checkpoint_dir": "/root/autodl-tmp/s4000-research/route2/results/fsdp1/dcp-first",
+        "files": [
+          {
+            "path": "dcp_checkpoint/.metadata",
+            "bytes": 5728
+          },
+          {
+            "path": "dcp_checkpoint/__0_0.distcp",
+            "bytes": 45304
+          }
+        ],
+        "device": "musa:0",
+        "backend": "mccl",
+        "world_size": 1,
+        "rank": 0,
+        "strategy_class": "rlinf.hybrid_engines.fsdp.strategy.fsdp.FSDPStrategy",
+        "precision": "fp32",
+        "sharding_strategy": "NO_SHARD",
+        "fresh_objects": true,
+        "fresh_process": false,
+        "warmup_parameter_no_op": true,
+        "warmup_step_zero": true,
+        "active_gradient_scaling": true,
+        "clip_grad": 0.25,
+        "loss_scale": 16.0,
+        "update1": {
+          "loss": 14.316112518310547,
+          "gradient_norm": 12.791156768798828,
+          "clipped_gradient_norm": 0.2499999848660077,
+          "learning_rate": 0.0009000000000000001
+        },
+        "uninterrupted_update2": {
+          "loss": 24.08443832397461,
+          "gradient_norm": 19.060243606567383,
+          "clipped_gradient_norm": 0.24999998765997558,
+          "learning_rate": 0.0008100000000000001
+        },
+        "restored_update2": {
+          "loss": 24.08443832397461,
+          "gradient_norm": 19.060243606567383,
+          "clipped_gradient_norm": 0.24999998765997558,
+          "learning_rate": 0.0008100000000000001
+        },
+        "cpu_update1_parameter_max_abs_error": 1.4901161193847656e-08,
+        "cpu_update2_parameter_max_abs_error": 1.4901161193847656e-08,
+        "continued_model_max_abs_error": 0.0,
+        "continued_optimizer_max_abs_error": 0.0,
+        "restored_model_optimizer_scheduler_exact": true,
+        "continued_model_optimizer_scheduler_exact": true,
+        "rng_streams": [
+          "python",
+          "numpy",
+          "torch_cpu",
+          "musa"
+        ],
+        "rng_state_and_next_samples_exact": true,
+        "cpu_reference_rtol": 0.0003,
+        "cpu_reference_atol": 3e-06,
+        "gpu_housekeeping_skipped": false,
+        "full_model_weights_exported": false,
+        "official_actor_used": false,
+        "offload_executed": false,
+        "ppo_executed": false,
+        "simulator_used": false
+      }
+    },
+    "cpu_gloo": {
+      "path": "routes/route2/evidence/fsdp1/checkpoint-cpu-first.txt",
+      "sha256": "521c2b722737766b09d4bb65af6d062d069d617dc0af9e9b694c64471cdb4bfc",
+      "result": "2 passed, local_shard and dcp"
+    }
+  },
+  "runtime_imports_executed_locally": false,
+  "pytest_executed_locally": false,
+  "gpu_executed_locally": false,
+  "cpu_test_scope": "ordinary CPU model with real Gloo/Stateful/DCP; Worker platform=None; only GPU housekeeping replaced with actual gc.collect; import may detect hardware",
+  "scope": "single-rank MUSA/MCCL FP32 NO_SHARD same-Worker fresh objects, both local_shard and dcp",
+  "fresh_process": false,
+  "unverified_boundaries": [
+    "fresh process resume",
+    "cross-device portability",
+    "multi-rank sharding",
+    "offload",
+    "mixed precision",
+    "full_weights export",
+    "Manager",
+    "official Actor",
+    "PPO",
+    "simulator"
+  ]
+}

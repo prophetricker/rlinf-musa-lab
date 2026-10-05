@@ -56,7 +56,7 @@ HalfCheetah-v5 正式三种子均完成相同 102,400 transitions，normalizatio
 - HalfCheetah-v5 CPU/MUSA 归一化短测通过；同批恢复后参数、Adam、normalizer、固定输出和 RNG 一致，不恢复 simulator state。
 - 实际 HalfCheetah CPU 串行/批量评估的 3 个种子回报和长度精确相同，策略调用 3000→1000。MUSA 批量小闭环完成 256 transitions、8 次轨迹更新并通过恢复。短测没有建立学习收益。
 - 首次 HalfCheetah 长测因串行评估效率停止，保留中断证据；正式三种子实验采用批量评估，从初始权重重新训练。中断曲线不算完成结果。
-- 单独实验补丁使真实 RLinf `FSDPStrategy` 在旧栈完成 FP32 `NO_SHARD` 包装、forward/backward、`clip_grad_norm_` 调用和 AdamW 更新。CPU 参数最大误差 1.49e-8、梯度最大误差 2.24e-8，9 个 CPU 导入/DeviceMesh 回归通过。范数 .865 低于阈值 1，此例未触发实际梯度缩放。没有 PPO、checkpoint、官方 Actor、多卡、offload 或混合精度，见 [后端证据](../routes/route2/evidence/fsdp1/strategy-third.jsonl)。
+- 单独实验补丁使真实 RLinf `FSDPStrategy` 在旧栈完成 FP32 `NO_SHARD` 包装、forward/backward、`clip_grad_norm_` 调用和 AdamW 更新；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 保存、恢复和继续更新也通过。CPU 参数最大误差 1.49e-8，恢复后继续更新的模型/optimizer/scheduler 最大误差为0；9 个 CPU 导入/DeviceMesh 回归通过。checkpoint 仍限于单卡、world size 1、同进程新对象。官方 Actor、多卡、offload 或混合精度未验证，见 [后端证据](../routes/route2/evidence/fsdp1/strategy-third.jsonl) 与 [checkpoint 证据](../routes/route2/fsdp_probes/checkpoint-README.md)。
 
 FSDP1 负责模型包装及分布式训练状态管理。下一关是保存/恢复状态，再把训练端和采样端拆开并验证权重同步。原生 Torch FSDP1 和真正 RLinf FSDPStrategy 的证据分别保留。
 
@@ -64,13 +64,13 @@ FSDP1 负责模型包装及分布式训练状态管理。下一关是保存/恢�
 
 N1.5 的图像/语言骨干与 action head 包含不同布局和 mask 合约的 attention。官方 MUSA 路径绑定 vendor FlashAttention，旧栈缺少该包；先按固定模型来源抽取合约做数值及梯度测试。
 
-显式 FP32 eager attention 基础探针 32/32 rows 通过，FP32/BF16 外围算子通过。旧 MUSA SDPA 对广播 padding mask 报错；展开 mask 能运行，BF16 对照通过，FP32 梯度仍超过原严格门槛，误差约 1e-5 量级。保持原容差并记录失败；不能泛化为所有 SDPA 不可用，也未证明严重梯度破坏。详见 [attention 分析](../routes/route2/planning/attention-results-analysis.md)。
+显式 FP32 eager attention 基础探针 32/32 rows 通过，FP32/BF16 外围算子通过。旧 MUSA SDPA 对广播 padding mask 报错；展开 mask 能运行，BF16 对照通过，FP32 梯度仍超过原严格门槛，误差约 1e-5 量级。随后真实 Diffusers 0.30.2 Attention 与固定双层 GR00T DiT 在 S4000 上完成 36 rows；MUSA 12 rows 的 forward、输入 VJP、非零参数 VJP 与 mask 合约通过，严格总 gate 仅保留解析零 `to_k.bias`/`norm_k.bias` 的 relative-L2 失败，独立 semantic gate 为 true。该结果仍不等于加载 GR00T 权重或完成训练。详见 [attention 分析](../routes/route2/planning/attention-results-analysis.md) 与 [action 接口记录](../routes/route2/planning/action-interface-probe.md)。
 
-内存测试仅测合成单层 allocator 峰值，不是完整模型显存。未下载模型权重，实际 processor、完整模型前反向与 LIBERO episode 待验证。
+内存测试仅测合成单层 allocator 峰值，不是完整模型显存。真实 action processor 已检查随机权重的小配置；模型权重、视觉/语言骨干、完整模型前反向与 LIBERO episode 待验证。
 
 ## 下一步与卡数
 
-Pendulum 与 HalfCheetah 三种子学习基线均已完成。主线保持现有栈，接下来把 FSDP1 checkpoint 与实际模型 attention 接口作为适配入口；再接官方 Actor/独立 Rollout、GR00T/LIBERO、极小 VLA PPO。Lambda-Sim SDK 到位后可独立验证环境接口。
+Pendulum 与 HalfCheetah 三种子学习基线均已完成。FSDP1 checkpoint 与随机权重 action attention 接口节点已完成；接下来接官方 Actor/独立 Rollout、真实 GR00T 权重与 LIBERO，再做极小 VLA PPO。Lambda-Sim SDK 到位后可独立验证环境接口。
 
 一张卡足够当前阶段。小 PPO 曾监控到约 158 MiB 使用量，不构成显存峰值 benchmark；加卡不能解决 Python/API 或 attention 合约问题。完整 GR00T 实测显存不足或开始多卡通信验证时，再决定卡数。GPU 作业顺序执行，源码与 CPU 检查可并行。
 

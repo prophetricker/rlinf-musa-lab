@@ -82,4 +82,40 @@ RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 \
   --source "$PWD/worktrees/rlinf-route2-fsdp1" --phase strategy --enable-torch22
 ```
 
-恢复 tree 为 `1a4eef5dd1f4984652168ebecce1d3cc194ec598`。GPU strategy 顺序运行；只验证单卡 FP32 NO_SHARD RLinf 后端的 MSE 更新，不含 PPO/官方 Actor/checkpoint。详细 CPU 测试及失败历史见 [FSDP 说明](routes/route2/fsdp_probes/README.md)。默认不开放旧 Torch，FSDP2 仍拒绝。
+恢复 tree 为 `1a4eef5dd1f4984652168ebecce1d3cc194ec598`。GPU strategy 顺序运行；单卡 FP32 NO_SHARD RLinf 后端的 MSE 更新、local_shard 与 Torch 2.2 DCP checkpoint 恢复均有独立入口，仍不含 PPO/官方 Actor/多 rank。详细 CPU 测试及失败历史见 [FSDP 说明](routes/route2/fsdp_probes/README.md)。默认不开放旧 Torch，FSDP2 仍拒绝。
+
+## 6. 独立 checkpoint 增量
+
+保持基线源树，另建包含 checkpoint 增量的源树：
+
+```bash
+python3 scripts/restore_sources.py --apply-patches --checkpoint-experimental
+export ROUTE2_CHECKPOINT_SOURCE="$PWD/worktrees/rlinf-route2-checkpoint"
+RLINF_EXPERIMENTAL_FSDP1_TORCH22=1 \
+  PYTHONPATH="$ROUTE2_CHECKPOINT_SOURCE" \
+  "$ROUTE2_PYTHON" -m pytest -q \
+  "$ROUTE2_CHECKPOINT_SOURCE/tests/unit_tests/test_fsdp_checkpoint.py"
+for format in local_shard dcp; do
+  RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 \
+    "$ROUTE2_PYTHON" routes/route2/fsdp_probes/checkpoint_probe.py \
+    --source "$ROUTE2_CHECKPOINT_SOURCE" --phase checkpoint \
+    --format "$format" --enable-torch22 \
+    --checkpoint-dir "$PWD/results/checkpoint-new/$format"
+done
+```
+
+每次使用从未存在的 checkpoint 目录。重建 tree 为 `a6c18c65206804ce621bf78472c5ed0b3b37387d`；两种格式分别验收新对象恢复、Adam/scheduler、Python/NumPy/Torch CPU/MUSA RNG 和继续更新一致性。结果限于 world size 1、FP32 NO_SHARD、同进程新对象，详见 [checkpoint 记录](routes/route2/fsdp_probes/checkpoint-README.md)。
+
+## 7. 真实 action Attention / 双层 DiT
+
+固定来源代码按 manifest 逐个下载并验证 SHA256；模型依赖放到独立 `route2-models` 环境，仅 no-deps 安装 Diffusers 0.30.2，继承匹配 Torch-MUSA：
+
+```bash
+python3 scripts/restore_model_audit.py
+bash scripts/prepare_route2_model_env.sh
+/root/autodl-tmp/s4000-research/envs/route2-models/bin/python \
+  routes/route2/model_probes/gr00t_action_interface_probe.py \
+  --device musa --phase all --output results/action-interface.json
+```
+
+该脚本使用随机权重，不下载模型 checkpoint。预期原始 `required_interfaces_pass=false`，失败仅在解析零 bias 的 relative-L2；独立 `semantic_interfaces_pass=true` 还要求这些 bias 的 actual/reference 梯度均 finite 且绝对值在原阈值内。退出码仍按原 strict gate 返回1，不把语义结果伪装成原总门槛通过。所有输出、输入/非零参数 VJP 与 mask 合约沿用原数值门槛，见 [action 接口记录](routes/route2/planning/action-interface-probe.md)。

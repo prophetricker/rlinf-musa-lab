@@ -1,8 +1,8 @@
 # 下一阶段：Torch 2.2 / MUSA FSDP1 的最小 checkpoint
 
-可以沿用现有 RLinf `Checkpoint(Stateful)` 和 Torch 2.2 的真实 DCP API 实现。公开源码已确认保存需要 `storage_writer`、加载接受 `storage_reader`，且 save/load 会调用 Stateful 对象的 state_dict/load_state_dict。API 路径存在不代表 MCCL/MUSA 上保存与恢复已经通过；本方案仅用于真实 strategy 更新成功后的下一节点，目前没有实施 checkpoint 源码修改或远程测试。
+可以沿用现有 RLinf `Checkpoint(Stateful)` 和 Torch 2.2 的真实 DCP API 实现。公开源码已确认保存需要 `storage_writer`、加载接受 `storage_reader`，且 save/load 会调用 Stateful 对象的 state_dict/load_state_dict。独立增量已修复 Torch 2.2 的保存签名，并在单卡 MUSA/MCCL 上分别通过 local_shard 与 DCP 的保存、恢复和继续更新；跨进程、多 rank、offload 与官方 Actor 仍未验证。
 
-真实 strategy 已通过 [第三轮实机验证](../evidence/fsdp1/strategy-third.jsonl)。下一步先实施 local_shard 对象重建与继续更新验证，DCP 作为随后独立节点；本轮仅固定 strategy 能力，不新增任何 checkpoint 执行代码。
+真实 strategy 已通过 [第三轮实机验证](../evidence/fsdp1/strategy-third.jsonl)。本文件保留 strategy 节点完成时的设计方案；后续独立 checkpoint 实现与命令见 [checkpoint-README.md](checkpoint-README.md)。先执行 local_shard 对象重建与继续更新验证，再独立执行 DCP。
 
 ## 1. 明确范围
 

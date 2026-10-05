@@ -2,7 +2,7 @@
 
 2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。
 
-真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和 CPU 数值对照，见 [独立实验说明](fsdp_probes/README.md)。[GR00T attention 分析](planning/attention-results-analysis.md) 记录可用 eager 路径及 SDPA 具体失败。官方 `EmbodiedFSDPActor`、完整 GR00T/LIBERO 尚未验证。
+真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。官方 `EmbodiedFSDPActor`、完整 GR00T/LIBERO 尚未验证。
 
 以下保留 2026-10-04 首轮限定闭环的证据与历史边界；首轮 256 transitions 的更新短测没有建立学习收益。
 
@@ -56,7 +56,7 @@
 | vendor `flash_attn.flash_attn_interface` | 缺包 |
 | Transformers | 本轮隔离环境尚未安装 |
 
-Probe 使用上游 `MLPPolicy`、`compute_gae_advantages_and_returns` 和 `compute_ppo_actor_loss`。Actor/critic 更新通过限定 `Worker` 扩展执行，value loss 使用简单 MSE。它不使用完整官方 embodied runner 或 FSDP actor，因此结果不能等同于完整 RLinf PPO benchmark。原生 FSDP1 probe 的独立证据见 `evidence/native-fsdp.jsonl`，明确 `rlinf_fsdp_package_used=false`；没有测试多卡、`FULL_SHARD`、offload 或 FSDP checkpoint。
+Probe 使用上游 `MLPPolicy`、`compute_gae_advantages_and_returns` 和 `compute_ppo_actor_loss`。Actor/critic 更新通过限定 `Worker` 扩展执行，value loss 使用简单 MSE。它不使用完整官方 embodied runner 或 FSDP actor，因此结果不能等同于完整 RLinf PPO benchmark。原生 FSDP1 probe 的独立证据见 `evidence/native-fsdp.jsonl`，明确 `rlinf_fsdp_package_used=false`；首轮没有测试多卡、`FULL_SHARD`、offload 或 FSDP checkpoint。2026-10-05 的独立 checkpoint 节点见前述入口，仍只覆盖单卡、world size 1、同进程新对象恢复。
 
 MuJoCo 闭环复用路线 1 同一份 runner（`routes/route1/mujoco_ppo_worker.py`），从各自固定的源树导入 scheduler、GAE、PPO actor/critic loss。它使用普通 Gaussian MLP，11,085 个参数，CPU 仿真、MUSA 策略与优化；8 次 optimizer step 的两个 iteration loss 分别为 `0.2330210060`、`0.1646597348`，parameter L1 delta 分别为 `8.3295786097`、`6.5673401153`，与路线 1 相同 seed 的对应数值一致。完整 compact 结果见 `evidence/mujoco-loop.json`。
 

@@ -22,9 +22,14 @@ def main() -> None:
         action="store_true",
         help="Also restore a separate opt-in FSDP1 source tree (requires --apply-patches).",
     )
+    parser.add_argument(
+        "--checkpoint-experimental",
+        action="store_true",
+        help="Also restore the separate FSDP1 checkpoint source tree (requires --apply-patches).",
+    )
     args = parser.parse_args()
-    if args.fsdp1_experimental and not args.apply_patches:
-        parser.error("--fsdp1-experimental requires --apply-patches")
+    if (args.fsdp1_experimental or args.checkpoint_experimental) and not args.apply_patches:
+        parser.error("Experimental source restoration requires --apply-patches")
     root = Path(__file__).resolve().parents[1]
     sources = json.loads((root / "locks/sources.json").read_text())
     patches = {
@@ -98,21 +103,30 @@ def main() -> None:
                 run("-C", str(target), "apply", "--check", str(patch))
                 run("-C", str(target), "apply", str(patch))
 
+    fsdp_info = sources.get("experiments", {}).get("route2_fsdp1", {})
+    requested = []
     if args.fsdp1_experimental:
-        info = sources["experiments"]["route2_fsdp1"]
+        requested.append((fsdp_info, [fsdp_info]))
+    if args.checkpoint_experimental:
+        checkpoint_info = fsdp_info["checkpoint_experiment"]
+        requested.append((checkpoint_info, [fsdp_info, checkpoint_info]))
+    for info, increments in requested:
         target = root / info["restore_worktree"]
         if target.exists():
             print(f"Keep existing experimental worktree: {target}")
-            return
-        incremental = root / info["patch"]
-        if hashlib.sha256(incremental.read_bytes()).hexdigest() != info["patch_sha256"]:
-            raise ValueError("Experimental FSDP1 patch does not match its source lock")
+            continue
+        incremental_patches = []
+        for increment in increments:
+            incremental = root / increment["patch"]
+            if hashlib.sha256(incremental.read_bytes()).hexdigest() != increment["patch_sha256"]:
+                raise ValueError(f"Experimental patch does not match its source lock: {incremental}")
+            incremental_patches.append(incremental)
         target.parent.mkdir(parents=True, exist_ok=True)
         run(
             "-C", str(root / "external/RLinf"), "worktree", "add", "--detach",
             str(target), sources["rlinf"]["route2"]["upstream_commit"],
         )
-        for patch in (patches["route2"], incremental):
+        for patch in (patches["route2"], *incremental_patches):
             run("-C", str(target), "apply", "--check", str(patch))
             run("-C", str(target), "apply", str(patch))
 

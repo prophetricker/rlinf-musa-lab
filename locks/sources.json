@@ -20,8 +20,29 @@
       "restore_worktree": "worktrees/rlinf-route2-fsdp1",
       "patch": "routes/route2/patches/fsdp1-experimental.patch",
       "patch_sha256": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4",
+      "checkpoint_experiment": {
+        "parent_commit": "f9b74d95f97ad4234311580ab32c7b586e1dc7af",
+        "local_commit": "c46875bb1515716b487c0cde5e6cf8a2277a483b",
+        "restore_worktree": "worktrees/rlinf-route2-checkpoint",
+        "expected_tree": "a6c18c65206804ce621bf78472c5ed0b3b37387d",
+        "patch": "routes/route2/patches/checkpoint-compat.patch",
+        "patch_sha256": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9",
+        "probe": "routes/route2/fsdp_probes/checkpoint_probe.py",
+        "probe_sha256": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
+        "scope": "single-rank MUSA/MCCL FP32 NO_SHARD local_shard and Torch 2.2 DCP fresh-object restore; cross-process and multi-rank unvalidated"
+      },
       "opt_in": "RLINF_EXPERIMENTAL_FSDP1_TORCH22=1",
-      "scope": "single-card FP32 NO_SHARD RLinf FSDPStrategy update; checkpoint/official Actor unvalidated"
+      "scope": "single-card FP32 NO_SHARD RLinf FSDPStrategy update; checkpoint validated separately for local_shard/DCP, official Actor unvalidated"
+    },
+    "route2_model_interface": {
+      "diffusers_version": "0.30.2",
+      "processor": "routes/route2/model_probes/fp32_attention_processor.py",
+      "processor_sha256": "0edcb656696bcd3a47e014c3d549cf029a268c4a2f3f9694bea9993bd9d53a6f",
+      "runner": "routes/route2/model_probes/gr00t_action_interface_probe.py",
+      "runner_sha256": "c1a0e36336cbefc5499ffa8bb7c1f38bfe2384f64505c55f7a976d8dad3645f4",
+      "evidence": "routes/route2/evidence/action-interface/action-interface-musa-semantic.json",
+      "evidence_sha256": "7aa6d33cbe8d99dfd5a1d51531d4e82210968aad9c3cb14e0cb54bd899c0bf39",
+      "scope": "random-weight real Diffusers Attention and fixed two-layer GR00T DiT; MUSA forward/input VJP/parameter VJP completed; strict zero-gradient relative-L2 failures retained"
     }
   }
 }
