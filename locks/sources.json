@@ -29,7 +29,10 @@
         "patch_sha256": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9",
         "probe": "routes/route2/fsdp_probes/checkpoint_probe.py",
         "probe_sha256": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
-        "scope": "single-rank MUSA/MCCL FP32 NO_SHARD local_shard and Torch 2.2 DCP fresh-object restore; cross-process and multi-rank unvalidated"
+        "scope": "single-rank MUSA/MCCL FP32 NO_SHARD local_shard and Torch 2.2 DCP fresh-object and fresh-process restore with exact continuation/RNG; multi-rank and official Actor unvalidated",
+        "process_probe": "routes/route2/fsdp_probes/checkpoint_process_probe.py",
+        "process_probe_sha256": "280e0efd3a2e85c6beb157712ce1d68a3b9f34375d5f7763f6530538f7c1a17f",
+        "process_evidence": "routes/route2/evidence/checkpoint-process"
       },
       "opt_in": "RLINF_EXPERIMENTAL_FSDP1_TORCH22=1",
       "scope": "single-card FP32 NO_SHARD RLinf FSDPStrategy update; checkpoint validated separately for local_shard/DCP, official Actor unvalidated"
@@ -43,6 +46,21 @@
       "evidence": "routes/route2/evidence/action-interface/action-interface-musa-semantic.json",
       "evidence_sha256": "7aa6d33cbe8d99dfd5a1d51531d4e82210968aad9c3cb14e0cb54bd899c0bf39",
       "scope": "random-weight real Diffusers Attention and fixed two-layer GR00T DiT; MUSA forward/input VJP/parameter VJP completed; strict zero-gradient relative-L2 failures retained"
+    },
+    "route2_backbone_interface": {
+      "transformers_version": "4.51.3",
+      "transformers_commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+      "spatial_checkpoint_repo": "RLinf/RLinf-Gr00t-SFT-Spatial",
+      "spatial_checkpoint_revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+      "runner": "routes/route2/model_probes/gr00t_backbone_interface_probe.py",
+      "kernel": "routes/route2/model_probes/fp32_backbone_attention.py",
+      "evidence": "routes/route2/evidence/backbone-interface/backbone-interface-musa-v2.json",
+      "environment": "locks/route2-backbone-environment.json",
+      "scope": "random two-layer true Qwen3Model/SiglipVisionModel frozen forward FP32/BF16 and independent synthetic Linear VJP; CPU8/8 and full CPU/MUSA12/12. No pretrained weights/full Eagle/GR00T/LIBERO/PPO.",
+      "runner_sha256": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec",
+      "kernel_sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1",
+      "evidence_sha256": "806bdddc06813874928fc9393b8fc6112880e75c62b537fc42995c767588616d",
+      "environment_sha256": "fbeffd63eaee70fda8678aaa2da476fef65fbf99b3176bebbaac6e5ccd28e325"
     }
   }
 }

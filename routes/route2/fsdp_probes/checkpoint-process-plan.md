@@ -1,6 +1,8 @@
-# 后续节点：跨进程 checkpoint 恢复拆分方案
+# 已完成节点：跨进程 checkpoint 恢复拆分方案
 
 当前 [checkpoint_probe.py](checkpoint_probe.py) 已通过 CPU/Gloo 与 MUSA/MCCL 两种格式的新对象恢复测试，哈希固定为 `da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79`。保留此文件字节与现有生产实现；跨进程实验新增 `checkpoint_process_probe.py`，不改现有 probe，也不把同 Worker 的 fresh_objects 结果改名为 fresh_process。
+
+独立脚本已实现，并于 2026-10-05 在 S4000/MUSA/MCCL 分别完成 local_shard 与 DCP 的 save→restore。四条独立命令均 exit 0（协调者确认）；两个 restore 均为不同 driver/Worker、新训练对象，第1步完整状态、四类 RNG/next samples 和第2步继续训练完整状态精确相同。四个完整重跑命令、实际历史路径与范围见 [checkpoint-process-README.md](checkpoint-process-README.md)，证据哈希与本地备份核验见 [checkpoint-process-run-validation.json](checkpoint-process-run-validation.json)。本文保留设计依据；当前实现强制 save driver 已退出并检查两类进程身份不同，未强制旧 save Worker 已结束。
 
 ## 1. 新文件复用已验证 helper
 
@@ -55,6 +57,6 @@ load完成后依次：
 
 紧凑JSON应含phase/format、provenance、checkpoint/reference文件哈希、save/restore PID与start time、fresh_objects/fresh_process、完整state/RNG覆盖布尔值、continuation差异，以及主动裁剪norm。reference不把完整RNG或模型权重打印进日志。
 
-可先新增独立CPU/Gloo双子进程回归，使用普通CPU模型、显式CPU Worker/None平台，限定跳过GPU housekeeping为gc.collect；Gloo/Stateful/DCP仍真实执行。该测试只证明跨进程控制流，不代替真实MUSA FSDP恢复。现有已通过的CPU测试与probe不修改。
+设计时提出的独立 CPU/Gloo 双子进程回归未实施；本轮直接由协调者完成上述真实 MUSA 双命令实机验证。现有已通过的 CPU 同进程新对象测试与 probe 未修改。如后续补 CPU 双子进程测试，应使用普通 CPU 模型、显式 CPU Worker/None 平台，限定跳过 GPU housekeeping 为 gc.collect，保留真实 Gloo/Stateful/DCP；其结果只证明相应控制流，不能替代 MUSA 结果。
 
 world size 1 / NO_SHARD / 同设备跨进程成功仍不证明多卡分片、reshard、异构设备迁移、offload、mixed precision、官方Actor或完整PPO恢复；跨进程节点继续保持独立验收范围。

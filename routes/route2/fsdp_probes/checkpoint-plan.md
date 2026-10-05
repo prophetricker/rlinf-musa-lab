@@ -1,6 +1,6 @@
 # 下一阶段：Torch 2.2 / MUSA FSDP1 的最小 checkpoint
 
-可以沿用现有 RLinf `Checkpoint(Stateful)` 和 Torch 2.2 的真实 DCP API 实现。公开源码已确认保存需要 `storage_writer`、加载接受 `storage_reader`，且 save/load 会调用 Stateful 对象的 state_dict/load_state_dict。独立增量已修复 Torch 2.2 的保存签名，并在单卡 MUSA/MCCL 上分别通过 local_shard 与 DCP 的保存、恢复和继续更新；跨进程、多 rank、offload 与官方 Actor 仍未验证。
+可以沿用现有 RLinf `Checkpoint(Stateful)` 和 Torch 2.2 的真实 DCP API 实现。公开源码已确认保存需要 `storage_writer`、加载接受 `storage_reader`，且 save/load 会调用 Stateful 对象的 state_dict/load_state_dict。独立增量已修复 Torch 2.2 的保存签名，并在单卡 MUSA/MCCL 上分别通过 local_shard 与 DCP 的同 Worker 新对象恢复和独立跨进程恢复，两种格式的继续更新均 exact；多 rank、offload 与官方 Actor 仍未验证。跨进程证据与命令见 [checkpoint-process-README.md](checkpoint-process-README.md)。
 
 真实 strategy 已通过 [第三轮实机验证](../evidence/fsdp1/strategy-third.jsonl)。本文件保留 strategy 节点完成时的设计方案；后续独立 checkpoint 实现与命令见 [checkpoint-README.md](checkpoint-README.md)。先执行 local_shard 对象重建与继续更新验证，再独立执行 DCP。
 
@@ -43,7 +43,7 @@ load 已用真正 `FileSystemReader` 和 `storage_reader=`，不需要为了 Tor
 4. 重建新的 FSDP 包装、optimizer 和 scheduler，先用真实 warmup helper 建立 Adam 状态，再调用 strategy.load_checkpoint。
 5. 先确认恢复后等于第 1 步，再执行同一第 2 个 batch，比较参数、loss、梯度范数、Adam 状态与 scheduler/LR。模型输入、目标与初始 CPU 权重固定，继续经 strategy.before_micro_batch / clip_grad_norm_ / AdamW.step。
 
-这一轮先在同一 Worker 内做新的对象重建，JSON 明确标记 fresh_objects=true / fresh_process=false。之后增加保存与恢复两个独立 Worker 进程的阶段，使用同一远程持久化目录，才能声称跨进程恢复成功。不要把同一模型对象直接 load 回去的结果当作重建恢复。
+这一轮先在同一 Worker 内做新的对象重建，历史 JSON 明确标记 fresh_objects=true / fresh_process=false。后续独立 `checkpoint_process_probe.py` 已增加保存与恢复两个独立 driver/Worker 的阶段，使用同一远程持久化目录，local_shard 与 DCP 均已完成跨进程精确恢复。两阶段证据分开保存，不把同 Worker 结果改名为跨进程结果，也不把同一模型对象直接 load 回去当作重建恢复。
 
 RNG 另外验证 Python random、NumPy、Torch CPU 和当前 MUSA 设备：保存后读取各流下一段样本作为 expected；重建会消耗 RNG，load 后读取同样长度样本作为 actual 并对照。MUSA 随机值与 CPU 随机值不互相比对，只比较同一流保存/恢复前后序列。JSON 记录涵盖的 RNG 流和结果，不输出完整 RNG 状态。
 

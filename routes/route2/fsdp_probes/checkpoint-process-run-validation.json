@@ -1,0 +1,433 @@
+{
+  "date": "2026-10-05",
+  "validation_kind": "coordinator_runtime_evidence_and_local_byte_hash_verification",
+  "status": "pass",
+  "remote_executed_by_this_agent": false,
+  "gpu_executed_by_this_agent": false,
+  "git_invoked": false,
+  "local_torch_ray_runtime_executed": false,
+  "remote_actual_run_root": "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first",
+  "local_backup_root": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first",
+  "commands_and_evidence": [
+    {
+      "sequence": 1,
+      "phase": "save",
+      "format": "local_shard",
+      "environment": {
+        "RLINF_MUSA_TORCH_DETECTION_FALLBACK": "1"
+      },
+      "argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py",
+        "--source",
+        "/root/autodl-tmp/s4000-research/route2/RLinf-checkpoint",
+        "--phase",
+        "save",
+        "--format",
+        "local_shard",
+        "--enable-torch22",
+        "--checkpoint-dir",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard",
+        "--reference-file",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard.reference.pt"
+      ],
+      "command": "RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 /root/autodl-tmp/s4000-research/envs/route2/bin/python /root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py --source /root/autodl-tmp/s4000-research/route2/RLinf-checkpoint --phase save --format local_shard --enable-torch22 --checkpoint-dir /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard --reference-file /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard.reference.pt",
+      "command_scope": "primary probe invocation with actual run paths; SSH, stdout/stderr redirection and any wrapper are outside this record",
+      "exit_code": 0,
+      "exit_code_source": "coordinator /root confirmed all four independent server commands exited 0; compact JSONL does not contain exit code",
+      "evidence": "routes/route2/evidence/checkpoint-process/local_shard-save.jsonl",
+      "evidence_bytes": 3452,
+      "evidence_sha256": "dab25728e21af583560f0da2635ff2e66de9b81540384a92546a085c5dfcc7b4",
+      "status": "pass",
+      "elapsed_seconds": 19.573
+    },
+    {
+      "sequence": 2,
+      "phase": "restore",
+      "format": "local_shard",
+      "environment": {
+        "RLINF_MUSA_TORCH_DETECTION_FALLBACK": "1"
+      },
+      "argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py",
+        "--source",
+        "/root/autodl-tmp/s4000-research/route2/RLinf-checkpoint",
+        "--phase",
+        "restore",
+        "--format",
+        "local_shard",
+        "--enable-torch22",
+        "--checkpoint-dir",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard",
+        "--reference-file",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard.reference.pt"
+      ],
+      "command": "RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 /root/autodl-tmp/s4000-research/envs/route2/bin/python /root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py --source /root/autodl-tmp/s4000-research/route2/RLinf-checkpoint --phase restore --format local_shard --enable-torch22 --checkpoint-dir /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard --reference-file /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/local_shard.reference.pt",
+      "command_scope": "primary probe invocation with actual run paths; SSH, stdout/stderr redirection and any wrapper are outside this record",
+      "exit_code": 0,
+      "exit_code_source": "coordinator /root confirmed all four independent server commands exited 0; compact JSONL does not contain exit code",
+      "evidence": "routes/route2/evidence/checkpoint-process/local_shard-restore.jsonl",
+      "evidence_bytes": 4285,
+      "evidence_sha256": "40b088892974e12ad28be44b52d0fa96ab5dc8a0699048e062cf00fa15ca9672",
+      "status": "pass",
+      "elapsed_seconds": 19.522
+    },
+    {
+      "sequence": 3,
+      "phase": "save",
+      "format": "dcp",
+      "environment": {
+        "RLINF_MUSA_TORCH_DETECTION_FALLBACK": "1"
+      },
+      "argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py",
+        "--source",
+        "/root/autodl-tmp/s4000-research/route2/RLinf-checkpoint",
+        "--phase",
+        "save",
+        "--format",
+        "dcp",
+        "--enable-torch22",
+        "--checkpoint-dir",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp",
+        "--reference-file",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp.reference.pt"
+      ],
+      "command": "RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 /root/autodl-tmp/s4000-research/envs/route2/bin/python /root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py --source /root/autodl-tmp/s4000-research/route2/RLinf-checkpoint --phase save --format dcp --enable-torch22 --checkpoint-dir /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp --reference-file /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp.reference.pt",
+      "command_scope": "primary probe invocation with actual run paths; SSH, stdout/stderr redirection and any wrapper are outside this record",
+      "exit_code": 0,
+      "exit_code_source": "coordinator /root confirmed all four independent server commands exited 0; compact JSONL does not contain exit code",
+      "evidence": "routes/route2/evidence/checkpoint-process/dcp-save.jsonl",
+      "evidence_bytes": 3535,
+      "evidence_sha256": "97e8fae562c7724b8d67bbea16d37dd20b249eba02481f1d9585416f0d65988e",
+      "status": "pass",
+      "elapsed_seconds": 19.637
+    },
+    {
+      "sequence": 4,
+      "phase": "restore",
+      "format": "dcp",
+      "environment": {
+        "RLINF_MUSA_TORCH_DETECTION_FALLBACK": "1"
+      },
+      "argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py",
+        "--source",
+        "/root/autodl-tmp/s4000-research/route2/RLinf-checkpoint",
+        "--phase",
+        "restore",
+        "--format",
+        "dcp",
+        "--enable-torch22",
+        "--checkpoint-dir",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp",
+        "--reference-file",
+        "/root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp.reference.pt"
+      ],
+      "command": "RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 /root/autodl-tmp/s4000-research/envs/route2/bin/python /root/autodl-tmp/s4000-research/route2/fsdp_probes/checkpoint_process_probe.py --source /root/autodl-tmp/s4000-research/route2/RLinf-checkpoint --phase restore --format dcp --enable-torch22 --checkpoint-dir /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp --reference-file /root/autodl-tmp/s4000-research/route2/results/checkpoint-process-20261005-first/dcp.reference.pt",
+      "command_scope": "primary probe invocation with actual run paths; SSH, stdout/stderr redirection and any wrapper are outside this record",
+      "exit_code": 0,
+      "exit_code_source": "coordinator /root confirmed all four independent server commands exited 0; compact JSONL does not contain exit code",
+      "evidence": "routes/route2/evidence/checkpoint-process/dcp-restore.jsonl",
+      "evidence_bytes": 4368,
+      "evidence_sha256": "83ce8936bc1463015af2e2bad284f0c5ad04964263c0591b577fb4e8105ce931",
+      "status": "pass",
+      "elapsed_seconds": 19.752
+    }
+  ],
+  "coordinator_report": "/root reports four real independent commands exited 0; this report is separate from recorded JSONL pass results",
+  "provenance": {
+    "source": "/root/autodl-tmp/s4000-research/route2/RLinf-checkpoint",
+    "verified_checkpoint_commit_prefix": "c46875bb",
+    "source_file_sha256": {
+      "rlinf/hybrid_engines/fsdp/__init__.py": "40a8ab4bd24f4c559e888602e54f4d318c6653e6c327ad93f336f7b7e0320dae",
+      "rlinf/hybrid_engines/fsdp/strategy/base.py": "61cfe424bd57371409d0fee61f443dd0aef439350f45b99f2b261a271eab14bf",
+      "rlinf/hybrid_engines/fsdp/strategy/checkpoint.py": "3ea682b6a600f67bd286f5425fdfbb05d8a37981db9b4909c27e82ce2b74d799",
+      "rlinf/hybrid_engines/fsdp/strategy/fsdp.py": "526bcc946be7c8e352aca92ff636a6ae4d5949f697a5b88ccc231f4fd9f49177",
+      "rlinf/hybrid_engines/fsdp/utils.py": "a31703d407de4592762370324ea17ceb6fc0eb1b869ad8a33880619b6fddfb3d",
+      "rlinf/utils/utils.py": "2a53d543a552ae59ce5ed920ff4b16b13aa2cabbaa77b28e84dc0c96d8685c8c"
+    },
+    "helper_sha256": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
+    "process_probe_sha256": "280e0efd3a2e85c6beb157712ce1d68a3b9f34375d5f7763f6530538f7c1a17f",
+    "config_sha256": "ccd83ff8a952f4b2bc01cc7c7376df032f6a334c319dd81f1e7aad167b6e459b"
+  },
+  "restore_validation": [
+    {
+      "format": "local_shard",
+      "true_gates": {
+        "fresh_objects": true,
+        "fresh_process": true,
+        "save_driver_finished": true,
+        "driver_and_worker_process_identity_differ": true,
+        "warmup_parameter_no_op": true,
+        "warmup_step_zero": true,
+        "active_gradient_scaling": true,
+        "restored_step1_state_exact": true,
+        "continued_model_optimizer_scheduler_exact": true,
+        "rng_states_samples_and_continuation_exact": true
+      },
+      "false_scope_flags": {
+        "gpu_housekeeping_skipped": false,
+        "full_model_weights_exported": false,
+        "official_actor_used": false,
+        "offload_executed": false,
+        "ppo_executed": false,
+        "simulator_used": false
+      },
+      "continued_model_max_abs_error": 0.0,
+      "continued_optimizer_max_abs_error": 0.0,
+      "update2_stats_exact": true,
+      "update1": {
+        "loss": 14.316112518310547,
+        "gradient_norm": 12.791156768798828,
+        "clipped_gradient_norm": 0.2499999848660077,
+        "learning_rate": 0.0009000000000000001
+      },
+      "uninterrupted_update2": {
+        "loss": 24.08443832397461,
+        "gradient_norm": 19.060243606567383,
+        "clipped_gradient_norm": 0.24999998765997558,
+        "learning_rate": 0.0008100000000000001
+      },
+      "restored_update2": {
+        "loss": 24.08443832397461,
+        "gradient_norm": 19.060243606567383,
+        "clipped_gradient_norm": 0.24999998765997558,
+        "learning_rate": 0.0008100000000000001
+      },
+      "rng_streams": [
+        "python",
+        "numpy",
+        "torch_cpu",
+        "musa"
+      ],
+      "runtime": {
+        "torch_runtime_version": "2.2.0",
+        "torch_musa_runtime_version": "1.3.0+81caf0a",
+        "distribution_versions": {
+          "torch": "2.2.0a0+git8ac9b20",
+          "torch_musa": "1.3.0",
+          "ray": "2.59.0",
+          "omegaconf": "2.3.1"
+        },
+        "device": "musa:0",
+        "device_model": "MTT S4000",
+        "world_size": 1,
+        "precision": "fp32",
+        "sharding_strategy": "NO_SHARD"
+      },
+      "backend": "mccl",
+      "save_driver": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 151460,
+        "start_ticks": 4570905610,
+        "clock_ticks_per_second": 100
+      },
+      "restore_driver": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 154592,
+        "start_ticks": 4570913590,
+        "clock_ticks_per_second": 100
+      },
+      "save_worker": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 153406,
+        "start_ticks": 4570906772,
+        "clock_ticks_per_second": 100
+      },
+      "restore_worker": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 156538,
+        "start_ticks": 4570914751,
+        "clock_ticks_per_second": 100
+      },
+      "cpu_parameter_max_abs_error": {
+        "update1": 1.4901161193847656e-08,
+        "update2": 1.4901161193847656e-08
+      }
+    },
+    {
+      "format": "dcp",
+      "true_gates": {
+        "fresh_objects": true,
+        "fresh_process": true,
+        "save_driver_finished": true,
+        "driver_and_worker_process_identity_differ": true,
+        "warmup_parameter_no_op": true,
+        "warmup_step_zero": true,
+        "active_gradient_scaling": true,
+        "restored_step1_state_exact": true,
+        "continued_model_optimizer_scheduler_exact": true,
+        "rng_states_samples_and_continuation_exact": true
+      },
+      "false_scope_flags": {
+        "gpu_housekeeping_skipped": false,
+        "full_model_weights_exported": false,
+        "official_actor_used": false,
+        "offload_executed": false,
+        "ppo_executed": false,
+        "simulator_used": false
+      },
+      "continued_model_max_abs_error": 0.0,
+      "continued_optimizer_max_abs_error": 0.0,
+      "update2_stats_exact": true,
+      "update1": {
+        "loss": 14.316112518310547,
+        "gradient_norm": 12.791156768798828,
+        "clipped_gradient_norm": 0.2499999848660077,
+        "learning_rate": 0.0009000000000000001
+      },
+      "uninterrupted_update2": {
+        "loss": 24.08443832397461,
+        "gradient_norm": 19.060243606567383,
+        "clipped_gradient_norm": 0.24999998765997558,
+        "learning_rate": 0.0008100000000000001
+      },
+      "restored_update2": {
+        "loss": 24.08443832397461,
+        "gradient_norm": 19.060243606567383,
+        "clipped_gradient_norm": 0.24999998765997558,
+        "learning_rate": 0.0008100000000000001
+      },
+      "rng_streams": [
+        "python",
+        "numpy",
+        "torch_cpu",
+        "musa"
+      ],
+      "runtime": {
+        "torch_runtime_version": "2.2.0",
+        "torch_musa_runtime_version": "1.3.0+81caf0a",
+        "distribution_versions": {
+          "torch": "2.2.0a0+git8ac9b20",
+          "torch_musa": "1.3.0",
+          "ray": "2.59.0",
+          "omegaconf": "2.3.1"
+        },
+        "device": "musa:0",
+        "device_model": "MTT S4000",
+        "world_size": 1,
+        "precision": "fp32",
+        "sharding_strategy": "NO_SHARD"
+      },
+      "backend": "mccl",
+      "save_driver": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 157854,
+        "start_ticks": 4570923254,
+        "clock_ticks_per_second": 100
+      },
+      "restore_driver": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 160966,
+        "start_ticks": 4570931265,
+        "clock_ticks_per_second": 100
+      },
+      "save_worker": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 159800,
+        "start_ticks": 4570924420,
+        "clock_ticks_per_second": 100
+      },
+      "restore_worker": {
+        "hostname": "autodl-container-77de47b334-d32e95e0",
+        "boot_id": "a76a8ff0-29d7-46cd-9484-cdca3f8723d2",
+        "pid": 162912,
+        "start_ticks": 4570932434,
+        "clock_ticks_per_second": 100
+      },
+      "cpu_parameter_max_abs_error": {
+        "update1": 1.4901161193847656e-08,
+        "update2": 1.4901161193847656e-08
+      }
+    }
+  ],
+  "local_backup_validation": [
+    {
+      "format": "local_shard",
+      "manifest_path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/local_shard.reference.pt.manifest.json",
+      "manifest_bytes": 2256,
+      "manifest_sha256": "068c98eb702bb7009b17734d73e96f4739ad8c99d84570e7c76cfd30070a5954",
+      "manifest_matches_save_and_restore_jsonl": true,
+      "manifest_provenance_runtime_and_process_identities_match": true,
+      "files": [
+        {
+          "path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/local_shard.reference.pt",
+          "bytes": 72536,
+          "sha256": "752d9640ad40905efa82b18bcf4745324bb2aed8cb377766968cbf7be5d14406",
+          "matches_manifest_bytes_and_sha256": true
+        },
+        {
+          "path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/local_shard/local_shard_checkpoint/checkpoint_rank_0.pt",
+          "bytes": 28348,
+          "sha256": "5fe65aa4489555865420b75b79525e5dcc8e88aa17449b373ee81b1800b46b50",
+          "matches_manifest_bytes_and_sha256": true
+        }
+      ],
+      "all_files_match_manifest_bytes_and_sha256": true
+    },
+    {
+      "format": "dcp",
+      "manifest_path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/dcp.reference.pt.manifest.json",
+      "manifest_bytes": 2355,
+      "manifest_sha256": "b7e648e3c4b63d17e5d8c2bf360a3c9a714a96f5447f3b90549a9d5cc70e3f04",
+      "manifest_matches_save_and_restore_jsonl": true,
+      "manifest_provenance_runtime_and_process_identities_match": true,
+      "files": [
+        {
+          "path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/dcp.reference.pt",
+          "bytes": 72664,
+          "sha256": "55c291c986893948123181b8bf58e564b061a3b539782bd84ee088160a0fd481",
+          "matches_manifest_bytes_and_sha256": true
+        },
+        {
+          "path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/dcp/dcp_checkpoint/.metadata",
+          "bytes": 5728,
+          "sha256": "231bf99c4c6d8dcec1f98464a3ca98962838ceddafcb5b6974da1606ce11ce42",
+          "matches_manifest_bytes_and_sha256": true
+        },
+        {
+          "path": "artifacts/run-20261005-process-backbone/checkpoint-process-20261005-first/dcp/dcp_checkpoint/__0_0.distcp",
+          "bytes": 45304,
+          "sha256": "2b904bf0350f52d2c2443b2f2e299a5c0f96df9fc2fcd1d9afe55af4fa2378c4",
+          "matches_manifest_bytes_and_sha256": true
+        }
+      ],
+      "all_files_match_manifest_bytes_and_sha256": true
+    }
+  ],
+  "preserved_file_sha256": {
+    "routes/route2/fsdp_probes/checkpoint_probe.py": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
+    "routes/route2/patches/checkpoint-compat.patch": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9",
+    "routes/route2/patches/fsdp1-experimental.patch": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4",
+    "routes/route2/fsdp_probes/checkpoint_process_probe.py": "280e0efd3a2e85c6beb157712ce1d68a3b9f34375d5f7763f6530538f7c1a17f"
+  },
+  "preserved_probe_and_patch_bytes_verified": true,
+  "six_local_production_files_match_all_four_source_records": true,
+  "static_validation": "routes/route2/fsdp_probes/checkpoint-process-static-validation.json",
+  "scope": "same Linux hostname/boot/runtime/device model and local index; one MUSA rank, MCCL, FP32 NO_SHARD tiny MLP without buffers; exact training-state and four-RNG continuation",
+  "identity_scope": "save driver exited; save and restore driver/Worker identities differ by boot_id/PID/start_ticks; old save Worker exit not required; physical GPU UUID and cross-device migration not verified",
+  "not_validated": [
+    "Manager",
+    "official Actor",
+    "PPO",
+    "simulator",
+    "offload",
+    "mixed precision",
+    "multi-rank sharding or resharding",
+    "world-size change",
+    "device migration",
+    "full model weights export"
+  ],
+  "binary_artifacts_policy": "local backup files were hashed without deserializing; only JSON/text records were written, no .pt/.distcp/.metadata file copied or published by this agent"
+}

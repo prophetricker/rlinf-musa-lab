@@ -12,8 +12,8 @@
 | checkpoint 实验增量 | `c46875bb1515716b487c0cde5e6cf8a2277a483b`，tree `a6c18c65206804ce621bf78472c5ed0b3b37387d` |
 | 系统栈 | Driver 2.7.0 / MUSA 3.1.0 / Torch 2.2.0 / Torch-MUSA 1.3.0 |
 | 新学习结果 | Pendulum 与 HalfCheetah 各三种子，全部 102,400 transitions 与独立 20 局 test；见 [学习报告](route2-learning.md) |
-| 训练后端 | 真实 RLinf FSDP1 单卡更新；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL 恢复/继续更新通过；尚无官方 Actor、多卡或跨进程恢复 |
-| 模型合约 | 真实 Diffusers Attention 与固定双层 GR00T DiT 在 MUSA 完成 12 rows；严格 gate 保留解析零方向失败，semantic gate 全部通过；未加载完整 GR00T |
+| 训练后端 | 真实 RLinf FSDP1 单卡更新；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL 恢复/继续更新通过；独立进程恢复同样通过；尚无官方 Actor、多卡或offload |
+| 模型合约 | 真实 Diffusers Attention 与固定双层 GR00T DiT 在 MUSA 完成 12 rows；严格 gate 保留解析零方向失败，semantic gate 全部通过；新增真实Qwen3/Siglip小型冻结骨干FP32/BF16 CPU8/8及CPU/MUSA12/12通过；未加载完整 GR00T |
 
 ## 导出与检查
 
@@ -21,6 +21,16 @@
 
 导出不包含其他路线结果、上游完整 Git 历史、环境、权重、checkpoint 或认证材料。`EXPORT_MANIFEST.json` 保存各文件 SHA256、字节数及研究来源 commit。既有成果 Git 的 `.git` 保留，刷新时只同步清单中的材料；不强推。
 
-本轮离线恢复已验证 Worker 基线、FSDP1 与 checkpoint 实验三个源码 tree 完全一致；重复恢复保留既有 worktree。导出验证覆盖 111 个材料文件与 manifest，约7 MB；64 个相对 Markdown 链接、26 个 Python AST、3 个 Bash 文件、共用 runner 逐字对照和凭据模式扫描均通过。新增 checkpoint 证据覆盖 local_shard 与 DCP，两种格式都在 MUSA/MCCL 上精确恢复并继续更新；新增 action-interface 证据覆盖 36 rows，MUSA 12 rows 完成前向/VJP，strict 与 semantic 两种 gate 均原样记录。历史学习语义/评估 CPU 测试为10/10，本轮未重复训练。FSDP1 从基线加实验补丁重建，保持基线与实验边界。
+上一节点离线恢复已验证 Worker 基线、FSDP1 与 checkpoint 实验三个源码 tree 完全一致；重复恢复保留既有 worktree。该节点导出验证覆盖 111 个材料文件与 manifest，约7 MB；64 个相对 Markdown 链接、26 个 Python AST、3 个 Bash 文件、共用 runner 逐字对照和凭据模式扫描均通过。新增 checkpoint 证据覆盖 local_shard 与 DCP，两种格式都在 MUSA/MCCL 上精确恢复并继续更新；新增 action-interface 证据覆盖 36 rows，MUSA 12 rows 完成前向/VJP，strict 与 semantic 两种 gate 均原样记录。历史学习语义/评估 CPU 测试为10/10，该节点未重复训练。FSDP1 从基线加实验补丁重建，保持基线与实验边界。
 
 提交使用本地显式身份 `Codex <codex@localhost>`，不修改全局 Git 身份。登录令牌由 GitHub CLI 管理，不写入研究记录。
+
+## 跨进程与骨干组件节点（2026-10-05）
+
+本节点新增四份独立checkpoint save/restore JSONL：local_shard/DCP都在MUSA/MCCL、FP32、world size1、NO_SHARD下通过真实load；两类进程身份不同，save driver已退出。完整模型/Adam/scheduler、四类RNG、下一段随机样本和未中断对照的下一步全部exact，模型与optimizer误差0。保留旧同进程probe/两份生产补丁，新增source/command/run manifests；没有扩大为多rank、offload或官方Actor结果。
+
+骨干组件的v1 CPU8/8通过、整组CPU/MUSA11/12：Qwen3 BF16只读blocked-probability诊断触发Torch-MUSA masked_select类型限制。v2将该诊断输入转FP32并增加binding/registry identity验收，CPU8/8及整组12/12均通过。两个版本及全部原始JSON保存；不改变attention计算/VJP/数值容差，也不重复先前PPO训练。
+
+新增独立Transformers4.51.3环境no-deps安装，系统Torch/Torch-MUSA路径与source hashes核对；原驱动/Toolkit/默认Python不修改。公开Spatial配置与bundled Eagle实际构造路径单独审计，采用Qwen3Model/SiglipVisionModel，而不从仓库名称推断Siglip2实现。synthetic Linear仅为独立梯度基础能力检查；checkpoint projector是Identity，未进行完整Eagle/RADIO、预训练权重、Flow-SDE或LIBERO验证。
+
+最终导出在根Git提交后生成，准确research commit和文件哈希由EXPORT_MANIFEST.json关联，scripts/verify_route2_export.py核验字节、JSON/JSONL、Python/Bash语法与相对链接。远端同步采用已有成果仓库正常commit/push；二进制checkpoint/reference仅留本地忽略目录备份与服务器研究磁盘，不进入GitHub。

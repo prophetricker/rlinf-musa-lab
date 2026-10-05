@@ -1,0 +1,67 @@
+{
+  "versions": [
+    {
+      "version": "v1",
+      "files": [
+        {
+          "path": "routes/route2/model_probes/versions/backbone-interface-v1/gr00t_backbone_interface_probe.py",
+          "sha256": "e136cc33b556d1e20bb09051d4126add048cfc68ca3bec6bdc97bf7d950bb514"
+        },
+        {
+          "path": "routes/route2/model_probes/versions/backbone-interface-v1/fp32_backbone_attention.py",
+          "sha256": "ee6caf6745a92cf9b339a70c71067fb562730f4fe14fea80cfed2450d6ceef01"
+        }
+      ]
+    },
+    {
+      "version": "v2",
+      "files": [
+        {
+          "path": "routes/route2/model_probes/gr00t_backbone_interface_probe.py",
+          "sha256": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec"
+        },
+        {
+          "path": "routes/route2/model_probes/fp32_backbone_attention.py",
+          "sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1"
+        }
+      ]
+    }
+  ],
+  "v1_evidence": [
+    {
+      "path": "artifacts/run-20261005-process-backbone/backbone-cpu.json",
+      "sha256": "a96bc0febc985116fd9e02ea05003aa11f34e09de771ff8f0c3c8549b69ebde2",
+      "rows": 8,
+      "passing": 8
+    },
+    {
+      "path": "artifacts/run-20261005-process-backbone/backbone-musa.json",
+      "sha256": "10092a9d2caf55fc9a10fcd711e8d42a0c234f324ea67f880afcd17df63d40be",
+      "rows": 12,
+      "passing": 11,
+      "failure": "Qwen3 BF16 fallback_musa diagnostic BF16 masked_select unsupported by Torch-MUSA"
+    }
+  ],
+  "v2_changes": [
+    "Diagnostic weights.float().masked_select only; attention arithmetic/results/VJP and thresholds unchanged",
+    "Gate source code/private-global/instance binding invariants",
+    "Check global attention registry entry identity as well as keys"
+  ],
+  "v2_evidence_status": "CPU8/8 and MUSA runner12/12 pass; four actual MUSA rows",
+  "v2_evidence": [
+    {
+      "path": "routes/route2/evidence/backbone-interface/backbone-interface-cpu-v2.json",
+      "sha256": "1cb64a269306df934e6a219e08a8ff4316f0c13545869257bb13ebc01b383e6e",
+      "rows": 8,
+      "passing": 8,
+      "exit_code": 0
+    },
+    {
+      "path": "routes/route2/evidence/backbone-interface/backbone-interface-musa-v2.json",
+      "sha256": "806bdddc06813874928fc9393b8fc6112880e75c62b537fc42995c767588616d",
+      "rows": 12,
+      "passing": 12,
+      "exit_code": 0
+    }
+  ]
+}

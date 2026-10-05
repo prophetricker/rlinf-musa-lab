@@ -17,8 +17,9 @@
 ## 其他验证
 
 - MuJoCo HalfCheetah-v5：三个训练种子各 102,400 transitions，独立 20 局 test 平均回报从约 -0.33 提升到 694/885/678；同批 model/Adam/normalizer/输出/RNG 恢复通过。[结果与曲线](reports/route2-learning.md) 保留全部种子及统计边界。
-- 真实 RLinf FSDP1 strategy：显式旧 Torch opt-in、单卡 FP32 NO_SHARD 包装/前反向/梯度范数/AdamW 更新通过；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 恢复和继续更新均通过，CPU 参数最大误差 1.49e-8、继续更新模型/optimizer/scheduler 最大误差为0。仍未验证跨进程、多卡分片、offload 与官方 Actor，见 [说明](routes/route2/fsdp_probes/README.md)。
+- 真实 RLinf FSDP1 strategy：显式旧 Torch opt-in、单卡 FP32 NO_SHARD 包装/前反向/梯度范数/AdamW 更新通过；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 恢复和继续更新均通过，CPU 参数最大误差 1.49e-8、继续更新模型/optimizer/scheduler 最大误差为0。新增独立进程恢复亦通过，四类 RNG 与继续更新精确一致；仍未验证多卡分片、offload 与官方 Actor，见 [说明](routes/route2/fsdp_probes/README.md)。
 - 真实 Diffusers Attention 与固定双层 GR00T DiT：MUSA 12/12 rows 完成 forward、输入 VJP 和参数 VJP；除解析零方向外的严格门槛通过，独立 semantic gate 全部通过。严格总 gate 保留 false，不能替代完整 GR00T 权重加载或训练结论，见 [action 接口探针](routes/route2/planning/action-interface-probe.md)。
+- 真实 Qwen3Model / SiglipVisionModel 小型冻结骨干：FP32/BF16 的 CPU 对照8/8、CPU/MUSA整组12/12通过，保留Qwen3 RMSNorm/RoPE/GQA/causal+padding和视觉D72；独立 synthetic Linear 前向/VJP通过。旧BF16诊断失败和原脚本保留，未加载预训练权重或完整Eagle，见 [骨干审计与探针](routes/route2/planning/backbone-interface-probe.md)。
 - GR00T attention 合约：FP32 eager 基础探针 32/32 rows 通过；SDPA 广播 mask 报错，展开 mask 的 BF16 通过，FP32 梯度超原严格门槛。实际模型尚未加载，见 [分析](routes/route2/planning/attention-results-analysis.md)。
 - 首轮 Ray CPU Channel 8/8 回归、256 transitions 的 MuJoCo 小闭环及原生 Torch FSDP1 证据保留在 [历史报告](routes/route2/README.md)。
 
@@ -31,3 +32,5 @@ checkpoint 增量提交 `c46875bb1515716b487c0cde5e6cf8a2277a483b`，对应 tree
 上游声明 `torch>=2.5.0`，本项目提供限定实验路径，不构成官方 Torch 2.2 支持。系统驱动、Toolkit 与默认 Python 保持原状；不直接安装上游全项目依赖，也不覆盖 Torch-MUSA。
 
 [复现说明](REPRODUCE.md)、[源码锁](locks/sources.json)、[环境](locks/environment.md)、[后续节点](ROADMAP.md)、[来源与许可证](PROVENANCE.md)。后续具身目标为 `RLinf + GR00T N1.5 + LIBERO-Spatial + PPO`；Lambda-Sim SDK 到位后验证其环境接口。
+
+本轮两个节点的说明、实测边界和下一步顺序见 [跨进程与骨干报告](reports/route2-process-backbone.md)。

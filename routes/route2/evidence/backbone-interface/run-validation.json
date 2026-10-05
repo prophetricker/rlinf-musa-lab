@@ -1,0 +1,3803 @@
+{
+  "status": "v2 CPU8/8 and MUSA runner12/12 passed; four actual MUSA component comparisons",
+  "execution_provenance": "Coordinator scheduled CPU/MUSA stages serially and confirmed SSH command return codes 0/1/0/0. Version1 used original e136/ee6 bytes at the same actual probe path; version2 replaced them with eb69/db58. Raw logs remained on server.",
+  "runs": [
+    {
+      "run": "v1cpu",
+      "version": "v1",
+      "device": "cpu",
+      "local_evidence": "routes/route2/evidence/backbone-interface/backbone-interface-cpu-v1.json",
+      "evidence_sha256": "a96bc0febc985116fd9e02ea05003aa11f34e09de771ff8f0c3c8549b69ebde2",
+      "actual_argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/model_probes/gr00t_backbone_interface_probe.py",
+        "--device",
+        "cpu",
+        "--output",
+        "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu.json"
+      ],
+      "actual_output_path": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu.json",
+      "combined_stdout_stderr_log": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu.log",
+      "raw_log_exported": false,
+      "exit_code": 0,
+      "json_pass": true,
+      "rows": 8,
+      "passing_rows": 8,
+      "actual_musa_rows": 0,
+      "probe_sha256": "e136cc33b556d1e20bb09051d4126add048cfc68ca3bec6bdc97bf7d950bb514",
+      "kernel_sha256": "ee6caf6745a92cf9b339a70c71067fb562730f4fe14fea80cfed2450d6ceef01",
+      "packages": {
+        "torch": "2.2.0a0+git8ac9b20",
+        "torch_musa": "1.3.0",
+        "transformers": "4.51.3",
+        "huggingface_hub": "0.30.2",
+        "tokenizers": "0.21.4",
+        "regex": "2024.11.6",
+        "safetensors": "0.8.0"
+      },
+      "torch_import_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+      "runtime_checked_sources": {
+        "qwen3": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/qwen3/modeling_qwen3.py",
+          "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+        },
+        "siglip": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/siglip/modeling_siglip.py",
+          "sha256": "e8972dfaa3903191b936a76f0887ccf2e6648aa26cbde6a148b24a0c5790ecd2"
+        },
+        "eagle_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+          "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+        },
+        "checkpoint_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+          "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526"
+        }
+      },
+      "no_global_patch": {
+        "registry_before": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_after": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_unchanged": true,
+        "source_class_forward_unchanged": true,
+        "flash_attention_available_before": false,
+        "flash_attention_available_after": false
+      },
+      "row_summary": [
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1970874270656,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.007804000133916069,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.19057626580307,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.0021628071009,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006779070583376376,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 95.99894726429905,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        }
+      ]
+    },
+    {
+      "run": "v1musa",
+      "version": "v1",
+      "device": "musa",
+      "local_evidence": "routes/route2/evidence/backbone-interface/backbone-interface-musa-v1.json",
+      "evidence_sha256": "10092a9d2caf55fc9a10fcd711e8d42a0c234f324ea67f880afcd17df63d40be",
+      "actual_argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/model_probes/gr00t_backbone_interface_probe.py",
+        "--device",
+        "musa",
+        "--output",
+        "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa.json"
+      ],
+      "actual_output_path": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa.json",
+      "combined_stdout_stderr_log": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa.log",
+      "raw_log_exported": false,
+      "exit_code": 1,
+      "json_pass": false,
+      "rows": 12,
+      "passing_rows": 11,
+      "actual_musa_rows": 4,
+      "probe_sha256": "e136cc33b556d1e20bb09051d4126add048cfc68ca3bec6bdc97bf7d950bb514",
+      "kernel_sha256": "ee6caf6745a92cf9b339a70c71067fb562730f4fe14fea80cfed2450d6ceef01",
+      "packages": {
+        "torch": "2.2.0a0+git8ac9b20",
+        "torch_musa": "1.3.0",
+        "transformers": "4.51.3",
+        "huggingface_hub": "0.30.2",
+        "tokenizers": "0.21.4",
+        "regex": "2024.11.6",
+        "safetensors": "0.8.0"
+      },
+      "torch_import_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+      "runtime_checked_sources": {
+        "qwen3": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/qwen3/modeling_qwen3.py",
+          "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+        },
+        "siglip": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/siglip/modeling_siglip.py",
+          "sha256": "e8972dfaa3903191b936a76f0887ccf2e6648aa26cbde6a148b24a0c5790ecd2"
+        },
+        "eagle_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+          "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+        },
+        "checkpoint_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+          "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526"
+        }
+      },
+      "no_global_patch": {
+        "registry_before": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_after": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_unchanged": true,
+        "source_class_forward_unchanged": true,
+        "flash_attention_available_before": false,
+        "flash_attention_available_after": false
+      },
+      "row_summary": [
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 5.125999450683594e-06,
+            "relative_l2": 1.1805958480423613e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196686740574,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 5.125999450683594e-06,
+            "relative_l2": 1.1805958480423613e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196686740574,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 1.5497207641601562e-06,
+              "relative_l2": 3.7915780518403225e-07,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.37048113024019,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 2.9802322387695312e-08,
+                "relative_l2": 7.358420847452114e-08,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.141618459902604,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1970874270656,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.007804000133916069,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.19057626580307,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": false,
+          "error": "RuntimeError: Dtype of input tensor of masked_select only support Float32/Int32/Int64, but now it is BFloat16"
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 5.602836608886719e-06,
+            "relative_l2": 1.0477201908050893e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.99995954010122,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 5.602836608886719e-06,
+            "relative_l2": 1.0477201908050893e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.99995954010122,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 5.960464477539063e-08,
+                "relative_l2": 9.810806739895958e-08,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.064890024698879,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.0021628071009,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006779070583376376,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 95.99894726429905,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006913875282006805,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.00265536029875,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 0.03125,
+            "relative_l2": 0.005298850899386231,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.00265536029875,
+            "expected_l2": 95.99894726429905,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.001953125,
+              "relative_l2": 7.404119184740606e-05,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378877329180916,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        }
+      ]
+    },
+    {
+      "run": "v2cpu",
+      "version": "v2",
+      "device": "cpu",
+      "local_evidence": "routes/route2/evidence/backbone-interface/backbone-interface-cpu-v2.json",
+      "evidence_sha256": "1cb64a269306df934e6a219e08a8ff4316f0c13545869257bb13ebc01b383e6e",
+      "actual_argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/model_probes/gr00t_backbone_interface_probe.py",
+        "--device",
+        "cpu",
+        "--output",
+        "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu-v2.json"
+      ],
+      "actual_output_path": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu-v2.json",
+      "combined_stdout_stderr_log": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/cpu-v2.log",
+      "raw_log_exported": false,
+      "exit_code": 0,
+      "json_pass": true,
+      "rows": 8,
+      "passing_rows": 8,
+      "actual_musa_rows": 0,
+      "probe_sha256": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec",
+      "kernel_sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1",
+      "packages": {
+        "torch": "2.2.0a0+git8ac9b20",
+        "torch_musa": "1.3.0",
+        "transformers": "4.51.3",
+        "huggingface_hub": "0.30.2",
+        "tokenizers": "0.21.4",
+        "regex": "2024.11.6",
+        "safetensors": "0.8.0"
+      },
+      "torch_import_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+      "runtime_checked_sources": {
+        "qwen3": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/qwen3/modeling_qwen3.py",
+          "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+        },
+        "siglip": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/siglip/modeling_siglip.py",
+          "sha256": "e8972dfaa3903191b936a76f0887ccf2e6648aa26cbde6a148b24a0c5790ecd2"
+        },
+        "eagle_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+          "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+        },
+        "checkpoint_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+          "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526"
+        }
+      },
+      "no_global_patch": {
+        "registry_before": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_after": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_unchanged": true,
+        "registry_entry_identity_unchanged": {
+          "flash_attention_2": true,
+          "flex_attention": true,
+          "sdpa": true
+        },
+        "source_class_forward_unchanged": true,
+        "flash_attention_available_before": false,
+        "flash_attention_available_after": false
+      },
+      "row_summary": [
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1970874270656,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.007804000133916069,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.19057626580307,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.0021628071009,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006779070583376376,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 95.99894726429905,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        }
+      ]
+    },
+    {
+      "run": "v2musa",
+      "version": "v2",
+      "device": "musa",
+      "local_evidence": "routes/route2/evidence/backbone-interface/backbone-interface-musa-v2.json",
+      "evidence_sha256": "806bdddc06813874928fc9393b8fc6112880e75c62b537fc42995c767588616d",
+      "actual_argv": [
+        "/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python",
+        "/root/autodl-tmp/s4000-research/route2/model_probes/gr00t_backbone_interface_probe.py",
+        "--device",
+        "musa",
+        "--output",
+        "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa-v2.json"
+      ],
+      "actual_output_path": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa-v2.json",
+      "combined_stdout_stderr_log": "/root/autodl-tmp/s4000-research/route2/results/backbone-20261005-first/musa-v2.log",
+      "raw_log_exported": false,
+      "exit_code": 0,
+      "json_pass": true,
+      "rows": 12,
+      "passing_rows": 12,
+      "actual_musa_rows": 4,
+      "probe_sha256": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec",
+      "kernel_sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1",
+      "packages": {
+        "torch": "2.2.0a0+git8ac9b20",
+        "torch_musa": "1.3.0",
+        "transformers": "4.51.3",
+        "huggingface_hub": "0.30.2",
+        "tokenizers": "0.21.4",
+        "regex": "2024.11.6",
+        "safetensors": "0.8.0"
+      },
+      "torch_import_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+      "runtime_checked_sources": {
+        "qwen3": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/qwen3/modeling_qwen3.py",
+          "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+        },
+        "siglip": {
+          "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/siglip/modeling_siglip.py",
+          "sha256": "e8972dfaa3903191b936a76f0887ccf2e6648aa26cbde6a148b24a0c5790ecd2"
+        },
+        "eagle_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+          "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+        },
+        "checkpoint_config": {
+          "path": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+          "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526"
+        }
+      },
+      "no_global_patch": {
+        "registry_before": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_after": [
+          "flash_attention_2",
+          "flex_attention",
+          "sdpa"
+        ],
+        "registry_unchanged": true,
+        "registry_entry_identity_unchanged": {
+          "flash_attention_2": true,
+          "flex_attention": true,
+          "sdpa": true
+        },
+        "source_class_forward_unchanged": true,
+        "flash_attention_available_before": false,
+        "flash_attention_available_after": false
+      },
+      "row_summary": [
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196688528287,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.370481420828966,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.1416184459940202,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "fp32",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 5.125999450683594e-06,
+            "relative_l2": 1.1805958480423613e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196686740574,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 5.125999450683594e-06,
+            "relative_l2": 1.1805958480423613e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 101.19196686740574,
+            "expected_l2": 101.19196688528287,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 1.5497207641601562e-06,
+              "relative_l2": 3.7915780518403225e-07,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 20.37048113024019,
+              "expected_l2": 20.370481420828966,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5828514816219288,
+                "expected_l2": 0.5828514816219288,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 23.84546182264639,
+                "expected_l2": 23.84546182264639,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 2.9802322387695312e-08,
+                "relative_l2": 7.358420847452114e-08,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.141618459902604,
+                "expected_l2": 1.1416184459940202,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1970874270656,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.007804000133916069,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.19057626580307,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900866985,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "qwen3",
+          "dtype": "bf16",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.008204433954713484,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1906378392012,
+            "expected_l2": 101.1970874270656,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 0.03125,
+            "relative_l2": 0.0060291330028357,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 101.1906378392012,
+            "expected_l2": 101.19057626580307,
+            "pass": true
+          },
+          "perturbation_invariance": {
+            "rightpad_perturbed": {
+              "selected_tokens": 20,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            },
+            "future_perturbed": {
+              "selected_tokens": 10,
+              "max_abs": 0.0,
+              "exact_zero": true,
+              "pass": true
+            }
+          },
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 20.378780573680814,
+              "expected_l2": 20.378780573680814,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 2.9802322387695312e-08,
+                "relative_l2": 5.113580920249284e-08,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5828072900868958,
+                "expected_l2": 0.5828072900866985,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 23.844060574637425,
+                "expected_l2": 23.844060574637425,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.1414555888875075,
+                "expected_l2": 1.1414555888875075,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.9999612101984,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.0648900376995039,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "fp32",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 5.602836608886719e-06,
+            "relative_l2": 1.0477201908050893e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.99995954010122,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 5.602836608886719e-06,
+            "relative_l2": 1.0477201908050893e-06,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "actual_l2": 95.99995954010122,
+            "expected_l2": 95.9999612101984,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.0002,
+              "rtol": 0.0002,
+              "relative_l2_limit": 0.0002,
+              "actual_l2": 26.37205216402273,
+              "expected_l2": 26.37205216402273,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 0.5776810925912488,
+                "expected_l2": 0.5776810925912488,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 16.386062340663557,
+                "expected_l2": 16.386062340663557,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 5.960464477539063e-08,
+                "relative_l2": 9.810806739895958e-08,
+                "atol": 0.0002,
+                "rtol": 0.0002,
+                "relative_l2_limit": 0.0002,
+                "actual_l2": 1.064890024698879,
+                "expected_l2": 1.0648900376995039,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "native_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.0,
+            "relative_l2": 0.0,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.0021628071009,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_cpu",
+          "device": "cpu",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006779070583376376,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 95.99894726429905,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378897357909363,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        },
+        {
+          "family": "siglip",
+          "dtype": "bf16",
+          "kind": "fallback_musa",
+          "device": "musa",
+          "pass": true,
+          "valid_token_forward": {
+            "finite": true,
+            "max_abs": 0.046875,
+            "relative_l2": 0.006913875282006805,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.00265536029875,
+            "expected_l2": 96.0021628071009,
+            "pass": true
+          },
+          "cpu_fallback_peer_forward": {
+            "finite": true,
+            "max_abs": 0.03125,
+            "relative_l2": 0.005298850899386231,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "actual_l2": 96.00265536029875,
+            "expected_l2": 95.99894726429905,
+            "pass": true
+          },
+          "perturbation_invariance": {},
+          "blocked_attention_probabilities_exact_zero": true,
+          "source_binding_invariants_pass": true,
+          "all_backbone_parameter_grads_none": true,
+          "output_requires_grad": false,
+          "trainable_backbone_parameter_count": 0,
+          "backbone_state_matches_cpu_template": true,
+          "projection_state_matches_cpu_template": true,
+          "projection_comparison": {
+            "forward": {
+              "finite": true,
+              "max_abs": 0.001953125,
+              "relative_l2": 7.404119184740606e-05,
+              "atol": 0.025,
+              "rtol": 0.04,
+              "relative_l2_limit": 0.04,
+              "actual_l2": 26.378877329180916,
+              "expected_l2": 26.378897357909363,
+              "pass": true
+            },
+            "vjp": {
+              "feature_leaf": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 0.5776938955196983,
+                "expected_l2": 0.5776938955196983,
+                "pass": true
+              },
+              "weight": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 16.385916507945318,
+                "expected_l2": 16.385916507945318,
+                "pass": true
+              },
+              "bias": {
+                "finite": true,
+                "max_abs": 0.0,
+                "relative_l2": 0.0,
+                "atol": 0.025,
+                "rtol": 0.04,
+                "relative_l2_limit": 0.04,
+                "actual_l2": 1.064824940713609,
+                "expected_l2": 1.064824940713609,
+                "pass": true
+              }
+            },
+            "pass": true
+          }
+        }
+      ]
+    }
+  ],
+  "exit_codes": {
+    "v1cpu": 0,
+    "v1musa": 1,
+    "v2cpu": 0,
+    "v2musa": 0
+  },
+  "script_versions": [
+    {
+      "version": "v1",
+      "files": [
+        {
+          "path": "routes/route2/model_probes/versions/backbone-interface-v1/gr00t_backbone_interface_probe.py",
+          "sha256": "e136cc33b556d1e20bb09051d4126add048cfc68ca3bec6bdc97bf7d950bb514"
+        },
+        {
+          "path": "routes/route2/model_probes/versions/backbone-interface-v1/fp32_backbone_attention.py",
+          "sha256": "ee6caf6745a92cf9b339a70c71067fb562730f4fe14fea80cfed2450d6ceef01"
+        }
+      ]
+    },
+    {
+      "version": "v2",
+      "files": [
+        {
+          "path": "routes/route2/model_probes/gr00t_backbone_interface_probe.py",
+          "sha256": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec"
+        },
+        {
+          "path": "routes/route2/model_probes/fp32_backbone_attention.py",
+          "sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1"
+        }
+      ]
+    }
+  ],
+  "transformers_commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
+  "checkpoint_commit": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "config_audit": {
+    "path": "routes/route2/model_probes/backbone_sources/backbone-config-audit.json",
+    "sha256": "808ddb25e59f00af54bdac744d37a372c29b9e867866203b869b8f7e85baaff8"
+  },
+  "v2_required_gates": {
+    "cpu_rows": 8,
+    "musa_runner_rows": 12,
+    "actual_musa_rows": 4,
+    "all_rows_finite": true,
+    "all_state_hashes_match": true,
+    "all_backbone_parameters_frozen_grad_none": true,
+    "all_source_binding_invariants_pass": true,
+    "all_masked_probabilities_exact_zero": true,
+    "all_qwen_padding_future_invariance_exact_zero": true,
+    "all_registry_entries_class_forward_fa_unchanged": true
+  },
+  "thresholds": {
+    "fp32": {
+      "atol": 0.0002,
+      "rtol": 0.0002,
+      "relative_l2_limit": 0.0002
+    },
+    "bf16": {
+      "atol": 0.025,
+      "rtol": 0.04,
+      "relative_l2_limit": 0.04
+    },
+    "allclose_rule": "abs(error) <= atol + rtol*abs(reference); max_abs is reported separately, not an independent atol-only gate"
+  },
+  "musa_max_errors": {
+    "fp32": {
+      "max_feature_forward_abs": 5.602836608886719e-06,
+      "max_feature_forward_relative_l2": 1.1805958480423613e-06,
+      "max_projection_forward_abs": 1.5497207641601562e-06,
+      "max_projection_forward_relative_l2": 3.7915780518403225e-07,
+      "max_projection_vjp_abs": 5.960464477539063e-08,
+      "max_projection_vjp_relative_l2": 9.810806739895958e-08
+    },
+    "bf16": {
+      "max_feature_forward_abs": 0.046875,
+      "max_feature_forward_relative_l2": 0.008204433954713484,
+      "max_projection_forward_abs": 0.001953125,
+      "max_projection_forward_relative_l2": 7.404119184740606e-05,
+      "max_projection_vjp_abs": 2.9802322387695312e-08,
+      "max_projection_vjp_relative_l2": 5.113580920249284e-08
+    }
+  },
+  "v1_successful_row_hashes_unchanged_in_v2": [
+    {
+      "runner_device": "cpu",
+      "family": "qwen3",
+      "dtype": "fp32",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "qwen3",
+      "dtype": "fp32",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "qwen3",
+      "dtype": "bf16",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "qwen3",
+      "dtype": "bf16",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "siglip",
+      "dtype": "fp32",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "siglip",
+      "dtype": "fp32",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "siglip",
+      "dtype": "bf16",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "cpu",
+      "family": "siglip",
+      "dtype": "bf16",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "qwen3",
+      "dtype": "fp32",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "qwen3",
+      "dtype": "fp32",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "qwen3",
+      "dtype": "fp32",
+      "kind": "fallback_musa",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "qwen3",
+      "dtype": "bf16",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "qwen3",
+      "dtype": "bf16",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "fp32",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "fp32",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "fp32",
+      "kind": "fallback_musa",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "bf16",
+      "kind": "native_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "bf16",
+      "kind": "fallback_cpu",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    },
+    {
+      "runner_device": "musa",
+      "family": "siglip",
+      "dtype": "bf16",
+      "kind": "fallback_musa",
+      "feature_output_hash_equal": true,
+      "projection_output_hash_equal": true,
+      "projection_gradient_hashes_equal": true
+    }
+  ],
+  "limits": [
+    "Tiny random two-layer Qwen3Model H4/KV2/D128 and SiglipVisionModel H4/D72 only",
+    "Backbone frozen no_grad, no backbone backward; projection VJP uses independent synthetic Linear and detached identical CPU reference features",
+    "Official checkpoint project_to_dim=null gives Identity, not the synthetic projection",
+    "No full Eagle/RADIO constructor, connector, image processor, dynamic tiling, checkpoint weights, full widths/depths or end-to-end570-token model",
+    "No optimizer update, throughput benchmark, rollout/PPO, task success rate or learning conclusion",
+    "Nested NVEagle API returned401; name Siglip2 alone does not prove model class or weights architecture",
+    "Installed Transformers modeling file and config hashes verified; installed Isaac-GR00T source identity not validated"
+  ]
+}

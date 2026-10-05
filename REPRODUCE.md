@@ -119,3 +119,41 @@ bash scripts/prepare_route2_model_env.sh
 ```
 
 该脚本使用随机权重，不下载模型 checkpoint。预期原始 `required_interfaces_pass=false`，失败仅在解析零 bias 的 relative-L2；独立 `semantic_interfaces_pass=true` 还要求这些 bias 的 actual/reference 梯度均 finite 且绝对值在原阈值内。退出码仍按原 strict gate 返回1，不把语义结果伪装成原总门槛通过。所有输出、输入/非零参数 VJP 与 mask 合约沿用原数值门槛，见 [action 接口记录](routes/route2/planning/action-interface-probe.md)。
+
+## 8. 独立进程 checkpoint
+
+同进程探针字节和证据不变；新探针将 save/restore 拆成两个 Python 命令、两个真实 RLinf Worker。两种格式已在 S4000 上通过完整状态、四类 RNG 与下一步 exact 恢复。继续使用 checkpoint 增量源码和既有 route2 环境；reference 是 CPU 断言 oracle，不能替代真实 checkpoint load。
+
+```bash
+for format in local_shard dcp; do
+  for phase in save restore; do
+    RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 \
+      "$ROUTE2_PYTHON" routes/route2/fsdp_probes/checkpoint_process_probe.py \
+      --source "$ROUTE2_CHECKPOINT_SOURCE" --phase "$phase" --format "$format" \
+      --enable-torch22 --checkpoint-dir "$PWD/results/process-new/$format" \
+      --reference-file "$PWD/results/process-new/$format.reference.pt" || exit
+  done
+done
+```
+
+每次使用从未存在的输出路径。save 完全退出后才执行 restore，reference 放在 checkpoint 目录外。完整路径、SHA256、进程身份和范围见 [跨进程说明](routes/route2/fsdp_probes/checkpoint-process-README.md)。本轮同 host/boot、同型号设备/local index、world size 1/FP32/NO_SHARD；不是多卡或设备迁移结果。
+
+## 9. 冻结骨干组件对照
+
+恢复固定 Eagle config（其他模型源文件仅用于审计；运行使用 hash-checked installed Transformers），准备隔离依赖环境后顺序执行：
+
+```bash
+python3 scripts/restore_model_audit.py \
+  --repo NVIDIA/Isaac-GR00T --path gr00t/model/backbone/eagle2_hg_model/config.json
+bash scripts/prepare_route2_backbone_env.sh
+/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python \
+  routes/route2/model_probes/gr00t_backbone_interface_probe.py \
+  --device cpu --output results/backbone-cpu.json
+/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python \
+  routes/route2/model_probes/gr00t_backbone_interface_probe.py \
+  --device musa --output results/backbone-musa.json
+```
+
+当前v2脚本CPU8/8、CPU/MUSA整组12/12通过；此前v1 Qwen3 BF16 MUSA因诊断 masked_select 不支持BF16退出1，旧脚本/false证据保留。v2仅将被屏蔽概率的只读检查转FP32，并增加绑定及全局注册表identity检查；attention数学、VJP与容差不变。默认需要随包固定的 Spatial config 和 hash核验通过的Eagle config。Torch-MUSA仍来自原系统环境，无Toolkit或driver升级。
+
+范围是随机两层真实Qwen3Model/SiglipVisionModel的冻结前向，以及同CPU-reference feature上的独立synthetic Linear VJP；不是checkpoint的Identity投影参数更新，也不是完整Eagle/GR00T。详细源码路径、dtype门槛、失败与版本记录见 [骨干探针](routes/route2/planning/backbone-interface-probe.md)。

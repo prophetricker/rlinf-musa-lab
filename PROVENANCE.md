@@ -23,3 +23,5 @@
 官方 MUSA 支持的参考：[#1464](https://github.com/RLinf/RLinf/pull/1464)、[#1578](https://github.com/RLinf/RLinf/pull/1578)、[GR00T 配方](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/gr00t.html)。这些上游记录不替代本项目 S4000/旧栈的具体实测。
 
 FSDP1 增量对应本地提交 `f9b74d95f97ad4234311580ab32c7b586e1dc7af`，独立 patch SHA256 `f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4`，不覆盖 Worker 学习基线。实际复测版本由 source/probe hash 关联；历史失败补丁保存在 `fsdp_probes/history/`。
+
+新增跨进程checkpoint探针保留旧helper与生产补丁，结果由四份save/restore JSONL及独立run-validation关联。骨干组件使用Transformers4.51.3固定源码和公开Spatial配置；downloaded source只按manifest恢复，probe的实例kernel基于Apache-2.0的Transformers合约并保留来源注释。旧v1源码与失败证据保留在versions/evidence中。新增环境准备与导出验证脚本、三个环境锁分别来自研究仓库同路径。

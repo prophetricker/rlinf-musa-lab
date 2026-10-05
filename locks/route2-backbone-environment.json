@@ -1,0 +1,39 @@
+{
+  "scope": "isolated import and exact package/source inventory; no weights or GPU tensor execution",
+  "python": "3.10.8 (main, Nov 24 2022, 14:13:03) [GCC 11.2.0]",
+  "platform": "Linux-5.15.0-105-generic-x86_64-with-glibc2.35",
+  "executable": "/root/autodl-tmp/s4000-research/envs/route2-backbone/bin/python",
+  "versions": {
+    "torch": "2.2.0a0+git8ac9b20",
+    "torch_musa": "1.3.0",
+    "transformers": "4.51.3",
+    "huggingface_hub": "0.30.2",
+    "tokenizers": "0.21.4",
+    "regex": "2024.11.6",
+    "safetensors": "0.8.0",
+    "numpy": "1.26.4",
+    "torchvision": "0.17.2+c1d70fe"
+  },
+  "runtime": {
+    "torch": "2.2.0",
+    "torch_musa": "1.3.0+81caf0a"
+  },
+  "source_files": {
+    "torch": {
+      "path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+      "sha256": "684e686bef4e6b503bbb90afd86b16ec443489603584a5d8a9e2b36968143a8c"
+    },
+    "torch_musa": {
+      "path": "/root/miniconda3/lib/python3.10/site-packages/torch_musa/__init__.py",
+      "sha256": "fa412bf76aaba67a428cdeb196cd00305c8853a652b507de0f0f616702aa4e77"
+    },
+    "qwen3": {
+      "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/qwen3/modeling_qwen3.py",
+      "sha256": "704c914530530a1acb0b443add1f520404e3ac2c28c0ab7e16f80f86cfe8ccb2"
+    },
+    "siglip": {
+      "path": "/root/autodl-tmp/s4000-research/envs/route2-backbone/lib/python3.10/site-packages/transformers/models/siglip/modeling_siglip.py",
+      "sha256": "e8972dfaa3903191b936a76f0887ccf2e6648aa26cbde6a148b24a0c5790ecd2"
+    }
+  }
+}

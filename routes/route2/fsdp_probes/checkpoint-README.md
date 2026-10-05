@@ -4,6 +4,8 @@
 
 2026-10-05 实机 CPU/Gloo 两种格式 **2/2 通过**，MUSA/MCCL 的 local_shard 与独立 DCP **均通过**；原始证据见 [checkpoint-cpu-first.txt](../evidence/fsdp1/checkpoint-cpu-first.txt)、[checkpoint-local-first.jsonl](../evidence/fsdp1/checkpoint-local-first.jsonl) 和 [checkpoint-dcp-first.jsonl](../evidence/fsdp1/checkpoint-dcp-first.jsonl)。两种格式恢复与下一步参数/Adam/scheduler 完全一致，四类 RNG state 和 next samples 完全一致；主动裁剪把 norm `12.79 / 19.06` 降至 `0.25`，CPU 参数最大误差 `1.49e-8`。DCP 实际使用默认 MCCL group、Stateful 和 FileSystemWriter/Reader，没有 no_dist 或 Gloo 替代。
 
+同日新增的独立 [checkpoint_process_probe.py](checkpoint_process_probe.py) 又分别通过 local_shard 与 DCP 的跨进程节点：save/restore 为不同 driver 与真实 MUSA Worker，四条命令 exit 0（协调者确认），第1步完整状态、四类 RNG/next samples、继续更新后的参数/Adam/scheduler 均 exact，继续训练参数与 optimizer 最大误差为 `0.0`。原始记录和完整命令见 [checkpoint-process-README.md](checkpoint-process-README.md)，哈希与本地备份核验见 [checkpoint-process-run-validation.json](checkpoint-process-run-validation.json)。旧 probe 的同 Worker 结果保持 `fresh_process=false`，没有改写历史记录。
+
 先跑 imports 与 CPU/Gloo 回归，然后由协调者单卡顺序跑 local_shard、dcp。每种格式一个命令、一个新目录；探针拒绝复用任何已存在的 checkpoint 目录，不覆盖历史文件。
 
 ## 1. 实际导入与签名
@@ -70,8 +72,8 @@ Torch 2.2（包括厂商 prerelease 字符串）使用真正的 `dcp.FileSystemW
 
 所有阶段先输出紧凑 started 记录，异常保留实际 traceback，最终只在所有对照通过后输出 pass JSON，包括源文件与 probe hashes、实际文件及大小、恢复范围和主动裁剪数据。协调者保留 stdout/stderr 后摘取 JSON，避免 Ray 日志被当作结果。若 save/load 失败，依据最后 stage 与 traceback 定位；CPU/Gloo 成功不能替代 MUSA/MCCL 成功。
 
-跨进程恢复不在当前脚本中追加，以免改变已验证 probe 的哈希。拆分方案见 [checkpoint-process-plan.md](checkpoint-process-plan.md)：save 与 restore 使用两个独立命令和独立 reference artifact，先 local_shard 再 DCP。
+跨进程恢复不在当前脚本中追加，以免改变已验证 probe 的哈希。新的独立脚本与四个命令见 [checkpoint-process-README.md](checkpoint-process-README.md)：save 与 restore 使用两个独立命令和独立 reference artifact，先 local_shard 再 DCP；设计依据见 [checkpoint-process-plan.md](checkpoint-process-plan.md)。
 
 ## 5. 本轮边界
 
-静态证据保存为 [checkpoint-static-validation.json](checkpoint-static-validation.json)。本地未安装 Torch 或运行测试，远程 GPU 由协调者执行。该实现暂不涉及 Manager、官方 Actor、PPO、simulator、offload、mixed precision、真实多卡分片、跨进程恢复、world-size 变化或 full_weights 导出。后续跨进程方案仍见 [checkpoint-plan.md](checkpoint-plan.md)。
+静态证据保存为 [checkpoint-static-validation.json](checkpoint-static-validation.json)。本地未安装 Torch 或运行测试，远程 GPU 由协调者执行。同 Worker 新对象恢复与独立跨进程恢复均已通过；本节点暂不涉及 Manager、官方 Actor、PPO、simulator、offload、mixed precision、真实多卡分片、world-size 变化、设备迁移或 full_weights 导出。设计依据见 [checkpoint-plan.md](checkpoint-plan.md) 与 [checkpoint-process-plan.md](checkpoint-process-plan.md)。

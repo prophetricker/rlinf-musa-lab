@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-05",
+  "validation_kind": "local_static_only",
+  "probe_sha256": "280e0efd3a2e85c6beb157712ce1d68a3b9f34375d5f7763f6530538f7c1a17f",
+  "checks": [
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_process_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "format",
+        "--check",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_process_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "1 file already formatted\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/ez/Macproject/研究具身智能/rlinf+lambda-sim研究/routes/route2/fsdp_probes/checkpoint_process_probe.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: checkpoint_process_probe.py [-h] --source SOURCE --phase {save,restore}\n                                   --format {local_shard,dcp} --checkpoint-dir\n                                   CHECKPOINT_DIR --reference-file\n                                   REFERENCE_FILE [--enable-torch22]\n\nProbe real MUSA FSDP1 checkpoint continuation across two independent commands.\nThe coordinator runs save to completion, then restore with the same format,\ncheckpoint directory, reference file and source. Each command creates a\nseparate driver and real RLinf Worker. The CPU reference artifact is an\nassertion oracle; only the actual strategy checkpoint supplies restored\ntraining state.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --source SOURCE\n  --phase {save,restore}\n  --format {local_shard,dcp}\n  --checkpoint-dir CHECKPOINT_DIR\n  --reference-file REFERENCE_FILE\n  --enable-torch22\n",
+      "stderr": ""
+    },
+    {
+      "command": "AST parse new process probe",
+      "exit_code": 0
+    },
+    {
+      "command": "py_compile new process probe to temporary directory",
+      "exit_code": 0
+    },
+    {
+      "command": "verify helper and both production patches remain byte-identical",
+      "exit_code": 0
+    },
+    {
+      "command": "verify six production source files match prior verified DCP evidence",
+      "exit_code": 0
+    }
+  ],
+  "preserved_file_sha256": {
+    "routes/route2/fsdp_probes/checkpoint_probe.py": "da07c5591fe6d50a2eb8983cd706f117762720cfa4b37d44c8527820c8772a79",
+    "routes/route2/patches/checkpoint-compat.patch": "87e8339cec1a815bae634da3b6bbf1ad3d85c40bc5350da566f7b2fcb43da8d9",
+    "routes/route2/patches/fsdp1-experimental.patch": "f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4"
+  },
+  "production_source_file_sha256": {
+    "rlinf/hybrid_engines/fsdp/__init__.py": "40a8ab4bd24f4c559e888602e54f4d318c6653e6c327ad93f336f7b7e0320dae",
+    "rlinf/hybrid_engines/fsdp/strategy/base.py": "61cfe424bd57371409d0fee61f443dd0aef439350f45b99f2b261a271eab14bf",
+    "rlinf/hybrid_engines/fsdp/strategy/checkpoint.py": "3ea682b6a600f67bd286f5425fdfbb05d8a37981db9b4909c27e82ce2b74d799",
+    "rlinf/hybrid_engines/fsdp/strategy/fsdp.py": "526bcc946be7c8e352aca92ff636a6ae4d5949f697a5b88ccc231f4fd9f49177",
+    "rlinf/hybrid_engines/fsdp/utils.py": "a31703d407de4592762370324ea17ceb6fc0eb1b869ad8a33880619b6fddfb3d",
+    "rlinf/utils/utils.py": "2a53d543a552ae59ce5ed920ff4b16b13aa2cabbaa77b28e84dc0c96d8685c8c"
+  },
+  "python": {
+    "executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "dependencies_present": {
+    "torch": false,
+    "torch_musa": false,
+    "ray": false,
+    "omegaconf": false
+  },
+  "linux_process_identity_execution_on_local_mac": false,
+  "remote_executed_by_this_agent": false,
+  "gpu_executed_by_this_agent": false,
+  "git_invoked": false,
+  "runtime_save_restore_result": "pass: coordinator verified local_shard and dcp across independent driver/Worker processes; four commands exit 0",
+  "intended_scope": "separate driver commands and separate real MUSA Workers; one host/boot/runtime/device model/index; FP32 NO_SHARD; exact model/Adam/scheduler/four RNG continuation",
+  "identity_scope": "saved driver finished; saved/current drivers and Workers differ by boot_id/PID/start_ticks; old Worker completion not required",
+  "commands": "routes/route2/fsdp_probes/checkpoint-process-README.md",
+  "coordinator_runtime_validation": {
+    "path": "routes/route2/fsdp_probes/checkpoint-process-run-validation.json",
+    "sha256": "716881bbdd59d8a5f8c5441974f381f085e6064b60ce4c28a39f4964b9207fa0",
+    "all_four_commands_exit_zero": true,
+    "exit_code_source": "coordinator /root report; not inferred from JSONL",
+    "formats": [
+      "local_shard",
+      "dcp"
+    ],
+    "restored_step1_state_exact": true,
+    "continued_model_optimizer_scheduler_exact": true,
+    "rng_states_samples_and_continuation_exact": true,
+    "local_backup_manifest_and_file_hashes_verified": true
+  }
+}

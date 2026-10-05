@@ -1,25 +1,215 @@
 {
-  "retrieved_utc": "2026-10-05T04:34:26Z",
+  "hf_checkpoint": {
+    "retrieved_utc": "2026-10-05T09:33:19.696675+00:00",
+    "api_url": "https://huggingface.co/api/models/RLinf/RLinf-Gr00t-SFT-Spatial",
+    "canonical_repo": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial",
+    "sha": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+    "files": [
+      {
+        "file": "checkpoint-config.json",
+        "url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/config.json",
+        "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526",
+        "bytes": 1706
+      }
+    ]
+  },
+  "nested_repo_observation": {
+    "url": "https://huggingface.co/api/models/NVEagle/eagle_er-qwen3_1_7B-Siglip2_400M_stage1_5_128gpu_er_v7_1mlp_nops",
+    "http_status": 401,
+    "auth_used": false,
+    "nested_config_obtained": false,
+    "interpretation": "Repository name alone does not prove Siglip2VisionModel or pretrained weight architecture."
+  },
   "rlinf_upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
-  "sources": [
+  "rlinf_compat_baseline": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+  "rlinf_local_read_sources": [
     {
-      "repo": "NVIDIA/Isaac-GR00T",
-      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
-      "path": "gr00t/model/action_head/cross_attention_dit.py",
-      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/action_head/cross_attention_dit.py",
-      "transport_prefix": "https://gh-proxy.com/",
-      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py",
-      "sha256": "1366e3f80c0e076953965eeb43d800cb354fdcdf681ab54f0c2ad8f1d6c9fe62"
+      "file": "worktrees/rlinf-route2/examples/embodiment/config/libero_spatial_ppo_gr00t.yaml",
+      "sha256": "c7923bfaa7cb28609aeb0bc0a3ce84e61501fa7cb07665ca79f4e68a232903a8"
     },
     {
-      "repo": "NVIDIA/Isaac-GR00T",
-      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
-      "path": "gr00t/model/action_head/flow_matching_action_head.py",
-      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/action_head/flow_matching_action_head.py",
-      "transport_prefix": "https://gh-proxy.com/",
-      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/flow_matching_action_head.py",
-      "sha256": "8a8e6cf7ec63e2a335559990c4ab62bbb81e487d82ea4a969f452a93e0dbdd69"
+      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py",
+      "sha256": "a47e7dc68840f32c57c807e643ed2b54fd3b9f77a43502ab0a226973155f76ec"
+    }
+  ],
+  "fixed_gr00t_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+  "fixed_source_behavior": {
+    "eagle_path_argument_used": false,
+    "config_loading": "DEFAULT_EAGLE_PATH gr00t/model/backbone/eagle2_hg_model",
+    "qwen_class": "Qwen3ForCausalLM",
+    "vision_class": "SiglipVisionModel",
+    "vision_hardcodes_flash_attention_2": true,
+    "radio_imported_at_module_top_level": true,
+    "full_eagle_loaded_in_probe": false,
+    "rlinf_tune_overrides": {
+      "tune_visual": false,
+      "tune_llm": false
+    }
+  },
+  "official_checkpoint_config": {
+    "action_dim": 32,
+    "action_head_cfg": {
+      "action_dim": 32,
+      "action_horizon": 16,
+      "add_pos_embed": true,
+      "backbone_embedding_dim": 2048,
+      "diffusion_model_cfg": {
+        "attention_head_dim": 48,
+        "cross_attention_dim": 2048,
+        "dropout": 0.2,
+        "final_dropout": true,
+        "interleave_self_attention": true,
+        "norm_type": "ada_norm",
+        "num_attention_heads": 32,
+        "num_layers": 16,
+        "output_dim": 1024,
+        "positional_embeddings": null
+      },
+      "hidden_size": 1024,
+      "input_embedding_dim": 1536,
+      "max_action_dim": 32,
+      "max_state_dim": 64,
+      "model_dtype": "float32",
+      "noise_beta_alpha": 1.5,
+      "noise_beta_beta": 1.0,
+      "noise_s": 0.999,
+      "num_inference_timesteps": 4,
+      "num_target_vision_tokens": 32,
+      "num_timestep_buckets": 1000,
+      "tune_diffusion_model": true,
+      "tune_projector": true,
+      "use_vlln": true,
+      "vl_self_attention_cfg": {
+        "attention_head_dim": 64,
+        "dropout": 0.2,
+        "final_dropout": true,
+        "num_attention_heads": 32,
+        "num_layers": 4,
+        "positional_embeddings": null
+      }
     },
+    "action_horizon": 16,
+    "architectures": [
+      "GR00T_N1_5"
+    ],
+    "attn_implementation": null,
+    "backbone_cfg": {
+      "eagle_path": "NVEagle/eagle_er-qwen3_1_7B-Siglip2_400M_stage1_5_128gpu_er_v7_1mlp_nops",
+      "load_bf16": false,
+      "project_to_dim": null,
+      "reproject_vision": false,
+      "select_layer": 12,
+      "tune_llm": false,
+      "tune_visual": true,
+      "use_flash_attention": true
+    },
+    "compute_dtype": "bfloat16",
+    "hidden_size": 2048,
+    "model_dtype": "float32",
+    "model_type": "gr00t_n1_5",
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.51.3"
+  },
+  "fixed_eagle_config": {
+    "_attn_implementation": "flash_attention_2",
+    "_commit_hash": null,
+    "architectures": [
+      "Eagle2_5_VLForConditionalGeneration"
+    ],
+    "auto_map": {
+      "AutoConfig": "configuration_eagle2_5_vl.Eagle2_5_VLConfig",
+      "AutoModel": "modeling_eagle2_5_vl.Eagle2_5_VLForConditionalGeneration"
+    },
+    "downsample_ratio": 0.5,
+    "dynamic_image_size": true,
+    "force_image_size": 224,
+    "image_token_index": 151669,
+    "loss_version": "efficient_v2_cp_head",
+    "max_dynamic_tiles": 12,
+    "min_dynamic_tiles": 1,
+    "mlp_checkpoint": false,
+    "mlp_connector_layers": 1,
+    "model_type": "eagle_2_5_vl",
+    "pad2square": false,
+    "select_layer": -1,
+    "template": "qwen3-chat",
+    "text_config": {
+      "_attn_implementation_autoset": true,
+      "_name_or_path": "Qwen/Qwen3-1.7B",
+      "architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "attention_bias": false,
+      "attention_dropout": 0,
+      "bos_token_id": 151643,
+      "eos_token_id": 151645,
+      "head_dim": 128,
+      "hidden_act": "silu",
+      "hidden_size": 2048,
+      "initializer_range": 0.02,
+      "intermediate_size": 6144,
+      "max_position_embeddings": 40960,
+      "max_window_layers": 28,
+      "model_type": "qwen3",
+      "num_attention_heads": 16,
+      "num_hidden_layers": 28,
+      "num_key_value_heads": 8,
+      "rms_norm_eps": 1e-06,
+      "rope_scaling": null,
+      "rope_theta": 1000000,
+      "sliding_window": null,
+      "tie_word_embeddings": true,
+      "torch_dtype": "bfloat16",
+      "use_cache": false,
+      "use_sliding_window": false,
+      "vocab_size": 151680
+    },
+    "torch_dtype": "bfloat16",
+    "transformers_version": null,
+    "use_backbone_lora": 0,
+    "use_llm_lora": 0,
+    "use_pixel_shuffle": false,
+    "use_thumbnail": true,
+    "vision_config": {
+      "_attn_implementation_autoset": true,
+      "attention_dropout": 0,
+      "hidden_act": "gelu_pytorch_tanh",
+      "hidden_size": 1152,
+      "image_size": 224,
+      "intermediate_size": 4304,
+      "layer_norm_eps": 1e-06,
+      "model_type": "siglip_vision_model",
+      "num_attention_heads": 16,
+      "num_channels": 3,
+      "num_hidden_layers": 27,
+      "patch_size": 14,
+      "torch_dtype": "bfloat16"
+    }
+  },
+  "actual_head_geometry": {
+    "llm": {
+      "heads": 16,
+      "kv_heads": 8,
+      "head_dim": 128,
+      "hidden": 2048
+    },
+    "vision": {
+      "heads": 16,
+      "head_dim": 72,
+      "hidden": 1152
+    },
+    "action_cross": {
+      "heads": 32,
+      "head_dim": 48,
+      "cross_dim": 2048
+    },
+    "vl_self": {
+      "heads": 32,
+      "head_dim": 64
+    }
+  },
+  "checkpoint_projection": "project_to_dim=null => EagleBackbone.eagle_linear = Identity; independent synthetic probe Linear is not this checkpoint projector.",
+  "source_pins": [
     {
       "repo": "NVIDIA/Isaac-GR00T",
       "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
@@ -57,15 +247,6 @@
       "sha256": "5a4338eb7617606565189b3cec9827c4ca2559c9178ae3a9873e6fb37724d514"
     },
     {
-      "repo": "NVIDIA/Isaac-GR00T",
-      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
-      "path": "gr00t/model/gr00t_n1.py",
-      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/gr00t_n1.py",
-      "transport_prefix": "https://gh-proxy.com/",
-      "file": "routes/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/gr00t_n1.py",
-      "sha256": "1b4a9653f3818f7417f2e99aa558be0abf19dc1cd05e3d026a987dde294f8138"
-    },
-    {
       "repo": "huggingface/transformers",
       "commit": "5f4ecf2d9f867a1255131d2461d75793c0cf1db2",
       "path": "src/transformers/models/qwen2/modeling_qwen2.py",
@@ -100,24 +281,6 @@
       "transport_prefix": "https://gh-proxy.com/",
       "file": "routes/route2/model_probes/audit_sources/transformers/src/transformers/integrations/sdpa_attention.py",
       "sha256": "5a2d607459531430503dd3cb1adc8778885037c1d0be7e6ca0e82a1a852f4d8b"
-    },
-    {
-      "repo": "huggingface/diffusers",
-      "commit": "f63c12633f154c2a1d79c17f4238fb073133652c",
-      "path": "src/diffusers/models/attention_processor.py",
-      "url": "https://raw.githubusercontent.com/huggingface/diffusers/f63c12633f154c2a1d79c17f4238fb073133652c/src/diffusers/models/attention_processor.py",
-      "transport_prefix": "https://gh-proxy.com/",
-      "file": "routes/route2/model_probes/audit_sources/diffusers/src/diffusers/models/attention_processor.py",
-      "sha256": "afe47ff6d33c865af745e28eed4bd8048b66fd52de7c2b3bad37867e826776c9"
-    },
-    {
-      "repo": "huggingface/diffusers",
-      "commit": "f63c12633f154c2a1d79c17f4238fb073133652c",
-      "path": "src/diffusers/models/attention.py",
-      "url": "https://raw.githubusercontent.com/huggingface/diffusers/f63c12633f154c2a1d79c17f4238fb073133652c/src/diffusers/models/attention.py",
-      "transport_prefix": "https://gh-proxy.com/",
-      "file": "routes/route2/model_probes/audit_sources/diffusers/src/diffusers/models/attention.py",
-      "sha256": "6c562515fe3a168e91e9bb35cef4cbaaf8dc0de6f95e6679ac89c1d649a9d7e5"
     },
     {
       "repo": "huggingface/transformers",
@@ -192,41 +355,44 @@
       "sha256": "fe2f64e96d6107399b3d50c85e018e51dec29569b477fb7fe705a495d9aed535"
     }
   ],
-  "local_read_sources": [
-    {
-      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py",
-      "sha256": "a47e7dc68840f32c57c807e643ed2b54fd3b9f77a43502ab0a226973155f76ec",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+  "tiny_model_scope": {
+    "qwen3": {
+      "heads": 4,
+      "kv_heads": 2,
+      "head_dim": 128,
+      "hidden": 512,
+      "layers": 2,
+      "vocab": 256,
+      "sequence": 13,
+      "lengths": [
+        9,
+        11
+      ],
+      "rope_theta": 1000000.0,
+      "rms_norm_eps": 1e-06,
+      "cache": false,
+      "sliding_window": null
     },
-    {
-      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py",
-      "sha256": "05ee691b3e9d2e8f59361b1726fa05e3451840c5252f0a9e34e6f23c93a5f316",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
+    "siglip": {
+      "heads": 4,
+      "head_dim": 72,
+      "hidden": 288,
+      "layers": 2,
+      "image": 56,
+      "patch": 14,
+      "tokens": 16,
+      "layer_norm_eps": 1e-06,
+      "hidden_act": "gelu_pytorch_tanh",
+      "vision_use_head": false
     },
-    {
-      "file": "worktrees/rlinf-route2/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py",
-      "sha256": "ef87783a8a756e4a20c8e1335f2a25b81015a52fa589b386917254d29e0fec7f",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
-    },
-    {
-      "file": "worktrees/rlinf-route2/rlinf/utils/attention.py",
-      "sha256": "8eb175287efcb7e36d0ecbf1bf0ef1e88071b43efe43cc84366654b63d7e63a7",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
-    },
-    {
-      "file": "worktrees/rlinf-route2/requirements/embodied/models/gr00t.txt",
-      "sha256": "654116c1b2dc384c334aae4b5e62b38a31134592e1d8347bd0e7210763bb0bb7",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
-    },
-    {
-      "file": "worktrees/rlinf-route2/requirements/install.sh",
-      "sha256": "e98805bd5e8454eb366d72175bc85ac8d4fa47eee83d1f9294e7b866e1059f31",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
-    },
-    {
-      "file": "worktrees/rlinf-route2/examples/embodiment/config/model/gr00t.yaml",
-      "sha256": "8effbb7e68c8788c54a70d84a36628162552b9d3e479fde867fad565ba8926aa",
-      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d"
-    }
-  ]
+    "frozen": true,
+    "independent_projection_output_dim": 64
+  },
+  "isolated_dependency_pins": {
+    "transformers": "4.51.3",
+    "huggingface_hub": "0.30.2",
+    "tokenizers": "0.21.4",
+    "regex": "2024.11.6"
+  },
+  "validation_status": "Probe AST/help passed locally; Torch runtime execution belongs to coordinator. No installed GR00T source or checkpoint weights validated by this audit."
 }

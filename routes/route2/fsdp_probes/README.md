@@ -1,6 +1,6 @@
 # 路线 2：真实 RLinf FSDP1 最小实验
 
-2026-10-05 已在 S4000 实机完成真实 RLinf FSDP1 单卡 FP32 NO_SHARD 更新，CPU 回归为 9/9 通过；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 保存、恢复和继续更新也通过。实机证据见 [strategy-third.jsonl](../evidence/fsdp1/strategy-third.jsonl)、[checkpoint-local-first.jsonl](../evidence/fsdp1/checkpoint-local-first.jsonl) 和 [checkpoint-dcp-first.jsonl](../evidence/fsdp1/checkpoint-dcp-first.jsonl)。当前仍未执行 Manager、官方 Actor、PPO、offload、多 rank 或跨进程恢复。
+2026-10-05 已在 S4000 实机完成真实 RLinf FSDP1 单卡 FP32 NO_SHARD 更新，CPU 回归为 9/9 通过；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 同 Worker 新对象恢复和独立跨进程恢复均通过，恢复后继续训练状态 exact。实机证据见 [strategy-third.jsonl](../evidence/fsdp1/strategy-third.jsonl)、[checkpoint-local-first.jsonl](../evidence/fsdp1/checkpoint-local-first.jsonl)、[checkpoint-dcp-first.jsonl](../evidence/fsdp1/checkpoint-dcp-first.jsonl) 与 [跨进程记录](checkpoint-process-README.md)。本目录的 FSDP strategy/checkpoint 探针未接 Manager、官方 Actor、PPO、simulator、offload 或多 rank 恢复；路线 2 其他 PPO/MuJoCo 节点的证据需独立评估。
 
 本机 Python 3.9.6 未安装 Torch、pytest、Ray、OmegaConf 或 Accelerate，本地只做源码和静态检查；实机测试由协调者执行。第一版已通过 imports 和 6 个导入用例，GPU 首次遇到一维 mesh 切片限制；第二版 CPU 结果为 6 passed / 2 failed，原因是厂商保留 list 维名。当前第三版归一化维名并覆盖 list/tuple，9 个 CPU 用例和 GPU strategy 均通过；历史补丁与静态记录保留在 [history](history)。
 
@@ -14,7 +14,7 @@
 - 添加导入开关、版本范围及 FSDP2 拒绝行为的子进程回归测试，以及中英文 MUSA 说明。测试中的版本字符串模拟只验证分支选择，实际 Torch-MUSA runtime 必须另跑下面的探针。
 - `gradient_reduction_group()` 将维名归一化为 tuple，在明确命名为 `fsdp` 的一维 mesh 上直接调用真实 `get_group()`，兼容厂商保留的 list 维名并避免 Torch 2.2 不支持的一维切片；二维 mesh 保留原先按 `fsdp` 维切片的逻辑。一维 `ddp` 或未命名 mesh 仍明确拒绝，避免误选复制维。
 
-基线补丁本身没有修复 DCP 保存：当前代码调用 `checkpoint_id=`，Torch 2.2 需要 `storage_writer=`。独立的 [checkpoint-compat.patch](../patches/checkpoint-compat.patch) 已在单独源树上修复该签名并通过两种格式的实机验证；Manager、官方 Actor、weight syncer、offload、多进程、混合精度同样未覆盖。
+基线补丁本身没有修复 DCP 保存：当前代码调用 `checkpoint_id=`，Torch 2.2 需要 `storage_writer=`。独立的 [checkpoint-compat.patch](../patches/checkpoint-compat.patch) 已在单独源树上修复该签名并通过两种格式的实机验证；Manager、官方 Actor、weight syncer、offload、多 rank、混合精度同样未覆盖。
 
 ## 按顺序运行
 
@@ -63,12 +63,12 @@ RLINF_MUSA_TORCH_DETECTION_FALLBACK=1 \
 
 此阶段主动建立 MCCL 默认组，因此不代表 RLinf 未指定 backend 的默认初始化入口已适配。world size 1 / NO_SHARD 也不证明真正跨卡分片或 collective 已通过。导入、包装、裁剪和更新前均输出 `started` 记录，失败时从最后阶段定位；日志可能夹杂 Ray 输出，保留完整 stdout/stderr，再由协调者摘取 JSON。
 
-当前实机结果为 loss `0.8063545227`（与 CPU 对照相同）、梯度最大绝对误差 `2.235e-8`、更新后参数最大误差 `1.490e-8`、最大参数变化 `0.0010024309`。真实 `strategy.clip_grad_norm_` 已执行；本批次梯度 norm 为 `0.86544746`，低于阈值 1，因此没有触发实际缩放，主动裁剪的数值验证仍未覆盖。
+该 strategy 探针的实机结果为 loss `0.8063545227`（与 CPU 对照相同）、梯度最大绝对误差 `2.235e-8`、更新后参数最大误差 `1.490e-8`、最大参数变化 `0.0010024309`。真实 `strategy.clip_grad_norm_` 已执行；此批次 norm `0.86544746` 低于阈值 1，没有触发实际缩放。后续独立 checkpoint 探针已补充主动裁剪：raw norm `12.79 / 19.06` 缩至 `0.25`，CPU 参数最大误差 `1.49e-8`，详见 [checkpoint-README.md](checkpoint-README.md)。
 
 ## 本地验证与后续节点
 
 静态记录见 [static-validation.json](static-validation.json)。`ruff` 解析检查与格式检查、探针 `py_compile` / `--help`、`git diff --check` 和补丁应用检查均属于源码验证；manifest 单独关联协调者保存的实机证据，并核对 GPU 记录中的 5 个 FSDP 源文件与 probe 哈希。首版补丁 SHA256 为 `59f970f17df26a516937f8d46bb688441a14915748685abcef222487df880e72`，对应此前的导入通过和第一次 strategy 阻塞，不能与更新后补丁的结果混用。
 
-真实 strategy 与单卡 checkpoint 已通过；下一步按 [FSDP1 审计](../planning/fsdp1-audit.md) 接 Manager、官方 Actor、独立 Rollout，再做跨进程、多 rank 和 offload 验收。MSE strategy/checkpoint 仍只证明训练后端这一层，PPO 和 MuJoCo 学习实验仍须分别验收。
+真实 strategy、单卡 checkpoint 及两种格式的跨进程恢复已通过；下一步按 [FSDP1 审计](../planning/fsdp1-audit.md) 接 Manager、官方 Actor、独立 Rollout，再做多 rank 和 offload 验收。MSE strategy/checkpoint 只证明训练后端这一层，不能替代路线 2 已有或后续 PPO/MuJoCo 学习节点的独立验收。
 
-checkpoint 增量和新对象恢复探针已完成，详细范围与边界见 [checkpoint-README.md](checkpoint-README.md)；跨进程、多 rank、offload 和官方 Actor 仍单独排期。设计方案见 [checkpoint-plan.md](checkpoint-plan.md)。
+checkpoint 增量和新对象恢复探针已完成，详细范围与边界见 [checkpoint-README.md](checkpoint-README.md)；独立进程恢复已通过，见 [跨进程记录](checkpoint-process-README.md)；多 rank、offload 和官方 Actor 仍单独排期。设计方案见 [checkpoint-plan.md](checkpoint-plan.md)。

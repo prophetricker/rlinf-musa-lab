@@ -1,0 +1,14 @@
+{
+  "retrieved_utc": "2026-10-05T09:33:19.696675+00:00",
+  "api_url": "https://huggingface.co/api/models/RLinf/RLinf-Gr00t-SFT-Spatial",
+  "canonical_repo": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial",
+  "sha": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "files": [
+    {
+      "file": "checkpoint-config.json",
+      "url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/config.json",
+      "sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526",
+      "bytes": 1706
+    }
+  ]
+}

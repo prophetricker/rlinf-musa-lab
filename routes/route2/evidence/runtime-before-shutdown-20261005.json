@@ -1,0 +1,12 @@
+{
+  "observed_date": "2026-10-05",
+  "driver": "2.7.0",
+  "gpu_name": "MTT S4000",
+  "gpu_memory_mib": 49152,
+  "gpu_used_memory_mib": 4,
+  "gpu_utilization_percent": 0,
+  "gpu_processes": [],
+  "inventory_command": "mthreads-gmi",
+  "command_exit_code": 0,
+  "stage": "all_round_gpu_tests_finished_before_platform_shutdown"
+}
