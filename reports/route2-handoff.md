@@ -1,6 +1,6 @@
 # 路线二成果仓库移交
 
-2026-10-05，远端已设为用户创建的 [prophetricker/rlinf-musa-lab](https://github.com/prophetricker/rlinf-musa-lab)。独立本地成果仓库位于 `artifacts/route2-github/`；研究根仓库保存全部路线，成果仓库只导出路线二与复现所需的共用 runner。GitHub CLI 已完成 `prophetricker` 账号认证；成果整理和验证后推送，并核对远端 commit。
+2026-10-05，远端已设为用户创建的 [prophetricker/rlinf-musa-lab](https://github.com/prophetricker/rlinf-musa-lab)。独立本地成果仓库位于 `artifacts/route2-github/`；研究根仓库保存全部路线，成果仓库只导出路线二与复现所需的共用 runner。GitHub CLI 已完成 `prophetricker` 账号认证；已推送并核对远端 `main` 与本地 commit 一致。首个学习节点发布提交为 [`6a99f21`](https://github.com/prophetricker/rlinf-musa-lab/commit/6a99f2128424c19be22f97b1badab103017395e2)，对应研究提交 `c22ba8b`。
 
 ## 固定材料
 
@@ -20,6 +20,6 @@
 
 导出不包含其他路线结果、上游完整 Git 历史、环境、权重、checkpoint 或认证材料。`EXPORT_MANIFEST.json` 保存各文件 SHA256、字节数及研究来源 commit。既有成果 Git 的 `.git` 保留，刷新时只同步清单中的材料；不强推。
 
-本轮离线恢复已验证 Worker 基线与 FSDP1 实验的两个源码 tree 完全一致，导出 manifest 和共用 runner 一致性通过，Python/Bash 语法通过；GPU learning 语义/评估测试 10/10。FSDP1 从基线加实验补丁重建，保持基线与实验边界。
+本轮离线恢复已验证 Worker 基线与 FSDP1 实验的两个源码 tree 完全一致，导出 manifest 和共用 runner 一致性通过，所有相对 Markdown 链接有效，Python/Bash 语法通过；学习语义/评估 CPU 测试 10/10。首个节点包含 84 个材料文件加 manifest，总材料约 3.28 MB。FSDP1 从基线加实验补丁重建，保持基线与实验边界。
 
 提交使用本地显式身份 `Codex <codex@localhost>`，不修改全局 Git 身份。登录令牌由 GitHub CLI 管理，不写入研究记录。

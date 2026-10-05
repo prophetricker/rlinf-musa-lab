@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-05",
-  "research_commit": "c22ba8bfb4146776344f91fc7dcf86db17c27c0b",
+  "research_commit": "986fbf07b82a3802302eef3b99a5bc78f80a3b63",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -69,8 +69,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 2196,
-      "sha256": "ee2c5a9f95217de6b3e6935b7ece08ce28931fcb9e9b7168669f5c7eb25c124e"
+      "bytes": 2482,
+      "sha256": "0fe2c32a753a828d65a6f6828e6919e83f1d75847334dd08798aa23943304b06"
     },
     {
       "path": "reports/route2-learning.md",
