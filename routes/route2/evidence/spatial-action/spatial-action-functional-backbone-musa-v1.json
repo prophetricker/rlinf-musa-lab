@@ -1,0 +1,327 @@
+{
+  "pass": true,
+  "scope": "Validate whether Spatial backbone drift changes the GR00T action function.\n\nThe probe loads the real Spatial action-head checkpoint and, when requested, the\nreal 585-tensor Eagle backbone. CPU and MUSA runs use identical fixed inputs,\nnoise and timesteps. It records action denoising, finite gradients and one\nAdamW update. Numerical gates remain diagnostic: a finite functional result is\nnot relabelled as an exact CPU/MUSA match.\n",
+  "arguments": {
+    "source_tree": "/root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager",
+    "weights": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "metadata_dir": "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/checkpoint_metadata",
+    "checkpoint_config": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+    "device": "musa",
+    "with_backbone": true,
+    "seed": 271829,
+    "output": "/root/autodl-tmp/s4000-research/route2/results/spatial-action-functional-backbone-musa-v1.json"
+  },
+  "started": 1791212113.381251,
+  "versions": {
+    "torch": "2.2.0a0+git8ac9b20",
+    "transformers": "4.51.3",
+    "diffusers": "0.30.2",
+    "safetensors": "0.8.0"
+  },
+  "action_head_load": {
+    "tensor_count": 314,
+    "shards": [
+      "model-00001-of-00002.safetensors",
+      "model-00002-of-00002.safetensors"
+    ],
+    "strict": true
+  },
+  "action_config_sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526",
+  "backbone_cpu": {
+    "device": "cpu",
+    "features": {
+      "shape": [
+        1,
+        570,
+        2048
+      ],
+      "finite": true,
+      "mean": 0.04690071192582374,
+      "std": 2.122900037303955,
+      "l2": 2294.2350489074506,
+      "max_abs": 80.7376480102539
+    },
+    "mask_exact": true,
+    "features_finite": true,
+    "attention_bindings": 0,
+    "registration_restored": false,
+    "attention_globals_unchanged": true
+  },
+  "backbone_device": {
+    "device": "musa",
+    "features": {
+      "shape": [
+        1,
+        570,
+        2048
+      ],
+      "finite": true,
+      "mean": 0.046900786364436224,
+      "std": 2.122900168108648,
+      "l2": 2294.23519197659,
+      "max_abs": 80.73764038085938
+    },
+    "mask_exact": true,
+    "features_finite": true,
+    "attention_bindings": 39,
+    "registration_restored": false,
+    "attention_globals_unchanged": true
+  },
+  "backbone_feature_device_delta": {
+    "finite": true,
+    "shape_actual": [
+      550,
+      2048
+    ],
+    "shape_expected": [
+      550,
+      2048
+    ],
+    "max_abs": 0.0023193359375,
+    "relative_l2": 1.2427971233631076e-05,
+    "allclose_atol_rtol_2e-4": false
+  },
+  "action_runs": [
+    {
+      "label": "cpu_head_cpu_features",
+      "device": "cpu",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.1706011820333515,
+        "std": 0.3856048449331781,
+        "l2": 9.541041881813747,
+        "max_abs": 0.9299678802490234
+      },
+      "loss": 0.29809579253196716,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 9.293271487724441,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.7957279682159424,
+          "max_abs": 0.018789559602737427
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.05428650602698326,
+          "max_abs": 0.0009959203889593482
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.405075192451477,
+          "max_abs": 0.21633046865463257
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.027454358485607552,
+      "update_nonzero_elements": 759527742,
+      "functional_pass": true,
+      "elapsed_seconds": 10.838291130959988
+    },
+    {
+      "label": "cpu_head_device_features",
+      "device": "cpu",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.17060120840687887,
+        "std": 0.38560491288454346,
+        "l2": 9.541043529357719,
+        "max_abs": 0.9299679398536682
+      },
+      "loss": 0.29809582233428955,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 9.29326866021832,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.7957295775413513,
+          "max_abs": 0.018789613619446754
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.054286520928144455,
+          "max_abs": 0.0009959209710359573
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.4050756692886353,
+          "max_abs": 0.21633033454418182
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.02745435847241427,
+      "update_nonzero_elements": 759527727,
+      "functional_pass": true,
+      "elapsed_seconds": 8.685354895889759
+    },
+    {
+      "label": "musa_head_cpu_features",
+      "device": "musa",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.17060119474263047,
+        "std": 0.38560483505849835,
+        "l2": 9.541041793833077,
+        "max_abs": 0.9299677610397339
+      },
+      "loss": 0.29809561371803284,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 9.297379412891145,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.7958818078041077,
+          "max_abs": 0.018789364024996758
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.05432204157114029,
+          "max_abs": 0.0009959202725440264
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.4050747156143188,
+          "max_abs": 0.21633030474185944
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.027386745113923652,
+      "update_nonzero_elements": 759588684,
+      "functional_pass": true,
+      "elapsed_seconds": 3.410692475736141
+    },
+    {
+      "label": "musa_head_device_features",
+      "device": "musa",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.17060126276010124,
+        "std": 0.38560496427882845,
+        "l2": 9.541045090444271,
+        "max_abs": 0.9299676418304443
+      },
+      "loss": 0.29809579253196716,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 9.297381455139424,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.7958856225013733,
+          "max_abs": 0.018789691850543022
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.05432207137346268,
+          "max_abs": 0.0009959213202819228
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.4050757884979248,
+          "max_abs": 0.21633023023605347
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.02738676027619077,
+      "update_nonzero_elements": 759587770,
+      "functional_pass": true,
+      "elapsed_seconds": 2.6433810591697693
+    }
+  ],
+  "action_comparisons": {
+    "head_device_on_same_features": {
+      "inference": {
+        "finite": true,
+        "shape_actual": [
+          1,
+          16,
+          32
+        ],
+        "shape_expected": [
+          1,
+          16,
+          32
+        ],
+        "max_abs": 8.046627044677734e-07,
+        "relative_l2": 3.7978924880281286e-07,
+        "allclose_atol_rtol_2e-4": true
+      },
+      "loss": 1.7881393432617188e-07
+    },
+    "backbone_feature_propagation_on_musa_head": {
+      "inference": {
+        "finite": true,
+        "shape_actual": [
+          1,
+          16,
+          32
+        ],
+        "shape_expected": [
+          1,
+          16,
+          32
+        ],
+        "max_abs": 1.5497207641601562e-06,
+        "relative_l2": 1.0071546577683711e-06,
+        "allclose_atol_rtol_2e-4": true
+      },
+      "loss": 1.7881393432617188e-07
+    },
+    "end_to_end_cpu_cpu_vs_musa_device": {
+      "inference": {
+        "finite": true,
+        "shape_actual": [
+          1,
+          16,
+          32
+        ],
+        "shape_expected": [
+          1,
+          16,
+          32
+        ],
+        "max_abs": 1.5795230865478516e-06,
+        "relative_l2": 1.041086390184904e-06,
+        "allclose_atol_rtol_2e-4": true
+      },
+      "loss": 0.0
+    }
+  },
+  "functional_pass": true,
+  "backbone_pair_used": true
+}

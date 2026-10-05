@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-05",
+  "final_evidence": "spatial-action-functional-backbone-musa-v4.json",
+  "final_probe_sha256": "2f727b3608fd43c30641b033b2773bcc8e69f73e549f082b2038aa872ef5b7a6",
+  "functional_pass": true,
+  "numerical_action_gate_pass": true,
+  "original_feature_gate_unchanged_and_failed": true,
+  "five_source_and_feature_controls_pass": true,
+  "all314_gradients_present_finite_nonzero": true,
+  "history": [
+    {
+      "file": "spatial-action-functional-backbone-musa-v1.json",
+      "sha256": "f9e91e8fb68e1aa657e8a902e3fd441b712a35775e51add09660189534cf130a",
+      "original_pass": true,
+      "exit_code": 0,
+      "scope": "exploratory category0, 0.1 Gaussian noise; not final functional evidence",
+      "note": "preliminary smoke superseded by v4"
+    },
+    {
+      "file": "spatial-action-functional-backbone-musa-v2.json",
+      "sha256": "0901a49810009cc3a9ec44c8e71d82fb3347834b43fee937ecf257cc05add69a",
+      "original_pass": true,
+      "exit_code": 0,
+      "scope": "exploratory category0, 0.1 Gaussian noise; not final functional evidence",
+      "note": "preliminary smoke superseded by v4"
+    },
+    {
+      "file": "spatial-action-functional-backbone-musa-v3.json",
+      "sha256": "485243be7bd17027d8548076ad235adaad79ea76383d0095dd1313fc8e123219",
+      "original_pass": false,
+      "exit_code": 1,
+      "scope": "formal embodiment31, standard Gaussian, original backbone fixture",
+      "note": "false negative from MUSA empty all reduction; source_formula_controls passed; original script archived at versions/functional-v3"
+    },
+    {
+      "file": "spatial-action-functional-backbone-musa-v4.json",
+      "sha256": "41376256d294870ccc6533b6f5ebc6236fdca9d68573c25082e99ea373dd53d4",
+      "original_pass": true,
+      "exit_code": 0,
+      "scope": "formal embodiment31, standard Gaussian, original backbone fixture",
+      "note": "final active7 diagnostics and empty-slice guard; model arithmetic unchanged"
+    },
+    {
+      "file": "spatial-action-functional-cpu-v1.json",
+      "sha256": "2e3da99b66d237fb5dac9c7e9df8ae35ea5c128f3671999dd319bfb5e425e70b",
+      "original_pass": true,
+      "exit_code": 0,
+      "scope": "exploratory category0, 0.1 Gaussian noise; not final functional evidence",
+      "note": "preliminary smoke superseded by v4"
+    },
+    {
+      "file": "spatial-action-functional-musa-v1.json",
+      "sha256": "bb5ba50b01cd28dd206335de4159c8abbbc58a8f5331bbd905fbd9836cf77a98",
+      "original_pass": true,
+      "exit_code": 0,
+      "scope": "exploratory category0, 0.1 Gaussian noise; not final functional evidence",
+      "note": "preliminary smoke superseded by v4"
+    }
+  ],
+  "original_backbone_fixture_inputs_exact": true,
+  "end_to_end": {
+    "active_action": {
+      "finite": true,
+      "shape_actual": [
+        1,
+        16,
+        7
+      ],
+      "shape_expected": [
+        1,
+        16,
+        7
+      ],
+      "max_abs": 2.3245811462402344e-06,
+      "relative_l2": 2.8193304274923423e-06,
+      "allclose_atol_rtol_2e-4": true,
+      "relative_l2_le_2e-4": true
+    },
+    "loss_abs_difference": 1.043081283569336e-07,
+    "gradient_relative_l2": 2.2540698749566628e-05,
+    "gradient_cosine": 0.999999999803157,
+    "gradient_relative_fail_count": 20,
+    "update_relative_l2": 0.0015166484470044244,
+    "update_cosine": 0.9999988498888375,
+    "update_relative_fail_count": 180,
+    "gripper_raw_sign_flips": 0,
+    "gripper_min_distance_to_zero": 0.22432470321655273
+  }
+}

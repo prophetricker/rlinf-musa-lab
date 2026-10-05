@@ -2,7 +2,9 @@
 
 2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。
 
-真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。官方 `EmbodiedFSDPActor`、完整 GR00T/LIBERO 尚未验证。
+真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。官方 `EmbodiedFSDPActor`、真实 GR00T 输入链与 LIBERO episode 尚未验证。
+
+追加功能节点已加载完整 Spatial 骨干585张量和完整 action head 314张量，对 RLinf 的 LIBERO 分支31执行固定噪声4步动作、loss、backward 和 AdamW 更新对照。原骨干严格数值失败保留；该固定合成输入验收独立于真实预处理、LIBERO episode 和官方 PPO，详见 [功能影响报告](../../reports/route2-spatial-eagle.md)。
 
 以下保留 2026-10-04 首轮限定闭环的证据与历史边界；首轮 256 transitions 的更新短测没有建立学习收益。
 

@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-05",
+  "argv": [
+    "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python",
+    "-u",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/spatial_action_functional_probe.py",
+    "--source-tree",
+    "/root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager",
+    "--weights",
+    "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "--device",
+    "musa",
+    "--with-backbone",
+    "--output",
+    "/root/autodl-tmp/s4000-research/route2/results/spatial-action-functional-backbone-musa-v4.json"
+  ],
+  "command": "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python -u /root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/spatial_action_functional_probe.py --source-tree /root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager --weights /root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e --device musa --with-backbone --output /root/autodl-tmp/s4000-research/route2/results/spatial-action-functional-backbone-musa-v4.json",
+  "exit_code": 0,
+  "source_tree_commit": "c9bd9a2403d14d492be88a9af9ae3989d4b711fc",
+  "checkpoint_repo": "RLinf/RLinf-Gr00t-SFT-Spatial",
+  "checkpoint_revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "system_stack": {
+    "gpu": "MTT S4000 48 GiB",
+    "driver": "2.7.0",
+    "musa": "3.1.0",
+    "torch": "2.2.0",
+    "torch_musa": "1.3.0"
+  },
+  "probe_sha256": "2f727b3608fd43c30641b033b2773bcc8e69f73e549f082b2038aa872ef5b7a6",
+  "result_sha256": "41376256d294870ccc6533b6f5ebc6236fdca9d68573c25082e99ea373dd53d4",
+  "stdout_sha256": "23366b2658914654312cccc001dff28166eb77b0ed7f3a1d159716d6ad0e39d1",
+  "scope": "Fixed synthetic input, embodiment31, standard shared Gaussian noise, full head flow-matching loss/backward and one AdamW step; not LIBERO episode, learning, official RLinf Actor or PPO.",
+  "default_arguments": {
+    "seed": 271829,
+    "backbone_seed": 271829,
+    "embodiment_id": 31,
+    "cpu_threads": 4
+  },
+  "preserves_original_backbone_strict_gate": true
+}

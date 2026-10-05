@@ -122,6 +122,19 @@
       "pretrained_v2_evidence": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v2.json",
       "pretrained_v2_evidence_sha256": "7129a3cfb557fb9366874a8ebe9b15e0e4b9e020fe39b80ac3df1be393bd6da0",
       "diagnostic_scope": "v2 preserves v1 kernel/weights/inputs/gates, adds read-only layer outputs and failed-element counts. Same failure reproduced:2960/1126400 features and246774/83424000 logits; no tolerance relaxation."
+    },
+    "route2_spatial_functional": {
+      "source_profile": "route2_spatial_pretrained",
+      "upstream_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "checkpoint_revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+      "runner": "routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py",
+      "runner_sha256": "2f727b3608fd43c30641b033b2773bcc8e69f73e549f082b2038aa872ef5b7a6",
+      "evidence": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.json",
+      "evidence_sha256": "41376256d294870ccc6533b6f5ebc6236fdca9d68573c25082e99ea373dd53d4",
+      "command_evidence": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.command.json",
+      "embodiment_id": 31,
+      "backbone_seed": 271829,
+      "scope": "Full Spatial585+314 strict loading, synthetic input, standard shared Gaussian, active7 action/gradient/one AdamW update; functional controls passed, strict backbone feature gate failed and preserved; no simulator/official Actor/PPO/learning."
     }
   }
 }

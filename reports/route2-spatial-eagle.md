@@ -2,7 +2,7 @@
 
 日期：2026-10-05。实机是单卡 MTT S4000 48 GiB，Driver 2.7.0 / MUSA 3.1.0 / Torch 2.2.0 / Torch-MUSA 1.3.0。系统运行栈保持原状；新增 `route2-integration` 隔离环境组合 Transformers 4.51.3、Diffusers 0.30.2、safetensors 0.8.0、dm-tree 0.1.8，均以 `--no-deps` 安装。
 
-本轮完成真实 Spatial 骨干585张量的严格加载和完整前向；CPU参考与CPU fallback完全一致，S4000前向有限且结构合同成立，但最终features/logits未通过原逐元素数值门槛。正式宽度action的FP32前向和全部VJP已完成，小型真实Eagle组合FP32数值对照通过。FP32/BF16失败均保留原门槛与证据，尚不能推出完整GR00T action推理、LIBERO rollout或PPO已可用。
+本轮完成真实 Spatial 骨干585张量的严格加载和完整前向；CPU参考与CPU fallback完全一致，S4000前向有限且结构合同成立，但最终features/logits未通过原逐元素数值门槛。正式宽度action的FP32前向和全部VJP已完成，小型真实Eagle组合FP32数值对照通过；本次又完成了完整314张量 action head 与真实585张量骨干的固定输入功能验证。FP32/BF16失败均保留原门槛与证据，尚不能推出真实预处理、LIBERO rollout或官方PPO已可用。
 
 ## 1. 正式 Spatial action 几何
 
@@ -54,7 +54,7 @@ FP32 MUSA 有效 feature 最大绝对误差6.3181e-6、relative-L2 1.2339e-6，�
 
 两个完整分片均已下载并通过canonical LFS完整SHA及header/layout校验。下载结果见 [验证JSON](../routes/route2/evidence/spatial-weights/spatial-download-parallel-v1.json)。证据还包括 [完整899项结构审计](../routes/route2/evidence/spatial-weights/spatial-shape-audit-v1.json)、[权重来源](../routes/route2/model_probes/weight_metadata/lfs-metadata.json)。
 
-真实骨干调用 `load_state_dict(strict=True)`：全部585 keys，missing/unexpected都是0；载入后逐tensor内容与checkpoint BF16→FP32转换精确相同。source里共享的embedding/lm_head两份checkpoint值也精确相同，未静默丢弃或覆盖不一致张量。未加载/执行314个action张量。
+真实骨干调用 `load_state_dict(strict=True)`：全部585 keys，missing/unexpected都是0；载入后逐tensor内容与checkpoint BF16→FP32转换精确相同。source里共享的embedding/lm_head两份checkpoint值也精确相同，未静默丢弃或覆盖不一致张量。该骨干专用 probe 不加载 action 张量；完整 action head 的加载和执行见第4节。
 
 完整fixture为B1/S570、两幅224×224合成raw tensor image、512个image slots、有效token550。真实wrapper保留12层Qwen3和27层SigLIP，共39个实例attention绑定；image substitution、Identity、mask、无cache、冻结/no-grad、全部feature/logits/connector/pooler有限及state不变均通过。
 
@@ -91,10 +91,40 @@ v2仅增加只读逐层hooks和失败元素计数，kernel、权重、输入及�
   --output /root/autodl-tmp/s4000-research/route2/results/spatial-pretrained-backbone-musa-diagnostics-v5.json
 ```
 
-## 4. 修订历史与复现边界
+## 4. 完整 backbone → action head 功能影响
+
+正式功能探针严格加载完整314个 FP32 action-head 张量（约4.28 GB），使用 RLinf 的 `libero_franka → embodiment_id=31` 分支；state 的8个有效坐标补到64，action 的7个有效坐标补到32，训练 action mask 仅覆盖7维。输入仍是合成数据，未经过真实图像/文字预处理。noise 为共享的标准高斯，时间桶371、推理4步 Euler；骨干 seed271829、CPU4线程与此前最大误差0.0165的 fixture完全相同。
+
+分别比较 CPU 原生 attention、CPU FP32 fallback、MUSA FP32 fallback，以及 CPU/MUSA 两组完整骨干 feature。每组执行完整动作、固定 flow-matching loss、全部 backward 和一次 `AdamW(lr=1e-6, foreach=False)` 更新。eval 关闭 dropout，但梯度仍开启。手动公式与未修改的源 `forward/get_action` 在各设备精确对应，清零骨干 feature 的正控制让有效动作产生约1.72的最大差异，证明模型确实使用骨干输出。
+
+原骨干的最大绝对误差 `0.01650047`、relative-L2 `2.82969e-5` 和逐元素失败被完整复现，功能证据保持独立。固定输入下 action 输出差异及梯度/更新向量见正式 v4 证据；早期 v1/v2 使用0号分支、0.1噪声和不同骨干输入，只作为 smoke，不承担 LIBERO 功能结论。
+
+| 比较（7维有效动作） | 动作最大绝对差 | 动作 relative-L2 | 梯度向量 relative-L2 | AdamW 更新向量 relative-L2 |
+|---|---:|---:|---:|---:|
+| CPU fallback vs native，同一feature | `2.38e-7` | `2.06e-7` | `1.12e-6` | `1.07e-4` |
+| MUSA head vs CPU head，同一CPU feature | `9.54e-7` | `6.91e-7` | `2.69e-6` | `2.43e-4` |
+| CPU head：MUSA feature vs CPU feature | `2.44e-6` | `2.79e-6` | `2.16e-5` | `1.50e-3` |
+| MUSA head：MUSA feature vs CPU feature | `2.62e-6` | `3.14e-6` | `2.21e-5` | `1.53e-3` |
+| 端到端 CPU/CPU vs MUSA/MUSA | `2.32e-6` | `2.82e-6` | `2.25e-5` | `1.52e-3` |
+
+五组动作均通过原 `atol=rtol=2e-4` 与 relative-L2≤2e-4 的独立动作门槛；每组314/314参数均有 finite 非零梯度、未参与机器人分支梯度严格为0、更新后参数finite且确实变化。端到端 loss 差 `1.04e-7`；梯度向量 cosine `0.9999999998`，更新向量 cosine `0.99999885`。原始夹爪预测在0处的符号没有翻转，但参考离0至少0.224，不能据此推广到接近夹爪决策边界的样本或真实动作反归一化。单独 action-head 工作负载的 peak allocated 约21.05 GiB，包括参数/梯度/Adam/更新前副本，不包含同时驻留的骨干、多worker或完整PPO。
+
+不能将梯度/更新对照称为原严格逐参数 gate 全部通过：梯度20/314参数的 relative-L2超阈值，均是softmax解析零的 `to_k.bias`，其参考gradient-L2约1e-9；更新180/314参数超relative-L2阈值，也包含其他正常参数。更新全局差异约0.152%，所有逐元素混合allclose通过；完整数值和近零项原样保留。本轮证明的是有限性、有效动作近似一致以及一次训练计算的存在与方向，没有证明长期训练轨迹或成功率相同。
+
+基于这轮结果，暂时停止深入MUSA算子舍入误差，优先推进真实输入链和LIBERO episode。只有在真实观测/动作或学习结果出现功能异常时，再用固定样本回放定位具体适配点。
+
+完整 action-head 梯度按所有共享参数及活动机器人分支直接比较；未参与的31个分支另验梯度严格为0。不能用 global norm 接近替代向量接近，也不能只看参数改变就声称学习有效。逐参数的 allclose、relative-L2 与全局向量方向分别记录；原严格阈值不放宽。Adam 首步在接近零的梯度方向上可能放大微小差异，更新对照应独立解释，不能自动继承动作前向的通过状态。
+
+v3 的失败来自探针对31号分支后的空梯度切片执行 `all()`：CPU返回true，旧 Torch-MUSA返回false。一个 `[32,2,3]` 的独立小例子复现了空切片问题；真正包含元素的未选分支均为0。v4 只避免对不存在的元素执行 reduction，并补充7维有效动作与原始夹爪零点符号统计，未修改模型数学、梯度、优化器或原 feature gate。v3原脚本、失败结果与退出1保留。
+
+正式结果见 [v4完整功能证据](../routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.json)、[精确命令](../routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.command.json)、[修订与实测汇总](../routes/route2/evidence/spatial-action/functional-run-validation.json) 和 [探针源码](../routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py)。
+
+本轮尚未验证真实 tokenizer/image processor、LIBERO 双视角/proprioception、动作反归一化与 episode，也未接入官方 `EmbodiedFSDPActor` 或 PPO。源 DiT 忽略 `encoder_attention_mask` 的行为保持原样；这不是 padding mask 已适配的证据。
+
+## 5. 修订历史与复现边界
 
 Spatial v1 的CPU两个dtype各留下18行partial JSON，在DiT effective_config含torch.dtype时报告序列化失败。Eagle v1 的FP32 stdout两行通过，但最终报告序列化失败、退出1。v2只修复JSON dtype表示与证据保护等诊断逻辑；没有改数值数学或门槛。原脚本、partial JSON、stdout和命令退出码保留。
 
 上游完整169个归档文件的Git blob与固定commit tree匹配。最小补丁源树提交 `62c7d52e625a8172f3c42453453706c329b71d7b`；tiny fixture提交 `e441b8f7c17d4f25c49cfa1f20731e6085e7a962`；full eager/FP32 fixture提交 `c9bd9a2403d14d492be88a9af9ae3989d4b711fc`。恢复脚本只新建目录，不覆盖既有源码；源码锁、原始命令及依赖列表随包保存。
 
-下一步需要把正式 pretrained backbone 与完整 action head 连起来，再完成真实 tokenizer/image processor、LIBERO 双视角和 proprioception 输入、动作块解码和 episode。之后才能接入官方 Actor/Rollout/PPO；import、随机前向、结构匹配、strict load与学习结果分别验收。
+下一步从数值误差深挖转向真实输入链路：先完成 tokenizer/image processor、LIBERO 双视角与 proprioception 输入、动作块反归一化和 headless episode，再接官方 Actor/Rollout/PPO。每一步仍分别记录 import、结构匹配、strict load、功能更新和真实学习结果，不能用本轮固定合成输入替代 episode 或 PPO 证据。

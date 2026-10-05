@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-05",
+  "torch": "2.2.0",
+  "torch_musa": "1.3.0",
+  "fixture": "torch.zeros((32,2,3)); x[31]=1; compare (x[:31]==0).all() and (x[32:]==0).all()",
+  "rows": [
+    {
+      "device": "cpu",
+      "inactive_before_all_zero": true,
+      "empty_after_all_zero": true,
+      "empty_after_elements": 0
+    },
+    {
+      "device": "musa",
+      "inactive_before_all_zero": true,
+      "empty_after_all_zero": false,
+      "empty_after_elements": 0
+    }
+  ],
+  "exit_code": 0,
+  "interpretation": "Old MUSA empty all reduction returns False, producing a false negative in the probe. No GPU kernel or gradient changed; v4 skips reductions only when slice numel is zero."
+}

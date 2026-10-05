@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-05",
-  "research_commit": "e35052e75544caeb04f7424e6f0a8ab0a34236d2",
+  "research_commit": "f0e66836a9ba7e826a0abb10824e62237cf14495",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,20 +21,20 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 5089,
-      "sha256": "4f910b44127c780f6301c58ba9cbaef262074e3376bdd8fdf502324a09a25c97"
+      "bytes": 5561,
+      "sha256": "149a26b74f8831d529666080e8ca1d07632183e23b4a3ef4dc3214a87323f19f"
     },
     {
       "path": "REPRODUCE.md",
       "research_source": "routes/route2/publishing/REPRODUCE.md",
-      "bytes": 14183,
-      "sha256": "6c2db69aade52a52481b0a715e0ceb1250c019cb12c32c6844f252ec107a858f"
+      "bytes": 15444,
+      "sha256": "ae424a3a2f890ca1f20e1b4e9c4289d09e5f545fdde343f13d08282c3df1383f"
     },
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 3947,
-      "sha256": "6f4ec97eac34938f6126724f1ced4d1acd3eeef25ab8e0235bee0df003ff14ca"
+      "bytes": 4132,
+      "sha256": "d8c524a9a079f96f6d8e68eb14b370e568601e1fc9bd5e2c6bffb0ea81cd5447"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -81,8 +81,8 @@
     {
       "path": "locks/sources.json",
       "research_source": "generated from pinned source/lock",
-      "bytes": 9938,
-      "sha256": "a3f1550979352867fd8168c682baa47d4bf5ec1c40abb26a40e706bf09b188c8"
+      "bytes": 11005,
+      "sha256": "9576a4b3269ba9fb0af09bd6170ea8226cd89321ac420d6876f83aa45076c8ba"
     },
     {
       "path": "probes/mujoco_ppo_worker.py",
@@ -111,14 +111,14 @@
     {
       "path": "reports/route2-spatial-eagle.md",
       "research_source": "reports/route2-spatial-eagle.md",
-      "bytes": 12009,
-      "sha256": "53a62639004ec28e486f6fc0c78e1727a4016a7d9d866e015a2bdb68ff325766"
+      "bytes": 18812,
+      "sha256": "5d4b1147e0f3c0aa0006820c95264fac17499e44e0a2bff0a653cb987d01baea"
     },
     {
       "path": "routes/route2/README.md",
       "research_source": "routes/route2/README.md",
-      "bytes": 10536,
-      "sha256": "95d373ef725be5baa7879da48a9ba15c78c48aa64e39611f48801c6a111ce516"
+      "bytes": 10941,
+      "sha256": "60156c1d6af9f82b8962d589bbc91ecbc794709cc17e88344d5d096dc158b07d"
     },
     {
       "path": "routes/route2/evidence/action-interface/action-interface-cpu-first.json",
@@ -523,6 +523,18 @@
       "sha256": "bad6b7980ff990ef0fceb6d8070de5a747db327a9aa67ab4a627ea814389aff4"
     },
     {
+      "path": "routes/route2/evidence/spatial-action/functional-run-validation.json",
+      "research_source": "routes/route2/evidence/spatial-action/functional-run-validation.json",
+      "bytes": 3481,
+      "sha256": "42bd4090e8cbd6ec6185309ce2ccf1c31b676e2317d79d0611fe103763c580a1"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/musa-empty-all-control.json",
+      "research_source": "routes/route2/evidence/spatial-action/musa-empty-all-control.json",
+      "bytes": 686,
+      "sha256": "30587001df7f78722e0e50cc05f730be9054cf46db50e36f87f77e0c213a4e56"
+    },
+    {
       "path": "routes/route2/evidence/spatial-action/run-validation.json",
       "research_source": "routes/route2/evidence/spatial-action/run-validation.json",
       "bytes": 1943,
@@ -599,6 +611,66 @@
       "research_source": "routes/route2/evidence/spatial-action/spatial-action-cpu-all-fp32-v2.stdout.txt",
       "bytes": 45779,
       "sha256": "4726a534e30debf1c82e1b7ba1ac6559c95c5b5d683197c13bf0d30c50fb3c75"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v1.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v1.json",
+      "bytes": 9450,
+      "sha256": "f9e91e8fb68e1aa657e8a902e3fd441b712a35775e51add09660189534cf130a"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v2.command.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v2.command.json",
+      "bytes": 1763,
+      "sha256": "08316afb8107171cb9ce11b6ae874ced11470bc2202825241ff4de5d19c1f27b"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v2.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v2.json",
+      "bytes": 10046,
+      "sha256": "0901a49810009cc3a9ec44c8e71d82fb3347834b43fee937ecf257cc05add69a"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v3.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v3.json",
+      "bytes": 1546785,
+      "sha256": "485243be7bd17027d8548076ad235adaad79ea76383d0095dd1313fc8e123219"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v3.stdout.txt",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v3.stdout.txt",
+      "bytes": 2436,
+      "sha256": "8af216e64a80c17ae381c0a4d6e79408940935172a8ee1eb045bb07cb2cf2c13"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.command.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.command.json",
+      "bytes": 2058,
+      "sha256": "004c5e9d2bd40730d3ebee64c6d76f640d5d104002d2276d784298d130f51033"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.json",
+      "bytes": 1550649,
+      "sha256": "41376256d294870ccc6533b6f5ebc6236fdca9d68573c25082e99ea373dd53d4"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.stdout.txt",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.stdout.txt",
+      "bytes": 2432,
+      "sha256": "23366b2658914654312cccc001dff28166eb77b0ed7f3a1d159716d6ad0e39d1"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-cpu-v1.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-cpu-v1.json",
+      "bytes": 4280,
+      "sha256": "2e3da99b66d237fb5dac9c7e9df8ae35ea5c128f3671999dd319bfb5e425e70b"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-action/spatial-action-functional-musa-v1.json",
+      "research_source": "routes/route2/evidence/spatial-action/spatial-action-functional-musa-v1.json",
+      "bytes": 8217,
+      "sha256": "bb5ba50b01cd28dd206335de4159c8abbbc58a8f5331bbd905fbd9836cf77a98"
     },
     {
       "path": "routes/route2/evidence/spatial-action/spatial-action-musa-all-bf16-v2.command.json",
@@ -695,6 +767,18 @@
       "research_source": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v3.json",
       "bytes": 733902,
       "sha256": "68690dce627e0cfb66f15c38ea4aeea8c3e0366436213a28157d8cf0b9ce6c97"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v5.json",
+      "research_source": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v5.json",
+      "bytes": 776280,
+      "sha256": "2376d6be3cba6c5d33a49741b11442dd135de55785960f48d4823d619ba21473"
+    },
+    {
+      "path": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v5.stdout.txt",
+      "research_source": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v5.stdout.txt",
+      "bytes": 6133,
+      "sha256": "0e221181e427d449f659d6c8e21445f2457616391c25b380bf645dfad87112a1"
     },
     {
       "path": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v1.command.json",
@@ -933,8 +1017,8 @@
     {
       "path": "routes/route2/model_probes/eagle_integration/README.md",
       "research_source": "routes/route2/model_probes/eagle_integration/README.md",
-      "bytes": 1398,
-      "sha256": "36b6e21b2433efbdd39ab4e0705829e1a228a344e08b9133ff5b7c73a6348d83"
+      "bytes": 3326,
+      "sha256": "ae34526f589a0947926447e7da53ce1200c7d257fee54d605c6e26be10cce7bf"
     },
     {
       "path": "routes/route2/model_probes/eagle_integration/audit_sources/manifest.json",
@@ -1051,10 +1135,16 @@
       "sha256": "aeefd0fa985f7df216154c069b5bed4b13fa5b85919fbde9fa04aacc6c507bbf"
     },
     {
+      "path": "routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py",
+      "research_source": "routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py",
+      "bytes": 37143,
+      "sha256": "2f727b3608fd43c30641b033b2773bcc8e69f73e549f082b2038aa872ef5b7a6"
+    },
+    {
       "path": "routes/route2/model_probes/eagle_integration/spatial_numerical_diagnostics.py",
       "research_source": "routes/route2/model_probes/eagle_integration/spatial_numerical_diagnostics.py",
-      "bytes": 30216,
-      "sha256": "2ea1c26b2afe0b56f348b8e76b7fe4bec686b5bc68515fd92dfd1efbc6eed269"
+      "bytes": 33331,
+      "sha256": "c593706a3cb4ccd406efa0986dc4584bffe0e66a831329e98e33c33ccf0952f7"
     },
     {
       "path": "routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py",
@@ -1073,6 +1163,12 @@
       "research_source": "routes/route2/model_probes/eagle_integration/versions/download-helper-v1/download_spatial_weights.py",
       "bytes": 10724,
       "sha256": "16c377df97cb36df58cb2950f0932eed6c0409309b9cc33f433ea43f97c5268c"
+    },
+    {
+      "path": "routes/route2/model_probes/eagle_integration/versions/functional-v3/spatial_action_functional_probe.py",
+      "research_source": "routes/route2/model_probes/eagle_integration/versions/functional-v3/spatial_action_functional_probe.py",
+      "bytes": 35673,
+      "sha256": "d74ea16188a278283073fc2c695b851d84e39b3a57901e4792d1c28cfeffee7d"
     },
     {
       "path": "routes/route2/model_probes/eagle_integration/versions/pretrained-v1/spatial_pretrained_backbone_probe.py",

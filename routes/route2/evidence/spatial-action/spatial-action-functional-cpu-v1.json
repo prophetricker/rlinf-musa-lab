@@ -1,0 +1,124 @@
+{
+  "pass": true,
+  "scope": "Validate whether Spatial backbone drift changes the GR00T action function.\n\nThe probe loads the real Spatial action-head checkpoint and, when requested, the\nreal 585-tensor Eagle backbone. CPU and MUSA runs use identical fixed inputs,\nnoise and timesteps. It records action denoising, finite gradients and one\nAdamW update. Numerical gates remain diagnostic: a finite functional result is\nnot relabelled as an exact CPU/MUSA match.\n",
+  "arguments": {
+    "source_tree": "/root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager",
+    "weights": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "metadata_dir": "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/checkpoint_metadata",
+    "checkpoint_config": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+    "device": "cpu",
+    "with_backbone": false,
+    "seed": 271829,
+    "output": "/root/autodl-tmp/s4000-research/route2/results/spatial-action-functional-cpu-v1.json"
+  },
+  "started": 1791211944.3384807,
+  "versions": {
+    "torch": "2.2.0a0+git8ac9b20",
+    "transformers": "4.51.3",
+    "diffusers": "0.30.2",
+    "safetensors": "0.8.0"
+  },
+  "action_head_load": {
+    "tensor_count": 314,
+    "shards": [
+      "model-00001-of-00002.safetensors",
+      "model-00002-of-00002.safetensors"
+    ],
+    "strict": true
+  },
+  "action_config_sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526",
+  "action_runs": [
+    {
+      "label": "cpu_head_cpu_features",
+      "device": "cpu",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.20071065251704567,
+        "std": 0.38141204128716377,
+        "l2": 9.75238814709513,
+        "max_abs": 0.8082841634750366
+      },
+      "loss": 0.30234330892562866,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 6.747540026080131,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.1402893215417862,
+          "max_abs": 0.005430414341390133
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.055022966116666794,
+          "max_abs": 0.0015119536546990275
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.8004536628723145,
+          "max_abs": 0.14846652746200562
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.02708589729295668,
+      "update_nonzero_elements": 758028658,
+      "functional_pass": true,
+      "elapsed_seconds": 7.679813124239445
+    },
+    {
+      "label": "cpu_head_device_features",
+      "device": "cpu",
+      "action_prediction": {
+        "shape": [
+          1,
+          16,
+          32
+        ],
+        "finite": true,
+        "mean": 0.20071065251704567,
+        "std": 0.38141204128716377,
+        "l2": 9.75238814709513,
+        "max_abs": 0.8082841634750366
+      },
+      "loss": 0.30234330892562866,
+      "loss_finite": true,
+      "gradient_parameter_count": 314,
+      "gradient_missing_count": 0,
+      "gradient_missing_names": [],
+      "gradient_nonzero_parameter_count": 314,
+      "gradient_global_l2": 6.747540026080131,
+      "representative_gradients": [
+        {
+          "name": "model.transformer_blocks.0.attn1.to_q.weight",
+          "l2": 0.1402893215417862,
+          "max_abs": 0.005430414341390133
+        },
+        {
+          "name": "model.transformer_blocks.15.ff.net.2.weight",
+          "l2": 0.055022966116666794,
+          "max_abs": 0.0015119536546990275
+        },
+        {
+          "name": "action_decoder.layer2.W",
+          "l2": 1.8004536628723145,
+          "max_abs": 0.14846652746200562
+        }
+      ],
+      "update_max_abs": 1.0132789611816406e-06,
+      "update_l2": 0.02708589729295668,
+      "update_nonzero_elements": 758028658,
+      "functional_pass": true,
+      "elapsed_seconds": 11.962440870702267
+    }
+  ],
+  "functional_pass": true,
+  "backbone_pair_used": null
+}

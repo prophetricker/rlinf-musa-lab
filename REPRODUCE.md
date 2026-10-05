@@ -198,3 +198,19 @@ done
 网络慢时可使用 `scripts/acquire_route2_weights_parallel.py --support-dir routes/route2/model_probes/eagle_integration --destination results/weights/Spatial-73f710e --evidence results/download-parallel-new.json`，先停止其它写同目录的下载进程。只采用支持精确206 Range的公开mirror，保留prefix/分块，完整文件仍校验官方LFS SHA。该helper的纯下载并发不允许同时跑多个GPU实验。
 
 pretrained runner仅加载所有585个backbone张量并转换FP32；全部strict keys和载入值逐项验收，再比较真实CPU source eager / CPU fallback / MUSA fallback。它使用两幅合成raw tensor image和B1/S570，无tokenizer/图像预处理/完整action/环境/优化器。以 [本轮报告](reports/route2-spatial-eagle.md) 的实际完成范围为准。
+
+## 11. 完整 action head 功能影响
+
+复用第10节准备好的隔离环境、完整源码和固定两片 Spatial 权重，在同一 S4000 上顺序执行：
+
+```bash
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py \
+  --source-tree worktrees/gr00t-spatial-eager --weights results/weights/Spatial-73f710e \
+  --device musa --with-backbone --embodiment-id 31 \
+  --seed 271829 --backbone-seed 271829 --cpu-threads 4 \
+  --output results/spatial-functional-new.json
+```
+
+采用 RLinf 的 LIBERO 分支31和7维有效动作 mask；固定标准高斯噪声和4步 Euler，并对照未修改的原始 forward/get_action。每组使用完整314张量 head 执行 backward 和 AdamW 单步，直接比较活动分支和所有共享参数的梯度/更新向量。其他机器人分支的梯度必须严格为0。
+
+输出和退出码验收本轮功能与控制合同；action gate、feature gate、逐参数/全局梯度及更新数值结果分开记录。尤其不能把 finite 参数更新或功能探针退出0解释为原 feature gate 已通过、真实任务成功率提升或官方 RLinf PPO 可用。实测历史及空切片检查修订见 [Spatial/Eagle报告](reports/route2-spatial-eagle.md)。
