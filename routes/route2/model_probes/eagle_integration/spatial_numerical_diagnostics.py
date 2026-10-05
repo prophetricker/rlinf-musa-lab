@@ -19,6 +19,7 @@ from fp32_backbone_attention import BackboneAttentionKernel, bind_source_kernel
 
 LAYERS = (3, 7, 11)  # Source zero-based indices, not human ordinal numbers.
 VISION_LAYERS = (0, 12, 24, 26)
+VISION_COMPONENTS = ("layer_norm1", "self_attn", "layer_norm2", "mlp", "mlp.fc1", "mlp.fc2")
 COMPONENTS = (
     "input_layernorm", "self_attn", "self_attn.q_proj", "self_attn.k_proj",
     "self_attn.v_proj", "self_attn.q_norm", "self_attn.k_norm",
@@ -113,7 +114,7 @@ class SpatialNumericalDiagnostics:
             return []
         torch = self.torch
         snapshot = {"layers": {}, "components": {}, "final_norm": {}, "language": {},
-                    "vision": {}, "connector": {}}
+                    "vision": {}, "vision_components": {}, "connector": {}}
         self.snapshots[kind] = snapshot
         handles = []
         def pre(target):
@@ -149,6 +150,11 @@ class SpatialNumericalDiagnostics:
                 entry = snapshot["vision"].setdefault(index, {})
                 handles.append(layer.register_forward_pre_hook(pre(entry), with_kwargs=True))
                 handles.append(layer.register_forward_hook(post(entry)))
+                for name in VISION_COMPONENTS:
+                    target = snapshot["vision_components"].setdefault((index, name), {})
+                    module = layer.get_submodule(name)
+                    handles.append(module.register_forward_pre_hook(pre(target), with_kwargs=True))
+                    handles.append(module.register_forward_hook(post(target)))
         return handles
 
     def run(self, cpu_model, gpu_model, mask):
@@ -275,6 +281,9 @@ class SpatialNumericalDiagnostics:
             "vision_cpu_source_replays_exact": all(row["cpu_replay_to_capture"]["max_abs"] == 0.0
                                                    for row in result["vision_same_input"]["layers"]),
             "connector_cpu_source_replay_exact": result["vision_same_input"]["connector"]["cpu_replay_to_capture"]["max_abs"] == 0.0,
+            "vision_component_cpu_source_replays_exact": all(
+                row["cpu_replay_to_capture"]["max_abs"] == 0.0
+                for row in result["vision_same_input"]["components"]),
         }
         result["controls_pass"] = all(result["controls"].values())
         torch.musa.synchronize()
@@ -311,12 +320,42 @@ class SpatialNumericalDiagnostics:
                             "musa_to_cpu_same_input": self.compare(torch, gpu_value, cpu_value),
                             "musa_to_capture": self.compare(torch, gpu_value, entry["output"]),
                             "musa_source_vs_fallback": self.compare(torch, musa_outputs["fallback"], musa_outputs["source_eager"])})
+        component_records = []
+        for index in VISION_LAYERS:
+            layer = cpu_vision.encoder.layers[index]
+            gpu_layer = gpu_vision.encoder.layers[index]
+            for name in VISION_COMPONENTS:
+                entry = cpu_snapshot["vision_components"][(index, name)]
+                cpu_module, gpu_module = layer.get_submodule(name), gpu_layer.get_submodule(name)
+                args, kwargs = tree_map(torch, entry["args"], "cpu"), tree_map(torch, entry["kwargs"], "cpu")
+                local_args, local_kwargs = tree_map(torch, entry["args"], "musa"), tree_map(torch, entry["kwargs"], "musa")
+                attention = name == "self_attn"
+                outputs = {}
+                for device, module, call_args, call_kwargs in (("cpu", cpu_module, args, kwargs),
+                                                                ("musa", gpu_module, local_args, local_kwargs)):
+                    modes = (False, True) if attention else (None,)
+                    for fallback in modes:
+                        mode = "source_eager" if fallback is False else "fallback" if fallback is True else "source"
+                        context = kernel_mode(module, source, fallback, family="siglip") if attention else contextlib.nullcontext()
+                        with context:
+                            output = module(*call_args, **call_kwargs)
+                        value = output[0] if isinstance(output, tuple) else output
+                        outputs[(device, mode)] = value.detach().cpu().clone()
+                base_mode = "source_eager" if attention else "source"
+                record = {"index": index, "name": name,
+                          "input_transfer_exact": transfers_exact(torch, (args, kwargs), (local_args, local_kwargs)),
+                          "cpu_replay_to_capture": self.compare(torch, outputs[("cpu", base_mode)], entry["output"]),
+                          "musa_to_cpu_same_input": self.compare(torch, outputs[("musa", base_mode)], outputs[("cpu", base_mode)])}
+                if attention:
+                    record["musa_source_vs_fallback"] = self.compare(torch, outputs[("musa", "fallback")], outputs[("musa", "source_eager")])
+                    record["cpu_source_vs_fallback"] = self.compare(torch, outputs[("cpu", "fallback")], outputs[("cpu", "source_eager")])
+                component_records.append(record)
         connector = cpu_snapshot["connector"]
         cargs, ckwargs = tree_map(torch, connector["args"], "cpu"), tree_map(torch, connector["kwargs"], "cpu")
         gargs, gkwargs = tree_map(torch, connector["args"], "musa"), tree_map(torch, connector["kwargs"], "musa")
         cpu_connector = cpu_model.eagle_model.mlp1(*cargs, **ckwargs).detach().cpu()
         musa_connector = gpu_model.eagle_model.mlp1(*gargs, **gkwargs).detach().cpu()
-        return {"layers": records,
+        return {"layers": records, "components": component_records,
                 "connector": {"input_transfer_exact": transfers_exact(torch, (cargs, ckwargs), (gargs, gkwargs)),
                               "cpu_replay_to_capture": self.compare(torch, cpu_connector, connector["output"]),
                               "musa_to_cpu_same_input": self.compare(torch, musa_connector, cpu_connector),

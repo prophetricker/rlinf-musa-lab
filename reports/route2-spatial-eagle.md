@@ -78,6 +78,19 @@ v2仅增加只读逐层hooks和失败元素计数，kernel、权重、输入及�
 
 视觉第 0、12、24、26 层在相同 CPU hidden 输入下的 MUSA/CPU 最大绝对误差为 `8.39e-5`、`5.48e-6`、`1.29e-5`、`1.22e-4`；四层的 MUSA source eager 与 fallback 均逐元素相同，连接器同输入最大绝对误差 `6.44e-6`。位置 ID、RoPE 非持久 buffer、mask、非连续 Q/K/V stride 及 CPU 回放控制全部通过。因此当前证据不支持“适配逻辑改变了模型数学”的结论，更符合 MUSA/CPU 算子舍入在 27 层视觉网络中累积，并在最终归一化后放大的现象。原严格 gate 仍保留失败，下一步应定位视觉层内具体算子并评估可接受的设备参考门槛。
 
+视觉内部算子诊断 v5 进一步覆盖了视觉第 0、12、24、26 层的 `layer_norm1`、`self_attn`、`layer_norm2`、`mlp`、`mlp.fc1` 和 `mlp.fc2`。所有 CPU source replay、CPU→MUSA 输入传输和 MUSA source eager/fallback attention 对照均通过；四个视觉层的 source attention 与 fallback 仍逐元素相同。相同输入下，LayerNorm 的最大绝对误差为 `1.91e-6`～`6.10e-5`，attention 为 `1.28e-6`～`1.29e-5`，而 MLP 输出为 `5.01e-6`～`1.07e-4`；最大值出现在第 26 层 `mlp`，其 `fc1` 为 `1.22e-4`、`fc2` 为 `9.16e-5`。这些是固定输入下的局部设备差异，不是单独的失败 gate；它们随后续残差和层数传播，能够解释完整 features 的失败，但尚不能证明某一个 MUSA kernel 有错误。v5 原始证据见 [视觉算子诊断](../routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v5.json)，脚本哈希 `c593706a3cb4ccd406efa0986dc4584bffe0e66a831329e98e33c33ccf0952f7` 与结果记录一致。
+
+该轮实例上的精确命令为：
+
+```bash
+/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python \
+  /root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py \
+  --source-tree /root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager \
+  --weights /root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e \
+  --device musa --diagnose-numerics \
+  --output /root/autodl-tmp/s4000-research/route2/results/spatial-pretrained-backbone-musa-diagnostics-v5.json
+```
+
 ## 4. 修订历史与复现边界
 
 Spatial v1 的CPU两个dtype各留下18行partial JSON，在DiT effective_config含torch.dtype时报告序列化失败。Eagle v1 的FP32 stdout两行通过，但最终报告序列化失败、退出1。v2只修复JSON dtype表示与证据保护等诊断逻辑；没有改数值数学或门槛。原脚本、partial JSON、stdout和命令退出码保留。
