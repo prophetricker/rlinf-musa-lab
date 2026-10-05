@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-05",
-  "research_commit": "bd6ebcef65c739e81a5608e1b5e81362f3c5f9db",
+  "research_commit": "e35052e75544caeb04f7424e6f0a8ab0a34236d2",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,14 +21,14 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 4967,
-      "sha256": "a70cab1d5bf7ad8aa74858c623005326b02cc549cda8212a4ff6e0151e365347"
+      "bytes": 5089,
+      "sha256": "4f910b44127c780f6301c58ba9cbaef262074e3376bdd8fdf502324a09a25c97"
     },
     {
       "path": "REPRODUCE.md",
       "research_source": "routes/route2/publishing/REPRODUCE.md",
-      "bytes": 13799,
-      "sha256": "659db4f44041a1a83a30a6897f8e47be656b912bf790e10ee16c0e826d38e5aa"
+      "bytes": 14183,
+      "sha256": "6c2db69aade52a52481b0a715e0ceb1250c019cb12c32c6844f252ec107a858f"
     },
     {
       "path": "ROADMAP.md",
@@ -111,8 +111,8 @@
     {
       "path": "reports/route2-spatial-eagle.md",
       "research_source": "reports/route2-spatial-eagle.md",
-      "bytes": 10617,
-      "sha256": "e82fa8c334b7c6c572b2e231671b455464a12d4ccec22b607b7b6c8b617c89a8"
+      "bytes": 12009,
+      "sha256": "53a62639004ec28e486f6fc0c78e1727a4016a7d9d866e015a2bdb68ff325766"
     },
     {
       "path": "routes/route2/README.md",
@@ -691,6 +691,12 @@
       "sha256": "6a76fb371393d094fadbc7482f6ac620ee273d4391c19f52c8f14e8227f60a7a"
     },
     {
+      "path": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v3.json",
+      "research_source": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v3.json",
+      "bytes": 733902,
+      "sha256": "68690dce627e0cfb66f15c38ea4aeea8c3e0366436213a28157d8cf0b9ce6c97"
+    },
+    {
       "path": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v1.command.json",
       "research_source": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v1.command.json",
       "bytes": 574,
@@ -925,6 +931,12 @@
       "sha256": "9c730fc6092e9d0949621162f36d589f45f867d33cfa2377d8f3397a72ddf934"
     },
     {
+      "path": "routes/route2/model_probes/eagle_integration/README.md",
+      "research_source": "routes/route2/model_probes/eagle_integration/README.md",
+      "bytes": 1398,
+      "sha256": "36b6e21b2433efbdd39ab4e0705829e1a228a344e08b9133ff5b7c73a6348d83"
+    },
+    {
       "path": "routes/route2/model_probes/eagle_integration/audit_sources/manifest.json",
       "research_source": "routes/route2/model_probes/eagle_integration/audit_sources/manifest.json",
       "bytes": 5974,
@@ -1039,10 +1051,16 @@
       "sha256": "aeefd0fa985f7df216154c069b5bed4b13fa5b85919fbde9fa04aacc6c507bbf"
     },
     {
+      "path": "routes/route2/model_probes/eagle_integration/spatial_numerical_diagnostics.py",
+      "research_source": "routes/route2/model_probes/eagle_integration/spatial_numerical_diagnostics.py",
+      "bytes": 30216,
+      "sha256": "2ea1c26b2afe0b56f348b8e76b7fe4bec686b5bc68515fd92dfd1efbc6eed269"
+    },
+    {
       "path": "routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py",
       "research_source": "routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py",
-      "bytes": 19573,
-      "sha256": "0fe4086626520ad6050fd253e323f2e3d01d7b51168a100a612b743b0bdd8c20"
+      "bytes": 21302,
+      "sha256": "10f76b74fe10f45cdba9dc4657b8df47f18037c1c641ac6b62250c498d0dfb3d"
     },
     {
       "path": "routes/route2/model_probes/eagle_integration/spatial_shape_audit.py",
@@ -1067,6 +1085,12 @@
       "research_source": "routes/route2/model_probes/eagle_integration/versions/pretrained-v1/version.json",
       "bytes": 294,
       "sha256": "f4688c9930a58e15ced3ead42272d11789a91517ba887aadaa66252e1827f061"
+    },
+    {
+      "path": "routes/route2/model_probes/eagle_integration/versions/pretrained-v2/spatial_pretrained_backbone_probe.py",
+      "research_source": "routes/route2/model_probes/eagle_integration/versions/pretrained-v2/spatial_pretrained_backbone_probe.py",
+      "bytes": 19573,
+      "sha256": "0fe4086626520ad6050fd253e323f2e3d01d7b51168a100a612b743b0bdd8c20"
     },
     {
       "path": "routes/route2/model_probes/eagle_integration/versions/v1/eagle_composite_probe.py",

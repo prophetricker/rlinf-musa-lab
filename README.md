@@ -16,7 +16,7 @@
 
 ## 其他验证
 
-- Spatial 正式 action 宽度（H32/D48/cross2048、Q49/K570）与真实双层 DiT：FP32 全部前向/输入和参数 VJP完成，CPU/MUSA独立语义门槛通过，原严格总门槛保留解析零方向失败；BF16扩展q/k norm合同有正常梯度超阈值。完整GR00T899参数名/形状匹配；真实骨干585权重strict load和完整FP32前向已执行，约7.56GiB显存峰值，MUSA features/logits混合allclose失败；CPU两实现精确一致。小型Eagle FP32通过，BF16 feature失败。详见 [Spatial/Eagle报告](reports/route2-spatial-eagle.md)。
+- Spatial 正式 action 宽度（H32/D48/cross2048、Q49/K570）与真实双层 DiT：FP32 全部前向/输入和参数 VJP完成，CPU/MUSA独立语义门槛通过，原严格总门槛保留解析零方向失败；BF16扩展q/k norm合同有正常梯度超阈值。完整GR00T899参数名/形状匹配；真实骨干585权重strict load和完整FP32前向已执行，约7.56GiB显存峰值，MUSA features/logits混合allclose失败；CPU两实现精确一致。新增视觉/语言同输入回放显示 fallback 与 source eager 一致，差异主要是 MUSA/CPU 多层数值传播。小型Eagle FP32通过，BF16 feature失败。详见 [Spatial/Eagle报告](reports/route2-spatial-eagle.md)。
 - MuJoCo HalfCheetah-v5：三个训练种子各 102,400 transitions，独立 20 局 test 平均回报从约 -0.33 提升到 694/885/678；同批 model/Adam/normalizer/输出/RNG 恢复通过。[结果与曲线](reports/route2-learning.md) 保留全部种子及统计边界。
 - 真实 RLinf FSDP1 strategy：显式旧 Torch opt-in、单卡 FP32 NO_SHARD 包装/前反向/梯度范数/AdamW 更新通过；local_shard 与 Torch 2.2 DCP 的 MUSA/MCCL checkpoint 恢复和继续更新均通过，CPU 参数最大误差 1.49e-8、继续更新模型/optimizer/scheduler 最大误差为0。新增独立进程恢复亦通过，四类 RNG 与继续更新精确一致；仍未验证多卡分片、offload 与官方 Actor，见 [说明](routes/route2/fsdp_probes/README.md)。
 - 真实 Diffusers Attention 与固定双层 GR00T DiT：MUSA 12/12 rows 完成 forward、输入 VJP 和参数 VJP；除解析零方向外的严格门槛通过，独立 semantic gate 全部通过。严格总 gate 保留 false，不能替代完整 GR00T 权重加载或训练结论，见 [action 接口探针](routes/route2/planning/action-interface-probe.md)。

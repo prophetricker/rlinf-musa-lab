@@ -61,8 +61,6 @@ def main():
     parser.add_argument("--weights", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "musa"), default="cpu")
     parser.add_argument("--cpu-threads", type=int, default=4)
-    parser.add_argument("--diagnose-numerics", action="store_true",
-                        help="Add same-input source/fallback layers/operators and CPU FP64 diagnostics; original gates unchanged")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists() or args.cpu_threads < 1:
@@ -103,12 +101,6 @@ def main():
         from transformers.modeling_utils import ALL_ATTENTION_FUNCTIONS
         from transformers.utils import is_flash_attn_2_available
         modules = {"qwen3": modeling_qwen3, "siglip": modeling_siglip}
-        numerical = None
-        if args.diagnose_numerics:
-            if args.device != "musa":
-                raise ValueError("Numerical device diagnosis requires --device musa")
-            from spatial_numerical_diagnostics import SpatialNumericalDiagnostics
-            numerical = SpatialNumericalDiagnostics(torch, diagnostic_metrics)
         for family, module in modules.items():
             if file_hash(inspect.getfile(module)) != TF_HASHES[family]:
                 raise ValueError("Installed Transformers source mismatch")
@@ -235,8 +227,6 @@ def main():
                     hooks.append(layer.register_forward_hook(layer_hook(f"language.layer.{i}")))
                 hooks.append(local.eagle_model.vision_model.vision_model.post_layernorm.register_forward_hook(layer_hook("vision.norm")))
                 hooks.append(local.eagle_model.language_model.model.norm.register_forward_hook(layer_hook("language.norm")))
-                if numerical is not None:
-                    hooks.extend(numerical.attach(local, kind))
                 try:
                     with torch.no_grad():
                         out = local(local.prepare_input({key: value.to(device) for key, value in batch.items()}))
@@ -283,13 +273,6 @@ def main():
                 row["pass"] = all(source_contract.values()) and all(v["pass"] for v in comparison.values()) and row.get("comparison_to_cpu_fallback", {"pass": True})["pass"]
                 result["rows"].append(row)
                 print(json.dumps({"kind": kind, "pass": row["pass"], "comparison": comparison}), flush=True)
-                if numerical is not None and kind == "fallback_musa":
-                    stage("same_input_numerical_diagnostics")
-                    result["numerical_diagnostics"] = numerical.run(model, local, mask)
-                    diagnostic_state = state_record(torch, local)
-                    result["numerical_diagnostics"]["loaded_state_unchanged"] = (
-                        diagnostic_state["sha256"] == initial["sha256"] and diagnostic_state["all_finite"])
-                    del diagnostic_state
                 del local, out, features, captures, after, layer_captures
                 gc.collect()
                 if device == "musa":
@@ -301,13 +284,6 @@ def main():
         result.update(temporary_model_registration=registration, attention_globals_unchanged=globals_ok,
                       cpu_threads=torch.get_num_threads())
         result["pass"] = all(row["pass"] for row in result["rows"]) and len(result["rows"]) == len(kinds) and globals_ok and registration["model_registries_restored"]
-        if numerical is not None:
-            diagnostic = result.get("numerical_diagnostics", {})
-            result["diagnostic_completion"] = (diagnostic.get("completed", False)
-                                                and diagnostic.get("controls_pass", False)
-                                                and diagnostic.get("loaded_state_unchanged", False)
-                                                and globals_ok and registration["model_registries_restored"])
-            result["pass"] = result["pass"] and result["diagnostic_completion"]
     except Exception as error:
         result.update(error_class=type(error).__name__, error=str(error), traceback=traceback.format_exc(limit=8))
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -188,6 +188,11 @@ done
 "$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py \
   --source-tree worktrees/gr00t-spatial-eager --weights results/weights/Spatial-73f710e \
   --device musa --output results/spatial-pretrained-new.json
+
+# 同输入逐层数值诊断；原始数值门槛不变，结果只作为定位证据
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py \
+  --source-tree worktrees/gr00t-spatial-eager --weights results/weights/Spatial-73f710e \
+  --device musa --diagnose-numerics --output results/spatial-pretrained-diagnostics-new.json
 ```
 
 网络慢时可使用 `scripts/acquire_route2_weights_parallel.py --support-dir routes/route2/model_probes/eagle_integration --destination results/weights/Spatial-73f710e --evidence results/download-parallel-new.json`，先停止其它写同目录的下载进程。只采用支持精确206 Range的公开mirror，保留prefix/分块，完整文件仍校验官方LFS SHA。该helper的纯下载并发不允许同时跑多个GPU实验。

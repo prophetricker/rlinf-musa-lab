@@ -72,6 +72,12 @@ v2仅增加只读逐层hooks和失败元素计数，kernel、权重、输入及�
 
 逐层诊断观察到：视觉第24～26层出现少量逐元素失败，后续vision norm/connector通过；语言第3层开始有单个失败，第7层后数量增长，最终language norm后有效feature失败2,960个。每层整体relative-L2仍很小。这定位了误差增长发生的位置，尚未证明是某一个kernel、累积规则或设备算子的单一根因。见 [v2逐层证据](../routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v2.json)。下一次应在相同fixture下分开“CPU视觉特征送入GPU语言网络”和“同一hidden输入的选定层/最终norm对照”，再用更高精度CPU参考核对候选算子；不改写原失败结果。
 
+### 数值诊断追加结果
+
+随后完成了上述同输入回放，见 [v3诊断证据](../routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-diagnostics-v3.json)。将 CPU 视觉连接器输出直接送入 MUSA language network 后，features 相对 CPU 的最大绝对误差为 `3.8147e-4`、relative-L2 `2.2418e-6`，有效元素没有超过原混合阈值；第 3、7、11 个语言层的 CPU hidden 直接回放到 MUSA 后，source eager 与 fallback 逐元素相同，最大绝对误差分别为 `1.9073e-5`、`3.4332e-5`、`9.1553e-5`。最终 RMSNorm 的误差分解显示，总 valid L2 `0.06332` 中固定 MUSA norm kernel 的部分仅 `0.0001337`，主要差异来自上游 hidden 输入传播。
+
+视觉第 0、12、24、26 层在相同 CPU hidden 输入下的 MUSA/CPU 最大绝对误差为 `8.39e-5`、`5.48e-6`、`1.29e-5`、`1.22e-4`；四层的 MUSA source eager 与 fallback 均逐元素相同，连接器同输入最大绝对误差 `6.44e-6`。位置 ID、RoPE 非持久 buffer、mask、非连续 Q/K/V stride 及 CPU 回放控制全部通过。因此当前证据不支持“适配逻辑改变了模型数学”的结论，更符合 MUSA/CPU 算子舍入在 27 层视觉网络中累积，并在最终归一化后放大的现象。原严格 gate 仍保留失败，下一步应定位视觉层内具体算子并评估可接受的设备参考门槛。
+
 ## 4. 修订历史与复现边界
 
 Spatial v1 的CPU两个dtype各留下18行partial JSON，在DiT effective_config含torch.dtype时报告序列化失败。Eagle v1 的FP32 stdout两行通过，但最终报告序列化失败、退出1。v2只修复JSON dtype表示与证据保护等诊断逻辑；没有改数值数学或门槛。原脚本、partial JSON、stdout和命令退出码保留。
