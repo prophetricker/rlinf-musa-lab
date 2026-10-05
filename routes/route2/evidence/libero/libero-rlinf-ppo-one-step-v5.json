@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "scope": "Official RLinf GR00T N1.5 wrapper and real LIBERO-Spatial short episode",
+  "probe_sha256": "a49b904137ca04bd8b72ab3e81ab3c85f6b467d511ab7445e3aeaeacc70748b3",
+  "steps_requested": 1,
+  "status": "pass",
+  "model": {
+    "class": "GR00T_N1_5_ForRLActionPrediction",
+    "device": "musa:0",
+    "parameters": 2728490945,
+    "trainable_parameters": 1073133569,
+    "model_load_seconds": 25.649631164968014,
+    "weights": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "action_attention_processor": "FP32AttentionProcessor",
+    "action_attention_modules": 20,
+    "action_head_dtype": "torch.float32"
+  },
+  "reset": {
+    "main_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "wrist_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "state_shape": [
+      1,
+      8
+    ],
+    "state_finite": true,
+    "task": [
+      "pick up the black bowl between the plate and the ramekin and place it on the plate"
+    ],
+    "info_keys": []
+  },
+  "ppo_one_step": {
+    "status": "pass",
+    "loss": -2.0622501373291016,
+    "logprobs_shape": [
+      1,
+      1,
+      7
+    ],
+    "values_shape": [
+      1
+    ],
+    "old_logprobs_shape": [
+      1,
+      4,
+      1,
+      7
+    ],
+    "old_values_shape": [
+      1
+    ],
+    "trainable_parameter_count": 1073133569,
+    "gradient_tensor_count": 322,
+    "gradient_finite": true,
+    "gradient_l2": 89.27793884277344,
+    "gradient_max_abs": 14.264695167541504,
+    "parameter_sample_changed": true,
+    "ppo_metrics": {
+      "actor/policy_loss": -2.5622501373291016,
+      "actor/policy_loss_abs": 2.5622501373291016,
+      "actor/ratio": 2.5622501373291016,
+      "actor/ratio_abs": 1.437749981880188,
+      "actor/clipped_ratio": 3.451387643814087,
+      "actor/dual_cliped_ratio": 0.0,
+      "actor/approx_kl": 2.4590964317321777,
+      "actor/clip_fraction": 0.0,
+      "critic/value_loss": 0.5,
+      "critic/value_clip_ratio": 0.0,
+      "__sum__/_critic_explained_variance/count": 1.0,
+      "__sum__/_critic_explained_variance/returns_sum": 1.5187458992004395,
+      "__sum__/_critic_explained_variance/returns_sq_sum": 2.306589126586914,
+      "__sum__/_critic_explained_variance/errors_sum": 1.0,
+      "__sum__/_critic_explained_variance/errors_sq_sum": 1.0
+    },
+    "target_note": "one synthetic one-sample PPO target: advantages=1 and returns=prev_values+1; this validates the RLinf loss/backward/update path, not learning quality"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.565739631652832,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 5.287908092141151
+    }
+  ],
+  "episode": {
+    "steps_completed": 1,
+    "return": 0.0,
+    "terminated": false,
+    "truncated": false,
+    "rollout_mode": "train"
+  },
+  "musa_memory": {
+    "allocated": 20496821248,
+    "reserved": 22542286848
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "scope": "Official RLinf GR00T N1.5 wrapper and real LIBERO-Spatial short episode",
+  "probe_sha256": "0e97b4f70237fdc9f29acb32a4ea912528d1ce939a7113ebf0259fd3b235e63e",
+  "steps_requested": 8,
+  "status": "pass",
+  "model": {
+    "class": "GR00T_N1_5_ForRLActionPrediction",
+    "device": "musa:0",
+    "parameters": 2728490945,
+    "trainable_parameters": 1073133569,
+    "model_load_seconds": 24.596274681389332,
+    "weights": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e"
+  },
+  "reset": {
+    "main_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "wrist_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "state_shape": [
+      1,
+      8
+    ],
+    "state_finite": true,
+    "task": [
+      "pick up the black bowl between the plate and the ramekin and place it on the plate"
+    ],
+    "info_keys": []
+  },
+  "steps": [
+    {
+      "step": 0,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.618896484375,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 4.47479335218668
+    },
+    {
+      "step": 1,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.57861328125,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.2777398154139519
+    },
+    {
+      "step": 2,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.684814453125,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.27648165822029114
+    },
+    {
+      "step": 3,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.5419921875,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.2901941314339638
+    },
+    {
+      "step": 4,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.853271484375,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.2754099443554878
+    },
+    {
+      "step": 5,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.64453125,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.2765767201781273
+    },
+    {
+      "step": 6,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.853271484375,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.274453803896904
+    },
+    {
+      "step": 7,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 1.03271484375,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.27513667196035385
+    }
+  ],
+  "episode": {
+    "steps_completed": 8,
+    "return": 0.0,
+    "terminated": false,
+    "truncated": false
+  },
+  "musa_memory": {
+    "allocated": 5476926464,
+    "reserved": 6945767424
+  }
+}

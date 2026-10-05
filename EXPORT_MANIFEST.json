@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-05",
-  "research_commit": "f0e66836a9ba7e826a0abb10824e62237cf14495",
+  "research_commit": "fc9835d1d2aee91dc32a25897e705e5aebe5f786",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -103,6 +103,12 @@
       "sha256": "ff2fbc631c54ffd77e9637701f2f0b10ba8e6674dcdd312450ec03696475092c"
     },
     {
+      "path": "reports/route2-libero-real.md",
+      "research_source": "reports/route2-libero-real.md",
+      "bytes": 5280,
+      "sha256": "fe4f39572c33f62a02b7527a628c2171de9410d63b9383ade18e2ccc5dae7922"
+    },
+    {
       "path": "reports/route2-process-backbone.md",
       "research_source": "reports/route2-process-backbone.md",
       "bytes": 4889,
@@ -111,14 +117,14 @@
     {
       "path": "reports/route2-spatial-eagle.md",
       "research_source": "reports/route2-spatial-eagle.md",
-      "bytes": 18812,
-      "sha256": "5d4b1147e0f3c0aa0006820c95264fac17499e44e0a2bff0a653cb987d01baea"
+      "bytes": 18973,
+      "sha256": "f334a2882b569616dda24a40a99556ddb332abb9f84865e5685dd45a93d87a8b"
     },
     {
       "path": "routes/route2/README.md",
       "research_source": "routes/route2/README.md",
-      "bytes": 10941,
-      "sha256": "60156c1d6af9f82b8962d589bbc91ecbc794709cc17e88344d5d096dc158b07d"
+      "bytes": 11283,
+      "sha256": "942372fb3be1321fb3af926c0496b9c1019db00739c244570f7e6db775249605"
     },
     {
       "path": "routes/route2/evidence/action-interface/action-interface-cpu-first.json",
@@ -497,6 +503,30 @@
       "research_source": "routes/route2/evidence/learning/smoke-musa.json",
       "bytes": 6096,
       "sha256": "386b2b6d9e6da79586e9346734db3d0314a94a8ac98703e5c474ebbfef711a4e"
+    },
+    {
+      "path": "routes/route2/evidence/libero/libero-rlinf-model-episode-v8.json",
+      "research_source": "routes/route2/evidence/libero/libero-rlinf-model-episode-v8.json",
+      "bytes": 5500,
+      "sha256": "f6307129b1c09d6746594ba5df392f8fc661cb741db0de3b00d2a55ae7edf6b5"
+    },
+    {
+      "path": "routes/route2/evidence/libero/libero-rlinf-model-episode-v9.json",
+      "research_source": "routes/route2/evidence/libero/libero-rlinf-model-episode-v9.json",
+      "bytes": 5502,
+      "sha256": "0df0619fbf773e8568eb9725e0422ecc0d70b7a2faa8431d826b4cdf7a12883e"
+    },
+    {
+      "path": "routes/route2/evidence/libero/libero-rlinf-ppo-one-step-v5.json",
+      "research_source": "routes/route2/evidence/libero/libero-rlinf-ppo-one-step-v5.json",
+      "bytes": 3278,
+      "sha256": "193f43ed5fecbc9ac25bbd6e18005d0a39e58b31ffb7209567de1040efffda96"
+    },
+    {
+      "path": "routes/route2/evidence/libero/libero-spatial-real-model-step-v1.json",
+      "research_source": "routes/route2/evidence/libero/libero-spatial-real-model-step-v1.json",
+      "bytes": 1987,
+      "sha256": "8d85975273dc592aff53f57131a02511fc7917b16d6b319f4970528df9cb114d"
     },
     {
       "path": "routes/route2/evidence/milestone-validation.json",
@@ -1259,6 +1289,12 @@
       "research_source": "routes/route2/model_probes/history/action-interface-v2/gr00t_action_interface_probe.py",
       "bytes": 23892,
       "sha256": "46ab074d0b319472fef88ea082658046eea2edb364598dfe9d3cf4444b760925"
+    },
+    {
+      "path": "routes/route2/model_probes/libero_rlinf_model_episode_probe.py",
+      "research_source": "routes/route2/model_probes/libero_rlinf_model_episode_probe.py",
+      "bytes": 16897,
+      "sha256": "acdd876071e9ca74e9bca268f874b296c9d8c184cf25b7c6fdbbad518b56c7cc"
     },
     {
       "path": "routes/route2/model_probes/mask_contract_probe.py",

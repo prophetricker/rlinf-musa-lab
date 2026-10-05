@@ -119,7 +119,7 @@ v3 的失败来自探针对31号分支后的空梯度切片执行 `all()`：CPU�
 
 正式结果见 [v4完整功能证据](../routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.json)、[精确命令](../routes/route2/evidence/spatial-action/spatial-action-functional-backbone-musa-v4.command.json)、[修订与实测汇总](../routes/route2/evidence/spatial-action/functional-run-validation.json) 和 [探针源码](../routes/route2/model_probes/eagle_integration/spatial_action_functional_probe.py)。
 
-本轮尚未验证真实 tokenizer/image processor、LIBERO 双视角/proprioception、动作反归一化与 episode，也未接入官方 `EmbodiedFSDPActor` 或 PPO。源 DiT 忽略 `encoder_attention_mask` 的行为保持原样；这不是 padding mask 已适配的证据。
+本轮固定合成输入探针尚未覆盖真实 tokenizer/image processor、LIBERO 双视角/proprioception、动作反归一化与 episode；这些内容已在后续官方 N1.5 wrapper 的真实 8 步 episode 中单独验证，见 [真实 episode 报告](route2-libero-real.md)。本轮仍未接入官方 `EmbodiedFSDPActor` 或 PPO。源 DiT 忽略 `encoder_attention_mask` 的行为保持原样；这不是 padding mask 已适配的证据。
 
 ## 5. 修订历史与复现边界
 
@@ -127,4 +127,4 @@ Spatial v1 的CPU两个dtype各留下18行partial JSON，在DiT effective_config
 
 上游完整169个归档文件的Git blob与固定commit tree匹配。最小补丁源树提交 `62c7d52e625a8172f3c42453453706c329b71d7b`；tiny fixture提交 `e441b8f7c17d4f25c49cfa1f20731e6085e7a962`；full eager/FP32 fixture提交 `c9bd9a2403d14d492be88a9af9ae3989d4b711fc`。恢复脚本只新建目录，不覆盖既有源码；源码锁、原始命令及依赖列表随包保存。
 
-下一步从数值误差深挖转向真实输入链路：先完成 tokenizer/image processor、LIBERO 双视角与 proprioception 输入、动作块反归一化和 headless episode，再接官方 Actor/Rollout/PPO。每一步仍分别记录 import、结构匹配、strict load、功能更新和真实学习结果，不能用本轮固定合成输入替代 episode 或 PPO 证据。
+下一步继续从真实输入链路推进到官方 Actor/Rollout/PPO：真实 tokenizer/image processor、LIBERO 双视角与 proprioception 输入、动作块反归一化和 8 步 headless episode 已完成；每一步仍分别记录 import、结构匹配、strict load、功能更新和真实学习结果，不能用固定合成输入或短 episode 替代 PPO 证据。
