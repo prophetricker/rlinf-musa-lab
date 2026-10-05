@@ -1,0 +1,19 @@
+{
+  "retrieved_utc": "2026-10-05T10:35:16.045999+00:00",
+  "checkpoint_revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "files": [
+    {
+      "url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/model.safetensors.index.json",
+      "file": "routes/route2/model_probes/eagle_integration/checkpoint_metadata/model.safetensors.index.json",
+      "bytes": 104606,
+      "sha256": "bec674fcd06f1c6c29e5ab0f057d148a5c76e7ef92d1688d6b4b8f838afc9746"
+    },
+    {
+      "url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/experiment_cfg/metadata.json",
+      "file": "routes/route2/model_probes/eagle_integration/checkpoint_metadata/metadata.json",
+      "bytes": 12968,
+      "sha256": "0b8fffeb48a0bde4b12fb8cb2244136ddfebce60cd8b69c2233fdb4d55b85b24"
+    }
+  ],
+  "weights_downloaded": false
+}

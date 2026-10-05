@@ -20,6 +20,8 @@
 
 包不包含上游完整 Git 历史、其他路线的补丁/结果、虚拟环境、模型权重或 checkpoint。历史 server paths 只是证据产物位置；SSH 连接信息和密钥没有复制到包中。
 
+新增Eagle补丁来自 [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T/tree/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96) 的固定源码；上游Apache-2.0原文保存在 [UPSTREAM_GR00T_LICENSE.txt](UPSTREAM_GR00T_LICENSE.txt)。完整归档169文件Git blob匹配上游tree；导出只保存补丁/config/manifest，使用 `scripts/restore_eagle_sources.py` 恢复。公开Spatial index/headers/LFS metadata固定HF revision；权重不提交。真实结构审计和forward/strict-load范围由 [报告](reports/route2-spatial-eagle.md) 分别说明。
+
 官方 MUSA 支持的参考：[#1464](https://github.com/RLinf/RLinf/pull/1464)、[#1578](https://github.com/RLinf/RLinf/pull/1578)、[GR00T 配方](https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/gr00t.html)。这些上游记录不替代本项目 S4000/旧栈的具体实测。
 
 FSDP1 增量对应本地提交 `f9b74d95f97ad4234311580ab32c7b586e1dc7af`，独立 patch SHA256 `f7a791d89fbc9973d4d7a95f0e4a22b14e8467631c214e74716b9f899c5791f4`，不覆盖 Worker 学习基线。实际复测版本由 source/probe hash 关联；历史失败补丁保存在 `fsdp_probes/history/`。

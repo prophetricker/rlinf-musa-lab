@@ -1,0 +1,20 @@
+{"stage": "validate_complete_required_shards"}
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:496: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/root/miniconda3/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: ''If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+{"stage": "actual_full_cpu_constructor"}
+Tune backbone llm: False
+Tune backbone visual: False
+Warning: No backbone trainable parameters found.
+{"stage": "real_strict_load_state_dict"}
+{"stage": "native_cpu"}
+{"kind": "native_cpu", "pass": true, "comparison": {"features": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}, "logits": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}, "connector": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}}}
+{"stage": "fallback_cpu"}
+{"kind": "fallback_cpu", "pass": true, "comparison": {"features": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}, "logits": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}, "connector": {"finite": true, "max_abs": 0.0, "relative_l2": 0.0, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}}}
+{"stage": "fallback_musa"}
+{"kind": "fallback_musa", "pass": false, "comparison": {"features": {"finite": true, "max_abs": 0.016500473022460938, "relative_l2": 2.8296864738091346e-05, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": false}, "logits": {"finite": true, "max_abs": 0.007061004638671875, "relative_l2": 2.1907350090329375e-05, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": false}, "connector": {"finite": true, "max_abs": 0.0001310110092163086, "relative_l2": 8.391822762186158e-06, "atol": 0.0002, "rtol": 0.0002, "relative_l2_limit": 0.0002, "pass": true}}}

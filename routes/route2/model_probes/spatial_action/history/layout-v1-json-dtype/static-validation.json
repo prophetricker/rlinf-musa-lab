@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-05",
+  "validation_kind": "local_static_only",
+  "runner_sha256": "0a0966b2fac705a55b916ee7145ad808553decac7e1c8c166f59aa97cfdf99ae",
+  "bundle_manifest_sha256": "a965d31996791a66ddf720cea63da7d06bc0b313d1fbf932139f441f24a72fa6",
+  "checks": [
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "check",
+        "--no-cache",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "routes/route2/model_probes/spatial_action/spatial_action_layout_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "routes/route2/.venv-tools/bin/ruff",
+        "format",
+        "--check",
+        "--no-cache",
+        "--config",
+        "worktrees/rlinf-route2/pyproject.toml",
+        "routes/route2/model_probes/spatial_action/spatial_action_layout_probe.py"
+      ],
+      "exit_code": 0,
+      "stdout": "1 file already formatted\n",
+      "stderr": "warning: Selection `DOC102` has no effect because preview is not enabled.\nwarning: Selection `DOC202` has no effect because preview is not enabled.\nwarning: Selection `DOC403` has no effect because preview is not enabled.\nwarning: Selection `DOC502` has no effect because preview is not enabled.\n"
+    },
+    {
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "routes/route2/model_probes/spatial_action/spatial_action_layout_probe.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: spatial_action_layout_probe.py [-h] [--device {cpu,musa,musa:0}]\n                                      [--phase {attention,dit,all}]\n                                      [--dtypes DTYPES] [--cases CASES]\n                                      [--lengths LENGTHS] [--seed SEED]\n                                      [--support-dir SUPPORT_DIR]\n                                      [--bundle-manifest BUNDLE_MANIFEST]\n                                      [--spatial-config SPATIAL_CONFIG]\n                                      [--gr00t-source GR00T_SOURCE] --output\n                                      OUTPUT\n\nCheck fixed Spatial action geometry with real Attention and two-layer DiT.\nRandom shared quantized weights; native CPU -> FP32-accumulation CPU ->\noptional MUSA. No model downloads, optimizer, global patch or invented DiT\nmask routing. Strict and analytic-zero semantic gates are reported\nindependently. Exit 0 requires the strict gate, all contracts and no runtime\nerror.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --device {cpu,musa,musa:0}\n  --phase {attention,dit,all}\n  --dtypes DTYPES\n  --cases CASES\n  --lengths LENGTHS     Representative unpadded lengths, one per batch item,\n                        each 1..569\n  --seed SEED\n  --support-dir SUPPORT_DIR\n  --bundle-manifest BUNDLE_MANIFEST\n  --spatial-config SPATIAL_CONFIG\n  --gr00t-source GR00T_SOURCE\n  --output OUTPUT\n",
+      "stderr": ""
+    },
+    {
+      "command": "AST parse",
+      "exit_code": 0
+    },
+    {
+      "command": "negative source-config guard before runtime import",
+      "exit_code": 0,
+      "probe_exit_code": 1,
+      "observed_setup_error": "RuntimeError: Hash mismatch: /var/folders/j5/7gk_qwcs73vfjc6pt3_pdh900000gn/T/tmpwk26gl69/bad-config.json: expected 6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526, observed ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "last_stage": {
+        "stage": "guard_support_and_config",
+        "status": "started"
+      },
+      "rows": 0,
+      "status": "expected-failure-captured",
+      "temporary_output_removed": true
+    },
+    {
+      "command": "py_compile to temporary directory",
+      "exit_code": 0
+    },
+    {
+      "command": "verify frozen action/backbone helper bytes and new runner manifest",
+      "exit_code": 0
+    }
+  ],
+  "frozen_file_sha256": {
+    "routes/route2/model_probes/attention_probe.py": "704b68ef1e7bcde4b0578519f6d9c2c0a51298fd8a5e27527754718ce693b775",
+    "routes/route2/model_probes/fp32_attention_processor.py": "0edcb656696bcd3a47e014c3d549cf029a268c4a2f3f9694bea9993bd9d53a6f",
+    "routes/route2/model_probes/gr00t_action_interface_probe.py": "c1a0e36336cbefc5499ffa8bb7c1f38bfe2384f64505c55f7a976d8dad3645f4",
+    "routes/route2/model_probes/gr00t_backbone_interface_probe.py": "eb69db022e7be0c9b0252af5106ec53b0c1e8200950ba7aae66a4ae074ee97ec",
+    "routes/route2/model_probes/fp32_backbone_attention.py": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1"
+  },
+  "dependencies_present": {
+    "torch": false,
+    "torch_musa": false,
+    "diffusers": false
+  },
+  "local_numerical_execution": false,
+  "remote_executed_by_this_agent": false,
+  "gpu_executed_by_this_agent": false,
+  "git_invoked": false,
+  "runtime_result": "pending coordinator CPU/MUSA execution",
+  "source_contract": "DiT and actual VL source baseline retain no mask; independent real Attention padding/4D contracts are separate",
+  "strict_vs_semantic": "exit0 requires strict and all contracts; semantic is separate, not a replacement",
+  "read_only_review": {
+    "path": "routes/route2/model_probes/spatial_action/review.json",
+    "sha256": "e2b196da8b99f9a7c7af49e08006163d545279befdad8b3cac22bc523c1f8810",
+    "reviewer": "/root/route1_compat",
+    "status": "no_blocking_findings"
+  },
+  "final_document_and_json_checks": {
+    "markdown_links_checked": 10,
+    "all_resolve": true,
+    "json_unique_keys": true,
+    "runner_manifest_plan_review_hashes_match": true,
+    "frozen_action_backbone_files_match": true,
+    "runtime_numerical_execution": false
+  }
+}

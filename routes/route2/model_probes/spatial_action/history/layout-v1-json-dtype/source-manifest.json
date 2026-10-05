@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "runner": "spatial_action_layout_probe.py",
+  "runner_sha256": "0a0966b2fac705a55b916ee7145ad808553decac7e1c8c166f59aa97cfdf99ae",
+  "support_sha256": {
+    "attention_probe.py": "704b68ef1e7bcde4b0578519f6d9c2c0a51298fd8a5e27527754718ce693b775",
+    "fp32_attention_processor.py": "0edcb656696bcd3a47e014c3d549cf029a268c4a2f3f9694bea9993bd9d53a6f",
+    "gr00t_action_interface_probe.py": "c1a0e36336cbefc5499ffa8bb7c1f38bfe2384f64505c55f7a976d8dad3645f4"
+  },
+  "spatial_config_sha256": "6713ae6e9ee07ebf30f18a231bedcf9c06f8c64595d62529b6eb175498ef0526",
+  "gr00t_dit_sha256": "1366e3f80c0e076953965eeb43d800cb354fdcdf681ab54f0c2ad8f1d6c9fe62",
+  "native_attention_source_sha256": "afe47ff6d33c865af745e28eed4bd8048b66fd52de7c2b3bad37867e826776c9",
+  "diffusers_version": "0.30.2",
+  "hf_revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "gr00t_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+  "external_files_required": [
+    "../attention_probe.py",
+    "../fp32_attention_processor.py",
+    "../gr00t_action_interface_probe.py",
+    "../backbone_sources/checkpoint-config.json",
+    "../audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py"
+  ],
+  "scope": "source guards only; runtime numerical checks pending coordinator"
+}

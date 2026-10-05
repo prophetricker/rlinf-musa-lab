@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-05",
+  "reviewer": "/root/route1_compat",
+  "review_kind": "read_only_source_review",
+  "status": "no_blocking_findings",
+  "runner_sha256": "353fbb6380edd20f5bdb6cea14189dd23ea2c97b0d0b4224ad795bc86fb3a97d",
+  "manifest_sha256": "44b94fa5f3fb5673948b7de0a9dfef805f71adac17b77e5767f916ff3589b197",
+  "verified": [
+    "run-plan/manifest/support/config/DiT hash groups match",
+    "actual source prepare -> BHQK 4D mask route",
+    "head/query variation, nonempty rows and rightpad blocked checks",
+    "VL valid-query-only upstream and exact full VJP contract",
+    "blocked hidden/encoder gradient strict zero contract",
+    "both output positive controls",
+    "same-seed/state bool-additive full snapshot exact contract",
+    "DiT actual no-mask forward and ignored-mask diagnostic separately reported",
+    "fixed strict/semantic helper; exit0 only strict",
+    "missing peers and exceptions cannot pass"
+  ],
+  "non_blocking_notes": [
+    "CLI lengths1/2 cannot sustain head/query-varying 4D fixture and deliberately fail its preparation gate; default513 unaffected"
+  ],
+  "gpu_or_remote_execution": false,
+  "runtime_numerical_conclusion": null,
+  "version": "layout-v2-json-dtype",
+  "serialization_delta_review": {
+    "reviewer": "/root/route1_compat",
+    "status": "no_blocking_findings",
+    "old_runner_sha256": "0a0966b2fac705a55b916ee7145ad808553decac7e1c8c166f59aa97cfdf99ae",
+    "changes": [
+      "new recursive json_safe for real torch.dtype metadata -> str",
+      "persist serializes json_safe(result)"
+    ],
+    "unchanged": [
+      "all numerical functions match AST",
+      "main except persist matches AST",
+      "models/inputs/VJP/gates unchanged",
+      "allow_nan=False remains"
+    ],
+    "runtime_numerical_conclusion": null
+  }
+}

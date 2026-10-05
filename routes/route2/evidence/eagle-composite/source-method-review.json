@@ -1,0 +1,34 @@
+{
+  "pass": true,
+  "scope": "Coordinator independently compared seven source methods after applying the patch; no GPU/forward evidence",
+  "methods": {
+    "gr00t/model/backbone/eagle_backbone.py:__init__": {
+      "ast_unchanged": true,
+      "ast_sha256": "03b7698c46b1de84e08bf47710f54088de665d765a688cdc8f6e8e8c94ee6a87"
+    },
+    "gr00t/model/backbone/eagle_backbone.py:forward": {
+      "ast_unchanged": true,
+      "ast_sha256": "c1bb0e3e4db3020ad61afed4f73d12414d179f20c015fe1ebb85b085b2de056c"
+    },
+    "gr00t/model/backbone/eagle_backbone.py:forward_eagle": {
+      "ast_unchanged": true,
+      "ast_sha256": "65dadc238a4892c2ef9217326e9b68cdcf7c22bb73d1d2455e7928454230fc48"
+    },
+    "gr00t/model/backbone/eagle_backbone.py:set_trainable_parameters": {
+      "ast_unchanged": true,
+      "ast_sha256": "54c839d40622649759b80a302fe33859b0d3b298df097234828351d31726857f"
+    },
+    "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py:forward": {
+      "ast_unchanged": true,
+      "ast_sha256": "3dd90bd6447b314596f118a724bd062535e5265cb48114315a5d8902190a67f6"
+    },
+    "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py:extract_feature": {
+      "ast_unchanged": true,
+      "ast_sha256": "952ad61e1cb462e8a4f548c43c0e7d4fd6f8e4519144c0d4234efff8d03be588"
+    },
+    "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py:pixel_shuffle": {
+      "ast_unchanged": true,
+      "ast_sha256": "bc380a39cfe5d583568891a18524c9309bacc23c7a408b85aa1a7918fb0a07c1"
+    }
+  }
+}

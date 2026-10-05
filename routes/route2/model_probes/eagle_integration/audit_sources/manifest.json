@@ -1,0 +1,105 @@
+{
+  "retrieved_utc": "2026-10-05T10:24:45.420459+00:00",
+  "sources": [
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py",
+      "bytes": 6059,
+      "sha256": "d1578a2d5b7654da9a5e4cb18acd5d9d92b04a227ddab9365c2e3265d6cf2f93"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/configuration_radio.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/configuration_radio.py",
+      "fetch_error": "HTTP Error 404: Not Found"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/__init__.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/__init__.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/__init__.py",
+      "bytes": 679,
+      "sha256": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "pyproject.toml",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/pyproject.toml",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/pyproject.toml",
+      "bytes": 3641,
+      "sha256": "47af71692d3ae90d2153548adb5f8afe7525b8b877f09cf396d758bbbb8031c3"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/LICENSE",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/LICENSE",
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/__init__.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/__init__.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/__init__.py",
+      "bytes": 745,
+      "sha256": "279c47a1bcae3a98ac661206e04d0b1e9a15c73ce8262536431ba433589c3854"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/__init__.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/__init__.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/backbone/__init__.py",
+      "bytes": 736,
+      "sha256": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle_backbone.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle_backbone.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle_backbone.py",
+      "bytes": 5460,
+      "sha256": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+      "acquisition": "Copied exact bytes from preexisting verified audit cache"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "bytes": 17562,
+      "sha256": "96554c1ca204cc6fb0bff636356b1f878d2ee47678b4a82e6378b59e98bb01d0",
+      "acquisition": "Copied exact bytes from preexisting verified audit cache"
+    },
+    {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "path": "gr00t/model/backbone/eagle2_hg_model/config.json",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96/gr00t/model/backbone/eagle2_hg_model/config.json",
+      "transport_prefix": "https://gh-proxy.com/",
+      "file": "routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T/gr00t/model/backbone/eagle2_hg_model/config.json",
+      "bytes": 2348,
+      "sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba",
+      "acquisition": "Copied exact bytes from preexisting verified audit cache"
+    }
+  ]
+}

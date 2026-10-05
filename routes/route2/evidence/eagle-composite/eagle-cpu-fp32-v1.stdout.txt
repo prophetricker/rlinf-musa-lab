@@ -1,0 +1,37 @@
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:496: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+/root/miniconda3/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: ''If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+Tune backbone llm: False
+Tune backbone visual: False
+Warning: No backbone trainable parameters found.
+{"dtype": "fp32", "kind": "native_cpu", "pass": true}
+{"dtype": "fp32", "kind": "fallback_cpu", "pass": true}
+Traceback (most recent call last):
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/eagle_composite_probe.py", line 394, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/eagle_composite_probe.py", line 389, in main
+    args.output.write_text(json.dumps(evidence, indent=2, allow_nan=False) + "\n")
+  File "/root/miniconda3/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 431, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 325, in _iterencode_list
+    yield from chunks
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 405, in _iterencode_dict
+    yield from chunks
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/root/miniconda3/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type dtype is not JSON serializable

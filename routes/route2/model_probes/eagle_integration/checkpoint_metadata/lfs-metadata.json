@@ -1,0 +1,26 @@
+{
+  "canonical_url": "https://huggingface.co/api/models/RLinf/RLinf-Gr00t-SFT-Spatial/revision/73f710e70e7d571f8d828e51e0a428f5a1e0ac22?blobs=true",
+  "revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "weights": [
+    {
+      "rfilename": "model-00001-of-00002.safetensors",
+      "blobId": "70438a0250887014f6ea670cc46e770291d21fea",
+      "size": 4999367032,
+      "lfs": {
+        "sha256": "e8e38e607765f47658ba2ccac8c7b311e57bafc58dd8490a143332c01e929556",
+        "size": 4999367032,
+        "pointerSize": 135
+      }
+    },
+    {
+      "rfilename": "model-00002-of-00002.safetensors",
+      "blobId": "a6692eda69fce0c3fd92241fab9d08c2276aa6f3",
+      "size": 2586705312,
+      "lfs": {
+        "sha256": "ce44c6277867741d906c3b25d281ea645edf78b0c5b8454d3c69e1a4ed6458eb",
+        "size": 2586705312,
+        "pointerSize": 135
+      }
+    }
+  ]
+}

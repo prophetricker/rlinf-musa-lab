@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py",
+    "--source-tree",
+    "/root/autodl-tmp/s4000-research/route2/Isaac-GR00T-spatial-eager",
+    "--weights",
+    "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "--device",
+    "musa",
+    "--output",
+    "/root/autodl-tmp/s4000-research/route2/results/spatial-pretrained-backbone-musa-v2.json"
+  ],
+  "exit_code": 1,
+  "elapsed_seconds": 133.308
+}

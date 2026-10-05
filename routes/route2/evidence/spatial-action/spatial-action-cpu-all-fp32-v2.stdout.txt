@@ -1,0 +1,282 @@
+{"probe": "spatial_action_stage", "stage": "guard_support_and_config", "status": "started"}
+{"probe": "spatial_action_stage", "stage": "runtime_imports_and_source_guard", "status": "started"}
+/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:496: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  _torch_pytree._register_pytree_node(
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_self", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_self", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 0.258}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_self", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 0.533}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_cross", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_cross", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 0.434}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_cross", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 0.795}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 1.599}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_bool", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 2.129}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 1.616}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 2.127}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 1.637}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 2.098}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 1.639}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_cross_rightpad_4d_additive", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 2.149}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 1.614}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "action_norms_4d_rightpad_additive", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 2.042}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "vl_self", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "vl_self", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 0.805}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "vl_self", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 1.488}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 3.857}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "rightpad_perturbation_and_gradient_contract", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "vl_self_rightpad_4d_bool", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 5.848}
+{"probe": "spatial_action_stage", "stage": "case_prepare", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32"}
+Total number of DiT parameters:  76718080
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "dit_mask_argument_ignored_diagnostic", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu"}
+{"probe": "spatial_action_row", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "native_cpu", "pass": true, "semantic_pass": true, "elapsed_seconds": 3.472}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "dit_mask_argument_ignored_diagnostic", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "clone_and_transfer", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "forward", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "input_and_all_parameter_vjp", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_stage", "stage": "snapshot", "status": "started", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback"}
+{"probe": "spatial_action_row", "case": "gr00t_spatial_dit_two_layers", "dtype": "fp32", "kind": "cpu_fallback", "pass": false, "semantic_pass": true, "elapsed_seconds": 6.042}
+{"probe": "spatial_action_complete", "status": "fail", "strict_interfaces_pass": false, "semantic_interfaces_pass": true, "exit_code": 1, "output": "/root/autodl-tmp/s4000-research/route2/results/spatial-action-cpu-all-fp32-v2.json"}

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/eagle_composite_probe.py",
+    "--source-tree",
+    "/root/autodl-tmp/s4000-research/route2/Isaac-GR00T-eagle-tiny",
+    "--device",
+    "musa",
+    "--output",
+    "/root/autodl-tmp/s4000-research/route2/results/eagle-composite-musa-v2.json"
+  ],
+  "exit_code": 1,
+  "elapsed_seconds": 10.844
+}

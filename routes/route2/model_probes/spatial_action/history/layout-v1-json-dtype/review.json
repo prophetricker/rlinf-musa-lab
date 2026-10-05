@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-05",
+  "reviewer": "/root/route1_compat",
+  "review_kind": "read_only_source_review",
+  "status": "no_blocking_findings",
+  "runner_sha256": "0a0966b2fac705a55b916ee7145ad808553decac7e1c8c166f59aa97cfdf99ae",
+  "manifest_sha256": "a965d31996791a66ddf720cea63da7d06bc0b313d1fbf932139f441f24a72fa6",
+  "verified": [
+    "run-plan/manifest/support/config/DiT hash groups match",
+    "actual source prepare -> BHQK 4D mask route",
+    "head/query variation, nonempty rows and rightpad blocked checks",
+    "VL valid-query-only upstream and exact full VJP contract",
+    "blocked hidden/encoder gradient strict zero contract",
+    "both output positive controls",
+    "same-seed/state bool-additive full snapshot exact contract",
+    "DiT actual no-mask forward and ignored-mask diagnostic separately reported",
+    "fixed strict/semantic helper; exit0 only strict",
+    "missing peers and exceptions cannot pass"
+  ],
+  "non_blocking_notes": [
+    "CLI lengths1/2 cannot sustain head/query-varying 4D fixture and deliberately fail its preparation gate; default513 unaffected"
+  ],
+  "gpu_or_remote_execution": false,
+  "runtime_numerical_conclusion": null
+}

@@ -1,0 +1,772 @@
+{
+  "date": "2026-10-05",
+  "validation_kind": "coordinator_runtime_evidence_analysis",
+  "runtime_executed_by_this_agent": false,
+  "gpu_executed_by_this_agent": false,
+  "git_invoked": false,
+  "status": "cpu_results_complete_musa_pending",
+  "records": [
+    {
+      "evidence": "routes/route2/evidence/spatial-action/spatial-action-cpu-all-fp32-v2.json",
+      "sha256": "162daea98f6b3350dc8f84c8d5097ab89d893328f53847b710fbbf114b826f97",
+      "bytes": 345646,
+      "arguments": {
+        "device": "cpu",
+        "phase": "all",
+        "dtypes": "fp32",
+        "cases": "all",
+        "lengths": "513",
+        "seed": 20261006,
+        "support_dir": "/root/autodl-tmp/s4000-research/route2/model_probes",
+        "bundle_manifest": "/root/autodl-tmp/s4000-research/route2/model_probes/spatial_action/source-manifest.json",
+        "spatial_config": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+        "gr00t_source": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py",
+        "output": "/root/autodl-tmp/s4000-research/route2/results/spatial-action-cpu-all-fp32-v2.json"
+      },
+      "dtype": "fp32",
+      "execution_device": "cpu",
+      "runner_sha256": "353fbb6380edd20f5bdb6cea14189dd23ea2c97b0d0b4224ad795bc86fb3a97d",
+      "runtime": {
+        "torch_version": "2.2.0",
+        "torch_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+        "diffusers_version": "0.30.2",
+        "diffusers_path": "/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/diffusers/__init__.py"
+      },
+      "rows": 20,
+      "expected_rows": 20,
+      "row_counts": {
+        "native_cpu": 10,
+        "cpu_fallback": 10,
+        "strict_pass": 10,
+        "semantic_pass": 20
+      },
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": true,
+      "declared_probe_exit_code": 1,
+      "declared_probe_exit_code_source": "JSON final summary; actual process exit confirmed separately by coordinator",
+      "setup_or_runtime_exceptions": [],
+      "all_outputs_input_and_parameter_grads_finite": true,
+      "no_missing_gradients": true,
+      "all_state_hashes_match": true,
+      "all_forward_and_input_vjp_pass": true,
+      "meaningful_vjp_failures": [],
+      "analytic_zero_diagnostics": [
+        {
+          "case": "action_self",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 2.601154847070575e-10,
+            "relative_l2": 1.1962727999351384,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 1.2867353137090097e-09,
+            "expected_l2": 1.8436016859664192e-09
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 1.6552803572267294e-10,
+            "expected_max_abs": 2.3283064365386963e-10,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.418811734765768e-10,
+            "relative_l2": 1.1364590655295217,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 6.200502693652653e-10,
+            "expected_l2": 9.188668259245222e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 8.731149137020111e-11,
+            "expected_max_abs": 1.7826096154749393e-10,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 8.549250196665525e-11,
+            "relative_l2": 1.0754619756724664,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 5.99817519860749e-10,
+            "expected_l2": 5.948380320382586e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 9.094947017729282e-11,
+            "expected_max_abs": 6.184563972055912e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 8.549250196665525e-11,
+            "relative_l2": 1.0754619756724664,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 5.99817519860749e-10,
+            "expected_l2": 5.948380320382586e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 9.094947017729282e-11,
+            "expected_max_abs": 6.184563972055912e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_4d_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 6.912159733474255e-11,
+            "relative_l2": 1.0744173543066338,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 5.966489791946673e-10,
+            "expected_l2": 5.983219569807379e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 8.003553375601768e-11,
+            "expected_max_abs": 6.548361852765083e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_4d_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 6.912159733474255e-11,
+            "relative_l2": 1.0744173543066338,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 5.966489791946673e-10,
+            "expected_l2": 5.983219569807379e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 8.003553375601768e-11,
+            "expected_max_abs": 6.548361852765083e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "norm_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.989974407479167e-09,
+            "relative_l2": 1.2162291490641886,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 4.956586503392829e-09,
+            "expected_l2": 4.898549669526771e-09
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 1.748958311509341e-09,
+            "expected_max_abs": 1.4767920220037922e-09,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "vl_self",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.064108801074326e-10,
+            "relative_l2": 1.2173198755791557,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 8.27151713974835e-10,
+            "expected_l2": 9.968056226342002e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 6.548361852765083e-11,
+            "expected_max_abs": 7.275957614183426e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "vl_self_rightpad_4d_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 7.594280759803951e-11,
+            "relative_l2": 1.213026504594472,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 8.146301435696289e-10,
+            "expected_l2": 8.08216854570806e-10
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 6.548361852765083e-11,
+            "expected_max_abs": 6.730260793119669e-11,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "gr00t_spatial_dit_two_layers",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "transformer_blocks.0.attn1.to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 2.4010660126805305e-10,
+            "relative_l2": 1.11486919084771,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 1.3655271555146966e-09,
+            "expected_l2": 2.204545828258952e-09
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 1.2732925824820995e-10,
+            "expected_max_abs": 2.1827872842550278e-10,
+            "atol": 0.0002,
+            "pass": true
+          }
+        },
+        {
+          "case": "gr00t_spatial_dit_two_layers",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "transformer_blocks.1.attn1.to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 9.022187441587448e-10,
+            "relative_l2": 1.1688649015128887,
+            "atol": 0.0002,
+            "rtol": 0.0002,
+            "relative_l2_limit": 0.0002,
+            "pass": false,
+            "actual_l2": 5.446118009099569e-09,
+            "expected_l2": 8.60541865568341e-09
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 5.966285243630409e-10,
+            "expected_max_abs": 8.294591680169106e-10,
+            "atol": 0.0002,
+            "pass": true
+          }
+        }
+      ],
+      "contracts": {
+        "padding_count": 12,
+        "padding_all_pass": true,
+        "blocked_grad_max_abs": 0.0,
+        "bool_additive_count": 4,
+        "bool_additive_all_exact": true,
+        "dit_ignored_mask_count": 2,
+        "dit_ignored_mask_all_exact": true
+      },
+      "norms_4d_fallback_row_contract": {
+        "blocked_token_perturbation_exact": {
+          "output": true,
+          "input_grads_names_match": true,
+          "input_grads_all_exact": true,
+          "parameter_grads_names_match": true,
+          "parameter_grads_all_exact": true,
+          "pass": true
+        },
+        "blocked_input_gradient_strict_zero": {
+          "finite": true,
+          "max_abs": 0.0,
+          "pass": true,
+          "input": "encoder"
+        },
+        "mask_removal_positive_control": {
+          "visible_output_max_abs_change": 0.023453831672668457,
+          "pass": true
+        },
+        "visible_token_perturbation_positive_control": {
+          "visible_token_index": 0,
+          "output_max_abs_change": 0.00614512711763382,
+          "pass": true
+        },
+        "query_scope": "all 49 action queries",
+        "pass": true
+      }
+    },
+    {
+      "evidence": "routes/route2/evidence/spatial-action/spatial-action-cpu-all-bf16-v2.json",
+      "sha256": "c0dab56056bca0b9052c31f070f6309b3b68ac6c72a17bee7980f6cf30418fc3",
+      "bytes": 343392,
+      "arguments": {
+        "device": "cpu",
+        "phase": "all",
+        "dtypes": "bf16",
+        "cases": "all",
+        "lengths": "513",
+        "seed": 20261006,
+        "support_dir": "/root/autodl-tmp/s4000-research/route2/model_probes",
+        "bundle_manifest": "/root/autodl-tmp/s4000-research/route2/model_probes/spatial_action/source-manifest.json",
+        "spatial_config": "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+        "gr00t_source": "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py",
+        "output": "/root/autodl-tmp/s4000-research/route2/results/spatial-action-cpu-all-bf16-v2.json"
+      },
+      "dtype": "bf16",
+      "execution_device": "cpu",
+      "runner_sha256": "353fbb6380edd20f5bdb6cea14189dd23ea2c97b0d0b4224ad795bc86fb3a97d",
+      "runtime": {
+        "torch_version": "2.2.0",
+        "torch_path": "/root/miniconda3/lib/python3.10/site-packages/torch/__init__.py",
+        "diffusers_version": "0.30.2",
+        "diffusers_path": "/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/diffusers/__init__.py"
+      },
+      "rows": 20,
+      "expected_rows": 20,
+      "row_counts": {
+        "native_cpu": 10,
+        "cpu_fallback": 10,
+        "strict_pass": 10,
+        "semantic_pass": 19
+      },
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": false,
+      "declared_probe_exit_code": 1,
+      "declared_probe_exit_code_source": "JSON final summary; actual process exit confirmed separately by coordinator",
+      "setup_or_runtime_exceptions": [],
+      "all_outputs_input_and_parameter_grads_finite": true,
+      "no_missing_gradients": true,
+      "all_state_hashes_match": true,
+      "all_forward_and_input_vjp_pass": true,
+      "meaningful_vjp_failures": [
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "field": "meaningful_parameter_vjp",
+          "name": "norm_k.weight",
+          "metrics": {
+            "finite": true,
+            "max_abs": 0.000640869140625,
+            "relative_l2": 0.06792076980296398,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 0.0160191264267579,
+            "expected_l2": 0.015784994594409938
+          },
+          "semantic_failure": true,
+          "is_analytic_zero": false
+        }
+      ],
+      "analytic_zero_diagnostics": [
+        {
+          "case": "action_self",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 3.4775584936141968e-06,
+            "relative_l2": 1.0611248315123702,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 1.1950455246746908e-05,
+            "expected_l2": 2.8300968141554426e-05
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 1.3932585716247559e-06,
+            "expected_max_abs": 3.6656856536865234e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.5473924577236176e-06,
+            "relative_l2": 1.0584820810748827,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.452788590898441e-06,
+            "expected_l2": 9.641988293297429e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 5.513429641723633e-07,
+            "expected_max_abs": 1.475214958190918e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.033564331009984e-06,
+            "relative_l2": 1.0883541208670486,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.7788327367651743e-06,
+            "expected_l2": 8.573455627346355e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 3.8743019104003906e-07,
+            "expected_max_abs": 1.0728836059570312e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.033564331009984e-06,
+            "relative_l2": 1.0883541208670486,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.7788327367651743e-06,
+            "expected_l2": 8.573455627346355e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 3.8743019104003906e-07,
+            "expected_max_abs": 1.0728836059570312e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_4d_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.7434358596801758e-06,
+            "relative_l2": 1.0991301839503178,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.7787202371815115e-06,
+            "expected_l2": 8.563169546473968e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 6.705522537231445e-07,
+            "expected_max_abs": 1.2814998626708984e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_cross_rightpad_4d_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.7434358596801758e-06,
+            "relative_l2": 1.0991301839503178,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.7787202371815115e-06,
+            "expected_l2": 8.563169546473968e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 6.705522537231445e-07,
+            "expected_max_abs": 1.2814998626708984e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "norm_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 8.434057235717773e-05,
+            "relative_l2": 0.8240447613844621,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 0.00022930160941988587,
+            "expected_l2": 0.0002729130424189339
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 9.059906005859375e-05,
+            "expected_max_abs": 9.441375732421875e-05,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "vl_self",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.248437911272049e-06,
+            "relative_l2": 1.05156044659757,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.540832817896997e-06,
+            "expected_l2": 1.1920195467446138e-05
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 3.1478703022003174e-07,
+            "expected_max_abs": 1.1771917343139648e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "vl_self_rightpad_4d_bool",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 7.869675755500793e-07,
+            "relative_l2": 1.0920115044725145,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 3.51835232382896e-06,
+            "expected_l2": 7.887811954076586e-06
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 2.980232238769531e-07,
+            "expected_max_abs": 6.742775440216064e-07,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "gr00t_spatial_dit_two_layers",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "transformer_blocks.0.attn1.to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 2.0973384380340576e-06,
+            "relative_l2": 1.0668760432964892,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 7.948069798369168e-06,
+            "expected_l2": 2.2285420155407615e-05
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 7.972121238708496e-07,
+            "expected_max_abs": 1.817941665649414e-06,
+            "atol": 0.025,
+            "pass": true
+          }
+        },
+        {
+          "case": "gr00t_spatial_dit_two_layers",
+          "kind": "cpu_fallback",
+          "comparison": "native_cpu_comparison",
+          "name": "transformer_blocks.1.attn1.to_k.bias",
+          "strict_metrics": {
+            "finite": true,
+            "max_abs": 1.360476016998291e-05,
+            "relative_l2": 1.0662169597127769,
+            "atol": 0.025,
+            "rtol": 0.04,
+            "relative_l2_limit": 0.04,
+            "pass": false,
+            "actual_l2": 4.95676322272687e-05,
+            "expected_l2": 0.000141838981107867
+          },
+          "absolute_zero_gate": {
+            "finite": true,
+            "actual_finite": true,
+            "expected_finite": true,
+            "actual_max_abs": 4.678964614868164e-06,
+            "expected_max_abs": 1.5735626220703125e-05,
+            "atol": 0.025,
+            "pass": true
+          }
+        }
+      ],
+      "contracts": {
+        "padding_count": 12,
+        "padding_all_pass": true,
+        "blocked_grad_max_abs": 0.0,
+        "bool_additive_count": 4,
+        "bool_additive_all_exact": true,
+        "dit_ignored_mask_count": 2,
+        "dit_ignored_mask_all_exact": true
+      },
+      "norms_4d_fallback_row_contract": {
+        "blocked_token_perturbation_exact": {
+          "output": true,
+          "input_grads_names_match": true,
+          "input_grads_all_exact": true,
+          "parameter_grads_names_match": true,
+          "parameter_grads_all_exact": true,
+          "pass": true
+        },
+        "blocked_input_gradient_strict_zero": {
+          "finite": true,
+          "max_abs": 0.0,
+          "pass": true,
+          "input": "encoder"
+        },
+        "mask_removal_positive_control": {
+          "visible_output_max_abs_change": 0.02301025390625,
+          "pass": true
+        },
+        "visible_token_perturbation_positive_control": {
+          "visible_token_index": 0,
+          "output_max_abs_change": 0.0078125,
+          "pass": true
+        },
+        "query_scope": "all 49 action queries",
+        "pass": true
+      }
+    }
+  ],
+  "conclusion": "CPU FP32 all forward/input and meaningful parameter VJPs pass; strict aggregate remains false on predeclared analytic-zero biases. CPU BF16 additionally fails norm_k.weight meaningful VJP at relativeL2 0.0679207698 > 0.04 in independent norms/4D API contract; cannot explain it as analytic-zero bias. All padding/positive controls/equivalence/DiT ignored-mask contracts pass. No full training or learning claim.",
+  "no_kernel_or_gate_changed": true,
+  "musa_results": "pending coordinator"
+}

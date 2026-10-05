@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/spatial_action/spatial_action_layout_probe.py",
+    "--device",
+    "cpu",
+    "--phase",
+    "all",
+    "--dtypes",
+    "bf16",
+    "--lengths",
+    "513",
+    "--support-dir",
+    "/root/autodl-tmp/s4000-research/route2/model_probes",
+    "--bundle-manifest",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/spatial_action/source-manifest.json",
+    "--spatial-config",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/backbone_sources/checkpoint-config.json",
+    "--gr00t-source",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/audit_sources/Isaac-GR00T/gr00t/model/action_head/cross_attention_dit.py",
+    "--output",
+    "/root/autodl-tmp/s4000-research/route2/results/spatial-action-cpu-all-bf16-v1.json"
+  ],
+  "exit_code": 1,
+  "elapsed_seconds": 31.468
+}

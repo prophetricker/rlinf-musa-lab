@@ -1,0 +1,36 @@
+{
+  "revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "retrieved_utc": "2026-10-05T10:31:01.803623+00:00",
+  "scope": "bounded 2MiB Range requests; application reads/saves headers only, closes response immediately; no complete weight shards or tensors loaded",
+  "shards": [
+    {
+      "file": "model-00001-of-00002.safetensors",
+      "canonical_url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/model-00001-of-00002.safetensors",
+      "response_status": 206,
+      "content_range": "bytes 0-2097159/4999367032",
+      "header_bytes": 115184,
+      "application_bytes_read": 115192,
+      "header_sha256": "cea79e9d8782ab4350fd6e57aa9dea3393fc0dd08426d0230e06b9675b4a5fe3",
+      "tensor_count": 765,
+      "tensor_names_match_index": true,
+      "dtype_counts": {
+        "BF16": 585,
+        "F32": 180
+      }
+    },
+    {
+      "file": "model-00002-of-00002.safetensors",
+      "canonical_url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/model-00002-of-00002.safetensors",
+      "response_status": 206,
+      "content_range": "bytes 0-2097159/2586705312",
+      "header_bytes": 17816,
+      "application_bytes_read": 17824,
+      "header_sha256": "31e150ad3f43b9a7779713cba80025504c72ebf8d67d28fb7f116f5ddae659f8",
+      "tensor_count": 134,
+      "tensor_names_match_index": true,
+      "dtype_counts": {
+        "F32": 134
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "gr00t_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+  "source_tree_read_only": "/Users/ez/Macproject/\u7814\u7a76\u5177\u8eab\u667a\u80fd/rlinf+lambda-sim\u7814\u7a76/routes/route2/model_probes/eagle_integration/audit_sources/Isaac-GR00T",
+  "preparation_script_sha256": "af0618ffa909c1c475b001bd9b3800cb8e9334f54fd13d9f81ff7589b578a418",
+  "files": [
+    {
+      "path": "gr00t/__init__.py",
+      "original_sha256": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e",
+      "prepared_sha256": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e",
+      "source_modified": false
+    },
+    {
+      "path": "gr00t/model/__init__.py",
+      "original_sha256": "279c47a1bcae3a98ac661206e04d0b1e9a15c73ce8262536431ba433589c3854",
+      "prepared_sha256": "004dd3483f1a930ab436781d6afcb6b17b7be1dde1c76171fadec00c6fcc32e7",
+      "source_modified": true
+    },
+    {
+      "path": "gr00t/model/backbone/__init__.py",
+      "original_sha256": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef",
+      "prepared_sha256": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef",
+      "source_modified": false
+    },
+    {
+      "path": "gr00t/model/backbone/eagle_backbone.py",
+      "original_sha256": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+      "prepared_sha256": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+      "source_modified": false
+    },
+    {
+      "path": "gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py",
+      "original_sha256": "d1578a2d5b7654da9a5e4cb18acd5d9d92b04a227ddab9365c2e3265d6cf2f93",
+      "prepared_sha256": "d9c2a5ed9eec94aeab317e8628a1c300801977e8944d4f3c37b9e8ea4926143b",
+      "source_modified": true
+    },
+    {
+      "path": "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py",
+      "original_sha256": "96554c1ca204cc6fb0bff636356b1f878d2ee47678b4a82e6378b59e98bb01d0",
+      "prepared_sha256": "9d85e40a9e7526d0f8f691fe27b5eddb0ae747a2b3b70d9e630cb95f033797b8",
+      "source_modified": true
+    },
+    {
+      "path": "gr00t/model/backbone/eagle2_hg_model/config.json",
+      "original_sha256": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba",
+      "prepared_sha256": "aeefd0fa985f7df216154c069b5bed4b13fa5b85919fbde9fa04aacc6c507bbf",
+      "source_modified": true,
+      "tiny_config_replacement": true
+    }
+  ],
+  "patch_sha256": "99c8522a350617dd85e8534382be446a652190ec086e80dee179ff5ae37719ab",
+  "tiny_config_sha256": "aeefd0fa985f7df216154c069b5bed4b13fa5b85919fbde9fa04aacc6c507bbf",
+  "wrapper_settings": {
+    "tune_visual": false,
+    "tune_llm": false,
+    "select_layer": 2,
+    "project_to_dim": null
+  },
+  "scope": "Actual EagleBackbone constructor, real local AutoConfig/AutoModel model registration; tiny config only. Source forward/extract_feature/mlp1/substitution unchanged. No LoRA/RADIO/weights.",
+  "changes": [
+    "RADIOConfig/RADIOModel branch-only imports",
+    "PEFT imported only by actual LoRA methods",
+    "SigLIP constructor respects top-level explicit eager",
+    "Public gr00t.model exports lazy via PEP562",
+    "Tiny random config removes auto_map; real local model registration is temporary and restored"
+  ]
+}

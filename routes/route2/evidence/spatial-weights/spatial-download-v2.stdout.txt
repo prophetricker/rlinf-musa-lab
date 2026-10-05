@@ -1,0 +1,115 @@
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 218103808, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 452984832, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 679477248, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 914358272, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1140850688, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1367343104, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1442840576, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1484783616, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1509949440, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1518338048, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1535115264, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1543503872, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1560281088, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1577058304, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1585446912, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1593835520, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1602224128, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1610612736, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1619001344, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1635778560, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1644167168, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1660944384, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1694498816, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1728053248, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1753219072, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1778384896, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1820327936, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1887436800, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1937768448, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 1988100096, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2063597568, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2071986176, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2080374784, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2088763392, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2097152000, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2105540608, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2113929216, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2122317824, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2130706432, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2139095040, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2147483648, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2155872256, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2164260864, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2181038080, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2206203904, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2222981120, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2239758336, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2256535552, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2273312768, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2290089984, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2323644416, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2348810240, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2365587456, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2382364672, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2407530496, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2432696320, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2457862144, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2483027968, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2508193792, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2524971008, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2541748224, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2558525440, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2583691264, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2600468480, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2608857088, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2617245696, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2634022912, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2650800128, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2667577344, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2684354560, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2701131776, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2709520384, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2717908992, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2726297600, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2734686208, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2743074816, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2751463424, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2759852032, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2776629248, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2785017856, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2793406464, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2801795072, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2810183680, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2818572288, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2826960896, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2835349504, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2843738112, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2852126720, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2860515328, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2868903936, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2877292544, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2885681152, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2902458368, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2927624192, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2952790016, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2969567232, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2986344448, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 2994733056, "expected_bytes": 4999367032}
+{"partial": "model-00001-of-00002.safetensors.part", "bytes": 3003121664, "expected_bytes": 4999367032}
+Traceback (most recent call last):
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/download_spatial_weights.py", line 207, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/download_spatial_weights.py", line 185, in main
+    download_file(part, url, size, args.attempts)
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration/download_spatial_weights.py", line 127, in download_file
+    chunk = response.read(8 * 1024 * 1024)
+  File "/root/miniconda3/lib/python3.10/http/client.py", line 465, in read
+    s = self.fp.read(amt)
+  File "/root/miniconda3/lib/python3.10/socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+  File "/root/miniconda3/lib/python3.10/ssl.py", line 1274, in recv_into
+    return self.read(nbytes, buffer)
+  File "/root/miniconda3/lib/python3.10/ssl.py", line 1130, in read
+    return self._sslobj.read(len, buffer)
+KeyboardInterrupt

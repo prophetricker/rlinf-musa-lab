@@ -12,7 +12,7 @@
 | R2-5 极小 VLA PPO | 初始冻结视觉/语言骨干，1～2 env、microbatch 1；验证策略更新、恢复和 Actor/Rollout 同步 | 有限 loss/梯度、参数变化、显存峰值、恢复对照；再以固定预算与多 seed 成功率验收学习 |
 | R2-L Lambda-Sim | SDK 到位即做独立 reset/step、headless、图像/动作、reward/terminated/truncated 验证，再接 RLinf 环境接口 | 最小可运行例子、接口映射、seed/自动 reset/最终观测语义和成功条件 |
 
-下一轮推进 R2-2 的 Manager/Actor/Rollout、多 rank 恢复，以及 R2-3 的Spatial实际action布局(H32/D48/cross2048)与完整Eagle构造/权重加载；一张 S4000 上的 GPU 作业顺序执行。Pendulum 与 HalfCheetah 是学习与接口基线，不替代最终具身目标。10 万 transitions 是起步预算，不代表任务已解决。
+本轮新增 R2-3 的Spatial正式action宽度FP32前向/VJP、小型真实Eagle FP32组合、完整GR00T899 keys/shapes匹配和真实骨干585权重strict load。完整FP32骨干已执行S4000前向，结构/有限性合同通过，features/logits逐元素数值失败已做逐层诊断；下一步隔离视觉传播与语言网络/最终norm差异，再连接完整action、真实预处理和LIBERO，推进官方Actor/Rollout/PPO。BF16失败保留；R2-2 的Manager/Actor/多rank仍独立待验收。一张S4000上的GPU作业顺序执行。详见 [本轮报告](reports/route2-spatial-eagle.md)。Pendulum与HalfCheetah是学习与接口基线，10万transitions是起步预算。
 
 R2-1 已实现周期性 validation、独立 test、多 seed 汇总、完整 normalizer/RNG 恢复对照及批量评估。Pendulum 是 Gymnasium 控制任务，HalfCheetah 才覆盖 MuJoCo 长训练；两者都不替代最终具身目标。
 

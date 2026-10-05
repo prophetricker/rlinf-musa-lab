@@ -1,0 +1,38 @@
+{
+  "pass": true,
+  "revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "files": [
+    {
+      "initial_prefix_bytes": 3003121664,
+      "file": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e/model-00001-of-00002.safetensors",
+      "bytes": 4999367032,
+      "header_bytes": 115184,
+      "header_sha256": "cea79e9d8782ab4350fd6e57aa9dea3393fc0dd08426d0230e06b9675b4a5fe3",
+      "full_file_sha256": "e8e38e607765f47658ba2ccac8c7b311e57bafc58dd8490a143332c01e929556",
+      "expected_lfs_sha256": "e8e38e607765f47658ba2ccac8c7b311e57bafc58dd8490a143332c01e929556",
+      "full_file_sha256_matches_pinned_lfs": true,
+      "all_tensor_keys_dtype_shape_offsets_match": true,
+      "tensor_count": 765,
+      "integrity": "Full payload SHA256 matches the canonical revision-pinned HF LFS metadata, independently of public mirror transport."
+    },
+    {
+      "initial_prefix_bytes": 0,
+      "file": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e/model-00002-of-00002.safetensors",
+      "bytes": 2586705312,
+      "header_bytes": 17816,
+      "header_sha256": "31e150ad3f43b9a7779713cba80025504c72ebf8d67d28fb7f116f5ddae659f8",
+      "full_file_sha256": "ce44c6277867741d906c3b25d281ea645edf78b0c5b8454d3c69e1a4ed6458eb",
+      "expected_lfs_sha256": "ce44c6277867741d906c3b25d281ea645edf78b0c5b8454d3c69e1a4ed6458eb",
+      "full_file_sha256_matches_pinned_lfs": true,
+      "all_tensor_keys_dtype_shape_offsets_match": true,
+      "tensor_count": 134,
+      "integrity": "Full payload SHA256 matches the canonical revision-pinned HF LFS metadata, independently of public mirror transport."
+    }
+  ],
+  "workers": 8,
+  "chunk_mib": 32,
+  "probe_sha256": "47c75431f8d17b2e2202db0c3010fe004425c755da9ad3f3594d9226fbac1d74",
+  "validation_helper_sha256": "663efd4dcbdd27e45070cb4442d6b7c2367634d89b1b26d5b15cb42727f5ebbb",
+  "auth_used": false,
+  "scope": "Full public weight download and canonical LFS/hash/header validation only; no model or tensor execution."
+}

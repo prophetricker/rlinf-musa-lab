@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/acquire_route2_weights_parallel.py",
+    "--support-dir",
+    "/root/autodl-tmp/s4000-research/route2/model_probes/eagle_integration",
+    "--destination",
+    "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "--evidence",
+    "/root/autodl-tmp/s4000-research/route2/results/spatial-download-parallel-v1.json"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 624.91
+}

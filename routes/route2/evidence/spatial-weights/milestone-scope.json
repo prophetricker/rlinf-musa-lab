@@ -1,0 +1,13 @@
+{
+  "record_date": "2026-10-05",
+  "driver_unchanged": "2.7.0",
+  "toolkit_unchanged": "3.1.0",
+  "torch_paths_and_hashes_unchanged": true,
+  "old_probe_versions_preserved": true,
+  "source_methods_ast_unchanged": 7,
+  "all_complete_public_weight_lfs_hashes_match": true,
+  "pretrained_strict_load_all_585_exact": true,
+  "pretrained_numerical_gate": false,
+  "new_training_or_learning_result": false,
+  "source_preparation_manifest_version_note": "Meta v1 embeds initial full-preparation wording; config/7prepared source hashes identical to later corrected full-profile wording."
+}

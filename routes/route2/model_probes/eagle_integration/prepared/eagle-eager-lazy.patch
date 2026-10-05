@@ -1,0 +1,89 @@
+--- a/gr00t/model/__init__.py
++++ b/gr00t/model/__init__.py
+@@ -13,5 +13,16 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-from .gr00t_n1 import GR00T_N1_5
+-from .policy import Gr00tPolicy
++__all__ = ["GR00T_N1_5", "Gr00tPolicy"]
++
++
++def __getattr__(name):
++    if name == "GR00T_N1_5":
++        from .gr00t_n1 import GR00T_N1_5
++
++        return GR00T_N1_5
++    if name == "Gr00tPolicy":
++        from .policy import Gr00tPolicy
++
++        return Gr00tPolicy
++    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+--- a/gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py
++++ b/gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py
+@@ -23,7 +23,6 @@
+ from transformers.models.siglip.configuration_siglip import SiglipVisionConfig
+ from transformers.utils import logging
+ 
+-from .radio_model import RADIOConfig
+ 
+ logger = logging.get_logger(__name__)
+ 
+@@ -76,6 +75,8 @@
+         if vision_config["model_type"] == "siglip_vision_model":
+             self.vision_config = SiglipVisionConfig(**vision_config)
+         elif vision_config["model_type"] == "radio":
++            from .radio_model import RADIOConfig
++
+             self.vision_config = RADIOConfig(**vision_config)
+         else:
+             raise ValueError("Unsupported model_type: {}".format(vision_config["model_type"]))
+--- a/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py
++++ b/gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py
+@@ -9,7 +9,6 @@
+ 
+ import torch
+ import torch.utils.checkpoint as cp
+-from peft import LoraConfig, get_peft_model
+ from torch import nn
+ from torch.nn import CrossEntropyLoss
+ from transformers import GenerationConfig
+@@ -23,7 +22,6 @@
+ from transformers.utils import add_start_docstrings, logging
+ 
+ from .configuration_eagle2_5_vl import Eagle2_5_VLConfig
+-from .radio_model import RADIOModel
+ 
+ logger = logging.get_logger(__name__)
+ 
+@@ -108,9 +106,11 @@
+             self.vision_model = vision_model
+         else:
+             if config.vision_config.model_type == "siglip_vision_model":
+-                config.vision_config._attn_implementation = "flash_attention_2"
++                config.vision_config._attn_implementation = config._attn_implementation
+                 self.vision_model = SiglipVisionModel(config.vision_config)
+             elif config.vision_config.model_type == "radio":
++                from .radio_model import RADIOModel
++
+                 self.vision_model = RADIOModel(config.vision_config)
+             else:
+                 raise NotImplementedError(f"{config.vision_config.model_type} is not implemented.")
+@@ -178,6 +178,8 @@
+         assert not any(k.kind == inspect.Parameter.VAR_KEYWORD for k in forward_params.values())
+ 
+     def wrap_backbone_lora(self, r=128, lora_alpha=256, lora_dropout=0.05):
++        from peft import LoraConfig, get_peft_model
++
+         lora_config = LoraConfig(
+             r=r,
+             target_modules=[
+@@ -195,6 +197,8 @@
+         self.vision_model.print_trainable_parameters()
+ 
+     def wrap_llm_lora(self, r=128, lora_alpha=256, lora_dropout=0.05):
++        from peft import LoraConfig, get_peft_model
++
+         lora_config = LoraConfig(
+             r=r,
+             target_modules=[

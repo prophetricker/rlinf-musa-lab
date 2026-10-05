@@ -1,0 +1,14 @@
+{
+  "repo": "RLinf/RLinf-Gr00t-SFT-Spatial",
+  "revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "index_url": "https://huggingface.co/RLinf/RLinf-Gr00t-SFT-Spatial/resolve/73f710e70e7d571f8d828e51e0a428f5a1e0ac22/model.safetensors.index.json",
+  "index_sha256": "bec674fcd06f1c6c29e5ab0f057d148a5c76e7ef92d1688d6b4b8f838afc9746",
+  "index_bytes": 104606,
+  "tensor_count": 899,
+  "weight_total_bytes": 7585939328,
+  "shards": [
+    "model-00001-of-00002.safetensors",
+    "model-00002-of-00002.safetensors"
+  ],
+  "scope": "public weight index only; no weights downloaded or loaded"
+}

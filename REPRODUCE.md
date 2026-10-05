@@ -157,3 +157,39 @@ bash scripts/prepare_route2_backbone_env.sh
 当前v2脚本CPU8/8、CPU/MUSA整组12/12通过；此前v1 Qwen3 BF16 MUSA因诊断 masked_select 不支持BF16退出1，旧脚本/false证据保留。v2仅将被屏蔽概率的只读检查转FP32，并增加绑定及全局注册表identity检查；attention数学、VJP与容差不变。默认需要随包固定的 Spatial config 和 hash核验通过的Eagle config。Torch-MUSA仍来自原系统环境，无Toolkit或driver升级。
 
 范围是随机两层真实Qwen3Model/SiglipVisionModel的冻结前向，以及同CPU-reference feature上的独立synthetic Linear VJP；不是checkpoint的Identity投影参数更新，也不是完整Eagle/GR00T。详细源码路径、dtype门槛、失败与版本记录见 [骨干探针](routes/route2/planning/backbone-interface-probe.md)。
+
+## 10. Spatial 正式宽度与真实 Eagle
+
+使用新的组合依赖环境；旧环境和系统Torch-MUSA保留。以下在成果仓库根目录执行，输出必须是新路径：
+
+```bash
+bash scripts/prepare_route2_integration_env.sh
+python3 scripts/restore_model_audit.py
+python3 scripts/restore_eagle_sources.py --output worktrees/gr00t-eagle-tiny --tiny
+python3 scripts/restore_eagle_sources.py --output worktrees/gr00t-spatial-eager --spatial-full
+export ROUTE2_INTEGRATION_PYTHON=/root/autodl-tmp/s4000-research/envs/route2-integration/bin/python
+for dtype in fp32 bf16; do
+  "$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/spatial_action/spatial_action_layout_probe.py \
+    --device musa --phase all --dtypes "$dtype" --output "results/spatial-$dtype-new.json"
+done
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/eagle_composite_probe.py \
+  --source-tree worktrees/gr00t-eagle-tiny --device musa --output results/eagle-tiny-new.json
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/spatial_shape_audit.py \
+  --source-tree worktrees/gr00t-spatial-eager --output results/spatial-meta-new.json
+```
+
+上面的 Spatial/Eagle混合精度整组原退出码为1，必须查看逐项结果，不能用shell退出码修改或掩盖门槛。FP32 Spatial独立语义gate通过、严格总gate保留解析零方向失败；BF16扩展norm合同失败。tiny Eagle FP32全部通过，BF16有效features allclose失败。完整meta结构899 keys/shapes匹配不代表权重已加载。
+
+需要真实骨干测试时，只下载两个固定公开权重分片；验证header、尺寸和canonical LFS完整SHA，模型文件不进Git：
+
+```bash
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/download_spatial_weights.py \
+  --destination results/weights/Spatial-73f710e --transport hf-mirror --evidence results/download-new.json
+"$ROUTE2_INTEGRATION_PYTHON" routes/route2/model_probes/eagle_integration/spatial_pretrained_backbone_probe.py \
+  --source-tree worktrees/gr00t-spatial-eager --weights results/weights/Spatial-73f710e \
+  --device musa --output results/spatial-pretrained-new.json
+```
+
+网络慢时可使用 `scripts/acquire_route2_weights_parallel.py --support-dir routes/route2/model_probes/eagle_integration --destination results/weights/Spatial-73f710e --evidence results/download-parallel-new.json`，先停止其它写同目录的下载进程。只采用支持精确206 Range的公开mirror，保留prefix/分块，完整文件仍校验官方LFS SHA。该helper的纯下载并发不允许同时跑多个GPU实验。
+
+pretrained runner仅加载所有585个backbone张量并转换FP32；全部strict keys和载入值逐项验收，再比较真实CPU source eager / CPU fallback / MUSA fallback。它使用两幅合成raw tensor image和B1/S570，无tokenizer/图像预处理/完整action/环境/优化器。以 [本轮报告](reports/route2-spatial-eagle.md) 的实际完成范围为准。

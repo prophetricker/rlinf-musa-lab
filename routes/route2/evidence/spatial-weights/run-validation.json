@@ -1,0 +1,176 @@
+{
+  "scope": "Coordinator verifies complete download, actual full meta key/shape audit, and strict pretrained backbone v1 result separately. Original false numerical gate retained.",
+  "download_pass": true,
+  "both_shards_lfs_match": true,
+  "shape_pass": true,
+  "shape_count": 899,
+  "strict_load": {
+    "strict": true,
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "tensor_count": 585,
+    "tied_groups": [
+      [
+        "eagle_model.language_model.model.embed_tokens.weight",
+        "eagle_model.language_model.lm_head.weight"
+      ]
+    ],
+    "all_loaded_values_exact_bf16_to_fp32": true
+  },
+  "model_total_pass": false,
+  "model_rows": [
+    {
+      "kind": "native_cpu",
+      "comparison": {
+        "features": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        "logits": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        "connector": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      },
+      "source_contract": {
+        "image_substitution_exact": true,
+        "identity_exact": true,
+        "mask_exact": true,
+        "cache_none": true,
+        "no_grad": true,
+        "bindings_instance_only_source_code": true,
+        "blocked_probabilities_zero": true,
+        "features_and_all_captures_finite": true,
+        "loaded_state_unchanged": true
+      },
+      "peak_allocated_bytes": null,
+      "peak_reserved_bytes": null,
+      "pass": true
+    },
+    {
+      "kind": "fallback_cpu",
+      "comparison": {
+        "features": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        "logits": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        },
+        "connector": {
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_l2": 0.0,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      },
+      "source_contract": {
+        "image_substitution_exact": true,
+        "identity_exact": true,
+        "mask_exact": true,
+        "cache_none": true,
+        "no_grad": true,
+        "bindings_instance_only_source_code": true,
+        "blocked_probabilities_zero": true,
+        "features_and_all_captures_finite": true,
+        "loaded_state_unchanged": true
+      },
+      "peak_allocated_bytes": null,
+      "peak_reserved_bytes": null,
+      "pass": true
+    },
+    {
+      "kind": "fallback_musa",
+      "comparison": {
+        "features": {
+          "finite": true,
+          "max_abs": 0.016500473022460938,
+          "relative_l2": 2.8296864738091346e-05,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        "logits": {
+          "finite": true,
+          "max_abs": 0.007061004638671875,
+          "relative_l2": 2.1907350090329375e-05,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": false
+        },
+        "connector": {
+          "finite": true,
+          "max_abs": 0.0001310110092163086,
+          "relative_l2": 8.391822762186158e-06,
+          "atol": 0.0002,
+          "rtol": 0.0002,
+          "relative_l2_limit": 0.0002,
+          "pass": true
+        }
+      },
+      "source_contract": {
+        "image_substitution_exact": true,
+        "identity_exact": true,
+        "mask_exact": true,
+        "cache_none": true,
+        "no_grad": true,
+        "bindings_instance_only_source_code": true,
+        "blocked_probabilities_zero": true,
+        "features_and_all_captures_finite": true,
+        "loaded_state_unchanged": true
+      },
+      "peak_allocated_bytes": 8119447040,
+      "peak_reserved_bytes": 8443133952,
+      "pass": false
+    }
+  ],
+  "files": {
+    "spatial-shape-audit-v1.json": "03fa90fb9a5b8afa657478d5d7586869f4bab24cedf4fe721ccd57bd142470ed",
+    "spatial-download-v2.command.json": "f67e7a3063793bb0ebdef7fa98d32c6da60ed1e7e77b85334dfd8205499adca9",
+    "spatial-pretrained-backbone-musa-v1.command.json": "a3dc8240dcf59eb596813488cf0791623617d71dd8bde3cb8cc72127e3544a72",
+    "spatial-download-parallel-v1.json": "87c353cbe9019d4a7e1b8bd5bda150439711ed8e22797445b6b41f20d5d0b9bc",
+    "spatial-download-parallel-v1.command.json": "1eaf05ff160ab3550f721439f2730b2c6a954562dd355b7c6e01e70c4b78835a",
+    "spatial-pretrained-backbone-musa-v1.json": "cf729bbb13910383b1650644a9c0a8fc2c7d21c546f64f6bb88812c73073ffb6"
+  },
+  "diagnostic_v2": {
+    "evidence": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v2.json",
+    "sha256": "7129a3cfb557fb9366874a8ebe9b15e0e4b9e020fe39b80ac3df1be393bd6da0",
+    "original_gate": false,
+    "exit_code": 1,
+    "scope": "v2 preserves v1 kernel/weights/inputs/gates, adds read-only layer outputs and failed-element counts. Same failure reproduced:2960/1126400 features and246774/83424000 logits; no tolerance relaxation."
+  }
+}

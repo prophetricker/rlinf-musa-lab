@@ -1,0 +1,63 @@
+{
+  "scope": "Four independent Spatial v2 all-phase runs. Original strict/semantic gates preserved; includes CPU references in MUSA commands.",
+  "runs": [
+    {
+      "file": "spatial-action-cpu-all-fp32-v2.json",
+      "sha256": "162daea98f6b3350dc8f84c8d5097ab89d893328f53847b710fbbf114b826f97",
+      "exit_code": 1,
+      "rows": 20,
+      "actual_musa_rows": 0,
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": true,
+      "semantic_failed_rows": [],
+      "runtime_errors": []
+    },
+    {
+      "file": "spatial-action-cpu-all-bf16-v2.json",
+      "sha256": "c0dab56056bca0b9052c31f070f6309b3b68ac6c72a17bee7980f6cf30418fc3",
+      "exit_code": 1,
+      "rows": 20,
+      "actual_musa_rows": 0,
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": false,
+      "semantic_failed_rows": [
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "cpu_fallback"
+        }
+      ],
+      "runtime_errors": []
+    },
+    {
+      "file": "spatial-action-musa-all-fp32-v2.json",
+      "sha256": "88f9157f9db83958fc54de131d0ec6b30b025dd77cbdd3ad6783bcdf76715405",
+      "exit_code": 1,
+      "rows": 30,
+      "actual_musa_rows": 10,
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": true,
+      "semantic_failed_rows": [],
+      "runtime_errors": []
+    },
+    {
+      "file": "spatial-action-musa-all-bf16-v2.json",
+      "sha256": "1546b03c838abb6876402fe5839ea2b31985702f1cd13dd0bda3193e4ddd153d",
+      "exit_code": 1,
+      "rows": 30,
+      "actual_musa_rows": 10,
+      "strict_interfaces_pass": false,
+      "semantic_interfaces_pass": false,
+      "semantic_failed_rows": [
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "cpu_fallback"
+        },
+        {
+          "case": "action_norms_4d_rightpad_additive",
+          "kind": "musa_fallback"
+        }
+      ],
+      "runtime_errors": []
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "runner_sha256": "16536123e706536de12083f4a8668c35ff429c3c12ae9c9353b366e2d4ebfe01",
+  "scope": "Executed v1 retained unchanged; next version adds diagnostics only, no kernel or gate change",
+  "evidence": "routes/route2/evidence/spatial-weights/spatial-pretrained-backbone-musa-v1.json"
+}

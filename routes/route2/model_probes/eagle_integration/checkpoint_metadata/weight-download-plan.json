@@ -1,0 +1,74 @@
+{
+  "repo": "RLinf/RLinf-Gr00t-SFT-Spatial",
+  "revision": "73f710e70e7d571f8d828e51e0a428f5a1e0ac22",
+  "canonical_base": "https://huggingface.co",
+  "public_mirror_base": "https://hf-mirror.com",
+  "index_file": "routes/route2/model_probes/eagle_integration/checkpoint_metadata/model.safetensors.index.json",
+  "index_sha256": "bec674fcd06f1c6c29e5ab0f057d148a5c76e7ef92d1688d6b4b8f838afc9746",
+  "shards": [
+    {
+      "file": "model-00001-of-00002.safetensors",
+      "bytes": 4999367032,
+      "header_bytes": 115184,
+      "header_sha256": "cea79e9d8782ab4350fd6e57aa9dea3393fc0dd08426d0230e06b9675b4a5fe3",
+      "header_file": "routes/route2/model_probes/eagle_integration/checkpoint_metadata/model-00001-of-00002.safetensors.header.json",
+      "tensor_count": 765,
+      "data_bytes": 4999251840,
+      "expected_lfs_sha256": "e8e38e607765f47658ba2ccac8c7b311e57bafc58dd8490a143332c01e929556"
+    },
+    {
+      "file": "model-00002-of-00002.safetensors",
+      "bytes": 2586705312,
+      "header_bytes": 17816,
+      "header_sha256": "31e150ad3f43b9a7779713cba80025504c72ebf8d67d28fb7f116f5ddae659f8",
+      "header_file": "routes/route2/model_probes/eagle_integration/checkpoint_metadata/model-00002-of-00002.safetensors.header.json",
+      "tensor_count": 134,
+      "data_bytes": 2586687488,
+      "expected_lfs_sha256": "ce44c6277867741d906c3b25d281ea645edf78b0c5b8454d3c69e1a4ed6458eb"
+    }
+  ],
+  "tensor_count": 899,
+  "stored_tensor_bytes": 7585939328,
+  "shape_audit_groups": {
+    "backbone.": {
+      "tensor_count": 585,
+      "parameters": 1655357376,
+      "bytes": 3310714752,
+      "dtype_counts": {
+        "BF16": 585
+      }
+    },
+    "backbone.eagle_model.language_model.": {
+      "tensor_count": 135,
+      "parameters": 1225315328,
+      "bytes": 2450630656,
+      "dtype_counts": {
+        "BF16": 135
+      }
+    },
+    "backbone.eagle_model.vision_model.": {
+      "tensor_count": 448,
+      "parameters": 427680704,
+      "bytes": 855361408,
+      "dtype_counts": {
+        "BF16": 448
+      }
+    },
+    "backbone.eagle_model.mlp1.": {
+      "tensor_count": 2,
+      "parameters": 2361344,
+      "bytes": 4722688,
+      "dtype_counts": {
+        "BF16": 2
+      }
+    },
+    "action_head.": {
+      "tensor_count": 314,
+      "parameters": 1068806144,
+      "bytes": 4275224576,
+      "dtype_counts": {
+        "F32": 314
+      }
+    }
+  }
+}

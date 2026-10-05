@@ -1,0 +1,66 @@
+{
+  "pass": true,
+  "python_ast": 16,
+  "shell_syntax": true,
+  "reproduction_code_blocks_syntax": true,
+  "source_restore_profiles": [
+    {
+      "pass": true,
+      "upstream_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_url": "https://codeload.github.com/NVIDIA/Isaac-GR00T/tar.gz/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_sha256": "f98e0507e96281ffa289da9468e328b30de3733a00472f249f432e14050d1763",
+      "patch_sha256": "99c8522a350617dd85e8534382be446a652190ec086e80dee179ff5ae37719ab",
+      "tiny": true,
+      "output": "/Users/ez/Macproject/\u7814\u7a76\u5177\u8eab\u667a\u80fd/rlinf+lambda-sim\u7814\u7a76/artifacts/run-20261005-spatial-eagle/restore-tiny",
+      "files": 169,
+      "verified_files": {
+        "gr00t/__init__.py": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e",
+        "gr00t/model/__init__.py": "004dd3483f1a930ab436781d6afcb6b17b7be1dde1c76171fadec00c6fcc32e7",
+        "gr00t/model/backbone/__init__.py": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef",
+        "gr00t/model/backbone/eagle_backbone.py": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+        "gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py": "d9c2a5ed9eec94aeab317e8628a1c300801977e8944d4f3c37b9e8ea4926143b",
+        "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py": "9d85e40a9e7526d0f8f691fe27b5eddb0ae747a2b3b70d9e630cb95f033797b8",
+        "gr00t/model/backbone/eagle2_hg_model/config.json": "aeefd0fa985f7df216154c069b5bed4b13fa5b85919fbde9fa04aacc6c507bbf"
+      }
+    },
+    {
+      "pass": true,
+      "upstream_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_url": "https://codeload.github.com/NVIDIA/Isaac-GR00T/tar.gz/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_sha256": "f98e0507e96281ffa289da9468e328b30de3733a00472f249f432e14050d1763",
+      "patch_sha256": "99c8522a350617dd85e8534382be446a652190ec086e80dee179ff5ae37719ab",
+      "tiny": false,
+      "output": "/Users/ez/Macproject/\u7814\u7a76\u5177\u8eab\u667a\u80fd/rlinf+lambda-sim\u7814\u7a76/artifacts/run-20261005-spatial-eagle/restore-full",
+      "files": 169,
+      "verified_files": {
+        "gr00t/__init__.py": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e",
+        "gr00t/model/__init__.py": "004dd3483f1a930ab436781d6afcb6b17b7be1dde1c76171fadec00c6fcc32e7",
+        "gr00t/model/backbone/__init__.py": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef",
+        "gr00t/model/backbone/eagle_backbone.py": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+        "gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py": "d9c2a5ed9eec94aeab317e8628a1c300801977e8944d4f3c37b9e8ea4926143b",
+        "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py": "9d85e40a9e7526d0f8f691fe27b5eddb0ae747a2b3b70d9e630cb95f033797b8",
+        "gr00t/model/backbone/eagle2_hg_model/config.json": "e6957b163b6c62b685f69fd9d601e183509d109246290ad579d461692d925dba"
+      }
+    },
+    {
+      "pass": true,
+      "upstream_commit": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_url": "https://codeload.github.com/NVIDIA/Isaac-GR00T/tar.gz/4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+      "archive_sha256": "f98e0507e96281ffa289da9468e328b30de3733a00472f249f432e14050d1763",
+      "patch_sha256": "99c8522a350617dd85e8534382be446a652190ec086e80dee179ff5ae37719ab",
+      "tiny": false,
+      "spatial_full": true,
+      "output": "/Users/ez/Macproject/\u7814\u7a76\u5177\u8eab\u667a\u80fd/rlinf+lambda-sim\u7814\u7a76/artifacts/run-20261005-spatial-eagle/restore-spatial",
+      "files": 169,
+      "verified_files": {
+        "gr00t/__init__.py": "dd7d5f5e544e1d2923bf4f1aa548504255938f58a6e74a119356573e6ce9e36e",
+        "gr00t/model/__init__.py": "004dd3483f1a930ab436781d6afcb6b17b7be1dde1c76171fadec00c6fcc32e7",
+        "gr00t/model/backbone/__init__.py": "00a176f47c8d95fd7e6cdbab55f293a6b4bd59f1efe97c47f35d061d99af73ef",
+        "gr00t/model/backbone/eagle_backbone.py": "553d642fe1b5f7fca0b4d09a719a8df76ee21cca864d6292336c7656c5bc0b50",
+        "gr00t/model/backbone/eagle2_hg_model/configuration_eagle2_5_vl.py": "d9c2a5ed9eec94aeab317e8628a1c300801977e8944d4f3c37b9e8ea4926143b",
+        "gr00t/model/backbone/eagle2_hg_model/modeling_eagle2_5_vl.py": "9d85e40a9e7526d0f8f691fe27b5eddb0ae747a2b3b70d9e630cb95f033797b8",
+        "gr00t/model/backbone/eagle2_hg_model/config.json": "be28014c04fcb94faf1d01bf86f0cc860b70a78db440267843000ba534c68040"
+      }
+    }
+  ]
+}
