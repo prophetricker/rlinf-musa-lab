@@ -1,0 +1,4 @@
+export R=/root/autodl-tmp/s4000-research
+export PYTHONPATH=$R/envs/route2-integration/lib/python3.10/site-packages:$R/envs/route2-integration:$R/route2:$R/rlinf-s4000:$R/route2/RLinf-fsdp1:$R/route2/Isaac-GR00T-spatial-eager
+PY=$R/envs/route2/bin/python
+RLINF_EXPERIMENTAL_FSDP1_TORCH22=1 $PY $R/route2/model_probes/embodied_actor_torch22_probe.py --rlinf-source $R/route2/RLinf-fsdp1 --output $R/route2/results/embodied-actor-torch22-optin-fsdp1-v3.json

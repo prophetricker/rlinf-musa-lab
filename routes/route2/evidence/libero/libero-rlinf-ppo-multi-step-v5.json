@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "scope": "Official RLinf GR00T N1.5 wrapper and real LIBERO-Spatial short episode",
+  "probe_sha256": "a4dbab3edb954f15ee51f1c425b16387473b97546a273d5b5977cab54cad86e8",
+  "steps_requested": 8,
+  "status": "pass",
+  "fallback": {
+    "processor": "FP32AttentionProcessor",
+    "attention_modules": 20,
+    "attention_names": [
+      "model.transformer_blocks.0.attn1",
+      "model.transformer_blocks.1.attn1",
+      "model.transformer_blocks.2.attn1",
+      "model.transformer_blocks.3.attn1",
+      "model.transformer_blocks.4.attn1",
+      "model.transformer_blocks.5.attn1",
+      "model.transformer_blocks.6.attn1",
+      "model.transformer_blocks.7.attn1",
+      "model.transformer_blocks.8.attn1",
+      "model.transformer_blocks.9.attn1",
+      "model.transformer_blocks.10.attn1",
+      "model.transformer_blocks.11.attn1",
+      "model.transformer_blocks.12.attn1",
+      "model.transformer_blocks.13.attn1",
+      "model.transformer_blocks.14.attn1",
+      "model.transformer_blocks.15.attn1",
+      "vl_self_attention.transformer_blocks.0.attn1",
+      "vl_self_attention.transformer_blocks.1.attn1",
+      "vl_self_attention.transformer_blocks.2.attn1",
+      "vl_self_attention.transformer_blocks.3.attn1"
+    ],
+    "backbone_dtype": "torch.bfloat16",
+    "action_head_dtype": "torch.float32",
+    "scope": "process-local action head only"
+  },
+  "model": {
+    "class": "GR00T_N1_5_ForRLActionPrediction",
+    "device": "musa:0",
+    "parameters": 2728490945,
+    "trainable_parameters": 1073133569,
+    "model_load_seconds": 25.008787363767624,
+    "weights": "/root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e",
+    "action_attention_processor": "FP32AttentionProcessor",
+    "action_attention_modules": 20,
+    "action_head_dtype": "torch.float32"
+  },
+  "reset": {
+    "main_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "wrist_shape": [
+      1,
+      256,
+      256,
+      3
+    ],
+    "state_shape": [
+      1,
+      8
+    ],
+    "state_finite": true,
+    "task": [
+      "pick up the black bowl between the plate and the ramekin and place it on the plate"
+    ],
+    "info_keys": []
+  },
+  "ppo_update": {
+    "status": "pass",
+    "mode": "multi_step_real_gae",
+    "loss_sum": -2.754033327102661,
+    "loss_mean": -0.34425416588783264,
+    "logprobs_shape": [
+      1,
+      1,
+      7
+    ],
+    "values_shape": [
+      1
+    ],
+    "old_logprobs_shape": [
+      1,
+      4,
+      1,
+      7
+    ],
+    "old_values_shape": [
+      1
+    ],
+    "trainable_parameter_count": 1073133569,
+    "gradient_tensor_count": 322,
+    "gradient_finite": true,
+    "gradient_l2": 8.635181427001953,
+    "gradient_max_abs": 1.5866358280181885,
+    "parameter_sample_changed": true,
+    "ppo_metrics": {
+      "actor/policy_loss": 0.25571131706237793,
+      "actor/policy_loss_abs": 0.25571131706237793,
+      "actor/ratio": 4.620556831359863,
+      "actor/ratio_abs": 1.4918094873428345,
+      "actor/clipped_ratio": 4.257143020629883,
+      "actor/dual_cliped_ratio": 0.0,
+      "actor/approx_kl": -0.23820237815380096,
+      "actor/clip_fraction": 0.8571429252624512,
+      "critic/value_loss": 0.0013702011201530695,
+      "critic/value_clip_ratio": 0.0,
+      "__sum__/_critic_explained_variance/count": 1.0,
+      "__sum__/_critic_explained_variance/returns_sum": -1.2349716424942017,
+      "__sum__/_critic_explained_variance/returns_sq_sum": 1.525154948234558,
+      "__sum__/_critic_explained_variance/errors_sum": -0.05234885215759277,
+      "__sum__/_critic_explained_variance/errors_sq_sum": 0.002740402240306139
+    },
+    "target_note": "real environment rewards/dones with RLinf GAE; not a success-rate result",
+    "gae": {
+      "source": "environment rewards and done flags",
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "rewards": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dones": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bootstrap_values": [
+        -1.247446060180664
+      ],
+      "values": [
+        [
+          -1.2552982568740845
+        ],
+        [
+          -1.2833261489868164
+        ],
+        [
+          -1.4214050769805908
+        ],
+        [
+          -1.3603236675262451
+        ],
+        [
+          -1.285365343093872
+        ],
+        [
+          -1.2348109483718872
+        ],
+        [
+          -1.377746820449829
+        ],
+        [
+          -1.1826227903366089
+        ]
+      ],
+      "advantages": [
+        0.0707482099533081,
+        0.09138000011444092,
+        0.22886216640472412,
+        0.1639314889907837,
+        0.08093523979187012,
+        0.019173622131347656,
+        0.1577160358428955,
+        -0.05234885215759277
+      ],
+      "returns": [
+        -1.1845500469207764,
+        -1.1919461488723755,
+        -1.1925429105758667,
+        -1.1963921785354614,
+        -1.204430103302002,
+        -1.2156373262405396,
+        -1.2200307846069336,
+        -1.2349716424942017
+      ]
+    }
+  },
+  "steps": [
+    {
+      "step": 0,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.740614652633667,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 5.021797135472298
+    },
+    {
+      "step": 1,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.8333884477615356,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.8069282919168472
+    },
+    {
+      "step": 2,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.6014668941497803,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.8111944645643234
+    },
+    {
+      "step": 3,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.6997270584106445,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.8045211136341095
+    },
+    {
+      "step": 4,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.8346543312072754,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.7969634532928467
+    },
+    {
+      "step": 5,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.850959300994873,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.7948839887976646
+    },
+    {
+      "step": 6,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.9318411350250244,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.8002130761742592
+    },
+    {
+      "step": 7,
+      "action_shape": [
+        1,
+        7
+      ],
+      "action_min": -1.0,
+      "action_max": 0.7853115797042847,
+      "action_finite": true,
+      "reward": [
+        0.0
+      ],
+      "terminated": [
+        false
+      ],
+      "truncated": [
+        false
+      ],
+      "next_state_finite": true,
+      "details_keys": [
+        "forward_inputs",
+        "prev_logprobs",
+        "prev_values"
+      ],
+      "info_keys": [
+        "env_id",
+        "episode"
+      ],
+      "elapsed_seconds": 0.8113889992237091
+    }
+  ],
+  "episode": {
+    "steps_completed": 8,
+    "return": 0.0,
+    "terminated": false,
+    "truncated": false,
+    "rollout_mode": "train"
+  },
+  "musa_memory": {
+    "allocated": 20496974848,
+    "reserved": 22535995392
+  }
+}

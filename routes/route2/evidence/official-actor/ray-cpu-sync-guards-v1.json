@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "device": "cpu",
+  "checks": [
+    "single_rank_cpu_bucket_accept",
+    "missing_channel",
+    "collective_channel",
+    "multi_actor",
+    "multi_rollout",
+    "accelerator_bucket",
+    "other_syncer",
+    "unknown_transport",
+    "implicit_transport_with_channel",
+    "collective_default_preserved",
+    "nested_cpu_payload_accept",
+    "nested_non_cpu_payload_reject"
+  ],
+  "count": 12,
+  "scope": "transport configuration and nested payload guards; no Ray/GPU training"
+}

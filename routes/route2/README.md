@@ -2,7 +2,7 @@
 
 2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。
 
-真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。RLinf 官方 GR00T N1.5 wrapper 与真实 LIBERO-Spatial 8 步 episode 已通过，且真实文件入口下 RLinf worker 默认 `spawn` 通过；随后用真实 rollout 元数据完成了一次局部 PPO loss/backward/AdamW 更新，见 [真实 episode 报告](../../reports/route2-libero-real.md)。该更新使用显式合成 target，不是学习结果；官方 `EmbodiedFSDPActor`、真实 GAE、多步更新和长期成功率尚未验证。
+真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。RLinf 官方 GR00T N1.5 wrapper 与真实 LIBERO-Spatial 8 步 episode 已通过，且真实 rollout 元数据已完成真实 GAE 的多步 PPO loss/backward/AdamW 更新，见 [真实 episode 报告](../../reports/route2-libero-real.md) 与 [多步证据](evidence/libero/libero-rlinf-ppo-multi-step-v5.json)。这证明单卡上的适配计算闭环，不代表 reward 或长期成功率提升。官方 `EmbodiedFSDPActor` 在基础源树仍拒绝 Torch 2.2；独立 FSDP1 实验源树加窄 DTensor 回退后已通过模块导入审计，尚未完成 Actor 构造、多卡、offload 或完整 runner。
 
 追加功能节点已加载完整 Spatial 骨干585张量和完整 action head 314张量，对 RLinf 的 LIBERO 分支31执行固定噪声4步动作、loss、backward 和 AdamW 更新对照。原骨干严格数值失败保留；该固定合成输入验收独立于真实预处理和官方 PPO，详见 [功能影响报告](../../reports/route2-spatial-eagle.md)。
 
@@ -53,7 +53,7 @@
 | HalfCheetah-v5 → Ray CPU Channel → MUSA PPO 更新 | 通过，4 env × 32 horizon × 2 iterations = 256 transitions，共 8 次 optimizer step |
 | MuJoCo workload 的同批 checkpoint 恢复更新 | 通过，参数与 optimizer 最大绝对误差都为 0；不含模拟器状态恢复 |
 | Ray CPU Channel regression | 8/8 通过，包括真实 CPU Tensor 的 Worker 间传输与 dispatcher consumer 路由 |
-| 官方 `EmbodiedFSDPActor` 导入 | 阻塞：`ImportError: Unsupported torch version: 2.2.0` |
+| 官方 `EmbodiedFSDPActor` 导入 | 基础源树拒绝 Torch 2.2；FSDP1 实验源树加显式开关和真实 DTensor 回退后导入通过，构造/runner 未验证 |
 | GR00T N1.5 MUSA patch 模块导入 | 通过；不等于 GR00T 模型可加载 |
 | vendor `flash_attn.flash_attn_interface` | 缺包 |
 | Transformers | 本轮隔离环境尚未安装 |

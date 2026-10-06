@@ -1,0 +1,4 @@
+export R=/root/autodl-tmp/s4000-research
+export PYTHONPATH=$R/envs/route2-integration/lib/python3.10/site-packages:$R/envs/route2-integration:$R/route2:$R/rlinf-s4000:$R/route2/RLinf:$R/route2/Isaac-GR00T-spatial-eager
+PY=$R/envs/route2/bin/python
+RLINF_EXPERIMENTAL_FSDP1_TORCH22=1 $PY $R/route2/model_probes/libero_rlinf_model_episode_probe.py --rlinf-source $R/route2/RLinf --gr00t-source $R/route2/Isaac-GR00T-spatial-eager --model-path $R/route2/weights/Spatial-73f710e --env-config $R/route2/RLinf/examples/embodiment/config/env/libero_spatial.yaml --steps 8 --worker-start-method spawn --rollout-mode train --ppo-multi-step --action-head-fp32 --output $R/route2/results/libero-rlinf-ppo-multi-step-v5.json

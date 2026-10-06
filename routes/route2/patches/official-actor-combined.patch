@@ -1,0 +1,615 @@
+diff --git a/rlinf/hybrid_engines/fsdp/__init__.py b/rlinf/hybrid_engines/fsdp/__init__.py
+index 78fabaa9..eabc1a01 100644
+--- a/rlinf/hybrid_engines/fsdp/__init__.py
++++ b/rlinf/hybrid_engines/fsdp/__init__.py
+@@ -13,6 +13,8 @@
+ # limitations under the License.
+ 
+ 
++import os
++
+ import torch
+ from packaging import version
+ 
+@@ -50,5 +52,24 @@ elif version.parse(torch.__version__) >= version.parse("2.4.0"):
+     from torch.distributed.fsdp.fully_sharded_data_parallel import (
+         FullyShardedDataParallel as FSDP,  # noqa: F401
+     )
++elif (
++    version.parse(torch.__version__).release[:2] == (2, 2)
++    and os.environ.get("RLINF_EXPERIMENTAL_FSDP1_TORCH22") == "1"
++):
++    from torch.distributed.fsdp import (  # noqa: F401
++        BackwardPrefetch,
++        CPUOffload,
++        ShardingStrategy,
++    )
++    from torch.distributed.fsdp import FullyShardedDataParallel as FSDP  # noqa: F401
+ else:
+     raise ImportError(f"Unsupported torch version: {version.parse(torch.__version__)}")
++
++
++def require_fsdp2() -> None:
++    """Reject FSDP2 when the runtime only exposes FSDP1."""
++    if "fully_shard" not in globals():
++        raise ImportError(
++            f"FSDP2 is unavailable with torch {torch.__version__}; "
++            "the experimental Torch 2.2 path requires fsdp_config.strategy=fsdp."
++        )
+diff --git a/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py b/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
+index b71e32c6..f62ab613 100644
+--- a/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
++++ b/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
+@@ -12,15 +12,20 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ import os
+ import warnings
+-from typing import ContextManager, Union
++from typing import TYPE_CHECKING, ContextManager, Union
+ 
+ import torch
+ import torch.nn as nn
+ from omegaconf import DictConfig
+ from torch.distributed.fsdp.sharded_grad_scaler import ShardedGradScaler
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+ from torch.optim import Optimizer
+ from torch.optim.lr_scheduler import LRScheduler
+ from transformers import AutoConfig, AutoModelForCausalLM
+@@ -35,10 +40,10 @@ except ImportError:
+         AutoModelForVision2Seq = None
+ 
+ from rlinf.config import SupportedModel, torch_dtype_from_precision
+-from rlinf.hybrid_engines.fsdp import (
+-    FSDP,
+-    FSDPModule,
+-)
++from rlinf.hybrid_engines.fsdp import FSDP
++
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
+ from rlinf.hybrid_engines.fsdp.optim import build_adamw
+ from rlinf.hybrid_engines.fsdp.strategy.base import FSDPStrategyBase
+ from rlinf.hybrid_engines.fsdp.utils import (
+@@ -373,6 +378,15 @@ class FSDPModelManager:
+         Args:
+             load_path: the directory to load checkpoint.
+         """
++        runtime_state = None
++        if self._cfg.fsdp_config.get("save_runtime_state", False):
++            runtime_path = os.path.join(
++                load_path, f"manager_runtime_rank_{torch.distributed.get_rank()}.pt"
++            )
++            runtime_state = torch.load(runtime_path, map_location="cpu", weights_only=False)
++            if runtime_state.get("schema_version") != 1:
++                raise ValueError("Unsupported manager runtime checkpoint schema")
++
+         if self.is_weight_offloaded:
+             self.load_param_and_grad(self.device)
+             self.is_weight_offloaded = False
+@@ -383,6 +397,14 @@ class FSDPModelManager:
+         self._strategy.load_checkpoint(
+             self.model, self.optimizer, self.lr_scheduler, load_path
+         )
++        if runtime_state is not None:
++            self.optimizer_steps = runtime_state["optimizer_steps"]
++            self.critic_warmup_steps = runtime_state["critic_warmup_steps"]
++            self.store_requires_grad_param_name = runtime_state["store_requires_grad_param_name"]
++            if runtime_state["actor_version"] is not None:
++                if not hasattr(self, "set_global_step"):
++                    raise ValueError("Runtime checkpoint requires an Actor version setter")
++                self.set_global_step(runtime_state["actor_version"])
+ 
+     def save_checkpoint(self, save_path: str, step: int = 0) -> None:
+         """
+@@ -409,6 +431,21 @@ class FSDPModelManager:
+                 "save_full_model_weights", True
+             ),
+         )
++        if self._cfg.fsdp_config.get("save_runtime_state", False):
++            runtime_state = {
++                "schema_version": 1,
++                "optimizer_steps": self.optimizer_steps,
++                "critic_warmup_steps": self.critic_warmup_steps,
++                "store_requires_grad_param_name": self.store_requires_grad_param_name,
++                "actor_version": getattr(self, "version", None),
++            }
++            runtime_path = os.path.join(
++                save_path, f"manager_runtime_rank_{torch.distributed.get_rank()}.pt"
++            )
++            temporary_path = runtime_path + ".tmp"
++            torch.save(runtime_state, temporary_path)
++            os.replace(temporary_path, runtime_path)
++            torch.distributed.barrier()
+ 
+         if restore_weight_offload:
+             self.offload_param_and_grad()
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/base.py b/rlinf/hybrid_engines/fsdp/strategy/base.py
+index e2b7f9b6..b2e340ea 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/base.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/base.py
+@@ -12,6 +12,8 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ import os
+ from abc import ABC, abstractmethod
+ from collections.abc import Iterable
+@@ -21,17 +23,17 @@ from typing import TYPE_CHECKING, ContextManager, Optional, Union
+ import torch
+ import torch.nn as nn
+ from omegaconf import DictConfig
++from packaging import version
+ from torch.distributed.checkpoint.state_dict import (
+     StateDictOptions,
+     get_model_state_dict,
+     set_model_state_dict,
+ )
+ from torch.distributed.device_mesh import DeviceMesh
+-from torch.distributed.tensor import DTensor
+ from torch.optim import Optimizer
+ from torch.optim.lr_scheduler import LRScheduler
+ 
+-from rlinf.hybrid_engines.fsdp import FSDP, FSDPModule
++from rlinf.hybrid_engines.fsdp import FSDP, DTensor, require_fsdp2
+ from rlinf.hybrid_engines.fsdp.strategy.checkpoint import Checkpoint
+ from rlinf.hybrid_engines.fsdp.utils import (
+     FSDPVersion,
+@@ -40,6 +42,7 @@ from rlinf.scheduler import Worker
+ from rlinf.utils.utils import clear_memory
+ 
+ if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
+     from rlinf.workers.actor.fsdp_actor_worker import FSDPActor
+     from rlinf.workers.inference.fsdp_inference_worker import FSDPInference
+ 
+@@ -96,6 +99,7 @@ class FSDPStrategyBase(ABC):
+                     logger=logger,
+                 )
+             case FSDPVersion.FSDP2:
++                require_fsdp2()
+                 from .fsdp2 import FSDP2Strategy
+ 
+                 return FSDP2Strategy(
+@@ -233,10 +237,14 @@ class FSDPStrategyBase(ABC):
+                 from torch.distributed import checkpoint as dcp
+ 
+                 dcp_save_path = os.path.join(save_path, "dcp_checkpoint")
+-                dcp.save(
+-                    {"fsdp_checkpoint": training_state},
+-                    checkpoint_id=dcp_save_path,
+-                )
++                payload = {"fsdp_checkpoint": training_state}
++                if version.parse(torch.__version__).release[:2] == (2, 2):
++                    # The explicitly enabled Torch 2.2 path has no checkpoint_id.
++                    dcp.save(
++                        payload, storage_writer=dcp.FileSystemWriter(dcp_save_path)
++                    )
++                else:
++                    dcp.save(payload, checkpoint_id=dcp_save_path)
+ 
+         except BaseException as e:
+             import traceback
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py b/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
+index 7af38de2..a62793f2 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/checkpoint.py
+@@ -12,8 +12,10 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ from collections.abc import Iterable
+-from typing import Union
++from typing import TYPE_CHECKING, Union
+ 
+ import torch
+ from torch.distributed.checkpoint.state_dict import (
+@@ -25,11 +27,14 @@ from torch.distributed.checkpoint.stateful import Stateful
+ from torch.optim import Optimizer
+ from torch.optim.lr_scheduler import LRScheduler
+ 
+-from rlinf.hybrid_engines.fsdp import FSDP, DTensor, FSDPModule
++from rlinf.hybrid_engines.fsdp import FSDP, DTensor
+ from rlinf.hybrid_engines.fsdp.utils import FSDPVersion, to_local_if_dtensor
+ from rlinf.utils.logging import get_logger
+ from rlinf.utils.utils import get_rng_state, set_rng_state
+ 
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
++
+ 
+ class Checkpoint(Stateful):
+     """Training state; DCP state dictionaries must be built on every rank."""
+diff --git a/rlinf/hybrid_engines/fsdp/utils.py b/rlinf/hybrid_engines/fsdp/utils.py
+index 9775561c..2d0a5a58 100644
+--- a/rlinf/hybrid_engines/fsdp/utils.py
++++ b/rlinf/hybrid_engines/fsdp/utils.py
+@@ -26,11 +26,13 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++from __future__ import annotations
++
+ import functools
+ import math
+ import warnings
+ from enum import Enum
+-from typing import ContextManager, Iterable, Optional, Union
++from typing import TYPE_CHECKING, ContextManager, Iterable, Optional, Union
+ 
+ import torch
+ from accelerate import init_empty_weights
+@@ -41,23 +43,26 @@ from torch.distributed.fsdp.wrap import (
+     transformer_auto_wrap_policy,
+ )
+ from torch.optim import Optimizer
+-from transformers.trainer_pt_utils import get_module_class_from_name
+ 
+ from rlinf.config import SupportedModel
+ from rlinf.hybrid_engines.fsdp import (
+     FSDP,
+     BackwardPrefetch,
+-    CPUOffloadPolicy,
+     DTensor,
+-    FSDPModule,
+-    MixedPrecisionPolicy,
+     ShardingStrategy,
+-    fully_shard,
++    require_fsdp2,
+ )
+ from rlinf.scheduler import Worker
+ from rlinf.scheduler.cluster import Cluster, ClusterEnvVar
+ from rlinf.utils.logging import get_logger
+ 
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import (
++        CPUOffloadPolicy,
++        FSDPModule,
++        MixedPrecisionPolicy,
++    )
++
+ 
+ class FSDPVersion(str, Enum):
+     FSDP = "fsdp"
+@@ -111,6 +116,11 @@ def gradient_reduction_group(device_mesh: DeviceMesh) -> torch.distributed.Proce
+     Returns:
+         torch.distributed.ProcessGroup: The group behind the ``fsdp`` dimension.
+     """
++    if device_mesh.ndim == 1:
++        if tuple(device_mesh.mesh_dim_names or ()) != ("fsdp",):
++            raise KeyError("The one-dimensional mesh must be named 'fsdp'.")
++        # Torch 2.2 rejects slicing a 1-D mesh, even by its only dimension name.
++        return device_mesh.get_group()
+     return device_mesh["fsdp"].get_group()
+ 
+ 
+@@ -147,6 +157,8 @@ def _normalize_wrap_targets(value):
+ 
+ 
+ def _resolve_module_classes_to_wrap(module, module_classes_to_wrap):
++    from transformers.trainer_pt_utils import get_module_class_from_name
++
+     resolved_module_classes = set()
+     for module_class in _normalize_wrap_targets(module_classes_to_wrap) or []:
+         if isinstance(module_class, str):
+@@ -375,6 +387,8 @@ def get_fsdp_wrap_policy(module, config=None, is_lora=False, model_type=None):
+ 
+     # Add transformer layer policies
+     if fsdp_transformer_layer_cls_to_wrap is not None:
++        from transformers.trainer_pt_utils import get_module_class_from_name
++
+         transformer_cls_to_wrap = set()
+         for layer_class in fsdp_transformer_layer_cls_to_wrap:
+             transformer_cls = get_module_class_from_name(module, layer_class)
+@@ -459,6 +473,9 @@ def apply_fsdp2_to_model(
+     Returns:
+         The sharded model
+     """
++    require_fsdp2()
++    from rlinf.hybrid_engines.fsdp import fully_shard
++
+     if config is None:
+         config = {}
+     wrap_policy_config = config.get("wrap_policy", {}) or {}
+diff --git a/rlinf/hybrid_engines/weight_syncer/base.py b/rlinf/hybrid_engines/weight_syncer/base.py
+index 0d18dcfd..9a2cc5e4 100644
+--- a/rlinf/hybrid_engines/weight_syncer/base.py
++++ b/rlinf/hybrid_engines/weight_syncer/base.py
+@@ -19,7 +19,10 @@ from typing import Any, Awaitable, Callable, Optional
+ 
+ import torch
+ from omegaconf import DictConfig, OmegaConf
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+ 
+ from rlinf.scheduler import CollectiveGroupOptions, Worker
+ 
+diff --git a/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py b/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
+index 7d0084b1..a622dba8 100644
+--- a/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
++++ b/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
+@@ -17,7 +17,10 @@ from __future__ import annotations
+ from collections.abc import Callable, Iterable, Iterator
+ 
+ import torch
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+ 
+ from rlinf.scheduler import Worker
+ from rlinf.utils.utils import (
+diff --git a/rlinf/hybrid_engines/weight_syncer/patch_syncer.py b/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
+index 835d7283..17db912b 100644
+--- a/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
++++ b/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
+@@ -19,8 +19,12 @@ from collections.abc import Iterable
+ from dataclasses import dataclass
+ 
+ import torch
+-from torch.distributed.tensor import DTensor
+-from torch.distributed.tensor.placement_types import Replicate
++try:
++    from torch.distributed.tensor import DTensor
++    from torch.distributed.tensor.placement_types import Replicate
++except ImportError:
++    from torch.distributed._tensor import DTensor
++    from torch.distributed._tensor.placement_types import Replicate
+ 
+ from rlinf.scheduler import Cluster, Worker
+ from rlinf.utils.utils import (
+diff --git a/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py b/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
+index e459fc56..64810822 100644
+--- a/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
++++ b/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
+@@ -38,7 +38,9 @@ def get_model(cfg: DictConfig, torch_dtype=torch.bfloat16):
+     # platform) before applying, and restore the process-global ones once model
+     # construction finishes.
+     npu_patch_state = apply_npu_patches(Patcher)
+-    musa_patch_state = apply_musa_patches(Patcher)
++    musa_patch_state = apply_musa_patches(
++        Patcher, eager_attention=cfg.get("musa_eager_attention", False)
++    )
+     Patcher.apply()
+     try:
+         from gr00t.experiment.data_config import load_data_config
+diff --git a/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py b/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py
+index e4293c2c..e69b62fe 100644
+--- a/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py
++++ b/rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py
+@@ -120,6 +120,11 @@ class FlowMatchingActionHeadForRLActionPrediction(FlowmatchingActionHead):
+         device = vl_embs.device
+         if isinstance(idx, int):
+             idx = torch.tensor(idx).expand(bsize)
++        elif idx.device.type == "musa":
++            # Torch-MUSA 1.3 rejects division of a one-element strided column
++            # view. contiguous() can be a no-op for that size; clone explicitly
++            # materializes the dense layout without changing denoising indices.
++            idx = idx.clone(memory_format=torch.contiguous_format)
+         # build parameters
+         if self.rl_config.noise_anneal:
+             # noise annealing
+diff --git a/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py b/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
+index 38acaf4c..61c24e4f 100644
+--- a/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
++++ b/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
+@@ -74,7 +74,7 @@ def _is_musa() -> bool:
+     return Worker.accelerator_type == AcceleratorType.MUSA_GPU
+ 
+ 
+-def apply_musa_patches(patcher) -> dict | None:
++def apply_musa_patches(patcher, *, eager_attention: bool = False) -> dict | None:
+     """Register the MUSA patches for building GR00T N1.5; return restore state.
+ 
+     No-op returning ``None`` off MUSA. Call before ``patcher.apply()``; pass the
+@@ -89,6 +89,12 @@ def apply_musa_patches(patcher) -> dict | None:
+     if not _is_musa():
+         return None
+ 
++    if eager_attention:
++        # Opt-in Eagle eager source requires no vendor FlashAttention binding
++        # or RADIO CUDA capability override. The model builder verifies the
++        # actual instantiated vision and language attention implementations.
++        return None
++
+     bind_vendor_flash_attn_in_transformers()
+ 
+     # Capture before patcher.apply() replaces it, so restore can put it back.
+diff --git a/rlinf/runners/embodied_runner.py b/rlinf/runners/embodied_runner.py
+index 49b2cbc2..5f1d6d5e 100644
+--- a/rlinf/runners/embodied_runner.py
++++ b/rlinf/runners/embodied_runner.py
+@@ -98,6 +98,9 @@ class EmbodiedRunner:
+         # Data channels
+         self.env_channel = Channel.create("Env")
+         self.rollout_channel = Channel.create("Rollout")
++        self.weight_channel = None
++        if cfg.get("weight_syncer", {}).get("transport", "collective") == "ray_cpu":
++            self.weight_channel = Channel.create("Weights", maxsize=2, transport="ray")
+         # Trajectory assembly runs on the channel worker, so neither the env
+         # nor the rollout worker has to hold partial trajectory state.
+         self.actor_channel = Channel.create(
+@@ -198,8 +201,9 @@ class EmbodiedRunner:
+         self.actor.load_checkpoint(actor_checkpoint_path).wait()
+ 
+     def update_rollout_weights(self):
+-        rollout_handle: Handle = self.rollout.sync_model_from_actor()
+-        actor_handle: Handle = self.actor.sync_model_to_rollout()
++        kwargs = {} if self.weight_channel is None else {"weight_channel": self.weight_channel}
++        rollout_handle: Handle = self.rollout.sync_model_from_actor(**kwargs)
++        actor_handle: Handle = self.actor.sync_model_to_rollout(**kwargs)
+         actor_handle.wait()
+         rollout_handle.wait()
+ 
+diff --git a/rlinf/workers/actor/embodied_fsdp_actor_worker.py b/rlinf/workers/actor/embodied_fsdp_actor_worker.py
+index 097f832b..b813ab3c 100644
+--- a/rlinf/workers/actor/embodied_fsdp_actor_worker.py
++++ b/rlinf/workers/actor/embodied_fsdp_actor_worker.py
+@@ -135,7 +135,16 @@ class EmbodiedFSDPActor(FSDPModelManager, Worker):
+         return self.get_model_state_dict(cpu_offload=False, full_state_dict=False)
+ 
+     @Worker.timer("actor/sync_model_to_rollout")
+-    async def sync_model_to_rollout(self) -> None:
++    async def sync_model_to_rollout(self, weight_channel: Channel | None = None) -> None:
++        from rlinf.hybrid_engines.weight_syncer.ray_cpu import (
++            require_cpu_payload,
++            validate_ray_cpu_sync,
++        )
++
++        use_ray_cpu = validate_ray_cpu_sync(
++            self.cfg.weight_syncer, weight_channel,
++            self._actor_world_size, len(self._rollout_all_ranks),
++        )
+         if self.enable_offload:
+             if not self.is_optimizer_offloaded:
+                 self.offload_optimizer()
+@@ -148,6 +157,10 @@ class EmbodiedFSDPActor(FSDPModelManager, Worker):
+         async def send_func(data):
+             if not self._is_weight_sender:
+                 return
++            if use_ray_cpu:
++                require_cpu_payload(data)
++                await weight_channel.put(data, async_op=True).async_wait()
++                return
+             await self.broadcast(
+                 data,
+                 groups=[
+@@ -160,6 +173,8 @@ class EmbodiedFSDPActor(FSDPModelManager, Worker):
+             ).async_wait()
+ 
+         async def recv_func():
++            if use_ray_cpu:
++                raise RuntimeError("CPU bucket sync does not require a reverse receive")
+             return await self.recv(
+                 src_group_name=self._rollout_group_name,
+                 src_rank=0,
+diff --git a/rlinf/workers/actor/fsdp_actor_worker.py b/rlinf/workers/actor/fsdp_actor_worker.py
+index 52ec068c..99257fce 100644
+--- a/rlinf/workers/actor/fsdp_actor_worker.py
++++ b/rlinf/workers/actor/fsdp_actor_worker.py
+@@ -18,7 +18,10 @@ from typing import Optional
+ 
+ import torch
+ from omegaconf import DictConfig
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+ from torch.multiprocessing.reductions import reduce_tensor
+ 
+ import rlinf.algorithms  # noqa: F401
+diff --git a/rlinf/workers/inference/fsdp_inference_worker.py b/rlinf/workers/inference/fsdp_inference_worker.py
+index fe370d06..759f5c44 100644
+--- a/rlinf/workers/inference/fsdp_inference_worker.py
++++ b/rlinf/workers/inference/fsdp_inference_worker.py
+@@ -21,7 +21,10 @@ from torch.distributed.checkpoint.state_dict import (
+     get_model_state_dict,
+     set_model_state_dict,
+ )
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+ 
+ from rlinf.utils.placement import ModelParallelComponentPlacement
+ from rlinf.utils.utils import (
+diff --git a/rlinf/workers/rollout/hf/huggingface_worker.py b/rlinf/workers/rollout/hf/huggingface_worker.py
+index 455d2250..87738627 100644
+--- a/rlinf/workers/rollout/hf/huggingface_worker.py
++++ b/rlinf/workers/rollout/hf/huggingface_worker.py
+@@ -623,10 +623,23 @@ class MultiStepRolloutWorker(Worker):
+         )
+ 
+     @Worker.timer("sync_model_from_actor")
+-    async def sync_model_from_actor(self):
++    async def sync_model_from_actor(self, weight_channel: Channel | None = None):
+         """Sync model parameters from the actor worker."""
++        from rlinf.hybrid_engines.weight_syncer.ray_cpu import (
++            require_cpu_payload,
++            validate_ray_cpu_sync,
++        )
++
++        use_ray_cpu = validate_ray_cpu_sync(
++            self.cfg.weight_syncer, weight_channel,
++            self.placement.get_world_size("actor"), self._world_size,
++        )
+ 
+         async def recv_func() -> Any:
++            if use_ray_cpu:
++                data = await weight_channel.get(async_op=True).async_wait()
++                require_cpu_payload(data)
++                return data
+             return await self.broadcast(
+                 None,
+                 groups=[
+@@ -639,6 +652,8 @@ class MultiStepRolloutWorker(Worker):
+             ).async_wait()
+ 
+         async def send_func(data: Any) -> None:
++            if use_ray_cpu:
++                raise RuntimeError("CPU bucket sync does not require a reverse send")
+             if not self._weight_sync_is_sender:
+                 return
+             actor_world_size = self.placement.get_world_size("actor")
+diff --git a/rlinf/hybrid_engines/weight_syncer/ray_cpu.py b/rlinf/hybrid_engines/weight_syncer/ray_cpu.py
+new file mode 100644
+index 00000000..b8003239
+--- /dev/null
++++ b/rlinf/hybrid_engines/weight_syncer/ray_cpu.py
+@@ -0,0 +1,39 @@
++"""Explicit single-Actor/single-Rollout CPU transport for bucket weights.
++
++Weight selection, bucketing, application and versions remain owned by the
++regular BucketWeightSyncer. This transport only bypasses newer c10d helpers
++which are absent in Torch 2.2. It establishes no multi-rank collective support.
++"""
++
++from collections.abc import Mapping
++
++import torch
++
++
++def validate_ray_cpu_sync(cfg, channel, actor_world_size, rollout_world_size):
++    transport = cfg.get("transport", "collective")
++    if transport == "collective":
++        if channel is not None:
++            raise ValueError("weight channel requires explicit transport=ray_cpu")
++        return False
++    if transport != "ray_cpu":
++        raise ValueError(f"Unsupported weight sync transport: {transport}")
++    if actor_world_size != 1 or rollout_world_size != 1:
++        raise ValueError("ray_cpu weight sync currently requires one Actor and one Rollout")
++    if cfg.type != "bucket" or cfg.bucket.bucket_device != "cpu":
++        raise ValueError("ray_cpu requires BucketWeightSyncer with bucket_device=cpu")
++    if channel is None or not getattr(channel, "_use_ray_transport", False):
++        raise ValueError("ray_cpu requires an explicitly created Ray Channel")
++    return True
++
++
++def require_cpu_payload(value):
++    if isinstance(value, torch.Tensor):
++        if value.device.type != "cpu":
++            raise ValueError(f"Ray weight payload must be CPU, got {value.device}")
++    elif isinstance(value, Mapping):
++        for nested in value.values():
++            require_cpu_payload(nested)
++    elif isinstance(value, (tuple, list)):
++        for nested in value:
++            require_cpu_payload(nested)

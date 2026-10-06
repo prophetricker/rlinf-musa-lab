@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Run the official RLinf GR00T N1.5 wrapper through a short LIBERO episode.
-
-This probe intentionally stops before PPO.  It verifies the production RLinf
-model wrapper, its observation/action transforms, and the real LIBERO env
-contract on the MUSA runtime.
-"""
+"""Run the official RLinf GR00T N1.5 wrapper through a short LIBERO episode."""
 from __future__ import annotations
 
 import argparse
@@ -42,11 +37,18 @@ def main() -> int:
     parser.add_argument("--worker-start-method", choices=("spawn", "fork"), default="spawn")
     parser.add_argument("--rollout-mode", choices=("train", "eval"), default="train")
     parser.add_argument("--ppo-one-step", action="store_true")
+    parser.add_argument("--ppo-multi-step", action="store_true")
+    parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--gae-lambda", type=float, default=0.95)
     parser.add_argument("--action-head-fp32", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.steps < 1 or args.output.exists():
         parser.error("steps must be positive and output must be new")
+    if args.ppo_one_step and args.ppo_multi_step:
+        parser.error("choose at most one PPO update mode")
+    if args.ppo_multi_step and not args.action_head_fp32:
+        parser.error("--ppo-multi-step requires --action-head-fp32")
 
     result = {
         "schema_version": 1,
@@ -154,44 +156,11 @@ def main() -> int:
             model = model.to("musa:0")
             # GR00T's override of eval() does not return self.
             model.eval()
-            from diffusers.models.attention_processor import Attention
-            from fp32_attention_processor import FP32AttentionProcessor
+            from gr00t_action_head_fallback import apply_action_head_fp32_fallback
 
-            action_attention = []
-            for name, module in model.action_head.named_modules():
-                if isinstance(module, Attention):
-                    module.set_processor(FP32AttentionProcessor())
-                    action_attention.append(name)
             if args.action_head_fp32:
-                import tree
-
-                model.action_head.float()
-                backbone_dtype = next(model.backbone.parameters()).dtype
-                action_dtype = next(model.action_head.parameters()).dtype
-                def prepare_mixed(inputs):
-                    backbone_inputs, action_inputs = (
-                        model.backbone.prepare_input(inputs),
-                        model.action_head.prepare_input(inputs),
-                    )
-
-                    def move(value, dtype):
-                        if torch.is_floating_point(value):
-                            return value.to(model.device, dtype=dtype)
-                        return value.to(model.device)
-
-                    return (
-                        tree.map_structure(lambda value: move(value, backbone_dtype), backbone_inputs),
-                        tree.map_structure(lambda value: move(value, action_dtype), action_inputs),
-                    )
-
-                model.prepare_input = prepare_mixed
-                original_process_backbone = model.action_head.process_backbone_output
-
-                def process_backbone(output):
-                    output["backbone_features"] = output["backbone_features"].float()
-                    return original_process_backbone(output)
-
-                model.action_head.process_backbone_output = process_backbone
+                fallback_metadata = apply_action_head_fp32_fallback(model)
+                result["fallback"] = fallback_metadata
         finally:
             musa_patches.bind_vendor_flash_attn_in_transformers = original_bind
 
@@ -202,8 +171,12 @@ def main() -> int:
             "trainable_parameters": sum(p.numel() for p in model.parameters() if p.requires_grad),
             "model_load_seconds": time.monotonic() - started,
             "weights": str(args.model_path),
-            "action_attention_processor": "FP32AttentionProcessor",
-            "action_attention_modules": len(action_attention),
+            "action_attention_processor": result.get("fallback", {}).get(
+                "processor", "model default"
+            ),
+            "action_attention_modules": result.get("fallback", {}).get(
+                "attention_modules", 0
+            ),
             "action_head_dtype": str(next(model.action_head.parameters()).dtype),
         }
 
@@ -238,13 +211,13 @@ def main() -> int:
         }
 
         rows = []
-        update_details = None
+        rollout_details = []
         for step_idx in range(args.steps):
             started_step = time.monotonic()
             with torch.no_grad():
                 action, details = model.predict_action_batch(obs, mode=args.rollout_mode)
-            if update_details is None:
-                update_details = details
+            if args.ppo_one_step or args.ppo_multi_step:
+                rollout_details.append(details)
             action = action.detach().cpu()
             if action.ndim == 3:
                 action = action[:, 0]
@@ -273,48 +246,129 @@ def main() -> int:
             if bool(terminated.any() or truncated.any()):
                 break
 
-        if args.ppo_one_step:
+        if args.ppo_one_step or args.ppo_multi_step:
+            update_details = rollout_details[0] if rollout_details else None
             if update_details is None:
                 raise RuntimeError("No rollout details available for PPO update")
             from rlinf.algorithms.losses import compute_ppo_actor_critic_loss
 
-            forward_inputs = update_details["forward_inputs"]
-            old_logprobs = update_details["prev_logprobs"].detach().float()
-            old_values = update_details["prev_values"].detach().float().reshape(-1)
             trainable = [p for p in model.parameters() if p.requires_grad]
             if not trainable:
                 raise RuntimeError("Model has no trainable parameters")
             before_sample = trainable[0].detach().flatten()[:16].float().cpu().tolist()
             optimizer = torch.optim.AdamW(trainable, lr=1.0e-8, foreach=False)
             optimizer.zero_grad(set_to_none=True)
-            with torch.enable_grad():
-                current = model(
-                    forward_inputs=forward_inputs,
-                    prev_logprobs=old_logprobs,
-                    compute_logprobs=True,
-                    compute_entropy=False,
-                    compute_values=True,
-                )
-                logprobs = current["logprobs"].float()
-                values = current["values"].float().reshape(-1)
-                advantages = torch.ones_like(values, dtype=torch.float32)
+            if args.ppo_one_step:
+                old_logprobs = update_details["prev_logprobs"].detach().float()
+                old_values = update_details["prev_values"].detach().float().reshape(-1)
+                advantages = torch.ones_like(old_values, dtype=torch.float32)
                 returns = old_values + 1.0
-                ppo_loss, ppo_metrics = compute_ppo_actor_critic_loss(
-                    logprobs=logprobs,
-                    old_logprobs=old_logprobs,
-                    values=values,
-                    returns=returns,
-                    prev_values=old_values,
-                    advantages=advantages,
-                    clip_ratio_low=0.2,
-                    clip_ratio_high=0.2,
-                    clip_ratio_c=3.0,
-                    value_clip=0.2,
-                    huber_delta=10.0,
+                loss_steps = [
+                    (update_details, old_logprobs, old_values, advantages, returns)
+                ]
+                gae_metadata = {
+                    "source": "synthetic",
+                    "gamma": None,
+                    "gae_lambda": None,
+                }
+            else:
+                if len(rollout_details) != len(rows):
+                    raise RuntimeError("multi-step rollout metadata length mismatch")
+                with torch.no_grad():
+                    _, bootstrap_details = model.predict_action_batch(
+                        obs, mode=args.rollout_mode
+                    )
+                value_steps = [
+                    details["prev_values"].detach().float().reshape(-1)
+                    for details in rollout_details
+                ]
+                values_with_bootstrap = torch.stack(
+                    [*value_steps, bootstrap_details["prev_values"].detach().float().reshape(-1)]
                 )
-                if not bool(torch.isfinite(ppo_loss)):
-                    raise RuntimeError("PPO loss is non-finite")
-                ppo_loss.backward()
+                rewards = torch.tensor(
+                    [float(row["reward"][0]) for row in rows],
+                    device=values_with_bootstrap.device,
+                    dtype=torch.float32,
+                ).unsqueeze(-1)
+                dones = torch.tensor(
+                    [False, *[
+                        bool(row["terminated"][0] or row["truncated"][0])
+                        for row in rows
+                    ]],
+                    device=values_with_bootstrap.device,
+                    dtype=torch.bool,
+                ).unsqueeze(-1)
+                from rlinf.algorithms.advantages import (
+                    compute_gae_advantages_and_returns,
+                )
+
+                advantages, returns = compute_gae_advantages_and_returns(
+                    rewards=rewards,
+                    values=values_with_bootstrap,
+                    dones=dones,
+                    gamma=args.gamma,
+                    gae_lambda=args.gae_lambda,
+                    normalize_advantages=False,
+                )
+                if not bool(torch.isfinite(advantages).all()):
+                    raise RuntimeError("GAE advantages are non-finite")
+                if not bool(torch.isfinite(returns).all()):
+                    raise RuntimeError("GAE returns are non-finite")
+                loss_steps = [
+                    (
+                        details,
+                        details["prev_logprobs"].detach().float(),
+                        details["prev_values"].detach().float().reshape(-1),
+                        advantages[idx],
+                        returns[idx],
+                    )
+                    for idx, details in enumerate(rollout_details)
+                ]
+                gae_metadata = {
+                    "source": "environment rewards and done flags",
+                    "gamma": args.gamma,
+                    "gae_lambda": args.gae_lambda,
+                    "rewards": rewards.squeeze(-1).detach().cpu().tolist(),
+                    "dones": dones.squeeze(-1).detach().cpu().tolist(),
+                    "bootstrap_values": values_with_bootstrap[-1].detach().cpu().tolist(),
+                    "values": values_with_bootstrap[:-1].detach().cpu().tolist(),
+                    "advantages": advantages.squeeze(-1).detach().cpu().tolist(),
+                    "returns": returns.squeeze(-1).detach().cpu().tolist(),
+                }
+
+            ppo_loss = None
+            ppo_metrics = {}
+            logprobs = None
+            values = None
+            with torch.enable_grad():
+                for details, old_logprobs, old_values, advantages_t, returns_t in loss_steps:
+                    current = model(
+                        forward_inputs=details["forward_inputs"],
+                        prev_logprobs=old_logprobs,
+                        compute_logprobs=True,
+                        compute_entropy=False,
+                        compute_values=True,
+                    )
+                    logprobs = current["logprobs"].float()
+                    values = current["values"].float().reshape(-1)
+                    step_loss, step_metrics = compute_ppo_actor_critic_loss(
+                        logprobs=logprobs,
+                        old_logprobs=old_logprobs,
+                        values=values,
+                        returns=returns_t,
+                        prev_values=old_values,
+                        advantages=advantages_t,
+                        clip_ratio_low=0.2,
+                        clip_ratio_high=0.2,
+                        clip_ratio_c=3.0,
+                        value_clip=0.2,
+                        huber_delta=10.0,
+                    )
+                    if not bool(torch.isfinite(step_loss)):
+                        raise RuntimeError("PPO loss is non-finite")
+                    ppo_loss = step_loss if ppo_loss is None else ppo_loss + step_loss
+                    ppo_metrics = step_metrics
+                    (step_loss / len(loss_steps)).backward()
             torch.musa.synchronize()
             grad_sq = torch.zeros((), device="musa:0", dtype=torch.float32)
             grad_max = 0.0
@@ -329,12 +383,19 @@ def main() -> int:
                     grad_count += 1
             if not grad_finite:
                 raise RuntimeError("PPO gradient is non-finite")
+            if grad_count == 0 or grad_max == 0.0:
+                raise RuntimeError("PPO backward produced no non-zero gradients")
             optimizer.step()
             torch.musa.synchronize()
             after_sample = trainable[0].detach().flatten()[:16].float().cpu().tolist()
-            result["ppo_one_step"] = {
+            parameter_sample_changed = before_sample != after_sample
+            if not parameter_sample_changed:
+                raise RuntimeError("optimizer step did not change the parameter sample")
+            result["ppo_update"] = {
                 "status": "pass",
-                "loss": float(ppo_loss.detach().cpu()),
+                "mode": "one_step_synthetic" if args.ppo_one_step else "multi_step_real_gae",
+                "loss_sum": float(ppo_loss.detach().cpu()),
+                "loss_mean": float((ppo_loss / len(loss_steps)).detach().cpu()),
                 "logprobs_shape": list(logprobs.shape),
                 "values_shape": list(values.shape),
                 "old_logprobs_shape": list(old_logprobs.shape),
@@ -344,9 +405,14 @@ def main() -> int:
                 "gradient_finite": grad_finite,
                 "gradient_l2": float(grad_sq.sqrt().cpu()),
                 "gradient_max_abs": grad_max,
-                "parameter_sample_changed": before_sample != after_sample,
+                "parameter_sample_changed": parameter_sample_changed,
                 "ppo_metrics": {key: float(value.detach().cpu()) for key, value in ppo_metrics.items() if hasattr(value, "detach")},
-                "target_note": "one synthetic one-sample PPO target: advantages=1 and returns=prev_values+1; this validates the RLinf loss/backward/update path, not learning quality",
+                "target_note": (
+                    "one synthetic one-sample target; not learning quality"
+                    if args.ppo_one_step
+                    else "real environment rewards/dones with RLinf GAE; not a success-rate result"
+                ),
+                "gae": gae_metadata,
             }
 
         result["steps"] = rows

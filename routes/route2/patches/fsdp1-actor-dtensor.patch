@@ -1,0 +1,78 @@
+diff --git a/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py b/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
+index b71e32c6..d0a24b79 100644
+--- a/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
++++ b/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py
+@@ -14,0 +15,2 @@
++from __future__ import annotations
++
+@@ -17 +19 @@ import warnings
+-from typing import ContextManager, Union
++from typing import TYPE_CHECKING, ContextManager, Union
+@@ -23 +25,4 @@ from torch.distributed.fsdp.sharded_grad_scaler import ShardedGradScaler
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+@@ -38,4 +43,4 @@ from rlinf.config import SupportedModel, torch_dtype_from_precision
+-from rlinf.hybrid_engines.fsdp import (
+-    FSDP,
+-    FSDPModule,
+-)
++from rlinf.hybrid_engines.fsdp import FSDP
++
++if TYPE_CHECKING:
++    from rlinf.hybrid_engines.fsdp import FSDPModule
+diff --git a/rlinf/hybrid_engines/weight_syncer/base.py b/rlinf/hybrid_engines/weight_syncer/base.py
+index 0d18dcfd..9a2cc5e4 100644
+--- a/rlinf/hybrid_engines/weight_syncer/base.py
++++ b/rlinf/hybrid_engines/weight_syncer/base.py
+@@ -22 +22,4 @@ from omegaconf import DictConfig, OmegaConf
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+diff --git a/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py b/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
+index 7d0084b1..a622dba8 100644
+--- a/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
++++ b/rlinf/hybrid_engines/weight_syncer/bucket_syncer.py
+@@ -20 +20,4 @@ import torch
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+diff --git a/rlinf/hybrid_engines/weight_syncer/patch_syncer.py b/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
+index 835d7283..17db912b 100644
+--- a/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
++++ b/rlinf/hybrid_engines/weight_syncer/patch_syncer.py
+@@ -22,2 +22,6 @@ import torch
+-from torch.distributed.tensor import DTensor
+-from torch.distributed.tensor.placement_types import Replicate
++try:
++    from torch.distributed.tensor import DTensor
++    from torch.distributed.tensor.placement_types import Replicate
++except ImportError:
++    from torch.distributed._tensor import DTensor
++    from torch.distributed._tensor.placement_types import Replicate
+diff --git a/rlinf/workers/actor/fsdp_actor_worker.py b/rlinf/workers/actor/fsdp_actor_worker.py
+index 52ec068c..99257fce 100644
+--- a/rlinf/workers/actor/fsdp_actor_worker.py
++++ b/rlinf/workers/actor/fsdp_actor_worker.py
+@@ -21 +21,4 @@ from omegaconf import DictConfig
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor
+diff --git a/rlinf/workers/inference/fsdp_inference_worker.py b/rlinf/workers/inference/fsdp_inference_worker.py
+index fe370d06..759f5c44 100644
+--- a/rlinf/workers/inference/fsdp_inference_worker.py
++++ b/rlinf/workers/inference/fsdp_inference_worker.py
+@@ -24 +24,4 @@ from torch.distributed.checkpoint.state_dict import (
+-from torch.distributed.tensor import DTensor
++try:
++    from torch.distributed.tensor import DTensor
++except ImportError:
++    from torch.distributed._tensor import DTensor

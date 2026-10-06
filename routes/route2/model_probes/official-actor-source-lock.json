@@ -1,0 +1,83 @@
+{
+  "record_date": "2026-10-06",
+  "rlinf_upstream": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+  "worker_baseline": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+  "rlinf_url": "https://github.com/RLinf/RLinf",
+  "patch": "routes/route2/patches/official-actor-combined.patch",
+  "patch_sha256": "d1ee33b57fc5ed4abb6a71e2d37943387fab911917b6cc979abdfd68885485da",
+  "gr00t_url": "https://github.com/NVIDIA/Isaac-GR00T",
+  "gr00t_upstream": "4af2b622892f7dcb5aae5a3fb70bcb02dc217b96",
+  "gr00t_prepared_local_base": "c9bd9a2403d14d492be88a9af9ae3989d4b711fc",
+  "gr00t_additional_patch": "routes/route2/patches/gr00t-lazy-pytorch3d.patch",
+  "gr00t_additional_patch_sha256": "38b9917fae8381eeb281f548d7187ddfd4396a4fa037e1df2566a574365cf758",
+  "production_files": [
+    {
+      "path": "rlinf/hybrid_engines/fsdp/__init__.py",
+      "sha256": "40a8ab4bd24f4c559e888602e54f4d318c6653e6c327ad93f336f7b7e0320dae"
+    },
+    {
+      "path": "rlinf/hybrid_engines/fsdp/fsdp_model_manager.py",
+      "sha256": "95cd11ccfbb074424b20815999a13b9a0062d411cbd0721b763474c5337bfb7c"
+    },
+    {
+      "path": "rlinf/hybrid_engines/fsdp/strategy/base.py",
+      "sha256": "61cfe424bd57371409d0fee61f443dd0aef439350f45b99f2b261a271eab14bf"
+    },
+    {
+      "path": "rlinf/hybrid_engines/fsdp/strategy/checkpoint.py",
+      "sha256": "3ea682b6a600f67bd286f5425fdfbb05d8a37981db9b4909c27e82ce2b74d799"
+    },
+    {
+      "path": "rlinf/hybrid_engines/fsdp/utils.py",
+      "sha256": "a31703d407de4592762370324ea17ceb6fc0eb1b869ad8a33880619b6fddfb3d"
+    },
+    {
+      "path": "rlinf/hybrid_engines/weight_syncer/base.py",
+      "sha256": "334b85b31288fd9c5d901bf72f1f50609378c3aa073aa627d5334bbe8d078512"
+    },
+    {
+      "path": "rlinf/hybrid_engines/weight_syncer/bucket_syncer.py",
+      "sha256": "aa6ae56f1a5d7099fddaae079faae64ca062b8190e620933e87693c429303c04"
+    },
+    {
+      "path": "rlinf/hybrid_engines/weight_syncer/patch_syncer.py",
+      "sha256": "8a263264ab25b482136052411b52a7023b80d867b6c9beb3a3f9320b3b855c4f"
+    },
+    {
+      "path": "rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py",
+      "sha256": "898355f0f892199253a522031c0fe1ca75e1df0208f769dccbf9e1101c595e1f"
+    },
+    {
+      "path": "rlinf/models/embodiment/gr00t/gr00t_n1d5/gr00t_action_model.py",
+      "sha256": "2ada23b6608744dc7226dc096c064064ff9f2fc793636b16a8a68437a9a9fcaa"
+    },
+    {
+      "path": "rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py",
+      "sha256": "2ac6f20f943fec416464eb10c971d1b50a0fe7b088e8b116aedb2c5a43304a25"
+    },
+    {
+      "path": "rlinf/runners/embodied_runner.py",
+      "sha256": "2c53a1bae8040ca50d2e6f3d3b20bb20889374d82fb1165cc84b9bab7c2df469"
+    },
+    {
+      "path": "rlinf/workers/actor/embodied_fsdp_actor_worker.py",
+      "sha256": "252e769b3e5f768d561b9fc8a59e93917c8e39356467c4a0491183c8494aa70e"
+    },
+    {
+      "path": "rlinf/workers/actor/fsdp_actor_worker.py",
+      "sha256": "10c27d34d48b43f8754904919b1d461af88ef54ba93d58c622224a8de023d360"
+    },
+    {
+      "path": "rlinf/workers/inference/fsdp_inference_worker.py",
+      "sha256": "85531b634bdc8d5dc0169dc5a2213d187fb6be560919832d406f7ef52f25cd76"
+    },
+    {
+      "path": "rlinf/workers/rollout/hf/huggingface_worker.py",
+      "sha256": "b16ef9e9075a953136dffe8a5e2ae3563fc2680169b83a3e91d5f6e9ca0bd9e5"
+    },
+    {
+      "path": "rlinf/hybrid_engines/weight_syncer/ray_cpu.py",
+      "sha256": "2a973d7652edf59282bfafdcef842c97943d06f368be12d617e11fad9a59b798"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "base": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+  "files_reconstructed_exactly": 17,
+  "patch_sha256": "d1ee33b57fc5ed4abb6a71e2d37943387fab911917b6cc979abdfd68885485da",
+  "ast_validation": "new probe files pass locally; upstream requires Python >=3.10"
+}

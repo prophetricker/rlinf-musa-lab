@@ -1,0 +1,21 @@
+diff --git a/gr00t/data/transform/state_action.py b/gr00t/data/transform/state_action.py
+index 9206ea6..412ccc1 100644
+--- a/gr00t/data/transform/state_action.py
++++ b/gr00t/data/transform/state_action.py
+@@ -18,7 +18,6 @@ import random
+ from typing import Any, ClassVar
+ 
+ import numpy as np
+-import pytorch3d.transforms as pt
+ import torch
+ from pydantic import Field, PrivateAttr, field_validator, model_validator
+ 
+@@ -37,6 +36,8 @@ class RotationTransform:
+ 
+         Always use matrix as intermediate representation.
+         """
++        import pytorch3d.transforms as pt
++
+         if from_rep.startswith("euler_angles"):
+             from_convention = from_rep.split("_")[-1]
+             from_rep = "euler_angles"

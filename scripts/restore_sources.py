@@ -27,8 +27,12 @@ def main() -> None:
         action="store_true",
         help="Also restore the separate FSDP1 checkpoint source tree (requires --apply-patches).",
     )
+    parser.add_argument(
+        "--official-actor-experimental", action="store_true",
+        help="Restore the isolated official Actor/Rollout source (requires --apply-patches).",
+    )
     args = parser.parse_args()
-    if (args.fsdp1_experimental or args.checkpoint_experimental) and not args.apply_patches:
+    if (args.fsdp1_experimental or args.checkpoint_experimental or args.official_actor_experimental) and not args.apply_patches:
         parser.error("Experimental source restoration requires --apply-patches")
     root = Path(__file__).resolve().parents[1]
     sources = json.loads((root / "locks/sources.json").read_text())
@@ -110,6 +114,9 @@ def main() -> None:
     if args.checkpoint_experimental:
         checkpoint_info = fsdp_info["checkpoint_experiment"]
         requested.append((checkpoint_info, [fsdp_info, checkpoint_info]))
+    if args.official_actor_experimental:
+        actor_info = sources["experiments"]["route2_official_actor"]
+        requested.append((actor_info, [actor_info]))
     for info, increments in requested:
         target = root / info["restore_worktree"]
         if target.exists():

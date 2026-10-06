@@ -158,6 +158,32 @@ bash scripts/prepare_route2_backbone_env.sh
 
 范围是随机两层真实Qwen3Model/SiglipVisionModel的冻结前向，以及同CPU-reference feature上的独立synthetic Linear VJP；不是checkpoint的Identity投影参数更新，也不是完整Eagle/GR00T。详细源码路径、dtype门槛、失败与版本记录见 [骨干探针](routes/route2/planning/backbone-interface-probe.md)。
 
+## 10. GR00T/LIBERO 最小 PPO 适配节点
+
+下面两条命令在同一张 S4000、同一隔离环境和同一次开机周期内顺序执行。第一条只审计官方 Actor 的导入门槛，不创建 GPU tensor；它使用独立的 `RLinf-fsdp1` 源树，并需要先在该源树应用 `patches/fsdp1-actor-dtensor.patch`（`patch -p1 --unidiff-zero < ...`）。第二条仍使用基础 `RLinf` 源树，加载完整 Spatial 权重、运行真实 LIBERO-Spatial rollout，并用真实 reward/done 计算 RLinf GAE 后完成一次 PPO loss/backward/AdamW 更新。
+
+```bash
+export R=/root/autodl-tmp/s4000-research
+export PYTHONPATH=$R/envs/route2-integration/lib/python3.10/site-packages:$R/envs/route2-integration:$R/route2:$R/rlinf-s4000:$R/route2/RLinf:$R/route2/Isaac-GR00T-spatial-eager
+PY=$R/envs/route2-integration/bin/python
+
+RLINF_EXPERIMENTAL_FSDP1_TORCH22=1 $PY $R/route2/model_probes/embodied_actor_torch22_probe.py \
+  --rlinf-source $R/route2/RLinf-fsdp1 \
+  --output $R/route2/results/embodied-actor-torch22-optin-fsdp1-v3.json
+
+RLINF_EXPERIMENTAL_FSDP1_TORCH22=1 $PY \
+  $R/route2/model_probes/libero_rlinf_model_episode_probe.py \
+  --rlinf-source $R/route2/RLinf \
+  --gr00t-source $R/route2/Isaac-GR00T-spatial-eager \
+  --model-path $R/route2/weights/Spatial-73f710e \
+  --env-config $R/route2/RLinf/examples/embodiment/config/env/libero_spatial.yaml \
+  --steps 8 --worker-start-method spawn --rollout-mode train \
+  --ppo-multi-step --action-head-fp32 \
+  --output $R/route2/results/libero-rlinf-ppo-multi-step-v5.json
+```
+
+第二条命令的通过条件是：真实 GAE 的 advantages/returns 全部有限；每步 PPO loss 和梯度有限；至少一个梯度非零；AdamW 后参数样本发生变化。通过只证明计算与适配闭环，不代表 LIBERO 成功率提升；失败时保留 JSON 中的完整错误、reward、done、value 和张量形状记录。
+
 ## 10. Spatial 正式宽度与真实 Eagle
 
 使用新的组合依赖环境；旧环境和系统Torch-MUSA保留。以下在成果仓库根目录执行，输出必须是新路径：

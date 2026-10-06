@@ -1,0 +1,41 @@
+diff --git a/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py b/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
+index e459fc56..64810822 100644
+--- a/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
++++ b/rlinf/models/embodiment/gr00t/gr00t_n1d5/__init__.py
+@@ -38,7 +38,9 @@ def get_model(cfg: DictConfig, torch_dtype=torch.bfloat16):
+     # platform) before applying, and restore the process-global ones once model
+     # construction finishes.
+     npu_patch_state = apply_npu_patches(Patcher)
+-    musa_patch_state = apply_musa_patches(Patcher)
++    musa_patch_state = apply_musa_patches(
++        Patcher, eager_attention=cfg.get("musa_eager_attention", False)
++    )
+     Patcher.apply()
+     try:
+         from gr00t.experiment.data_config import load_data_config
+diff --git a/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py b/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
+index 38acaf4c..61c24e4f 100644
+--- a/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
++++ b/rlinf/models/embodiment/gr00t/gr00t_n1d5/musa_patches.py
+@@ -74,7 +74,7 @@ def _is_musa() -> bool:
+     return Worker.accelerator_type == AcceleratorType.MUSA_GPU
+ 
+ 
+-def apply_musa_patches(patcher) -> dict | None:
++def apply_musa_patches(patcher, *, eager_attention: bool = False) -> dict | None:
+     """Register the MUSA patches for building GR00T N1.5; return restore state.
+ 
+     No-op returning ``None`` off MUSA. Call before ``patcher.apply()``; pass the
+@@ -89,6 +89,12 @@ def apply_musa_patches(patcher) -> dict | None:
+     if not _is_musa():
+         return None
+ 
++    if eager_attention:
++        # Opt-in Eagle eager source requires no vendor FlashAttention binding
++        # or RADIO CUDA capability override. The model builder verifies the
++        # actual instantiated vision and language attention implementations.
++        return None
++
+     bind_vendor_flash_attn_in_transformers()
+ 
+     # Capture before patcher.apply() replaces it, so restore can put it back.

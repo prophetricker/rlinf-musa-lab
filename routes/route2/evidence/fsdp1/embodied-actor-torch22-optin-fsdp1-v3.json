@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "scope": "EmbodiedFSDPActor import gate on Torch 2.2",
+  "probe_sha256": "80b3665d2b76fc856440fa3e9b92f80778e7a3a1c9d88a223bcd6b27dc04dc5e",
+  "source": "/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1",
+  "fsdp_init_sha256": "40a8ab4bd24f4c559e888602e54f4d318c6653e6c327ad93f336f7b7e0320dae",
+  "runtime": {
+    "python": "3.10.8 (main, Nov 24 2022, 14:13:03) [GCC 11.2.0]",
+    "executable": "/root/autodl-tmp/s4000-research/envs/route2/bin/python"
+  },
+  "without_opt_in": {
+    "opt_in": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:496: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  _torch_pytree._register_pytree_node(\nTraceback (most recent call last):\n  File \"<string>\", line 2, in <module>\n  File \"/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1/rlinf/workers/actor/embodied_fsdp_actor_worker.py\", line 27, in <module>\n    from rlinf.hybrid_engines.fsdp.fsdp_model_manager import FSDPModelManager\n  File \"/root/autodl-tmp/s4000-research/route2/RLinf-fsdp1/rlinf/hybrid_engines/fsdp/__init__.py\", line 66, in <module>\n    raise ImportError(f\"Unsupported torch version: {version.parse(torch.__version__)}\")\nImportError: Unsupported torch version: 2.2.0",
+    "passed": false
+  },
+  "with_torch22_fsdp1_opt_in": {
+    "opt_in": true,
+    "returncode": 0,
+    "stdout": "rlinf.workers.actor.embodied_fsdp_actor_worker",
+    "stderr": "/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:496: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  _torch_pytree._register_pytree_node(\n/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  _torch_pytree._register_pytree_node(\n/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages/transformers/utils/generic.py:353: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  _torch_pytree._register_pytree_node(",
+    "passed": true
+  },
+  "status": "pass"
+}

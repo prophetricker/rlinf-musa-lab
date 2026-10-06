@@ -135,6 +135,17 @@
       "embodiment_id": 31,
       "backbone_seed": 271829,
       "scope": "Full Spatial585+314 strict loading, synthetic input, standard shared Gaussian, active7 action/gradient/one AdamW update; functional controls passed, strict backbone feature gate failed and preserved; no simulator/official Actor/PPO/learning."
+    },
+    "route2_official_actor": {
+      "record_date": "2026-10-06",
+      "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
+      "worker_baseline": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
+      "patch": "routes/route2/patches/official-actor-combined.patch",
+      "patch_sha256": "d1ee33b57fc5ed4abb6a71e2d37943387fab911917b6cc979abdfd68885485da",
+      "restore_worktree": "worktrees/rlinf-official-actor-restored",
+      "source_lock": "routes/route2/model_probes/official-actor-source-lock.json",
+      "scope": "single S4000 official Actor and Rollout; NO_SHARD; AMP disabled; critic warmup=0",
+      "tested": "official initialization and version0 CPU Bucket sync; continuous PPO/recovery pending"
     }
   }
 }
