@@ -1,0 +1,10 @@
+{"rank": 1, "event": "microbatch_enter", "time": 1791299978.757096, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791299988.6725004}
+{"rank": 1, "event": "microbatch_enter", "time": 1791299988.6729062, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791299996.5932276}
+{"rank": 1, "event": "microbatch_enter", "time": 1791299996.5937111, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791300004.549782}
+{"rank": 1, "event": "microbatch_enter", "time": 1791300004.5500972, "is_last": true}
+{"rank": 1, "event": "microbatch_exit", "time": 1791300014.8750062}
+{"rank": 1, "event": "optimizer_enter", "time": 1791300014.9461296}
+{"rank": 1, "event": "optimizer_exit", "time": 1791300015.1039913, "grad_norm": 816.5087890625}

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-07",
+  "base_source_lock": "official-actor-source-lock.json",
+  "apply_after": "routes/route2/patches/official-actor-combined.patch",
+  "patch": "routes/route2/patches/two-rank-fsdp-compat.patch",
+  "patch_sha256": "19a90ef713a8508facb14bccd02e5527d585d9729e2d19a5edd5e6382199171d",
+  "production_files": [
+    {
+      "path": "rlinf/hybrid_engines/fsdp/strategy/fsdp.py",
+      "sha256": "3cd6633cfa3e5dcf7474fd0b071d017cac4dffef5a55bf315cbea82aefcfaa49"
+    },
+    {
+      "path": "rlinf/hybrid_engines/weight_syncer/ray_cpu.py",
+      "sha256": "b48b06a5224bfa0c01d89862e4dba7b7c178d28c5b2d26e745ba2ca625b3e339"
+    },
+    {
+      "path": "rlinf/workers/actor/embodied_fsdp_actor_worker.py",
+      "sha256": "6c9e7fb6d5fda832c5880abb595a65a6bec40529f5c5cfc58776136ff6496ff2"
+    }
+  ],
+  "status": "Full GR00T two-rank DCP save and fresh-process restoration/next-update exact comparison passed; full_cpu_rank0 sync and Runner pending",
+  "scope": "explicit Torch 2.2 FSDP1 / 1D mesh and explicit single-Rollout CPU transport only"
+}

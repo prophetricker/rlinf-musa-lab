@@ -77,8 +77,6 @@ def main() -> int:
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--diagnostic", action="store_true", help="synchronize and persist per-microbatch/optimizer boundaries")
     parser.add_argument("--norm-mode", choices=("upstream", "legacy"), default="upstream")
-    parser.add_argument("--optim-device-mode", choices=("upstream", "device_handle"), default="upstream")
-    parser.add_argument("--state-dict-backend", choices=("mesh", "sharded_tensor"), default="mesh")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -111,9 +109,6 @@ def main() -> int:
         "phase": args.phase,
         "diagnostic": args.diagnostic,
         "norm_mode": args.norm_mode,
-        "optim_device_mode": args.optim_device_mode,
-        "state_dict_backend": args.state_dict_backend,
-        "optim_device_helper_sha256": hashlib.sha256((support / "musa_fsdp_optim_device.py").read_bytes()).hexdigest(),
         "norm_helper_sha256": hashlib.sha256((support / "musa_fsdp_norm.py").read_bytes()).hexdigest(),
         "status": "fail",
         "scope": "official GR00T Actor, two ranks, FSDP FULL_SHARD, one saved-trajectory PPO update; not learning",
@@ -199,14 +194,9 @@ def main() -> int:
                 if args.norm_mode == "legacy":
                     from musa_fsdp_norm import apply
                     apply(mode="legacy")
-                adapter = None
-                if args.optim_device_mode == "device_handle":
-                    from musa_fsdp_optim_device import apply as apply_device
-                    adapter = apply_device()
                 if args.diagnostic:
                     import faulthandler
                     faulthandler.dump_traceback_later(120, repeat=True)
-                return {"rank": self._rank, "optimizer_device_adapter": adapter}
 
             def snapshot(self):
                 # Local fingerprints audit each rank's owned shard without
@@ -226,13 +216,6 @@ def main() -> int:
                 topology = [(name, str(param.dtype), list(param.shape), param.requires_grad)
                             for name, param in named]
                 trainable = {name: param.detach() for name, param in named if param.requires_grad}
-                # Torch 2.2 DCP may discard warmup state for empty FSDP views.
-                # Audit actual owned Adam state by stable parameter names.
-                active_optimizer = {
-                    "state": {name: self.optimizer.state.get(param, {})
-                              for name, param in named if param.requires_grad and param.numel()},
-                    "param_groups": self.optimizer.state_dict()["param_groups"],
-                }
                 optimizer_finite = all(
                     not isinstance(value, torch.Tensor) or not value.numel() or bool(torch.isfinite(value).all().item())
                     for state in self.optimizer.state.values() for value in state.values()
@@ -251,7 +234,6 @@ def main() -> int:
                     "state_count": len(local_values),
                     "optimizer_state_entries": len(self.optimizer.state),
                     "optimizer_sha256": tree_sha(self.optimizer.state_dict()),
-                    "active_optimizer_sha256": tree_sha(active_optimizer),
                     "scheduler_sha256": tree_sha(self.lr_scheduler.state_dict()),
                     "rng_sha256": tree_sha(get_rng_state()),
                     "optimizer_steps": self.optimizer_steps,
@@ -321,7 +303,6 @@ def main() -> int:
         cfg.cluster.component_placement = {"actor": "0-1", "rollout": "0-1", "env": "0"}
         cfg.actor.fsdp_config.sharding_strategy = "full_shard"
         cfg.actor.fsdp_config.use_orig_params = True
-        cfg.actor.fsdp_config.torch22_state_dict_backend = args.state_dict_backend
         cfg.actor.global_batch_size = 8
         cfg.actor.micro_batch_size = 1
         result["config"] = OmegaConf.to_container(cfg, resolve=True)
@@ -346,12 +327,12 @@ def main() -> int:
             name=cfg.actor.group_name,
             placement_strategy=PackedPlacementStrategy(0, 1),
         )
-        result["process_adapters"] = actor.seed_probe_initialization(cfg.actor.seed).wait()
+        actor.seed_probe_initialization(cfg.actor.seed).wait()
         actor.init_worker().wait()
         exact_keys = ("local_model_sha256", "trainable_sha256", "topology_sha256",
                       "buffers_sha256", "buffer_count",
-                      "active_optimizer_sha256", "scheduler_sha256", "rng_sha256",
-                      "optimizer_steps", "nonempty_adam_steps", "version")
+                      "optimizer_sha256", "scheduler_sha256", "rng_sha256",
+                      "optimizer_steps", "adam_steps", "nonempty_adam_steps", "version")
         reference = None
         if args.phase == "recover":
             progress("fresh_process_load_checkpoint")

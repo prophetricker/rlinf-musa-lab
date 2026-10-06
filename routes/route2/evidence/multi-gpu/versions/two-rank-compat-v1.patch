@@ -1,0 +1,117 @@
+diff --git a/rlinf/hybrid_engines/fsdp/strategy/fsdp.py b/rlinf/hybrid_engines/fsdp/strategy/fsdp.py
+index fbd2b3f3..ca44e940 100644
+--- a/rlinf/hybrid_engines/fsdp/strategy/fsdp.py
++++ b/rlinf/hybrid_engines/fsdp/strategy/fsdp.py
+@@ -174,6 +174,20 @@ class FSDPStrategy(FSDPStrategyBase):
+ 
+         cpu_offload = CPUOffload(offload_params=self.cfg.fsdp_config.cpu_offload)
+ 
++        distribution = {"device_mesh": device_mesh}
++        state_backend = self.cfg.fsdp_config.get("torch22_state_dict_backend", "mesh")
++        if state_backend == "sharded_tensor":
++            if (torch.__version__.split("+")[0].split(".")[:2] != ["2", "2"]
++                or os.environ.get("RLINF_EXPERIMENTAL_FSDP1_TORCH22") != "1"
++                or device_mesh.ndim != 1):
++                raise ValueError("sharded_tensor compatibility requires opt-in Torch 2.2 FSDP1 and a 1D mesh")
++            # Use the same group with the classic FSDP1 constructor. Passing
++            # device_mesh forces DTensor checkpoints whose Torch 2.2 planner
++            # rejects dimensions smaller than the rank count.
++            distribution = {"process_group": device_mesh.get_group()}
++        elif state_backend != "mesh":
++            raise ValueError(f"Unsupported Torch 2.2 state dict backend: {state_backend}")
++
+         fsdp_model = FSDP(
+             module=model,
+             param_init_fn=init_fn,
+@@ -182,7 +196,7 @@ class FSDPStrategy(FSDPStrategyBase):
+             sharding_strategy=sharding_strategy,
+             mixed_precision=mixed_precision,
+             sync_module_states=True,
+-            device_mesh=device_mesh,
++            **distribution,
+             forward_prefetch=self.cfg.fsdp_config.forward_prefetch,
+             backward_prefetch=backward_prefetch,
+             limit_all_gathers=self.cfg.fsdp_config.limit_all_gathers,
+diff --git a/rlinf/hybrid_engines/weight_syncer/ray_cpu.py b/rlinf/hybrid_engines/weight_syncer/ray_cpu.py
+index b8003239..22e04ba2 100644
+--- a/rlinf/hybrid_engines/weight_syncer/ray_cpu.py
++++ b/rlinf/hybrid_engines/weight_syncer/ray_cpu.py
+@@ -1,8 +1,9 @@
+-"""Explicit single-Actor/single-Rollout CPU transport for bucket weights.
++"""Explicit CPU transport for bucket weights to one Rollout.
+ 
+ Weight selection, bucketing, application and versions remain owned by the
+ regular BucketWeightSyncer. This transport only bypasses newer c10d helpers
+-which are absent in Torch 2.2. It establishes no multi-rank collective support.
++which are absent in Torch 2.2. Multiple FSDP1 Actor ranks require an explicit
++rank-zero full CPU reconstruction mode before the existing Bucket protocol.
+ """
+ 
+ from collections.abc import Mapping
+@@ -12,14 +13,21 @@ import torch
+ 
+ def validate_ray_cpu_sync(cfg, channel, actor_world_size, rollout_world_size):
+     transport = cfg.get("transport", "collective")
++    actor_state_mode = cfg.get("actor_state_mode", "default")
+     if transport == "collective":
++        if actor_state_mode != "default":
++            raise ValueError("actor_state_mode requires explicit transport=ray_cpu")
+         if channel is not None:
+             raise ValueError("weight channel requires explicit transport=ray_cpu")
+         return False
+     if transport != "ray_cpu":
+         raise ValueError(f"Unsupported weight sync transport: {transport}")
+-    if actor_world_size != 1 or rollout_world_size != 1:
+-        raise ValueError("ray_cpu weight sync currently requires one Actor and one Rollout")
++    if actor_state_mode not in {"default", "full_cpu_rank0"}:
++        raise ValueError(f"Unsupported ray_cpu Actor state mode: {actor_state_mode}")
++    if actor_world_size < 1 or rollout_world_size != 1:
++        raise ValueError("ray_cpu requires at least one Actor and exactly one Rollout")
++    if actor_world_size != 1 and actor_state_mode != "full_cpu_rank0":
++        raise ValueError("multi-rank ray_cpu requires actor_state_mode=full_cpu_rank0")
+     if cfg.type != "bucket" or cfg.bucket.bucket_device != "cpu":
+         raise ValueError("ray_cpu requires BucketWeightSyncer with bucket_device=cpu")
+     if channel is None or not getattr(channel, "_use_ray_transport", False):
+diff --git a/rlinf/workers/actor/embodied_fsdp_actor_worker.py b/rlinf/workers/actor/embodied_fsdp_actor_worker.py
+index b813ab3c..fcd628bf 100644
+--- a/rlinf/workers/actor/embodied_fsdp_actor_worker.py
++++ b/rlinf/workers/actor/embodied_fsdp_actor_worker.py
+@@ -145,6 +145,11 @@ class EmbodiedFSDPActor(FSDPModelManager, Worker):
+             self.cfg.weight_syncer, weight_channel,
+             self._actor_world_size, len(self._rollout_all_ranks),
+         )
++        full_cpu_rank0 = use_ray_cpu and (
++            self.cfg.weight_syncer.get("actor_state_mode", "default") == "full_cpu_rank0"
++        )
++        if full_cpu_rank0 and self._strategy.get_fsdp_version().value != "fsdp":
++            raise ValueError("full_cpu_rank0 weight sync is scoped to FSDP1")
+         if self.enable_offload:
+             if not self.is_optimizer_offloaded:
+                 self.offload_optimizer()
+@@ -152,7 +157,25 @@ class EmbodiedFSDPActor(FSDPModelManager, Worker):
+             if self.is_weight_offloaded:
+                 self.load_param_and_grad(self.device, False)
+ 
+-        state_dict = self.get_rollout_state_dict()
++        if full_cpu_rank0:
++            # All Actor ranks must finish this collective before non-senders
++            # return. Torch's full CPU export retains the full dict on rank 0.
++            state_dict = self.get_model_state_dict(
++                cpu_offload=True, full_state_dict=True
++            )
++            if not self._is_weight_sender:
++                if self.enable_offload:
++                    self.offload_param_and_grad(True)
++                return
++            missing = set(self.param_names_need_sync) - set(state_dict)
++            if missing:
++                raise ValueError(f"Full CPU Actor state is missing sync keys: {sorted(missing)}")
++            for name in self.param_names_need_sync:
++                value = state_dict[name]
++                if type(value) is not torch.Tensor or value.device.type != "cpu":
++                    raise TypeError(f"Expected full CPU sync tensor: {name}")
++        else:
++            state_dict = self.get_rollout_state_dict()
+ 
+         async def send_func(data):
+             if not self._is_weight_sender:

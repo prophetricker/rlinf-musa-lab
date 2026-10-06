@@ -1,4 +1,4 @@
-"""Explicit local L2 norm alternatives for the fixed S4000 FSDP1 runtime."""
+"""Bound the size of FP32 L2 reductions on experimental Torch-MUSA FSDP1."""
 from __future__ import annotations
 
 
@@ -18,23 +18,12 @@ def chunked_l2_norm(tensors, *, chunk_size=1 << 20):
     return torch.linalg.vector_norm(torch.stack(partials), 2, dtype=torch.float32)
 
 
-def legacy_l2_norm(tensors):
-    import torch
-
-    grads = [value.detach().to(torch.float32) for value in tensors if value.numel()]
-    if not grads:
-        raise ValueError("norm requires at least one nonempty tensor")
-    return torch.norm(torch.stack([torch.norm(grad, 2) for grad in grads]), 2)
-
-
-def apply(*, mode="legacy"):
+def apply():
     import torch
     import rlinf.hybrid_engines.fsdp.strategy.fsdp as strategy
 
     original = strategy.get_grad_norm_for_mixed_precision
-    if mode not in {"legacy", "chunked"}:
-        raise ValueError(f"unsupported norm mode {mode}")
-    if getattr(original, "s4000_norm_mode", None) == mode:
+    if getattr(original, "s4000_chunked_norm", False):
         return
 
     def bounded_norm(params, norm_type, zero, device):
@@ -42,8 +31,7 @@ def apply(*, mode="legacy"):
         grads = [param.grad for param in params if param.grad is not None and param.grad.numel()]
         if float(norm_type) != 2 or not grads or any(grad.device.type != "musa" for grad in grads):
             return original(params, norm_type, zero, device)
-        operation = legacy_l2_norm if mode == "legacy" else chunked_l2_norm
-        return operation(grads).to(device)
+        return chunked_l2_norm(grads).to(device)
 
-    bounded_norm.s4000_norm_mode = mode
+    bounded_norm.s4000_chunked_norm = True
     strategy.get_grad_norm_for_mixed_precision = bounded_norm

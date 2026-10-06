@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "production_files_reconstructed_exactly": 4,
+  "base_commit": "82505b27d4d27f8e9af1d7e52524d524dc0f0d50",
+  "patch_sha256": "7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c",
+  "scope": "portable source reconstruction, not GPU verification"
+}

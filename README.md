@@ -2,7 +2,7 @@
 
 在单卡 MTT S4000、Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0 上，逐步适配固定版本的当前 RLinf 主线。Mac 管理开发与记录，GPU 实验在隔离 Linux 环境执行。
 
-2026-10-06新增两卡验证：分卡Actor/Rollout的真实LIBERO更新与907张量同步通过；Ray隔离Worker通过`MCCL_P2P_DISABLE=1`使用SHM通信。GR00T FULL_SHARD同步初始化、GAE和四微批次同步前反向通过，完整参数更新尚未通过，在梯度范数/通信等待阶段排查。用户暂停后已停止实验；详见 [两卡记录与恢复入口](routes/route2/planning/two-gpu-results.md)。
+2026-10-06续跑：GR00T两rank FULL_SHARD一次官方PPO参数更新通过，非空Adam step均为1、全局梯度范数均为816.5087890625。仅显式使用MUSA `torch.norm`快速兼容路径，并保留原FP32梯度、归约与裁剪；15行数值检查全部通过。Ray隔离Worker使用`MCCL_P2P_DISABLE=1`的SHM通信。输入是既有真实轨迹fixture，不能视为fresh on-policy学习。2026-10-07完整两rank DCP新进程恢复通过，下一步更新的指标与未中断分支精确一致；初始多rank Actor→Rollout同步亦已通过907项状态及固定输出精确对照；当前推进fresh更新后的同步与完整Runner；详见 [两卡证据与命令](routes/route2/planning/two-gpu-results.md)。
 
 2026-10-05 已完成 Pendulum 三种子 PPO 学习基线：每种子 102,400 transitions，独立 20 局 test 平均回报全部提升。模型是普通 Gaussian MLP，使用真实 RLinf Worker/Cluster/Ray CPU Channel、GAE 和 PPO loss，rollout/update 共驻。已完成真实GR00T输入链与8步LIBERO/GAE/PPO单模型更新，以及官方Actor初始化和独立Rollout初始同步；官方Actor连续三轮真实LIBERO GAE/PPO与fresh-process同批恢复已通过；初始策略完整episode task0两个trial成功79/69步；完整EmbodiedRunner、多卡与Lambda-Sim仍独立待验收。
 

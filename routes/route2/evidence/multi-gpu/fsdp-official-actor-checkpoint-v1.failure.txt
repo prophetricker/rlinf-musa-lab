@@ -1,0 +1,20 @@
+{"stage": "save_two_rank_dcp_checkpoint", "elapsed_seconds": 154.9403102621436}
+(ActorGroup(rank=0) pid=14476)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1972, in _optim_state_dict
+(ActorGroup(rank=0) pid=14476)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1795, in _convert_state_with_orig_params
+(ActorGroup(rank=0) pid=14476)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1689, in _gather_all_orig_param_state
+(ActorGroup(rank=0) pid=14476)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1514, in _allgather_orig_param_states
+(ActorGroup(rank=0) pid=14476)     torch.cuda.memory_summary(),
+(ActorGroup(rank=0) pid=14476) KeyError: 'allocated_bytes.all.current'
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1972, in _optim_state_dict
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1795, in _convert_state_with_orig_params
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1689, in _gather_all_orig_param_state
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1514, in _allgather_orig_param_states
+    torch.cuda.memory_summary(),
+KeyError: 'allocated_bytes.all.current'
+(ActorGroup(rank=1) pid=14479)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1972, in _optim_state_dict
+(ActorGroup(rank=1) pid=14479)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1795, in _convert_state_with_orig_params
+(ActorGroup(rank=1) pid=14479)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1689, in _gather_all_orig_param_state
+(ActorGroup(rank=1) pid=14479)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1545, in _allgather_orig_param_states
+(ActorGroup(rank=1) pid=14479)     torch.cuda.synchronize()
+(ActorGroup(rank=1) pid=14479)     raise RuntimeError("PyTorch was compiled without CUDA support")
+(ActorGroup(rank=1) pid=14479) RuntimeError: PyTorch was compiled without CUDA support

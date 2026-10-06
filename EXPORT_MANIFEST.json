@@ -1,6 +1,6 @@
 {
-  "record_date": "2026-10-06",
-  "research_commit": "09eac0e5cba6bd8671ab09db877d98ef21aef547",
+  "record_date": "2026-10-07",
+  "research_commit": "37941bacbe4a269f86ff4396dc63604b7c549634",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,20 +21,20 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 6926,
-      "sha256": "4046474047d8cadfb54bf0c83f28316b4bde0452bb27c0e4abfef7647380dce7"
+      "bytes": 7229,
+      "sha256": "4b3d82942b69c2eaed8e6ab6543a056ffba511cce22919f0c083d8b868de1d8e"
     },
     {
       "path": "REPRODUCE.md",
       "research_source": "routes/route2/publishing/REPRODUCE.md",
-      "bytes": 17339,
-      "sha256": "066c44b33212283130cd3e0a44f63c0fa2dd7534d80fe84096fe655fa4cea1ae"
+      "bytes": 19285,
+      "sha256": "5fab21e5b077c3ec361ececc41efa50ce88ae1591fae133fbe5ae1fa5bd0d283"
     },
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 4835,
-      "sha256": "bfa532f3c5e4ba05904a36422f60196dd3b5b6960d26e52ac71941b313b040ef"
+      "bytes": 4848,
+      "sha256": "82986c0530ea6707fd8bab9fee3005d93c593bcab925cdc7cbcf46bfd858bac3"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -583,10 +583,58 @@
       "sha256": "6cb48355523da5321e9b7f3ed6775e01193aa7e32a15acc522505c2ee125c680"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.failure.txt",
+      "bytes": 2414,
+      "sha256": "56893d340ea47ff419266c089b1a3e835d2e7476936bf2b0ad9d1f32eeaf903b"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.partial.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.partial.json",
+      "bytes": 215505,
+      "sha256": "623716a6266cc8c9b5eae6d24c6cf0337f1ebd84eb4e6a08d1b36f2668be0268"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.failure.txt",
+      "bytes": 9807,
+      "sha256": "8f2dcb7ad5e57cdc9a3156df0a5dc382db43db8413e66fd68f9f1278778ec088"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.partial.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.partial.json",
+      "bytes": 217137,
+      "sha256": "ff0dcde727963065b344a03aa12b4a799b1289f24e8f732c4b004dc74135cafe"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.failure.txt",
+      "bytes": 1585,
+      "sha256": "09a6d15f791884bba8372ebe75526e88192a6f5ce5c9f1f8addd672c00506233"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.partial.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.partial.json",
+      "bytes": 217235,
+      "sha256": "ba22a0a672472e85f80d6251d30c9931375298654fcf65c46ec44a63d004761d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v4.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-checkpoint-v4.json",
+      "bytes": 225507,
+      "sha256": "b03224f94fd60f2997e0366e1dbfa97909bb8f05d3b1aa1d38a7d7b19e8ce574"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-init-v8.json",
       "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-init-v8.json",
       "bytes": 1574,
       "sha256": "81f2b290eea97d7c03380014926440ace2a1b28fd8af416268074bd3232a3a93"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-recovery-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-recovery-v1.json",
+      "bytes": 220069,
+      "sha256": "6316b4f6c36429f37e7fcfa0ce49f3e7b73f6703b4b8a8d1fb85728f2a5f594c"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v12.failure.txt",
@@ -637,6 +685,24 @@
       "sha256": "a066a153f3d30c901e4f6da528562bde9475e996518cc1adcb7c9945b43280b5"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.json",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.json",
+      "bytes": 214841,
+      "sha256": "605b1eec0d8ed424147f37460d4268ceb00a16c0b9556e72fa0dacbaa28af718"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.rank0.events.jsonl",
+      "bytes": 779,
+      "sha256": "c6ace626789832e76aa250cb3a38b17c2768ffc1d0b20147b2cc25c775e35c83"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/fsdp-official-actor-update-v15.rank1.events.jsonl",
+      "bytes": 781,
+      "sha256": "b89890a4b519e348a8856704aa7edd51482c1d6963a06082cd9333fdcd50922e"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/large-norm-chunked-v1.json",
       "research_source": "routes/route2/evidence/multi-gpu/large-norm-chunked-v1.json",
       "bytes": 1484,
@@ -661,6 +727,12 @@
       "sha256": "9f9a29fb896ae0c261c197e6917c58f1d5b950c4bddafd97775f9902ace2ff5c"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/norm-compat-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/norm-compat-v1.json",
+      "bytes": 9151,
+      "sha256": "9c58c69a34551781858609cf1f70501705fdcc2648cd01949c0a5157a75a09b9"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/official-actor-disaggregated-v1.json",
       "research_source": "routes/route2/evidence/multi-gpu/official-actor-disaggregated-v1.json",
       "bytes": 844747,
@@ -671,6 +743,36 @@
       "research_source": "routes/route2/evidence/multi-gpu/official-actor-rollout-disaggregated-v2.json",
       "bytes": 302508,
       "sha256": "f2d9e4b45b09bd65cba9813701b930e97e6533dbf2ca78ebc07fe22332b48b73"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-sync-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-sync-v1.json",
+      "bytes": 802785,
+      "sha256": "dc1198861aa73a00d22b8296192f1ebf26477f4a0314903a912f8f4922c7f7ff"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v1.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v1.failure.txt",
+      "bytes": 6792,
+      "sha256": "9823e59e6f3258a0816052293c3f9d85ec47fe16b51d9e38c955b720c9238cc2"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v2.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v2.failure.txt",
+      "bytes": 6882,
+      "sha256": "9851ed8b01eed7346223771fdcbdd0bdbd5bca046f7842d31e8d8ec24ad317e6"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json",
+      "research_source": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json",
+      "bytes": 2525,
+      "sha256": "a217de9bb985e22ff0b58c93dfb176a75aa1ffc47875206d0830611cd80585f3"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank1.json",
+      "bytes": 2525,
+      "sha256": "3fea2d1d1168fbc552c836dc04d8046f09fa90dbf98dfe4ebeb1cc671a77e8ca"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/source-and-evidence-lock.json",
@@ -685,10 +787,100 @@
       "sha256": "8991037ef1d7fcb36bab9e724540c2df27d4d78e04af30bcb22b930ce84eb524"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/two-rank-patch-reconstruction-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/two-rank-patch-reconstruction-v1.json",
+      "bytes": 223,
+      "sha256": "14d64aceb7120d86cb0d5a73f60e910dbf68d27ba0270ce4d2978410e38a415c"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/two-rank-patch-reconstruction-v2.json",
+      "research_source": "routes/route2/evidence/multi-gpu/two-rank-patch-reconstruction-v2.json",
+      "bytes": 284,
+      "sha256": "cdee86bb0e2d1a92145e052f04b83016a6ceff88978f30889aec576e562ce52d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/checkpoint-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/checkpoint-v1-probe.py",
+      "bytes": 22851,
+      "sha256": "b49b2abd54a3d35fd98a014c0ea2bba0376bca0deeff79ec8477b802d89a8d96"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/checkpoint-v2-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/checkpoint-v2-probe.py",
+      "bytes": 23983,
+      "sha256": "b35b6521da74178477ddae0923dce83d157cf3a1a9166067a7395e87a17f1b50"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/checkpoint-v3-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/checkpoint-v3-probe.py",
+      "bytes": 24221,
+      "sha256": "6f7c7cfd4f1041029a1356e3055a6e4f659a05982a5bd96c2d3713d3d69db2a0"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/versions/init-v8-probe.py",
       "research_source": "routes/route2/evidence/multi-gpu/versions/init-v8-probe.py",
       "bytes": 5573,
       "sha256": "1223edd078d36e75d65709338dc3a4cbcd193b90b2562017a0c5ecf6c71728b6"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/norm-helper-v1.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/norm-helper-v1.py",
+      "bytes": 1497,
+      "sha256": "ecca9f7fa7c74db97fc9473a97b54bad43124af7ab3b0bf856fb9d7c842f81f8"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/norm-helper-v2.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/norm-helper-v2.py",
+      "bytes": 1986,
+      "sha256": "352609cf12d53a712298e603868fd629147b07065c3f310a88192609bdb3d1be"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v1.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/optim-device-v1.py",
+      "bytes": 3558,
+      "sha256": "9d731cf49dea091079920336eb4e7f3dfc5f85a231a5bd30e06b0b22df43ac42"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v2.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/optim-device-v2.py",
+      "bytes": 5273,
+      "sha256": "841fed2faa925964470c76ee3d1133e47d2a29feffdfa5bee100a0772f847f81"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v3.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/optim-device-v3.py",
+      "bytes": 6555,
+      "sha256": "6c6bf25eaace938bfb78317d68c126df7475c07b13585907511a9e9e87d98c4d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v4.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/optim-device-v4.py",
+      "bytes": 8478,
+      "sha256": "6375d7519bb4757d58678f4a37a812ad9b17653f025df12f107f8e5bf8c80789"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/small-dcp-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/small-dcp-v1-probe.py",
+      "bytes": 5421,
+      "sha256": "cb89c33b3e4fe3a5b47c8c29422ac82ae32c825367cc670187548a88953ff09f"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/two-rank-compat-v1.patch",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-compat-v1.patch",
+      "bytes": 6359,
+      "sha256": "19a90ef713a8508facb14bccd02e5527d585d9729e2d19a5edd5e6382199171d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-v1.json",
+      "bytes": 1057,
+      "sha256": "9a498f6663a05ed8f551cd1dc6cf83eec05767a15aaa66f4dd968ed895f21932"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/two-rank-sync-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-sync-v1-probe.py",
+      "bytes": 28402,
+      "sha256": "a7bd554b45bf145c3a9a84b9f3479d3a25c044ce2b59c16ff627f9cb37c1ec93"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/update-v12-probe.py",
@@ -701,6 +893,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/versions/update-v14-probe.py",
       "bytes": 21582,
       "sha256": "831e3c11d02f520c75fd40e88fff498ec9eebce0d4bbd9594fa94c4da33e3ae4"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/update-v15-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/update-v15-probe.py",
+      "bytes": 22413,
+      "sha256": "53fc49d751889937edde338d5bddb691b7ece3044259f2f45753de76799cae35"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/worker-collectives-8-probe.py",
@@ -1347,8 +1545,8 @@
     {
       "path": "routes/route2/model_probes/actor_runtime_extension.py",
       "research_source": "routes/route2/model_probes/actor_runtime_extension.py",
-      "bytes": 2281,
-      "sha256": "3a457e691763d42fa5bde205c72cf0b0431efdb49941709ae6c3c7b7382ce7a1"
+      "bytes": 2602,
+      "sha256": "c9702d10d301216772249e1f86a34d2ed741dd828be7b7d8cdd1e166142a9c05"
     },
     {
       "path": "routes/route2/model_probes/attention_probe.py",
@@ -1665,14 +1863,20 @@
     {
       "path": "routes/route2/model_probes/musa_fsdp_norm.py",
       "research_source": "routes/route2/model_probes/musa_fsdp_norm.py",
-      "bytes": 1497,
-      "sha256": "ecca9f7fa7c74db97fc9473a97b54bad43124af7ab3b0bf856fb9d7c842f81f8"
+      "bytes": 1986,
+      "sha256": "352609cf12d53a712298e603868fd629147b07065c3f310a88192609bdb3d1be"
+    },
+    {
+      "path": "routes/route2/model_probes/musa_fsdp_optim_device.py",
+      "research_source": "routes/route2/model_probes/musa_fsdp_optim_device.py",
+      "bytes": 8478,
+      "sha256": "6375d7519bb4757d58678f4a37a812ad9b17653f025df12f107f8e5bf8c80789"
     },
     {
       "path": "routes/route2/model_probes/official-actor-README.md",
       "research_source": "routes/route2/model_probes/official-actor-README.md",
-      "bytes": 5973,
-      "sha256": "7b8d10ca18a69c8294019caad1803462d5bc0d747261bb4ceb6bb86e11165e9e"
+      "bytes": 6283,
+      "sha256": "38ae130ebf90810e30b361a2c174a7fef2a3081d0172d20ee357a69bb9ac07b1"
     },
     {
       "path": "routes/route2/model_probes/official-actor-source-lock.json",
@@ -1697,6 +1901,12 @@
       "research_source": "routes/route2/model_probes/official_actor_rollout_probe.py",
       "bytes": 24692,
       "sha256": "29ab8d33d6ddc8783417de0eb3dac71e678b47d7825f24b9a5601ec8caf114ad"
+    },
+    {
+      "path": "routes/route2/model_probes/official_runner_probe.py",
+      "research_source": "routes/route2/model_probes/official_runner_probe.py",
+      "bytes": 24733,
+      "sha256": "d9ed6ebffd951f5f9d892919e8d51289f07ffb4015a87c960d41359d0f9db06d"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
@@ -1787,6 +1997,18 @@
       "research_source": "routes/route2/model_probes/static-checks.json",
       "bytes": 464,
       "sha256": "5457d53581ef53121f565724ad6330aa6d7cac4dadab279702f1a7e2f9c0817b"
+    },
+    {
+      "path": "routes/route2/model_probes/two-rank-source-lock.json",
+      "research_source": "routes/route2/model_probes/two-rank-source-lock.json",
+      "bytes": 1296,
+      "sha256": "8add9407bf8a78b1474fb5afa35e37c563c8712b7499122eb274d9f92cd5a423"
+    },
+    {
+      "path": "routes/route2/model_probes/two_rank_rollout_probe.py",
+      "research_source": "routes/route2/model_probes/two_rank_rollout_probe.py",
+      "bytes": 28402,
+      "sha256": "a7bd554b45bf145c3a9a84b9f3479d3a25c044ce2b59c16ff627f9cb37c1ec93"
     },
     {
       "path": "routes/route2/model_probes/versions/backbone-interface-v1/README.md",
@@ -1891,6 +2113,12 @@
       "sha256": "d1ee33b57fc5ed4abb6a71e2d37943387fab911917b6cc979abdfd68885485da"
     },
     {
+      "path": "routes/route2/patches/two-rank-fsdp-compat.patch",
+      "research_source": "routes/route2/patches/two-rank-fsdp-compat.patch",
+      "bytes": 8044,
+      "sha256": "7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c"
+    },
+    {
       "path": "routes/route2/planning/action-interface-probe.md",
       "research_source": "routes/route2/planning/action-interface-probe.md",
       "bytes": 17246,
@@ -1953,8 +2181,8 @@
     {
       "path": "routes/route2/planning/two-gpu-results.md",
       "research_source": "routes/route2/planning/two-gpu-results.md",
-      "bytes": 16630,
-      "sha256": "e76a77e0f179f798f31ee2da7f31f0ac5729458bd81590ffb29a4fb9869a7593"
+      "bytes": 34908,
+      "sha256": "da2bc01f17973af55161d4b07d4b9a043b38a8ad3ee9ee78beffa7ba61fcf1e3"
     },
     {
       "path": "routes/route2/probes/cpu_compat_checks.py",
@@ -2005,6 +2233,12 @@
       "sha256": "29778b14bc11d5f386b14c8f494da615b39a1ce2741031de28122c9c21a966a4"
     },
     {
+      "path": "scripts/probe_route2_dcp_small.py",
+      "research_source": "scripts/probe_route2_dcp_small.py",
+      "bytes": 5421,
+      "sha256": "cb89c33b3e4fe3a5b47c8c29422ac82ae32c825367cc670187548a88953ff09f"
+    },
+    {
       "path": "scripts/probe_route2_fsdp_actor_init.py",
       "research_source": "scripts/probe_route2_fsdp_actor_init.py",
       "bytes": 5845,
@@ -2019,8 +2253,8 @@
     {
       "path": "scripts/probe_route2_fsdp_official_update.py",
       "research_source": "scripts/probe_route2_fsdp_official_update.py",
-      "bytes": 22040,
-      "sha256": "a98ac3e0a81db55df3a47ccac2c7779cfafff2b0a8f7051704b88a5bae407c66"
+      "bytes": 24221,
+      "sha256": "6f7c7cfd4f1041029a1356e3055a6e4f659a05982a5bd96c2d3713d3d69db2a0"
     },
     {
       "path": "scripts/probe_route2_integration_inventory.py",
@@ -2045,6 +2279,12 @@
       "research_source": "scripts/probe_route2_mccl_multirank.py",
       "bytes": 4927,
       "sha256": "dbc44944a7c9450b06b4c69658e8147e7692e3824fc3ef8b0a87e55d46bed777"
+    },
+    {
+      "path": "scripts/probe_route2_norm_compat.py",
+      "research_source": "scripts/probe_route2_norm_compat.py",
+      "bytes": 3662,
+      "sha256": "9a06328d56d5d4a24dfde82ff2e028098422e85e75972d4cfb165da0ac326bd5"
     },
     {
       "path": "scripts/probe_route2_worker_collectives.py",

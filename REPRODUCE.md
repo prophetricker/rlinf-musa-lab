@@ -240,3 +240,21 @@ pretrained runner仅加载所有585个backbone张量并转换FP32；全部strict
 采用 RLinf 的 LIBERO 分支31和7维有效动作 mask；固定标准高斯噪声和4步 Euler，并对照未修改的原始 forward/get_action。每组使用完整314张量 head 执行 backward 和 AdamW 单步，直接比较活动分支和所有共享参数的梯度/更新向量。其他机器人分支的梯度必须严格为0。
 
 输出和退出码验收本轮功能与控制合同；action gate、feature gate、逐参数/全局梯度及更新数值结果分开记录。尤其不能把 finite 参数更新或功能探针退出0解释为原 feature gate 已通过、真实任务成功率提升或官方 RLinf PPO 可用。实测历史及空切片检查修订见 [Spatial/Eagle报告](reports/route2-spatial-eagle.md)。
+
+## 12. 官方 Actor 与两卡增量
+
+先按[官方Actor说明](routes/route2/model_probes/official-actor-README.md)恢复独立源码、GR00T eager/lazy-PyTorch3D源码及隔离环境。既有单卡入口与冻结历史证据保持原范围；两卡v15参数更新与范数检查的精确命令见[两卡记录](routes/route2/planning/two-gpu-results.md)。
+
+两卡增量只应用在完整官方Actor基线之后：
+
+```bash
+python3 scripts/restore_sources.py --apply-patches --official-actor-experimental
+git -C worktrees/rlinf-official-actor-restored apply --check \
+  "$PWD/routes/route2/patches/two-rank-fsdp-compat.patch"
+git -C worktrees/rlinf-official-actor-restored apply \
+  "$PWD/routes/route2/patches/two-rank-fsdp-compat.patch"
+```
+
+[增量源码锁](routes/route2/model_probes/two-rank-source-lock.json)记录补丁与生产文件哈希。`torch22_state_dict_backend=sharded_tensor`使用相同一维process group；`actor_state_mode=full_cpu_rank0`由全部Actor rank汇聚CPU完整字典，只有rank0向单个Rollout发送。均需明确配置。初始同步已通过907项完整状态及固定输出精确对照；fresh更新后的同步正在验收。Runner可显式设置 `runner.data_channel_transport=ray`，三条数据通道保留官方collector/dispatcher，完整Runner仍待GPU验收。
+
+`musa_fsdp_optim_device.apply()`只在实验进程中处理Torch2.2优化器汇聚的设备调用，以及空CPU/MUSA ShardedTensor的device/is_meta/to；不编辑系统安装包。[small DCP结果](routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json)证明小模型两rank新对象保存/恢复/下一步exact；完整GR00T另有[新进程恢复结果](routes/route2/evidence/multi-gpu/fsdp-official-actor-recovery-v1.json)，模型/active Adam/scheduler/RNG/计数/版本及同批下一次更新通过精确对照。`official_runner_probe.py`为下一阶段准备入口，实际完成范围以两卡报告为准。

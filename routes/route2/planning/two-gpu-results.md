@@ -1,6 +1,6 @@
 # 两张 S4000：本轮验证记录
 
-日期：2026-10-06。按用户要求暂停并停止实验进程，结果已保存本地。已通过两卡小张量通信、小模型 FULL_SHARD 更新，以及 Actor 卡 0 / Rollout 卡 1 的真实 LIBERO 轨迹更新与同步。GR00T 两 rank FULL_SHARD 已通过官方同步初始化、完整轨迹 GAE和同步前后向；**尚未通过大模型分片参数更新**。下一步仍是梯度范数/通信等待的定位。
+日期：2026-10-07。暂停后的续跑已通过两卡小张量通信、小模型 FULL_SHARD 更新、Actor 卡 0 / Rollout 卡 1 的真实 LIBERO 轨迹更新与同步，以及 **GR00T 两 rank FULL_SHARD 的真实参数更新、DCP保存和新driver/Worker恢复续跑**。v15 使用显式 MUSA `torch.norm` 兼容路径，两个 rank 的非空 Adam 状态均从 step 0 更新至 1，梯度范数均为 `816.5087890625`，参数和优化器状态哈希均变化。checkpoint-v4保存完整分片训练状态并完成未中断的第二次更新；recovery-v1恢复后每rank的11项状态检查和下一次更新的11项对照均通过，训练metrics精确一致。分片Actor→单Rollout的初始版本0同步也已通过。这些结果使用既有轨迹 fixture，尚不证明 on-policy 学习。后续验证fresh轨迹更新后的版本1同步与完整 Runner。
 
 ## 环境、源码与证据范围
 
@@ -14,13 +14,16 @@
 
 source lock 是既有基线。当前两卡实验的具体探针哈希、配置与逐文件源码指纹，以各次结果 JSON 为准；不能把基线 commit 当作所有后续实验修改的完整记录。v12 探针已冻结为 [update-v12-probe.py](../evidence/multi-gpu/versions/update-v12-probe.py)，SHA256 为 `4c62cdd91f6e2e73b93e74ea57d27e5a6c2d478c867d4590ff17c83f8464e282`。
 
-## 已通过的三个层次
+## 已通过的六个层次
 
 | 层次 | 实测结果 | 能证明的范围 |
 |---|---|---|
 | 独立 torchrun / MCCL | 每 rank 6/6：两次 barrier、broadcast、SUM all-reduce、list all-gather、send/recv | 同节点两卡、小 FP32 张量、显式 MCCL 通信 |
 | 小模型 FSDP1 FULL_SHARD | 两 rank 均完成一次 AdamW 更新；梯度范数 `0.618055522441864`；rank 0 / 1 分别 1 / 4 个本地参数视图变化 | 真正分片的小 FP32 模型前向、反向、梯度归约与更新 |
 | Actor / Rollout 分卡 | Actor 卡 0、Rollout 卡 1，各组 world size 1；真实 8 步 LIBERO → 官方 GAE/PPO，版本 0/1 同步后全部 907 个状态哈希一致 | 两组分开部署、CPU/Ray Bucket 传输、官方单 rank Actor 更新与跨卡同步 |
+| GR00T 两 rank FULL_SHARD | v15 两 rank 各用四个独立时间样本完成一次官方 PPO 更新；非空 Adam step `0→1`，梯度范数一致，参数与优化器哈希变化 | 默认同步初始化、完整轨迹 GAE、分片前后向、梯度归约/裁剪及真实 AdamW 更新；输入是既有轨迹 fixture |
+| GR00T 分片DCP保存与恢复 | checkpoint-v4两rank保存版本1；recovery-v1新进程恢复和下一次更新每rank各11项对照通过，metrics精确一致，非空Adam step与Actor版本均`1→2` | 固定两rank拓扑、同一fixture下完整GR00T训练状态恢复与续跑等价；不覆盖world size变化 |
+| 分片Actor→单Rollout初始同步 | sync-v1版本0重建的907项状态与Rollout的哈希/shape/dtype全等；322项selected覆盖；两个Actor的固定输出均与Rollout精确一致 | 两rank共同重建、rank0 CPU传输、单Rollout加载与初始策略一致；尚不覆盖训练后版本1同步 |
 
 torchrun 数值检查包括 broadcast `[17, 23]`、SUM `[3, 6]`、all-gather `[[0, 10], [1, 11]]`、接收 `[31, 37]`。证据：[rank 0](../evidence/multi-gpu/mccl-multirank-v1.rank0.json)、[rank 1](../evidence/multi-gpu/mccl-multirank-v1.rank1.json)。这两次 JSON 记录的各操作耗时合计为 0.810670 / 0.812276 秒，仅是小张量功能探针。
 
@@ -30,11 +33,19 @@ torchrun 数值检查包括 broadcast `[17, 23]`、SUM `[3, 6]`、all-gather `[[
 
 最终 Actor 已到版本 2，Rollout 最后一次同步停在版本 1；不能把版本 2 的同步算作通过。v1 保存了版本 1 的训练 checkpoint，但本轮记录没有新的分卡 fresh-process 恢复结果。[分卡 sync v2](../evidence/multi-gpu/official-actor-rollout-disaggregated-v2.json) 另独立复核了初始版本 0 的 907 个状态与固定输出。
 
-分卡 v1 的 Actor allocator peak allocated / reserved 为 27.023738 / 33.103516 GiB，Rollout 为 8.373157 / 8.476563 GiB。训练段记录约 32.18 / 32.75 秒，包含哈希和审计调用，不是纯训练吞吐。两批奖励均为 0，微小学习率用于验证更新；这些结果尚不证明任务学习。此布局仍是 Actor 单 rank NO_SHARD，也没有证明分片 Actor → Rollout 的多 rank 权重同步。
+分卡 v1 的 Actor allocator peak allocated / reserved 为 27.023738 / 33.103516 GiB，Rollout 为 8.373157 / 8.476563 GiB。训练段记录约 32.18 / 32.75 秒，包含哈希和审计调用，不是纯训练吞吐。两批奖励均为 0，微小学习率用于验证更新；这些结果尚不证明任务学习。此布局仍是 Actor 单 rank NO_SHARD；多rank分片同步由下面的独立探针验证。
+
+## 分片 Actor → 单 Rollout：初始版本0同步
+
+[official-two-rank-sync-v1](../evidence/multi-gpu/official-two-rank-sync-v1.json)为pass，`phase=sync`，布局为两rank FULL_SHARD Actor占卡0/1，单Rollout占卡1并按阶段offload。显式`actor_state_mode=full_cpu_rank0`让两个Actor参与完整状态重建，rank0持有907项CPU参数/buffer manifest并传输；rank1按`rank0_only`返回空manifest，这不是缺少其分片参与。rank0 manifest与Rollout的907项SHA256、shape、dtype及版本0完全一致；322项selected名称在完整状态中全部覆盖。
+
+两个Actor rank与单Rollout分别对同一固定输入重算`logprobs / prev_logprobs / values`，六组比较均`torch.equal=True`、最大差值0。输入来自既有版本3轨迹fixture，只用于固定输入重算；没有在此phase采集fresh轨迹或训练，旧轨迹存储的logprob也不应当作当前版本0的on-policy分数。探针总耗时160.932334秒，含初始化、重建、哈希及输出审计，不是单次权重传输吞吐。训练后版本1同步和官方Runner尚待验收。
+
+已执行的[two_rank_rollout_probe.py](../model_probes/two_rank_rollout_probe.py)SHA256为`a7bd554b45bf145c3a9a84b9f3479d3a25c044ce2b59c16ff627f9cb37c1ec93`；四份support文件指纹见结果JSON。该记录的三处生产源码指纹与[冻结v1锁](../evidence/multi-gpu/versions/two-rank-lock-v1.json)完全一致，对应[冻结v1增量补丁](../evidence/multi-gpu/versions/two-rank-compat-v1.patch)SHA256为`19a90ef713a8508facb14bccd02e5527d585d9729e2d19a5edd5e6382199171d`。冻结锁的status是当时状态，不代表最新验收。协调者后续新增了Runner的显式Ray数据通道选项；该新增路径只有CPU重建检查，不能将当前增量补丁整体称为已通过GPU验证。
 
 ## Ray 隔离设备下的通信问题与已验证配置
 
-默认 RLinf Ray Worker 每 rank 只看一张物理卡：rank 0 的 `MUSA_VISIBLE_DEVICES=0`，rank 1 为 `1`；两者 `device_count=1`、逻辑设备 `musa:0`、`LOCAL_RANK=0`。日志物理 bus ID 分别为 `13000` / `16000`，没有把两个 Worker 误绑到同一张卡。
+默认 RLinf Ray Worker 每 rank 只看一张物理卡：rank 0 的 `MUSA_VISIBLE_DEVICES=0`，rank 1 为 `1`；两者 `device_count=1`、逻辑设备 `musa:0`、`LOCAL_RANK=0`。历史日志物理 bus ID 分别为 `13000` / `16000`，没有把两个 Worker 误绑到同一张卡。实例重启后物理 bus 编号可能变化，不能把历史编号当作固定设备身份。
 
 - [默认 mesh v2](../evidence/multi-gpu/worker-collectives-mesh-v2.json)：两 rank 的首次 SUM 均失败；默认 group 名称 `undefined`，实际 MUSA backend 为 `ProcessGroupMCCL`。
 - [显式 mccl v1](../evidence/multi-gpu/worker-collectives-mccl-v1.json)：同样在首次 SUM 失败，排除了“只要显式改 backend 就能解决”的解释。
@@ -62,21 +73,90 @@ Torch-MUSA 1.3 对应位置在创建 MCCL communicator 的 `mcclGroupEnd()`，�
 
 [历史 init-v8](../evidence/multi-gpu/fsdp-official-actor-init-v8.json) 使用独立加载 opt-in，只验证初始化；其 [冻结脚本](../evidence/multi-gpu/versions/init-v8-probe.py) 保留用于追溯。v12 已通过默认同步初始化，因此独立加载绕过 broadcast 不需要作为最终方案。
 
-## 暂停前新增诊断
+## 暂停前诊断与失败历史
 
 [v14阶段日志和堆栈](../evidence/multi-gpu/fsdp-official-actor-update-v14.diagnostic.txt)及[partial JSON](../evidence/multi-gpu/fsdp-official-actor-update-v14.partial.json)表明：两个rank各完成四次`train_micro_batch`，每次返回后显式`torch.musa.synchronize()`通过；随后进入optimizer。四个微批次约38.09秒，不含初始化和后续梯度裁剪。[rank0 events](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank0.events.jsonl)与[rank1 events](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank1.events.jsonl)保留各边界。[冻结v14脚本](../evidence/multi-gpu/versions/update-v14-probe.py)保留当时诊断与验收逻辑，不能当作已通过的训练实现。
 
-faulthandler显示两rank停留在`get_grad_norm_for_mixed_precision`，最终MCCL报`enqueue.cc:371 Musa failure 'wait operation timed out'`，rank1异常退出。不能沿用v12堆栈把首因定为AdamW，也不能据此定为某个归约算子不支持。尚需区分本地梯度范数耗时、流/事件依赖和通信等待。rank0有227个非空梯度视图，rank1有98个；rank1最大的单个梯度是一维150,994,944元素。完整元数据：[rank0](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank0.gradients.json)、[rank1](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank1.gradients.json)。
+faulthandler显示两rank停留在`get_grad_norm_for_mixed_precision`，最终MCCL报`enqueue.cc:371 Musa failure 'wait operation timed out'`，rank1异常退出。rank0仍在逐梯度本地范数计算，rank1已到范数 all-reduce。不能沿用v12堆栈把首因定为AdamW，也不能据此定为某个归约算子不支持。rank0有227个非空梯度视图，rank1有98个；rank1最大的单个梯度是一维150,994,944元素。完整元数据：[rank0](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank0.gradients.json)、[rank1](../evidence/multi-gpu/fsdp-official-actor-update-v14.rank1.gradients.json)。后续独立范数对照和v15已验证：用数值等价的快速本地范数路径可消除本次更新中的通信超时，详见下一节。
 
 [补充标量通信](../evidence/multi-gpu/worker-collectives-scalars-v1.json)在相同隔离mesh和`MCCL_P2P_DISABLE=1`下每rank10/10通过，包括真正零维FP32 SUM/MAX。此前8项探针只覆盖16元素；补充结果支持标量通信可用，不能推广为所有训练通信顺序都正确。
 
 [独立大向量norm](../evidence/multi-gpu/large-norm-direct-v1.json)覆盖1,048,577至150,994,944元素的FP32常量向量（offset=3），六种长度全通过；与解析值的最大相对误差约6.72e-8。因此“大向量norm本身必然失败”的假设未获支持。它没有复现真实梯度值、分片offset或多rank流依赖。
 
-[分块norm诊断](../evidence/multi-gpu/large-norm-chunked-v1.json)仅是候选实现测试，用户暂停时被终止，顶层状态仍是预设fail/最后一行running；[暂停记录](../evidence/multi-gpu/two-gpu-stop.json)说明终止原因。已完成行可单独读取，但不能把整组算通过或部署进官方训练。末段小通信测试曾与该独立诊断重叠，不使用其时间建立性能结论。`musa_fsdp_norm.py`未注册到生产模型扩展。
+[分块norm诊断](../evidence/multi-gpu/large-norm-chunked-v1.json)仅是候选实现测试，用户暂停时被终止，顶层状态仍是预设fail/最后一行running；[暂停记录](../evidence/multi-gpu/two-gpu-stop.json)说明终止原因。已完成行可单独读取，但不能把整组算通过或部署进官方训练。末段小通信测试曾与该独立诊断重叠，不使用其时间建立性能结论。暂停时`musa_fsdp_norm.py`未注册到模型扩展；续跑采用的是后续独立验证的`legacy`模式，不能把分块候选视为当前成功实现。
 
 最小Adam探针的[原始v1](../evidence/multi-gpu/adam-shards-v1.json)在空张量有限性断言失败，非空scalar/offset/large检查通过；空张量的optimizer调用本身已返回。当前检查已对空分片使用数学上的空集判定，修正未重跑。v13也因相同的空状态检查问题提前终止，不计为新backend失败。
 
-暂停后的恢复顺序：先复核真实梯度范数与通信等待，再验收两个rank的非空参数/Adam状态变化；随后两rank DCP新进程恢复、分片Actor→Rollout同步及完整Runner。当前脚本的`--phase train/recover`是已准备入口，尚未运行、不能声明两rankcheckpoint通过。
+## 续跑：范数兼容验证与 v15 真实分片更新
+
+[norm-compat-v1](../evidence/multi-gpu/norm-compat-v1.json)的15行数值验证全部通过：9行小规模随机张量对照CPU FP64参考，覆盖`1e-8 / 1 / 1e8`三个尺度；6行大周期张量对照解析L2范数，覆盖1,048,577至150,994,944元素，各比较两次`torch.linalg.vector_norm`和两次`torch.norm`。最大相对误差`8.365470690223045e-8`；探针验收阈值为`2e-5`，用于FP32归约数值兼容检查，不是任务成功率或学习效果阈值。
+
+六种大向量的同步计时中，`torch.linalg.vector_norm`为0.789946–7.360643秒，`torch.norm`为0.000543–0.002591秒。9,437,184元素一行中，两次linalg为4.841947 / 4.143022秒，两次legacy为0.002130 / 0.000572秒。它们在当前Torch-MUSA版本走不同的底层归约实现，因此“数值正确”和“耗时可用于多rank同步”需要分别判断。此记录是固定输入算子对照，不是模型吞吐 benchmark，也没有定位通用归约内核慢的最终原因。
+
+已冻结的[norm-helper-v2.py](../evidence/multi-gpu/versions/norm-helper-v2.py)只在明确启用、MUSA非空梯度且L2范数时，把逐梯度及最终stacked范数改用`torch.norm`；保留FP32输入、空梯度回退、分布式SUM、全局开方和原裁剪逻辑。辅助文件SHA256为`352609cf12d53a712298e603868fd629147b07065c3f310a88192609bdb3d1be`。这是RLinf兼容适配，不需要修改或重建MUSA Toolkit或宿主驱动。
+
+[v15完整结果](../evidence/multi-gpu/fsdp-official-actor-update-v15.json)使用`norm_mode=legacy`、`MCCL_P2P_DISABLE=1`和官方`sync_module_states=True`，并使用与v12相同的8步既有Trajectory fixture。两rank切片前完整GAE张量哈希均为`134481cb57c145664026f02986c1fd07585b47786a1e2d432822ff4a65cb74b4`；样本索引分别为0–3与4–7，全局8个唯一时间样本。两rank各完成四个micro batch，随后更新成功。
+
+| v15验收项 | rank 0 | rank 1 |
+|---|---|---|
+| 本地trainable元素数 | 536,566,785 | 536,566,784 |
+| 模型/trainable/Adam哈希 | 三者均变化 | 三者均变化 |
+| 拓扑保持、模型/优化器/metrics有限 | 全通过 | 全通过 |
+| 非空Adam step / manager更新计数 | `0→1` / `0→1` | `0→1` / `0→1` |
+| 预建空Adam状态数 | 95，step仍为0 | 224，step仍为0 |
+| 全局裁剪前梯度范数 | 816.5087890625 | 816.5087890625 |
+| optimizer enter→exit同步边界 | 0.204220秒 | 0.157862秒 |
+| allocator peak allocated / reserved | 23.461606 / 27.613281 GiB | 23.454576 / 27.615234 GiB |
+
+边界计时见[rank0 events](../evidence/multi-gpu/fsdp-official-actor-update-v15.rank0.events.jsonl)与[rank1 events](../evidence/multi-gpu/fsdp-official-actor-update-v15.rank1.events.jsonl)，不含optimizer前额外的梯度元数据审计。两个rank聚合metrics相同，ratio为`1.0003015995025635`；输入来自单卡先前版本3，与当前新初始化Actor版本并不相同，不能要求ratio严格为1或把它当作fresh on-policy PPO。探针最后显式设置Actor版本为1，尚未将此分片Actor版本同步到Rollout。
+
+[冻结v15脚本](../evidence/multi-gpu/versions/update-v15-probe.py)SHA256为`53fc49d751889937edde338d5bddb691b7ece3044259f2f45753de76799cae35`。完整探针耗时153.432930秒，包含初始化、哈希和审计，不能当作纯训练耗时。这次成功证明固定S4000软件栈可执行该大模型的两rankFULL_SHARD参数更新；没有证明单卡/两卡数值等价、长期稳定性或任务学习。
+
+## GR00T 检查点保存、恢复与续跑
+
+协调者已实际运行两rank`--phase train`保存和新的`--phase recover`恢复入口，checkpoint-v4与recovery-v1均已通过。成功前的失败集中在Torch 2.2的检查点表示和Python设备接口，不能倒推v15的实际参数更新失败。各轮保留原始失败与精确探针版本：
+
+| 保存尝试 | 实际到达位置与失败 | 原始证据与冻结脚本 |
+|---|---|---|
+| GR00T checkpoint-v1 | `_allgather_orig_param_states`中rank0的`torch.cuda.memory_summary()`报`KeyError`，rank1的`torch.cuda.synchronize()`报未编译CUDA支持 | [partial](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.partial.json)、[failure](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v1.failure.txt)、[probe](../evidence/multi-gpu/versions/checkpoint-v1-probe.py) |
+| GR00T checkpoint-v2 | 进程内改用device handle后越过优化器汇聚，在DCP的DTensor保存规划器`_local_shard_size_on_dim`失败；待分片首维长度1小于world size 2。尚未定位具体FQN，不能称为Adam step导致 | [partial](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.partial.json)、[failure](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v2.failure.txt)、[probe](../evidence/multi-gpu/versions/checkpoint-v2-probe.py) |
+| GR00T checkpoint-v3 | 显式`torch22_state_dict_backend=sharded_tensor`，FSDP构造改用原一维mesh的同一个process group；随后日志读取空本地分片的`.device`，旧实现回退`torch.cuda.current_device()`并报`_cuda_getDevice`不存在 | [partial](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.partial.json)、[failure](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v3.failure.txt)、[probe](../evidence/multi-gpu/versions/checkpoint-v3-probe.py) |
+| small-two-rank-dcp-v1 | 缩小为`Linear(4,8) → Tanh → Linear(8,1)`、torchrun两rank、`cpu:gloo,musa:mccl`复合PG；`get_state_dict`读取空本地ShardedTensor的`.is_meta`，旧实现调用`local_tensor()`后报`Only single local shard is supported` | [failure](../evidence/multi-gpu/small-two-rank-dcp-v1.failure.txt)、[probe](../evidence/multi-gpu/versions/small-dcp-v1-probe.py) |
+| small-two-rank-dcp-v2 | 空分片`.device/.is_meta`适配后继续进入CPU offload；空本地ShardedTensor的`.to(cpu)`仍用`torch.cuda.current_device()`推断当前设备，报`_cuda_getDevice`不存在 | [failure](../evidence/multi-gpu/small-two-rank-dcp-v2.failure.txt)；与small-v1使用相同冻结探针，区别是进程内适配helper版本 |
+
+checkpoint-v2和v3冻结探针SHA256分别为`b35b6521da74178477ddae0923dce83d157cf3a1a9166067a7395e87a17f1b50`、`6f7c7cfd4f1041029a1356e3055a6e4f659a05982a5bd96c2d3713d3d69db2a0`，均与对应partial JSON一致。小DCP探针SHA256为`cb89c33b3e4fe3a5b47c8c29422ac82ae32c825367cc670187548a88953ff09f`，后续small-v3保持同一探针，仅使用更新的适配helper。
+
+目前的显式、进程内适配包括：将已审计函数的1处CUDA memory_summary和3处synchronize改用`fsdp_state._device_handle`，让零本地分片的ShardedTensor `.device/.is_meta`依据实际CPU/MUSA storage metadata返回结果，并在其`.to()`中以已解析的`self.device`获取当前设备，保留非空分片及其他设备的原处理。最新冻结实现为[optim-device-v4.py](../evidence/multi-gpu/versions/optim-device-v4.py)，SHA256 `6375d7519bb4757d58678f4a37a812ad9b17653f025df12f107f8e5bf8c80789`，与checkpoint-v4结果一致。FSDP1仅在Torch 2.2实验模式、一维mesh下切换到同PG的标准ShardedTensor检查点表示；manager的mesh、梯度归约组和分片训练逻辑保留，未修改底层DTensor分片算法。
+
+[small-two-rank-dcp-v3 rank0](../evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json)与[rank1](../evidence/multi-gpu/small-two-rank-dcp-v3.rank1.json)均为pass，四项检查`restored_exact / continuation_exact / loss_exact / sharded_tensor`全部通过。覆盖本地模型、非空Adam状态、参数组、新对象恢复后下一次更新和loss。小探针是在同一进程创建新的model/optimizer对象，没有测试新driver/Worker、GR00T、scheduler或RNG恢复。
+
+[完整GR00T checkpoint-v4](../evidence/multi-gpu/fsdp-official-actor-checkpoint-v4.json)为pass：两rank完成第一步更新并保存版本1训练状态，非空Adam step均为1；保存后的未中断分支再次使用同一fixture，完成第二步更新，非空Adam step均为2、Actor版本均为2，模型和优化器状态有限。保存后snapshot含本地参数、buffers、active optimizer、scheduler与各rank RNG，供新进程对照。耗时296.645622秒，包括两次更新、DCP保存、初始化和哈希审计，不是保存吞吐或纯训练耗时。v4沿用已冻结的checkpoint-v3探针，通过三个显式兼容选项：`--norm-mode legacy --optim-device-mode device_handle --state-dict-backend sharded_tensor`。
+
+协调者现场统计此次checkpoint包含两个`.distcp`数据文件，分别8,095,977,568与8,096,422,220字节，`.metadata`为1,340,195字节，两份manager runtime各1,128字节；合计16,193,742,239字节，约15.081598 GiB。这些文件保存在远端研究盘，本地仓库存储探针、配置与紧凑证据。
+
+[完整GR00T recovery-v1](../evidence/multi-gpu/fsdp-official-actor-recovery-v1.json)为pass。协调者启动新的driver/Workers，以checkpoint-v4保存的版本1状态及其未中断续跑记录为参考，执行恢复与下一次更新。两次记录的配置、轨迹、探针、norm/helper哈希及逐文件源码指纹完全一致；恢复JSON没有单独记录checkpoint/reference路径，执行关系由协调者的命令记录与以下状态对照确认。
+
+| 新进程验收项 | rank 0 | rank 1 |
+|---|---|---|
+| 保存状态与恢复后状态对照 | 11/11精确一致 | 11/11精确一致 |
+| 未中断与恢复后下一次更新对照 | 11/11精确一致 | 11/11精确一致 |
+| 非空Adam step / manager更新计数 / Actor版本 | `1→2` / `1→2` / `1→2` | `1→2` / `1→2` / `1→2` |
+| 模型、优化器状态有限 | 全通过 | 全通过 |
+
+每组11项为本地模型、trainable参数、拓扑、buffers的SHA256，buffer数量，active optimizer、scheduler、各rank RNG的SHA256，manager更新计数，非空Adam step与Actor版本。active optimizer对照包含所有`requires_grad`且本地`numel>0`的参数状态及完整`param_groups`。两个rank各有2个buffer，恢复及续跑哈希一致；下一次更新的training metrics也与未中断分支精确一致。直接复核原始snapshot与metrics确认了JSON中的比较结论。恢复探针耗时218.498649秒，包含初始化、加载、哈希审计与更新，不是加载吞吐。
+
+FSDP标准恢复实际删除了warmup预建的空本地分片Adam状态：
+
+| Adam状态差异 | rank 0 | rank 1 |
+|---|---|---|
+| 保存前全部状态条目 → 恢复后 | `322→227` | `322→98` |
+| 保存前空状态条目 → 恢复后 | `95→0` | `224→0` |
+| 保存前原始step集合 → 恢复后 | `[0,1]→[1]` | `[0,1]→[1]` |
+| 下一次更新的原始step集合：未中断 / 恢复分支 | `[0,2]` / `[2]` | `[0,2]` / `[2]` |
+
+因此全部optimizer状态的原始哈希和条目数不同；非空Adam状态与参数组的active哈希在恢复及续跑两个边界均完全一致。此差异已记录，没有补造空状态来强求原始哈希相同。
+
+默认Torch包、默认Python环境、`/usr/local/musa`和宿主驱动均未修改。**完整GR00T两rank DCP保存、新driver/Worker恢复，以及下一次更新与未中断分支的等价性已通过**。范围限于相同两rank拓扑、既有8步fixture、冻结BF16 Eagle与FP32 action/value head；没有验证world size变化、新on-policy轨迹、长期稳定性或任务学习。分片Actor→单Rollout的版本0同步另已通过，后续仍需fresh轨迹更新后的版本1同步，以及官方Runner的新轨迹闭环。
 
 ## 复现配置与命令
 
@@ -134,7 +214,7 @@ env -u MCCL_SHM_DISABLE MCCL_P2P_DISABLE=1 MCCL_DEBUG=INFO \
   --output "$lab_result_dir/disaggregated.json"
 ```
 
-GR00T 分片 v12 的既有轨迹 fixture 入口；预期用于复核当时的初始化/GAE和失败位置，成功验收仍待修复：
+GR00T 分片 v12 的历史fixture入口，仅用于复核当时的初始化/GAE和失败位置；当前成功的v15入口在下一段：
 
 ```bash
 env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
@@ -147,4 +227,65 @@ env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
   --output "$lab_result_dir/full-shard-v12.json"
 ```
 
-小探针、分卡单 rank 更新、分片初始化和完整分片 PPO 更新是独立验收层次。后续仍需两 rank GR00T 参数更新、分片 checkpoint 新进程恢复、分片 Actor → Rollout 同步、完整官方 Runner，以及独立多任务/多 seed 学习评估。进入顺序见 [多卡计划](multi-gpu-entry.md)。
+GR00T分片v15成功入口。复现前部署本仓库的`versions/update-v15-probe.py`及`versions/norm-helper-v2.py`；后者置于`route2/model_probes/musa_fsdp_norm.py`，与结果记录的helper哈希一致：
+
+```bash
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/shared/update-v15-probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --trajectory "$lab_root/route2/results/official-actor-continuation-v1.pt" \
+  --phase update --diagnostic --norm-mode legacy \
+  --output "$lab_result_dir/full-shard-v15.json"
+```
+
+GR00T两rank checkpoint-v4保存、未中断续跑与recovery-v1新进程恢复入口。部署上文冻结的`versions/checkpoint-v3-probe.py`到`shared/checkpoint-v3-probe.py`、`versions/optim-device-v4.py`到`route2/model_probes/musa_fsdp_optim_device.py`，并保留已验证的norm-helper-v2。源码须包括显式同PG ShardedTensor模式；具体修改与指纹见v4及recovery-v1 JSON。保存前checkpoint路径必须不存在；train结束后以新的driver执行recover，使用同一份保存状态及参考JSON：
+
+```bash
+lab_checkpoint_dir="$lab_root/route2/checkpoints/two-gpu-dcp-repro"
+
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/shared/checkpoint-v3-probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --trajectory "$lab_root/route2/results/official-actor-continuation-v1.pt" \
+  --phase train --diagnostic \
+  --checkpoint "$lab_checkpoint_dir" \
+  --norm-mode legacy --optim-device-mode device_handle \
+  --state-dict-backend sharded_tensor \
+  --output "$lab_result_dir/full-shard-checkpoint-train.json"
+
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/shared/checkpoint-v3-probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --trajectory "$lab_root/route2/results/official-actor-continuation-v1.pt" \
+  --phase recover --diagnostic \
+  --checkpoint "$lab_checkpoint_dir" \
+  --reference "$lab_result_dir/full-shard-checkpoint-train.json" \
+  --norm-mode legacy --optim-device-mode device_handle \
+  --state-dict-backend sharded_tensor \
+  --output "$lab_result_dir/full-shard-checkpoint-recover.json"
+```
+
+分片Actor→单Rollout初始同步入口。源码使用上文冻结v1增量补丁对应的三文件指纹，探针及四份support文件须与sync-v1结果匹配。此命令只复现版本0同步：
+
+```bash
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/route2/model_probes/two_rank_rollout_probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --fixture "$lab_root/route2/results/official-actor-continuation-v1.pt" \
+  --phase sync --diagnostic --norm-mode legacy \
+  --output "$lab_result_dir/two-rank-sync.json"
+```
+
+以上train/recover与已通过的保存和新进程恢复使用同一探针及兼容选项。小探针、分卡单rank更新、大模型分片PPO更新、完整DCP保存与恢复续跑、分片Actor→Rollout版本0同步已分别通过。后续仍需fresh轨迹训练及版本1同步、完整官方Runner的新on-policy闭环，以及独立多任务/多seed学习评估。进入顺序见[多卡计划](multi-gpu-entry.md)。

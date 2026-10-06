@@ -1,0 +1,13 @@
+{"stage": "save_two_rank_dcp_checkpoint", "elapsed_seconds": 172.81034859269857}
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_state_dict_utils.py", line 752, in _post_state_dict_hook
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1144, in __torch_function__
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1125, in dispatch
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/_ops/tensor_ops.py", line 51, in tensor_device
+    dev = torch.device(torch.cuda.current_device())
+AttributeError: module 'torch._C' has no attribute '_cuda_getDevice'
+(ActorGroup(rank=1) pid=33717)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_state_dict_utils.py", line 752, in _post_state_dict_hook
+(ActorGroup(rank=1) pid=33717)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1144, in __torch_function__
+(ActorGroup(rank=1) pid=33717)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1125, in dispatch
+(ActorGroup(rank=1) pid=33717)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/_ops/tensor_ops.py", line 51, in tensor_device
+(ActorGroup(rank=1) pid=33717)     dev = torch.device(torch.cuda.current_device())
+(ActorGroup(rank=1) pid=33717) AttributeError: module 'torch._C' has no attribute '_cuda_getDevice'

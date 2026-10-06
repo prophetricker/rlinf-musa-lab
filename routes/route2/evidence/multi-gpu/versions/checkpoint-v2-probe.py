@@ -78,7 +78,6 @@ def main() -> int:
     parser.add_argument("--diagnostic", action="store_true", help="synchronize and persist per-microbatch/optimizer boundaries")
     parser.add_argument("--norm-mode", choices=("upstream", "legacy"), default="upstream")
     parser.add_argument("--optim-device-mode", choices=("upstream", "device_handle"), default="upstream")
-    parser.add_argument("--state-dict-backend", choices=("mesh", "sharded_tensor"), default="mesh")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -112,7 +111,6 @@ def main() -> int:
         "diagnostic": args.diagnostic,
         "norm_mode": args.norm_mode,
         "optim_device_mode": args.optim_device_mode,
-        "state_dict_backend": args.state_dict_backend,
         "optim_device_helper_sha256": hashlib.sha256((support / "musa_fsdp_optim_device.py").read_bytes()).hexdigest(),
         "norm_helper_sha256": hashlib.sha256((support / "musa_fsdp_norm.py").read_bytes()).hexdigest(),
         "status": "fail",
@@ -321,7 +319,6 @@ def main() -> int:
         cfg.cluster.component_placement = {"actor": "0-1", "rollout": "0-1", "env": "0"}
         cfg.actor.fsdp_config.sharding_strategy = "full_shard"
         cfg.actor.fsdp_config.use_orig_params = True
-        cfg.actor.fsdp_config.torch22_state_dict_backend = args.state_dict_backend
         cfg.actor.global_batch_size = 8
         cfg.actor.micro_batch_size = 1
         result["config"] = OmegaConf.to_container(cfg, resolve=True)

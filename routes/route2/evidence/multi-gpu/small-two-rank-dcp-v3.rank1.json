@@ -1,0 +1,59 @@
+{
+  "status": "pass",
+  "rank": 1,
+  "checks": {
+    "restored_exact": true,
+    "continuation_exact": true,
+    "loss_exact": true,
+    "sharded_tensor": true
+  },
+  "adapter": {
+    "torch_version": "2.2.0",
+    "function": "_allgather_orig_param_states",
+    "original_source_sha256": "307d4fcd14409e61b225b93683e4bac1d30067ba1f341c0411d67dba8328237c",
+    "replacement_calls": {
+      "memory_summary": 1,
+      "synchronize": 3
+    },
+    "scope": "process-local, MUSA-only device-handle dispatch",
+    "empty_shard_device": {
+      "original_source_sha256": "e21e73ff5c5e3e31e8efe14e9fd19e4e1d662767618e56218a4d4cbee027874f",
+      "scope": "empty CPU/MUSA ShardedTensor.device from storage metadata"
+    },
+    "empty_shard_is_meta": {
+      "original_source_sha256": "8d2a12d96d04d88cc22cfd701cc4469dc79324fdfa80e45e0e77db3739add0ff",
+      "scope": "empty CPU/MUSA ShardedTensor.is_meta from storage metadata"
+    },
+    "empty_shard_to": {
+      "original_source_sha256": "d5e0a20cee71174f68bdc2803054e33c0e57d00298af0d6a4d2176b7cadd7b01",
+      "scope": "empty CPU/MUSA ShardedTensor.to uses its resolved device"
+    }
+  },
+  "state_types": [
+    "ShardedTensor"
+  ],
+  "probe_sha256": "cb89c33b3e4fe3a5b47c8c29422ac82ae32c825367cc670187548a88953ff09f",
+  "saved": {
+    "model": "1116a942dcffcd00a2c2a3b1436eeb9ef5c22b76b5dc970d3f905a44573ca601",
+    "active_adam": "27590393bb85d6101d44abee82f2ff0cb1168abb8f5ce5c127109e4a9ff1ee22",
+    "param_groups": "4d40ca56703c1407247f00c06164516f9dfec893ec0989cb45315d512115c57f"
+  },
+  "restored": {
+    "model": "1116a942dcffcd00a2c2a3b1436eeb9ef5c22b76b5dc970d3f905a44573ca601",
+    "active_adam": "27590393bb85d6101d44abee82f2ff0cb1168abb8f5ce5c127109e4a9ff1ee22",
+    "param_groups": "4d40ca56703c1407247f00c06164516f9dfec893ec0989cb45315d512115c57f"
+  },
+  "expected": {
+    "model": "6e38ec81cfaed0c5984ac4138dc55ebff7a43a87e90e1109ab648beaf681ee70",
+    "active_adam": "060056f10fa1477456c94b1928c38839cf013c41783dda01f037f4fcb35c1789",
+    "param_groups": "4d40ca56703c1407247f00c06164516f9dfec893ec0989cb45315d512115c57f"
+  },
+  "actual": {
+    "model": "6e38ec81cfaed0c5984ac4138dc55ebff7a43a87e90e1109ab648beaf681ee70",
+    "active_adam": "060056f10fa1477456c94b1928c38839cf013c41783dda01f037f4fcb35c1789",
+    "param_groups": "4d40ca56703c1407247f00c06164516f9dfec893ec0989cb45315d512115c57f"
+  },
+  "loss_expected": 0.09281031787395477,
+  "loss_actual": 0.09281031787395477,
+  "scope": "two-rank composite PG; scalar output head; same-process new objects"
+}

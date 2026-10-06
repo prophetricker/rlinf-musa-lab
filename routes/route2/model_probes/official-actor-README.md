@@ -2,7 +2,7 @@
 
 日期：2026-10-06。限定单卡 S4000，Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0；BF16 Eagle + FP32 action/value head，FSDP1 NO_SHARD，AMP 关闭，critic warmup 为 0。宿主与默认环境不改动。
 
-新增两卡记录：Actor卡0/Rollout卡1的真实LIBERO更新与版本0/1同步已通过；隔离Worker设置`MCCL_P2P_DISABLE=1`后通信可用；官方GR00T两rank FULL_SHARD已通过同步初始化、GAE与四微批次同步前反向，尚未通过参数更新。2026-10-06按用户要求暂停，全部GPU进程停止。详细证据和恢复顺序见 [两卡验证](../planning/two-gpu-results.md)。以下单卡结果仍按原范围解释。
+新增两卡记录：Actor卡0/Rollout卡1的真实LIBERO更新与版本0/1同步已通过；隔离Worker设置`MCCL_P2P_DISABLE=1`后通信可用；官方GR00T两rank FULL_SHARD v15已通过默认同步初始化、完整GAE、四微批次与真正参数更新。显式`legacy`范数兼容解决当前梯度范数耗时造成的rank等待；两rank完整DCP保存/新进程恢复及同批下一次更新精确对照亦已通过；分片同步与完整Runner继续独立验收。详细证据和复现命令见 [两卡验证](../planning/two-gpu-results.md)。以下单卡结果仍按原范围解释。
 
 `official_actor_lifecycle_probe.py` 继承真实 `EmbodiedFSDPActor` 构造和 `init_worker`；初始化已通过。`official_actor_rollout_probe.py` 的两个诊断子类继承官方初始化、预测、trajectory receive、GAE、PPO training、Bucket 同步和 checkpoint，只添加 CPU RPC 边界、哈希和固定输入检查。
 
@@ -43,7 +43,7 @@ export PYTHONPATH=/root/autodl-tmp/s4000-research/envs/route2-integration/lib/py
 
 ## 边界
 
-`transport=ray_cpu` 显式限制一 Actor、一 Rollout、CPU Bucket 和 Ray Channel；默认 collective 路径保留。真实 MCCL 多rank、分片和同步仍须加卡验证。Runner 已接入可选 weight channel，但本探针使用显式官方 Worker 编排，尚不声称完整 Runner 已通过。
+`transport=ray_cpu` 默认限制一 Actor、一 Rollout、CPU Bucket 和 Ray Channel；两卡增量显式设置 `actor_state_mode=full_cpu_rank0` 时允许 FSDP1 多 Actor 汇聚完整 CPU 权重供单 Rollout 同步。默认 collective 路径保留。真实 MCCL 多rank FULL_SHARD 更新/恢复已通过，多rank同步独立验收。Runner 已接入可选 weight channel，但本探针使用显式官方 Worker 编排，尚不声称完整 Runner 已通过。
 
 恢复对照覆盖 Actor 权重、Adam、scheduler、Python/NumPy/CPU/MUSA RNG、计数和策略版本；不恢复仿真器、Rollout RNG 或 Runner 进度。runtime metadata 限当前 warmup=0/AMP关闭配置，checkpoint 必须新建目录。大权重与 checkpoint 不进入 Git。
 

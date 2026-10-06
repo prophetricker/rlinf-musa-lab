@@ -1,0 +1,64 @@
+{"stage": "save_two_rank_dcp_checkpoint", "elapsed_seconds": 173.96388053894043}
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 113, in save
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 158, in _save_state_dict
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 200, in reduce_scatter
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 113, in save
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 158, in _save_state_dict
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 200, in reduce_scatter
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+(ActorGroup(rank=0) pid=24461) AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+(ActorGroup(rank=0) pid=24461)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+(ActorGroup(rank=0) pid=24461) AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 113, in save
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 158, in _save_state_dict
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 200, in reduce_scatter
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+(ActorGroup(rank=1) pid=24464) AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/utils.py", line 173, in reduce_scatter
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict_saver.py", line 144, in local_step
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 93, in create_local_plan
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/default_planner.py", line 287, in create_default_local_save_plan
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 210, in _create_write_items
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/planner_helpers.py", line 61, in _create_write_items_for_dtensor
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/_utils.py", line 91, in compute_local_shape_and_global_offset
+(ActorGroup(rank=1) pid=24464)   File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_tensor/placement_types.py", line 127, in _local_shard_size_on_dim
+(ActorGroup(rank=1) pid=24464) AssertionError: Size to be sharded on dim 0 must be at least as large as the number of devices in that dimension 2

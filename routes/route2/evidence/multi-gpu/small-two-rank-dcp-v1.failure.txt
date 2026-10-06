@@ -1,0 +1,97 @@
+MCCL version 2.11.4 | mp 22 | commit 3354f892
+
+autodl-container-77de47b334-d32e95e0:39335:39588 [1] misc/mtmlwrap.cc:180 MCCL WARN mtmlDeviceGetHandleByPciBusId() failed: Invalid Argument 
+
+autodl-container-77de47b334-d32e95e0:39334:39521 [0] misc/mtmlwrap.cc:180 MCCL WARN mtmlDeviceGetHandleByPciBusId() failed: Invalid Argument 
+
+autodl-container-77de47b334-d32e95e0:39335:39588 [1] misc/mtmlwrap.cc:180 MCCL WARN mtmlDeviceGetHandleByPciBusId() failed: Invalid Argument 
+
+autodl-container-77de47b334-d32e95e0:39334:39521 [0] misc/mtmlwrap.cc:180 MCCL WARN mtmlDeviceGetHandleByPciBusId() failed: Invalid Argument 
+Traceback (most recent call last):
+  File "/root/autodl-tmp/s4000-research/shared/probe_route2_dcp_small.py", line 118, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/s4000-research/shared/probe_route2_dcp_small.py", line 84, in main
+    model_sd, optim_sd = get_state_dict(model, optimizers=optim, options=options)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict.py", line 729, in get_state_dict
+    model_state_dict = _get_model_state_dict(model, info)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict.py", line 376, in _get_model_state_dict
+    if p.is_meta:
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1144, in __torch_function__
+    return dispatch(st_instance, func)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1125, in dispatch
+    return _SHARDED_OPS[func](types, args, kwargs, st._process_group)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/op_registry_utils.py", line 32, in wrapper
+    return wrapped_func(types, args, kwargs, process_group)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/_ops/tensor_ops.py", line 56, in st_is_meta
+    return args[0].local_tensor().is_meta
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 1103, in local_tensor
+    raise NotImplementedError("Only single local shard is supported.")
+NotImplementedError: Only single local shard is supported.
+Traceback (most recent call last):
+  File "/root/autodl-tmp/s4000-research/shared/probe_route2_dcp_small.py", line 118, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/s4000-research/shared/probe_route2_dcp_small.py", line 84, in main
+    model_sd, optim_sd = get_state_dict(model, optimizers=optim, options=options)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict.py", line 730, in get_state_dict
+    optim_state_dict = _get_optim_state_dict(model, optimizers, info)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/checkpoint/state_dict.py", line 453, in _get_optim_state_dict
+    osd = FSDP.optim_state_dict(model, optim, osd)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", line 1832, in optim_state_dict
+    return FullyShardedDataParallel._optim_state_dict_impl(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py", line 1255, in _optim_state_dict_impl
+    return _optim_state_dict(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1957, in _optim_state_dict
+    ) = _map_param_key_to_optim_keys(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/fsdp/_optim_utils.py", line 1233, in _map_param_key_to_optim_keys
+    dist.all_gather_object(all_keys, all_optim_state_keys, group=group)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/c10d_logger.py", line 72, in wrapper
+    return func(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 2204, in all_gather_object
+    all_gather(object_size_list, local_size, group=group)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/c10d_logger.py", line 72, in wrapper
+    return func(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py", line 2629, in all_gather
+    work.wait()
+RuntimeError: [/home/pytorch/third_party/gloo/gloo/transport/tcp/pair.cc:534] Connection closed by peer [127.0.0.1]:50902
+[2026-10-06 23:43:28,588] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 39334) of binary: /root/autodl-tmp/s4000-research/envs/route2/bin/python
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/root/miniconda3/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/run.py", line 816, in <module>
+    main()
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/run.py", line 812, in main
+    run(args)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/run.py", line 803, in run
+    elastic_launch(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 135, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 268, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+shared/probe_route2_dcp_small.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-10-06_23:43:28
+  host      : localhost
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 39335)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-06_23:43:28
+  host      : localhost
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 39334)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

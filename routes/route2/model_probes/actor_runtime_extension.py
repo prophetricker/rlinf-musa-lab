@@ -7,6 +7,8 @@ Requires the fixed eager GR00T tree and lazy optional PyTorch3D import patch.
 """
 from __future__ import annotations
 
+import os
+
 
 def build_gr00t(cfg, torch_dtype):
     import torch
@@ -48,4 +50,10 @@ def register():
     import torch_musa  # noqa: F401 - register the real installed backend
     from rlinf.models import register_model
 
+    if os.environ.get("RLINF_MUSA_FSDP_LEGACY_NORM", "0") == "1":
+        from musa_fsdp_norm import apply
+        apply(mode="legacy")
+    if os.environ.get("RLINF_MUSA_FSDP_OPTIM_DEVICE_HANDLE", "0") == "1":
+        from musa_fsdp_optim_device import apply as apply_optim_device
+        apply_optim_device()
     register_model("gr00t", build_gr00t, category="embodied", force=True)
