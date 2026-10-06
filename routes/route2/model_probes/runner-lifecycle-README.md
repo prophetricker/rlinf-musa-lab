@@ -1,6 +1,6 @@
 # 官方 Runner 保存、恢复与最终权重同步
 
-2026-10-07：独立入口已准备，GPU尚未验收。此前Actor DCP新进程恢复已经通过，但不能用它代替此处实际Runner入口的结果。当前chunk5/240步与初始策略十任务pilot先串行执行，退出后再执行本验证。
+2026-10-07：保存-v1与新进程恢复-v1已通过，独立核对分别19/20项，恢复前22项状态精确一致；末次版本2完整同步也通过。此前Actor DCP新进程恢复已经通过，但不能用它代替此处实际Runner入口的结果。chunk5/240步两轮与初始策略十任务pilot-v2已通过，同次开机周期完成本验证。
 
 [official_training_probe.py](official_training_probe.py)复用当前官方Runner、collector、dispatcher、GAE/PPO和已锁定的DCP代码，新增可配置LR/seed、Runner恢复、最终同步和保存。原[Runner探针](official_runner_probe.py)及冻结脚本不变。此新入口尚不是正式学习收益评估工具：训练仍固定task0/trial0、epoch1/microbatch1，每轮一个global batch，eval关闭。
 
@@ -23,3 +23,5 @@ bash shared/run_route2_runner_lifecycle.sh
 恢复只包含Actor训练状态：Env/Rollout重新初始化并从新episode采样，未保存模拟器现场、Rollout RNG或队列。恢复后新轨迹不同是预期行为，不能声称整个流程与不中断训练逐位等价。AMP关闭、critic warmup0、epoch1与单batch的范围保留；版本N与累计Adam step=N只适用于本配置。
 
 该入口可显式设置`--lr 5e-6 --value-lr 1e-4`，但首次生命周期验收保留1e-8。官方LR、完整评估协议、trial划分和学习收益另按[学习计划](../planning/embodied-learning-entry.md)推进。
+
+实际证据：[保存结果](../evidence/multi-gpu/official-runner-save-v1.json)、[恢复结果](../evidence/multi-gpu/official-runner-resume-v1.json)、[恢复独立核对](../evidence/multi-gpu/official-runner-resume-v1.audit.json)。每rank累计Adam step达到2，版本0/1（保存进程）和1/2（恢复进程）各907项完整状态与Rollout一致。实际checkpoint为global_step_1，约15.081598GiB；恢复后的step2仅同步与审计，未再次保存。

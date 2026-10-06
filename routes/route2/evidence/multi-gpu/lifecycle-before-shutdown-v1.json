@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-07",
+  "scope": "read-only post-driver GPU/disk observation, before user-authorized platform shutdown",
+  "experiments_finished": true,
+  "gpus": [
+    {
+      "name": "MTT S4000",
+      "pci": "12:00.0",
+      "memory_used_mib": 4,
+      "utilization_percent": 0
+    },
+    {
+      "name": "MTT S4000",
+      "pci": "13:00.0",
+      "memory_used_mib": 4,
+      "utilization_percent": 0
+    }
+  ],
+  "running_gpu_processes": 0,
+  "research_disk_available_bytes": 15107616768,
+  "saved_checkpoint_global_step": 1,
+  "resumed_final_policy_global_step": 2,
+  "resumed_final_policy_saved": false,
+  "evidence": [
+    "official-runner-save-v1.json",
+    "official-runner-resume-v1.json"
+  ],
+  "source": "mthreads-gmi and df -B1 after lifecycle script exit0"
+}

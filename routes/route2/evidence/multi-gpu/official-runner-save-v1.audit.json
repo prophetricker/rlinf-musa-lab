@@ -1,0 +1,65 @@
+{
+  "status": "pass",
+  "checks": {
+    "raw_status_pass": true,
+    "probe_bytes_match": true,
+    "locked_production_files_match": true,
+    "expected_two_ranks": true,
+    "global_step_and_versions": true,
+    "all_raw_final_checks": true,
+    "all_raw_iteration_checks": true,
+    "complete_iteration_versions": true,
+    "all_full_state_synchronizations": true,
+    "all_rank_updates": true,
+    "correct_global_decision_counts": true,
+    "final_policy_matches_last_actor_sync": true,
+    "checkpoint_device_adapter_enabled": true,
+    "checkpoint_state_matches_update_and_version": true,
+    "save_preserved_training_state": true,
+    "recorded_checkpoint_files": true,
+    "iteration_0_rank_data_and_updates": true,
+    "iteration_0_distinct_data_and_reduced_norm": true,
+    "separate_chunk_and_simulator_counts": true
+  },
+  "raw_result_sha256": "69a20f15b68b2da98b130d0fac512bc0d1dc95fa8f258505705a3d5e0b23743b",
+  "probe_sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194",
+  "source_lock_sha256": "6c2c56387796e4b0858262208c8e5df4bb757815da5418b91d59a70458c39c9f",
+  "actions_per_policy_decision": 5,
+  "total_received_policy_decisions": 4,
+  "total_simulator_step_slots": 20,
+  "iterations": [
+    {
+      "iteration": 0,
+      "received_policy_decisions": 4,
+      "simulator_step_slots": 20,
+      "valid_simulator_action_slots_per_rank": [
+        10,
+        10
+      ],
+      "valid_chunk_samples_per_rank": [
+        2,
+        2
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        },
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        }
+      ],
+      "global_grad_norm": 2298.517578125
+    }
+  ],
+  "elapsed_seconds": 451.955428160727,
+  "final_weight_scope": "Runner global_step and Actor/Rollout versions are 1. Rollout has weights after all 1 cumulative PPO updates; an explicit final sync was audited.",
+  "scope": "independent cross-check of recorded execution evidence; no rerun or learning claim; boundary flags are not unique episode counts"
+}

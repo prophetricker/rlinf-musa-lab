@@ -67,3 +67,21 @@
 研究提交`93cebe950e59bf65bd4add8b3ed8edde1165d6cd`已导出并正常push为成果仓库[`9b28edabb614fb7ed93a331f1a7164a9e8a53c15`](https://github.com/prophetricker/rlinf-musa-lab/commit/9b28edabb614fb7ed93a331f1a7164a9e8a53c15)，远端main与本地HEAD已核对。Runner-v5完成3轮×2环境×80步，480数据槽、454 mask有效动作，两个Actor各3次Adam更新，版本0/1/2各907项完整状态同步一致。真实termination与post-terminal mask后训练通过，尚无240步truncation、完整suite评估或学习收益；末次PPO更新未额外同步。原始ratio受全mask微批次的普通均值影响，原值与解释都保留。
 
 该发布节点包含新chunk5与十任务评估代码、5项CPU eval通道/精确补丁重建、10case真实loss-mask CPU检查及后续学习计划；新入口当时仍未验收GPU结果。导出428文件、104 Python AST、6 Bash语法和261相对链接通过。实例保持运行，chunk5/240步Runner和初始十任务pilot已由协调者顺序启动；这段运行中状态不扩大本次发布的通过范围。
+
+## 2026-10-07完整horizon发布节点
+
+研究提交`85629dcf44634814615b448cfe5903c2830c436e`已导出并push为成果仓库[`a5ada2a89151be00ce15eb7ecab4345ecbe8490a`](https://github.com/prophetricker/rlinf-musa-lab/commit/a5ada2a89151be00ce15eb7ecab4345ecbe8490a)，main与本地HEAD核对一致。chunk5/240两轮通过：192动作块、960有效模拟动作槽、每rank2次更新、四条240步truncation与下一轮reset、版本0/1的907项完整同步。该入口仍没有末次更新后的额外同步。独立结果16项通过，两个rank各14条事件与最终JSON逐字段一致。
+
+pilot-v1完成十个任务trial0、官方success_once4/10，但最终读取WorkerGroup列表时探针报错，原失败及冻结字节保留；v2只修单Rollout结果解包并独立重跑。新Runner生命周期入口已静态审查并部署，SHA为`7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194`；待pilot通过后串行执行保存一次、新进程恢复/新轨迹训练、最终同步。研究盘当前29.16GiB可用，不删除旧checkpoint，恢复端暂不再保存第二份。
+
+本次导出445文件、108 Python AST、7 Bash与275相对链接全部通过；新生命周期与eval-v2当时还不是GPU已通过项。实例继续运行，无关机或重启。
+
+## 2026-10-07本轮关机前移交
+
+pilot-v2与Runner生命周期现已完成：十个唯一task/trial0、success_once4/10、success_at_end3/10，20项独立核对通过；每task实际50个init states，pilot只覆盖2%，不是全500-state benchmark。原pilot-v1的汇总失败保留。
+
+Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598GiB、5文件），保存前后状态相等、19项独立核对通过。resume-v1由新driver/Workers恢复，两rank共22项模型/非空optimizer/scheduler/RNG/步数/版本精确匹配，再采新版本1轨迹完成下一次官方GAE/PPO，累计Adam step2，版本1/2各907状态同步一致，20项独立核对通过。冻结入口SHA7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194；恢复端step2只同步审计，没有保存第二份。
+
+旧Actor DCP与新Runner checkpoint1都保留，研究盘可用15107616768字节（约14.07GiB）。恢复范围是Actor训练状态后重新采样，新Env/Rollout现场未恢复，十步入口不覆盖周期自动保存或完整回合边界恢复。后续优先官方LR短验收、完整500-state初始基线和配对学习评估，下一次学习从固定预训练权重/全新optimizer开始，不能把本轮1e-8工程更新当学习成果。
+
+本轮GPU全部退出，两卡各4MiB、0%，无运行GPU进程。用户明确追加实验完成后关机；协调者完成最终记录及GitHub同步后从平台关闭唯一两卡S4000实例，不用guest poweroff代替平台操作。实际关机状态另记。

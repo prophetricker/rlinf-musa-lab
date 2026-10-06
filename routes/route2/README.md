@@ -1,5 +1,7 @@
 # 路线 2：当前 RLinf 在 S4000 默认栈上的最小适配
 
+2026-10-07追加：两卡完整GR00T FULL_SHARD、Actor DCP新进程精确恢复、官方Runner三轮80步和chunk5/240步两轮已通过；后者192动作块、960有效模拟动作槽、超时截断与下一轮reset。十任务pilot及Runner保存/新进程恢复/续训和末次版本2同步也已独立通过，详见[两卡最新记录](planning/two-gpu-results.md)。以下旧节点按各自日期和范围解释。
+
 2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。
 
 真实 RLinf `FSDPStrategy` 已通过单卡 FP32 `NO_SHARD` 更新和两种 checkpoint 保存/恢复格式的 CPU 数值与 MUSA/MCCL 实测，见 [独立实验说明](fsdp_probes/README.md)。真实 Diffusers Attention 与固定双层 GR00T DiT 已在 S4000 上完成前向、输入 VJP 和参数 VJP；原始严格逐参数 gate 仍因解析零方向保持 false，独立语义 gate 全部通过，见 [action 接口探针](planning/action-interface-probe.md)。RLinf 官方 GR00T N1.5 wrapper 与真实 LIBERO-Spatial 8 步 episode 已通过，且真实 rollout 元数据已完成真实 GAE 的多步 PPO loss/backward/AdamW 更新，见 [真实 episode 报告](../../reports/route2-libero-real.md) 与 [多步证据](evidence/libero/libero-rlinf-ppo-multi-step-v5.json)。这证明单卡上的适配计算闭环，不代表 reward 或长期成功率提升。官方 `EmbodiedFSDPActor` 在基础源树仍拒绝 Torch 2.2；独立 FSDP1 实验源树加窄 DTensor 回退后已通过模块导入审计，尚未完成 Actor 构造、多卡、offload 或完整 runner。

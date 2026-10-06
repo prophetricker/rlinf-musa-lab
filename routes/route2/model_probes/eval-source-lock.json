@@ -5,6 +5,7 @@
   "patch_sha256": "a13b1ef3eac592d4062af6b153f612226d8308450d479b529753451db99cbee8",
   "production_file": "rlinf/runners/embodied_eval_runner.py",
   "production_sha256": "c18fbf50680973dbf36035fe20ecc72081fe4834a2b96fa8083f1280aa1c7085",
-  "status": "CPU transport contract and exact reconstruction passed; official evaluation GPU execution pending",
-  "cpu_evidence": "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json"
+  "status": "CPU transport contract/exact reconstruction and inherited EmbodiedEvalRunner ten-task GPU pilot passed; 10 unique task/trial0 episodes, 20 independent evidence checks; full-suite baseline pending",
+  "cpu_evidence": "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json",
+  "gpu_evidence": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v2.json"
 }

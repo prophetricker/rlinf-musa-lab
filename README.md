@@ -2,7 +2,7 @@
 
 在单卡 MTT S4000、Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0 上，逐步适配固定版本的当前 RLinf 主线。Mac 管理开发与记录，GPU 实验在隔离 Linux 环境执行。
 
-2026-10-07：同节点两张S4000已通过完整GR00T FULL_SHARD官方PPO更新、完整DCP新进程恢复/同批下一步精确对照、版本0/1的907项Actor/Rollout状态与固定输出精确同步，以及完整官方Runner两轮on-policy闭环（16条transition、每rank两次更新）。保留Driver2.7.0/MUSA3.1.0/Torch2.2.0/Torch-MUSA1.3.0；显式使用FP32 action/value head、MUSA legacy L2和SHM通信。新增三轮80步Runner稳定性已通过：480个数据槽、454个有效动作、每rank3次更新及版本0/1/2完整同步；官方chunk5/240步两轮已通过（192动作块、960有效模拟动作槽、超时截断和重置）；正在运行十任务pilot，Runner恢复/最终同步随后验收，具身学习收益尚未建立。详见[两卡证据与命令](routes/route2/planning/two-gpu-results.md)。
+2026-10-07：同节点两张S4000已通过完整GR00T FULL_SHARD官方PPO更新、完整DCP新进程恢复/同批下一步精确对照、版本0/1的907项Actor/Rollout状态与固定输出精确同步，以及完整官方Runner两轮on-policy闭环（16条transition、每rank两次更新）。保留Driver2.7.0/MUSA3.1.0/Torch2.2.0/Torch-MUSA1.3.0；显式使用FP32 action/value head、MUSA legacy L2和SHM通信。新增三轮80步Runner稳定性已通过：480个数据槽、454个有效动作、每rank3次更新及版本0/1/2完整同步；官方chunk5/240步两轮已通过（192动作块、960有效模拟动作槽、超时截断和重置）；十任务pilot-v2也已通过（原始策略4/10 success_once，20项独立核对）；Runner保存/新进程新轨迹续训及末次版本2完整同步也已通过，具身学习收益尚未建立。详见[两卡证据与命令](routes/route2/planning/two-gpu-results.md)。
 
 2026-10-05 已完成 Pendulum 三种子 PPO 学习基线：每种子 102,400 transitions，独立 20 局 test 平均回报全部提升。模型是普通 Gaussian MLP，使用真实 RLinf Worker/Cluster/Ray CPU Channel、GAE 和 PPO loss，rollout/update 共驻。已完成真实GR00T输入链与8步LIBERO/GAE/PPO单模型更新，以及官方Actor初始化和独立Rollout初始同步；官方Actor连续三轮真实LIBERO GAE/PPO与fresh-process同批恢复已通过；初始策略完整episode task0两个trial成功79/69步；后续完整EmbodiedRunner和双卡结果见上面的10月7日节点；Lambda-Sim仍待SDK。
 

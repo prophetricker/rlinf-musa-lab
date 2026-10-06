@@ -43,7 +43,7 @@ Runner-v5 的 3 轮 × 2 环境 × 80 步验证已通过：480个数据槽、454
 
 数据通道继续 `runner.data_channel_transport=ray`，权重同步继续 CPU/Ray Bucket、`actor_state_mode=full_cpu_rank0`；FSDP 参数/梯度通信仍用 MUSA/MCCL。保持当前成功的 `MCCL_P2P_DISABLE=1`、legacy norm、Torch 2.2 sharded-tensor DCP 表示。这不代表默认 scheduler collective、GPU 权重传输或 P2P 性能已经通过。
 
-固定代码中的 EnvWorker 以 `horizon // num_action_chunks` 计算策略调用轮数。**已通过的 Runner 配置是 chunks=1；下一轮优先验证官方 chunks=5。** 后者在 horizon=240 时，每环境是 48 次 chunk 决策，每次最多执行 5 个 simulator actions；两环境每轮安排 **96 个 Actor chunk 样本槽 / 480 个 simulator transition 槽**。每 rank 收到一条 48 个决策、240 个动作槽的完整轨迹，microbatch 1，累计 **48** 个 microbatches 后做一次 optimizer step，global batch 应设 **96**。`update_epoch=1` 时每 Runner 轮次是一次分布式更新；两个 rank 同步参与这一次更新，不能算两次独立更新。
+固定代码中的 EnvWorker 以 `horizon // num_action_chunks` 计算策略调用轮数。**chunks=1及官方chunks=5/240步两轮均已通过。** 后者在 horizon=240 时，每环境是 48 次 chunk 决策，每次最多执行 5 个 simulator actions；两环境每轮安排 **96 个 Actor chunk 样本槽 / 480 个 simulator transition 槽**。每 rank 收到一条 48 个决策、240 个动作槽的完整轨迹，microbatch 1，累计 **48** 个 microbatches 后做一次 optimizer step，global batch 应设 **96**。`update_epoch=1` 时每 Runner 轮次是一次分布式更新；两个 rank 同步参与这一次更新，不能算两次独立更新。
 
 另记录实际 simulator transitions、episode 数、有效 action-slot mask 和 chunk-level `loss_mask`，二者不可混用。`auto_reset=False` 下提前成功之后仍有固定长度数据槽；原始动作 mask 应保留结束动作、排除其后的动作槽，而官方 chunk-level 聚合会保留含结束动作的那个 chunk、排除后续 chunks。Denoising 的 4 个内部步骤不计成 4 个环境 transitions。此前 chunks=1 的 batch=480、每 rank 240 microbatches 只适用于 chunks=1 / horizon=240；切换到 5 后必须重新核对 batch/GAE/mask/同步，不能把 96 个 chunk decisions 写成 96 个 simulator transitions。
 
@@ -75,7 +75,7 @@ Runner-v5 的 3 轮 × 2 环境 × 80 步验证已通过：480个数据槽、454
 
 ## 4. 完整回合的工程验收
 
-Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chunks=5、2 轮 × 2 环境 × 240 simulator steps**、仍用 `lr=1e-8` 的完整 horizon 验证：计划 **192 个 chunk 样本槽 / 960 个 simulator transition 槽**，每 rank 每轮 48 microbatches。准确环境/源码/启动条件参照[已验证入口](two-gpu-results.md)，新增CLI和断言说明见[完整回合入口](../model_probes/embodied-eval-README.md)；这不是学习实验，也不是 chunk5 工具已验证的承诺。
+Runner-v5之后已完成 **chunks=5、2 轮 × 2 环境 × 240 simulator steps**、仍用 `lr=1e-8` 的完整 horizon 验证：实际 **192 个chunk样本槽 / 960 个mask有效simulator动作槽**，每 rank 每轮 48 microbatches。准确环境/源码/启动条件参照[已验证入口](two-gpu-results.md)，新增CLI和断言说明见[完整回合入口](../model_probes/embodied-eval-README.md)；这是固定配置工程验证，完整结果见两卡报告，不是学习实验。
 
 此前v4/v5使用[冻结Runner脚本](../evidence/multi-gpu/versions/official-runner-v4-probe.py)，只支持chunks=1。当前[Runner探针](../model_probes/official_runner_probe.py)已增加`--action-chunks 5`，明确区分`simulator_horizon=240`、`chunk_decisions_per_env=48`、global batch 96，审计`T=48`、`T+1=49`以及包含首个终止动作的mask；该增量GPU两轮240步已通过，原始结果与独立核对见[两卡报告](two-gpu-results.md)。只传`--steps-per-env 240`仍使用默认chunks=1。dones/terminations/truncations的action维为5，values维度按官方value-head口径核对；原脚本与历史证据按其哈希解释。
 
@@ -91,16 +91,16 @@ Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chun
 
 ## 5. Runner 检查点与最终权重
 
-**已经通过的是 Actor DCP 的恢复及同一 fixture 下一步对照，不是完整 Runner 恢复。** [embodied_runner.py](https://github.com/RLinf/RLinf/blob/c70606f08cdca259b8dec03d4430926b5b8fac9d/rlinf/runners/embodied_runner.py) 的 `resume_dir` 解析 Runner global step，再加载 `<resume_dir>/actor`；保存目录是 `checkpoints/global_step_N/actor`。当前没有 simulator state、Rollout RNG、eval pool/seen 或在途队列的端到端恢复等价证据。
+**Actor DCP同批恢复对照及实际Runner保存/新进程恢复/新轨迹续训现已分别通过。** Runner生命周期节点为两环境各10步/chunk5、显式末次同步和调用官方保存接口；新进程采样前22项Actor训练状态精确一致，续训后版本2完整同步通过。它不覆盖完整240步回合边界、周期自动保存或模拟器现场恢复。 [embodied_runner.py](https://github.com/RLinf/RLinf/blob/c70606f08cdca259b8dec03d4430926b5b8fac9d/rlinf/runners/embodied_runner.py) 的 `resume_dir` 解析 Runner global step，再加载 `<resume_dir>/actor`；保存目录是 `checkpoints/global_step_N/actor`。当前没有 simulator state、Rollout RNG、eval pool/seen 或在途队列的端到端恢复等价证据。
 
-长学习前新增一个有真实 `save_interval/resume_dir` 的独立 Runner 入口：
+独立入口的`resume_dir`和显式调用官方保存接口已验收；长学习前继续验证真实周期`save_interval`及完整回合边界：
 
 1. 在完整采样/更新结束的边界保存，确保没有在途 batch；记录 Runner global step、Actor optimizer/scheduler/RNG、模型哈希、配置和 reset 调度。
 2. 新 driver/Workers 从目录恢复；核对两个 Actor 的非空 optimizer 状态和更新计数、global step，再显式同步 Rollout，核对完整状态及版本。
 3. 用新采样运行至少下一轮，核对 collector、GAE/PPO、同步和再次保存。若 Env/Rollout 从新 episode 开始，明确称为“Actor 训练状态恢复后重新采样”，不要求轨迹相同，也不宣称中断前后完全连续。
 4. 若要证明不中断等价，另保存/恢复 Env、Rollout 和采样 RNG/状态，再与未中断分支比较；当前尚未实现。优先保证可恢复的完整回合边界，不把精确 simulator 中途恢复作为第一学习实验的隐含能力。
 
-另一个必须处理的边界是**末次更新后的同步**。当前关闭 eval/save 的 Runner 在每轮采样前同步，然后更新；N 轮结束时 Actor 已完成 N 次更新，Rollout 仍持有 N−1 次更新后的策略，版本字段也可能仍是 N−1。正式评测最终模型前，等待所有 Actor 完成训练，按实际 global step/optimizer 状态设置并记录版本，再执行 Actor→Rollout 同步和 manifest 审计。以 checkpoint/权重哈希和 optimizer step 标记最终策略，不能只凭旧版本字段。
+另一个必须处理的边界是**末次更新后的同步**。历史关闭eval/save的工程Runner在每轮采样前同步，然后更新；N 轮结束时 Actor 已完成 N 次更新，Rollout 仍持有 N−1 次更新后的策略，版本字段也可能仍是 N−1。正式评测最终模型前，等待所有 Actor 完成训练，按实际 global step/optimizer 状态设置并记录版本，再执行 Actor→Rollout 同步和 manifest 审计。以 checkpoint/权重哈希和 optimizer step 标记最终策略，不能只凭旧版本字段。 新生命周期入口已显式set global step并同步，版本2的907项完整状态一致；恢复后的step2未再次保存，磁盘checkpoint仍为step1。
 
 当前单个完整 DCP 约 **15.08 GiB**，100 GiB 研究盘上保存新旧两个 checkpoint 就占约 30.16 GiB。保存前检查实际空间，先确认新 checkpoint 可恢复再轮换旧文件；源码、紧凑证据进 Git，权重/轨迹/完整 checkpoint 保留在研究盘。
 
@@ -142,10 +142,10 @@ Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chun
 
 ## 8. 下一次执行清单
 
-1. 协调者完成 Runner-v5 并冻结证据；若通过，新增CLI执行 chunks=5 / 2 × 240 的完整 horizon 工程轮（每 rank 48 chunk decisions、global batch 96），补 terminal/truncation/mask 证据。
-2. 已准备独立[评估探针](../model_probes/official_eval_probe.py)，复用官方evaluate、逐pair记录并核对覆盖，GPU执行待验收。先10-state pilot；完整init-state manifest、独立pair seed hook与全套10-task / 通常500-state基线继续分阶段实施。当前单episode历史结果不能冒充这个入口。
-3. 新建可配置的学习 Runner 入口，支持 LR/value LR、horizon、训练 seed、更新 epoch、保存/恢复、最终同步；独立[official_training_probe.py](../model_probes/official_training_probe.py)已准备可配置LR/seed、Runner恢复和显式末次同步，GPU生命周期验收排在pilot之后；训练仍固定task0/trial0、eval关闭，不能当正式学习收益工具。原`official_runner_probe.py`保持工程测试范围。 保留原探针及历史证据。
-4. 验证一次 Runner 保存 → 新进程恢复 → 新轨迹下一轮 → 再保存；按实际能力标明是否只恢复 Actor、是否从新 episode 开始。
+1. Runner-v5和chunk5/240步两轮已通过并冻结证据；真实chunk5成功termination路径仍待出现，truncation/reset已覆盖。
+2. 独立[评估探针](../model_probes/official_eval_probe.py)十任务GPU pilot-v2已通过：4/10 success_once、20项独立核对，manifest确认每task50、合计500个init states。后续实施pair seed hook和完整500-state基线；pilot只覆盖2%，不能当完整benchmark。
+3. 新建可配置的学习 Runner 入口，支持 LR/value LR、horizon、训练 seed、更新 epoch、保存/恢复、最终同步；独立[official_training_probe.py](../model_probes/official_training_probe.py)已准备可配置LR/seed、Runner恢复和显式末次同步，GPU保存/新进程恢复续训和最终同步已验收；训练仍固定task0/trial0、eval关闭，不能当正式学习收益工具。原`official_runner_probe.py`保持工程测试范围。 保留原探针及历史证据。
+4. Runner保存→新进程22项精确恢复→新轨迹下一轮→最终版本2同步已通过。因空间限制未再保存第二份，后续验证周期自动保存/再次保存与完整回合边界；明确只恢复Actor训练状态、Env/Rollout从新episode开始。
 5. 确定状态划分/采样协议；若用严格 held-out，先验收 trial allowlist。执行官方 LR 的 3 轮短验收，再按 24k 单 seed、96k × 3 seeds 的预算推进。
 6. 每次阶段结束保存配置/来源/紧凑证据，由协调者做 Git milestone。暂不需要继续加卡：先获得实际吞吐与两卡长期内存数据，再判断独立 Rollout 第三卡或更大环境并发的价值。
 
@@ -159,4 +159,4 @@ Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chun
 - [EnvWorker](https://github.com/RLinf/RLinf/blob/c70606f08cdca259b8dec03d4430926b5b8fac9d/rlinf/workers/env/env_worker.py)：chunk 步数、bootstrap/reset、`env_interact_step`、`env_evaluate_step`、`evaluate` 固定次数循环。
 - [Embodied FSDP Actor](https://github.com/RLinf/RLinf/blob/c70606f08cdca259b8dec03d4430926b5b8fac9d/rlinf/workers/actor/embodied_fsdp_actor_worker.py)：`_process_received_rollout_batch` 的 loss_mask、官方 GAE 输入、`run_training` 的 batch/epoch/microbatch/update 顺序。
 
-代码定位来自固定上游与当前隔离适配源码核对；独立评估入口代码已准备但GPU未验收，文中pair seed hook、trial allowlist、正式learning入口仍是待实施项，不能作为已有通过结果。
+代码定位来自固定上游与当前隔离适配源码核对；独立评估入口十任务GPU pilot已验收，完整500-state基线尚未执行，文中pair seed hook、trial allowlist、正式learning入口仍是待实施项，不能作为已有通过结果。

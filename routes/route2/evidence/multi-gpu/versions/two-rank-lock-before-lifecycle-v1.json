@@ -30,11 +30,7 @@
       "sha256": "dbe3bd240e6b89e8ee6fefc5f72cb1ea3ef19b89952efdbc55c3f81b5f58c13b"
     }
   ],
-  "status": "Full two-rank Actor DCP exact recovery; official Runner 3x2x80 and chunk5 2x2x240; ten-task initial policy pilot; Runner checkpoint/fresh-process 22 exact restore checks, fresh PPO continuation and final version2 full-state sync passed; no embodied learning/full-suite claim",
+  "status": "Full two-rank DCP recovery/continuation exact; official Runner 3 x 2 x 80 and chunk5 2 x 2 x 240 passed; 192 chunk samples / 960 valid simulator action slots, truncation/reset and versions0/1 full-state sync; ten-task pilot running; Runner lifecycle pending",
   "scope": "explicit Torch 2.2 FSDP1 / 1D mesh; single-Rollout CPU weight transport; optional Runner Ray CPU data channels",
-  "tested_runner_evidence": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.json",
-  "runner_lifecycle_evidence": [
-    "routes/route2/evidence/multi-gpu/official-runner-save-v1.json",
-    "routes/route2/evidence/multi-gpu/official-runner-resume-v1.json"
-  ]
+  "tested_runner_evidence": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.json"
 }
