@@ -255,6 +255,6 @@ git -C worktrees/rlinf-official-actor-restored apply \
   "$PWD/routes/route2/patches/two-rank-fsdp-compat.patch"
 ```
 
-[增量源码锁](routes/route2/model_probes/two-rank-source-lock.json)记录补丁与生产文件哈希。`torch22_state_dict_backend=sharded_tensor`使用相同一维process group；`actor_state_mode=full_cpu_rank0`由全部Actor rank汇聚CPU完整字典，只有rank0向单个Rollout发送。均需明确配置。初始同步已通过907项完整状态及固定输出精确对照；fresh更新后的同步正在验收。Runner可显式设置 `runner.data_channel_transport=ray`，三条数据通道保留官方collector/dispatcher，完整Runner仍待GPU验收。
+[增量源码锁](routes/route2/model_probes/two-rank-source-lock.json)记录补丁与生产文件哈希。`torch22_state_dict_backend=sharded_tensor`使用相同一维process group；`actor_state_mode=full_cpu_rank0`由全部Actor rank汇聚CPU完整字典，只有rank0向单个Rollout发送。均需明确配置。初始同步已通过907项完整状态及固定输出精确对照；fresh8步双卡官方PPO与更新后的版本1同步亦已通过。Runner可显式设置 `runner.data_channel_transport=ray`，三条数据通道保留官方collector/dispatcher，完整官方Runner两轮闭环已通过；更长轨迹稳定性仍在验收。
 
-`musa_fsdp_optim_device.apply()`只在实验进程中处理Torch2.2优化器汇聚的设备调用，以及空CPU/MUSA ShardedTensor的device/is_meta/to；不编辑系统安装包。[small DCP结果](routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json)证明小模型两rank新对象保存/恢复/下一步exact；完整GR00T另有[新进程恢复结果](routes/route2/evidence/multi-gpu/fsdp-official-actor-recovery-v1.json)，模型/active Adam/scheduler/RNG/计数/版本及同批下一次更新通过精确对照。`official_runner_probe.py`为下一阶段准备入口，实际完成范围以两卡报告为准。
+`musa_fsdp_optim_device.apply()`只在实验进程中处理Torch2.2优化器汇聚的设备调用，以及空CPU/MUSA ShardedTensor的device/is_meta/to；不编辑系统安装包。[small DCP结果](routes/route2/evidence/multi-gpu/small-two-rank-dcp-v3.rank0.json)证明小模型两rank新对象保存/恢复/下一步exact；完整GR00T另有[新进程恢复结果](routes/route2/evidence/multi-gpu/fsdp-official-actor-recovery-v1.json)，模型/active Adam/scheduler/RNG/计数/版本及同批下一次更新通过精确对照。`official_runner_probe.py`已通过官方Runner两轮on-policy闭环，支持 `--iterations` / `--steps-per-env`；实际完成范围以两卡报告为准。

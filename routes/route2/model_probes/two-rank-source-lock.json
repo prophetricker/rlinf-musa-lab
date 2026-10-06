@@ -3,7 +3,7 @@
   "base_source_lock": "official-actor-source-lock.json",
   "apply_after": "routes/route2/patches/official-actor-combined.patch",
   "patch": "routes/route2/patches/two-rank-fsdp-compat.patch",
-  "patch_sha256": "7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c",
+  "patch_sha256": "5da7ecf0ce3965cd154bdc1ffcf3e3816352772f85115040fe2a5658294d21f0",
   "production_files": [
     {
       "path": "rlinf/hybrid_engines/fsdp/strategy/fsdp.py",
@@ -20,8 +20,17 @@
     {
       "path": "rlinf/runners/embodied_runner.py",
       "sha256": "28069b36f69184f9ee4899567f3ca2b2f4f3acb73d1f2e032632e626fe43a9c3"
+    },
+    {
+      "path": "rlinf/scheduler/hardware/accelerators/musa_gpu.py",
+      "sha256": "63b76493ce2de2532f8c31e99109cb69bfcadad4e32ab64745ad1d6b641188b2"
+    },
+    {
+      "path": "rlinf/scheduler/worker/worker.py",
+      "sha256": "dbe3bd240e6b89e8ee6fefc5f72cb1ea3ef19b89952efdbc55c3f81b5f58c13b"
     }
   ],
-  "status": "Full GR00T two-rank DCP fresh-process restoration and exact continuation passed; initial full_cpu_rank0 Actor/Rollout synchronization passed; fresh update synchronization and official Runner pending",
-  "scope": "explicit Torch 2.2 FSDP1 / 1D mesh; single-Rollout CPU weight transport; optional Runner Ray CPU data channels"
+  "status": "Full two-rank DCP fresh-process restoration/continuation exact; fresh LIBERO official PPO version0/1 full state/fixed output sync; real official Runner two on-policy iterations (16 transitions, two updates/rank) passed; longer stability pending",
+  "scope": "explicit Torch 2.2 FSDP1 / 1D mesh; single-Rollout CPU weight transport; optional Runner Ray CPU data channels",
+  "tested_runner_evidence": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v4.json"
 }

@@ -1,0 +1,24 @@
+Exception occurred while running AuditActor's function recv_rollout_trajectories: exception is ray::AuditActor.recv_rollout_trajectories() (pid=93479, ip=172.17.0.2, actor_id=17ab28cfca307740413b9d1701000000, repr=ActorGroup(rank=0))
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 92, in async_func
+    return await func(*args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/official_runner_probe.py", line 193, in recv_rollout_trajectories
+    "finite_policy_statistics": all(bool(torch.isfinite(batch[key]).all())
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/official_runner_probe.py", line 193, in <genexpr>
+    "finite_policy_statistics": all(bool(torch.isfinite(batch[key]).all())
+KeyError: 'actions'
+(RolloutGroup(rank=0) pid=93483) 
+Generating Rollout Epochs: 100%|██████████| 1/1 [00:14<00:00, 14.66s/it]
+Generating Rollout Epochs: 100%|██████████| 1/1 [00:14<00:00, 14.66s/it]
+Exception occurred while running AuditRollout's function generate: exception is The actor died unexpectedly before finishing this task.
+	class_name: main.<locals>.AuditRollout
+	actor_id: daeb031dc0ca9c343c2bdf9d01000000
+	pid: 93483
+	name: RolloutGroup:0
+	namespace: RLinf
+	ip: 172.17.0.2
+The actor is dead because it was killed by `ray.kill`.
+Exiting main process due to a failure upon worker execution.

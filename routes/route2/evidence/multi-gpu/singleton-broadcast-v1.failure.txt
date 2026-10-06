@@ -1,0 +1,11 @@
+Exception occurred while running ProbeWorker's function probe: exception is ray::ProbeWorker.probe() (pid=101687, ip=172.17.0.2, actor_id=781e0d320e65e5b3251a821601000000, repr=SingletonBroadcastProbe(rank=0))
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 92, in async_func
+    return await func(*args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/model_probes/singleton_broadcast_probe.py", line 58, in probe
+    raise AssertionError("probe must use a single CPU Worker")
+AssertionError: probe must use a single CPU Worker
+Exiting main process due to a failure upon worker execution.

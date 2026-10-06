@@ -48,3 +48,10 @@
 最终研究提交 `fed34e0c111a0de6b65a1a6dd2792a52e7683070` 已导出并推送为成果仓库 [`72ce62830fbb676ed79120b3f738cf696208d3b2`](https://github.com/prophetricker/rlinf-musa-lab/commit/72ce62830fbb676ed79120b3f738cf696208d3b2)。导出核验309个文件、65个Python AST、5个Bash语法和150个相对Markdown链接通过；`git ls-remote origin refs/heads/main` 与本地成果仓库HEAD一致，成果仓库干净。该段是推送后的本地移交记录，不修改已发布导出的来源manifest。
 
 推送后SSH只读检查确认实例仍运行，驱动2.7.0，S4000显存4 MiB且无GPU进程；未关机或重启。下一阶段按 `routes/route2/planning/multi-gpu-entry.md` 验收同节点两卡通信、独立Actor/Rollout部署与真正分片；本节点没有验证完整Runner、多rank或PPO学习收益。
+
+
+## 两卡分片恢复与初始同步节点（2026-10-07）
+
+研究提交 `37941bacbe4a269f86ff4396dc63604b7c549634` 已导出为成果仓库 [`97962fadac536b51b1fe33f18a1645f04b1ff718`](https://github.com/prophetricker/rlinf-musa-lab/commit/97962fadac536b51b1fe33f18a1645f04b1ff718)，正常push后已核对远端main。该发布节点包含两rank完整GR00T FULL_SHARD官方PPO fixture更新、完整DCP保存/新driver与Worker恢复/同批下一步精确一致，以及版本0的907项完整Actor/Rollout状态与固定输出精确一致。导出388个文件、94个Python AST、5个Bash语法、216个相对链接通过。源commit与哈希见EXPORT_MANIFEST。
+
+随后独立fresh8步LIBERO双卡官方PPO及版本0/1同步也已通过；完整Runner仍在后续节点验收。这段后续记录不扩大前述发布提交的实验范围。当前研究盘100GiB，保留约15.08GiB的两rank checkpoint；重启实例后实际PCI总线为12:00.0/13:00.0。宿主驱动、Toolkit及默认Python未修改，实例保持运行。

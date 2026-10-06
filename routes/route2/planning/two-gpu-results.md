@@ -1,6 +1,6 @@
 # 两张 S4000：本轮验证记录
 
-日期：2026-10-07。暂停后的续跑已通过两卡小张量通信、小模型 FULL_SHARD 更新、Actor 卡 0 / Rollout 卡 1 的真实 LIBERO 轨迹更新与同步，以及 **GR00T 两 rank FULL_SHARD 的真实参数更新、DCP保存和新driver/Worker恢复续跑**。v15 使用显式 MUSA `torch.norm` 兼容路径，两个 rank 的非空 Adam 状态均从 step 0 更新至 1，梯度范数均为 `816.5087890625`，参数和优化器状态哈希均变化。checkpoint-v4保存完整分片训练状态并完成未中断的第二次更新；recovery-v1恢复后每rank的11项状态检查和下一次更新的11项对照均通过，训练metrics精确一致。分片Actor→单Rollout的初始版本0同步也已通过。这些结果使用既有轨迹 fixture，尚不证明 on-policy 学习。后续验证fresh轨迹更新后的版本1同步与完整 Runner。
+日期：2026-10-07。**完整官方Runner两轮闭环已通过**：Runner-v4用官方collector/dispatcher采集并分发2环境×4步×2轮，共16个环境transition；两个FULL_SHARD Actor各完成两次官方GAE/PPO更新，非空Adam step到2，版本0/1同步的907项状态与Rollout精确一致。此前完整GR00T DCP保存、新driver/Worker恢复及下一次更新对照也已通过，每rank恢复与续跑各11项检查精确一致。v15和检查点对照使用既有fixture；train-sync-v1是手工新轨迹更新验证；Runner-v4则实际运行`EmbodiedRunner.run()`。当前仍为`lr=1e-8`，奖励为0，结果证明固定配置功能闭环，尚不证明任务学习。Runner-v5已启动3轮、每环境80步的较长稳定性验证，尚未计为通过。
 
 ## 环境、源码与证据范围
 
@@ -14,7 +14,7 @@
 
 source lock 是既有基线。当前两卡实验的具体探针哈希、配置与逐文件源码指纹，以各次结果 JSON 为准；不能把基线 commit 当作所有后续实验修改的完整记录。v12 探针已冻结为 [update-v12-probe.py](../evidence/multi-gpu/versions/update-v12-probe.py)，SHA256 为 `4c62cdd91f6e2e73b93e74ea57d27e5a6c2d478c867d4590ff17c83f8464e282`。
 
-## 已通过的六个层次
+## 已通过的七个层次
 
 | 层次 | 实测结果 | 能证明的范围 |
 |---|---|---|
@@ -23,7 +23,8 @@ source lock 是既有基线。当前两卡实验的具体探针哈希、配置�
 | Actor / Rollout 分卡 | Actor 卡 0、Rollout 卡 1，各组 world size 1；真实 8 步 LIBERO → 官方 GAE/PPO，版本 0/1 同步后全部 907 个状态哈希一致 | 两组分开部署、CPU/Ray Bucket 传输、官方单 rank Actor 更新与跨卡同步 |
 | GR00T 两 rank FULL_SHARD | v15 两 rank 各用四个独立时间样本完成一次官方 PPO 更新；非空 Adam step `0→1`，梯度范数一致，参数与优化器哈希变化 | 默认同步初始化、完整轨迹 GAE、分片前后向、梯度归约/裁剪及真实 AdamW 更新；输入是既有轨迹 fixture |
 | GR00T 分片DCP保存与恢复 | checkpoint-v4两rank保存版本1；recovery-v1新进程恢复和下一次更新每rank各11项对照通过，metrics精确一致，非空Adam step与Actor版本均`1→2` | 固定两rank拓扑、同一fixture下完整GR00T训练状态恢复与续跑等价；不覆盖world size变化 |
-| 分片Actor→单Rollout初始同步 | sync-v1版本0重建的907项状态与Rollout的哈希/shape/dtype全等；322项selected覆盖；两个Actor的固定输出均与Rollout精确一致 | 两rank共同重建、rank0 CPU传输、单Rollout加载与初始策略一致；尚不覆盖训练后版本1同步 |
+| 分片Actor→单Rollout更新与同步 | sync-v1通过版本0；train-sync-v1新采集8步后更新并同步版本1，两个版本各907项状态与固定输出全等，316项完整状态变化均在322项selected中 | 新轨迹、官方GAE/PPO、两rank更新及训练后策略一致；手工time分样本，尚不覆盖Runner collector |
+| 官方Runner两轮闭环 | runner-v4官方collector/dispatcher共16 transitions，每rank两次GAE/PPO；Adam step 2；版本0/1各907项完整状态同步一致 | 固定2环境×4步×2轮、CPU/Ray通道、MUSA FULL_SHARD闭环；末次更新未再同步，较长稳定性与学习仍待验证 |
 
 torchrun 数值检查包括 broadcast `[17, 23]`、SUM `[3, 6]`、all-gather `[[0, 10], [1, 11]]`、接收 `[31, 37]`。证据：[rank 0](../evidence/multi-gpu/mccl-multirank-v1.rank0.json)、[rank 1](../evidence/multi-gpu/mccl-multirank-v1.rank1.json)。这两次 JSON 记录的各操作耗时合计为 0.810670 / 0.812276 秒，仅是小张量功能探针。
 
@@ -39,9 +40,91 @@ torchrun 数值检查包括 broadcast `[17, 23]`、SUM `[3, 6]`、all-gather `[[
 
 [official-two-rank-sync-v1](../evidence/multi-gpu/official-two-rank-sync-v1.json)为pass，`phase=sync`，布局为两rank FULL_SHARD Actor占卡0/1，单Rollout占卡1并按阶段offload。显式`actor_state_mode=full_cpu_rank0`让两个Actor参与完整状态重建，rank0持有907项CPU参数/buffer manifest并传输；rank1按`rank0_only`返回空manifest，这不是缺少其分片参与。rank0 manifest与Rollout的907项SHA256、shape、dtype及版本0完全一致；322项selected名称在完整状态中全部覆盖。
 
-两个Actor rank与单Rollout分别对同一固定输入重算`logprobs / prev_logprobs / values`，六组比较均`torch.equal=True`、最大差值0。输入来自既有版本3轨迹fixture，只用于固定输入重算；没有在此phase采集fresh轨迹或训练，旧轨迹存储的logprob也不应当作当前版本0的on-policy分数。探针总耗时160.932334秒，含初始化、重建、哈希及输出审计，不是单次权重传输吞吐。训练后版本1同步和官方Runner尚待验收。
+两个Actor rank与单Rollout分别对同一固定输入重算`logprobs / prev_logprobs / values`，六组比较均`torch.equal=True`、最大差值0。输入来自既有版本3轨迹fixture，只用于固定输入重算；没有在此phase采集fresh轨迹或训练，旧轨迹存储的logprob也不应当作当前版本0的on-policy分数。探针总耗时160.932334秒，含初始化、重建、哈希及输出审计，不是单次权重传输吞吐。训练后版本1由下面的独立train-phase验证。
 
-已执行的[two_rank_rollout_probe.py](../model_probes/two_rank_rollout_probe.py)SHA256为`a7bd554b45bf145c3a9a84b9f3479d3a25c044ce2b59c16ff627f9cb37c1ec93`；四份support文件指纹见结果JSON。该记录的三处生产源码指纹与[冻结v1锁](../evidence/multi-gpu/versions/two-rank-lock-v1.json)完全一致，对应[冻结v1增量补丁](../evidence/multi-gpu/versions/two-rank-compat-v1.patch)SHA256为`19a90ef713a8508facb14bccd02e5527d585d9729e2d19a5edd5e6382199171d`。冻结锁的status是当时状态，不代表最新验收。协调者后续新增了Runner的显式Ray数据通道选项；该新增路径只有CPU重建检查，不能将当前增量补丁整体称为已通过GPU验证。
+已执行的[two_rank_rollout_probe.py](../model_probes/two_rank_rollout_probe.py)SHA256为`a7bd554b45bf145c3a9a84b9f3479d3a25c044ce2b59c16ff627f9cb37c1ec93`；四份support文件指纹见结果JSON。该记录的三处生产源码指纹与[冻结v1锁](../evidence/multi-gpu/versions/two-rank-lock-v1.json)完全一致，对应[冻结v1增量补丁](../evidence/multi-gpu/versions/two-rank-compat-v1.patch)SHA256为`19a90ef713a8508facb14bccd02e5527d585d9729e2d19a5edd5e6382199171d`。冻结锁的status是当时状态，不代表最新验收。协调者后续新增了Runner的显式Ray数据通道选项与初始化适配；它们已在下面Runner-v4的固定配置中执行，历史失败和较长验证边界分别记录。
+
+## 新 LIBERO 轨迹 → 双rank PPO → 版本1同步
+
+[official-two-rank-train-sync-v1](../evidence/multi-gpu/official-two-rank-train-sync-v1.json)为pass，`phase=train`，与sync-only使用相同配置、探针、support及源码指纹。版本0同步后，单Rollout用当前权重在LIBERO-Spatial任务0、trial 0新采集8步，并额外计算末端bootstrap value；任务为把盘子与小碗之间的黑碗放到盘子上。8步reward均为0，termination/truncation均为false，数据版本全部为0。新轨迹文件SHA256为`684052bacad36c9741cf779fee2d920fc1f486acc73acac94177f0ec0e774a67`，批数据树SHA256为`eff5a2fdff9f8e559250f47963a931210af5961e4a98d482f95600fe4e509e0c`；文件保存在远端研究盘。
+
+两个Actor各对完整的1环境×8步轨迹执行官方GAE与优势归一化，完整GAE哈希均为`c2a87c89ecd00d16ae387c0d1b161cc10d3ff099f61d6ae38bc269eb941effda`，再手工沿time轴分给rank0的0–3和rank1的4–7；全局恰有8个唯一样本。随后调用继承的官方`run_training()`，每rank四个micro batch、一次AdamW更新。该探针直接编排env/rollout/actor调用，未走官方Runner collector/dispatcher；后述Runner-v4使用2环境×4步、沿环境batch维分发，每rank对自己的完整环境轨迹计算GAE和优势归一化。因此两者的轨迹边界、优势归一化范围与数据分发不同，不能用此结果代替Runner或要求其梯度数值相同。
+
+| 新轨迹更新验收项 | rank 0 | rank 1 |
+|---|---|---|
+| 七项更新检查 | 7/7通过 | 7/7通过 |
+| trainable分片 / optimizer哈希 | 均变化 | 均变化 |
+| 非空Adam step / manager更新计数 | `0→1` / `0→1` | `0→1` / `0→1` |
+| 裁剪前全局梯度范数 | 1029.08984375 | 1029.08984375 |
+| 新数据训练ratio / approx KL | `1.0` / `0.0` | `1.0` / `0.0` |
+| 模型、优化器、metrics有限 | 全通过 | 全通过 |
+
+更新后显式设置Actor版本1，再执行完整CPU状态重建与Bucket同步。版本0和1分别核对907项状态的SHA256/shape/dtype与版本一致；每个版本的两个Actor对Rollout各有三项固定输出比较，共12组`torch.equal=True`、最大差值0。版本0→1共有316项完整状态变化，全部属于322项selected集合，没有遗漏已变化状态。此处用于输出对照的fixture仍是既有版本3数据，重新计算当前权重输出；用于PPO训练的是另行新采集的版本0轨迹。
+
+版本1审计结束时记录的内存如下，单位GiB；GPU值为各Worker allocator的累计peak，宿主内存为各进程的VmHWM/VmRSS：
+
+| Worker | GPU peak allocated / reserved | 宿主VmHWM / VmRSS |
+|---|---|---|
+| Actor rank 0 | 23.461606 / 27.613281 | 16.635368 / 12.609390 |
+| Actor rank 1 | 23.454576 / 27.615234 | 12.456734 / 6.495949 |
+| Rollout | 8.373157 / 8.476562 | 12.763046 / 11.250744 |
+
+各Worker峰值发生于不同阶段，Rollout训练时offload，不能相加作为物理卡瞬时峰值；Runner双环境推理的实测另见后述v4。完整探针耗时317.541772秒，包括初始化、新轨迹采集、GAE、更新、两次同步与审计，不是纯训练或rollout吞吐。学习率仍为`1e-8`，8步没有任务成功或非零reward；此结果验证新数据更新和策略同步，不证明任务学习、长时间稳定性或benchmark收益。
+
+## 官方 Runner：两轮闭环与失败历史
+
+Runner-v4已通过官方`EmbodiedRunner.run()`、`TrajectoryCollector`和`least_loaded` dispatcher，不手工切time样本。实际配置为2环境×4步、全局batch 8、每rank micro batch 1、update epoch 1、两次Runner迭代；Actor占卡0/1，单Rollout占卡1，Env占卡0。显式`runner.data_channel_transport=ray`将env/rollout/actor数据通道设为CPU/Ray传输，保留collector与dispatcher；默认通道选项仍为collective。FSDP模型的all-gather/梯度归约仍用MUSA/MCCL，Ray隔离作业仍设`MCCL_P2P_DISABLE=1`并保留SHM。成功的固定配置不代表默认scheduler多成员collective、原生GPU权重传输或P2P吞吐已通过。
+
+[official-two-rank-runner-v4](../evidence/multi-gpu/official-two-rank-runner-v4.json)为pass，耗时451.578820秒，包含初始化、官方采样/GAE/PPO、两次完整权重同步与哈希审计，不是纯训练吞吐。每轮两个Actor各收到一条4步完整环境轨迹，policy字段首两维`T=4,B=1`，value与done边界为`T=5,B=1`，保留末端bootstrap；两rank每轮的`forward_inputs + prev_logprobs`哈希不同。数据版本依次为0/1，每rank各执行两次官方GAE/PPO；实际收到的环境transitions是`8+8=16`，不按denoise链或logprob内部维度重复计数。两个LIBERO实例均为task 0、trial 0；不是多任务验证。
+
+| Runner更新验收 | 第0轮，两个rank | 第1轮，两个rank |
+|---|---|---|
+| 数据接收六项检查 / GAE有限 / PPO七项检查 | 全通过 | 全通过 |
+| 新数据版本 / 每rank环境transitions | 0 / 4 | 1 / 4 |
+| manager更新计数 / 非空Adam step | `0→1` / `0→1` | `1→2` / `1→2` |
+| 裁剪前全局梯度范数 | 1958.786376953125 | 961.2060546875 |
+| 训练ratio / approx KL | 0.9999979138374329 / 2.0712614059448242e-6 | 0.9999992251396179 / 7.37607479095459e-7 |
+| 本地trainable/optimizer哈希变化，状态有限 | 全通过 | 全通过 |
+
+版本0/1各有9项同步检查通过：两个Actor共同重建、rank0持有907项完整状态，322项selected唯一且覆盖；与Rollout的全状态SHA256/shape/dtype及版本精确一致。每轮7项综合检查及最后7项检查也全部通过。[Actor rank0 events](../evidence/multi-gpu/official-two-rank-runner-v4.actor.rank0.events.jsonl)与[rank1 events](../evidence/multi-gpu/official-two-rank-runner-v4.actor.rank1.events.jsonl)记录receive→GAE→training enter/complete两轮边界。Runner此处验收完整manifest同步，固定输入三项输出精确相等的验收来自前面的train-sync-v1，不混为本轮新增证据。
+
+末态为Runner `global_step=2`，两个Actor `optimizer_steps=2`、非空Adam step为2，Actor和Rollout的版本字段仍为1。Rollout持有第一次PPO更新后的权重，用于采集第1轮；Actor已完成第二次PPO更新。Runner按迭代开始时同步，此次没有追加最终同步，不能把末态版本字段同为1解释成第二次更新后的完整权重仍一致，也不能声称版本2已同步。
+
+| Runner-v4进程 | GPU peak allocated / reserved，GiB | 进程RSS高水位，GiB |
+|---|---|---|
+| Actor rank 0 | 23.456852 / 26.353516 | 15.989670 |
+| Actor rank 1 | 23.453743 / 26.062500 | 12.458157 |
+| Rollout | 8.380953 / 8.513672 | 12.461044 |
+| Env Worker | 未记GPU值 | 0.582851 |
+| Driver | 未记GPU值 | 0.499020 |
+
+GPU值为每Worker allocator峰值，不能相加为物理卡瞬时峰值；宿主RSS不包含LIBERO simulator子进程及Ray共享object storage。Rollout最终已offload，记录allocated为0，reserved约0.001953 GiB。这证明本次双环境4步配置能完成两轮，尚不能推导80步或更大batch的显存/内存余量。全部16个reward为0，dones/terminations/truncations计数为0，loss mask全有效；学习率仍为`1e-8`，未证明任务成功、学习收益或benchmark性能。
+
+[冻结Runner-v4探针](../evidence/multi-gpu/versions/official-runner-v4-probe.py)SHA256为`8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc`。本轮六份生产源码指纹逐项与[当前源码锁](../model_probes/two-rank-source-lock.json)核对一致，增量补丁SHA256仍为`5da7ecf0ce3965cd154bdc1ffcf3e3816352772f85115040fe2a5658294d21f0`；support指纹与配置以结果JSON为准。Runner-v5已用同一探针和六文件生产源码启动`--iterations 3 --steps-per-env 80`，正在做更长稳定性验证，尚未计为通过。
+
+成功前的v1/v2都在`official_runner_init_workers`阶段失败，结果中的`synchronizations`为空；v3已通过初始化和版本0同步，再在Actor审计代码失败。这三轮均未完成Runner的GAE/PPO训练验收：
+
+| Runner尝试 | 失败节点 | 原始记录 |
+|---|---|---|
+| v1 | Env初始化调用单成员`Worker.broadcast()`，到`CollectiveGroup.broadcast()`时查询`Worker.torch_platform.is_initialized()`；Torch-MUSA 1.3顶层未导出该函数，报`AttributeError` | [partial](../evidence/multi-gpu/official-two-rank-runner-v1.partial.json)、[failure](../evidence/multi-gpu/official-two-rank-runner-v1.failure.txt) |
+| v2 | 增加真实初始化查询alias后越过该节点，单成员broadcast仍创建process group；Torch 2.2的`distributed_c10d`缺少scheduler所导入的`_register_process_group`，报`ImportError` | [partial](../evidence/multi-gpu/official-two-rank-runner-v2.partial.json)、[failure](../evidence/multi-gpu/official-two-rank-runner-v2.failure.txt) |
+| v3 | 全部Worker初始化、Runner版本0同步与官方collector/dispatcher到Actor的数据接收已执行；`AuditActor.recv_rollout_trajectories()`错误要求`batch['actions']`，报`KeyError`，属于探针契约错误 | [partial](../evidence/multi-gpu/official-two-rank-runner-v3.partial.json)、[failure](../evidence/multi-gpu/official-two-rank-runner-v3.failure.txt) |
+
+v1–v3探针SHA256均为`d9ed6ebffd951f5f9d892919e8d51289f07ffb4015a87c960d41359d0f9db06d`，配置及源码指纹以各partial JSON为准。Rollout随后被`ray.kill`的日志是失败清理，不能算作另一个显存或模型kernel故障。v1/v2揭示Runner初始化和scheduler对旧版软件接口的兼容问题；v3则是审计探针错误。这些失败没有推翻之前的双rank官方PPO更新、checkpoint恢复与权重同步验收。
+
+v3的Runner初始同步记录包含9项检查，全部为true：两Actor参与、完整状态907项、selected 322项且唯一并覆盖、全状态SHA256/shape/dtype一致、Actor/Rollout版本均为0、非leader空manifest规则及两rank selected名称一致。原始manifest复核也一致。官方`recv_rollout_trajectories()`已返回，随后审计subclass读取`actions`才失败；这支持collector/dispatcher到Actor的数据链路已到达，尚没有完成该批数据的GAE、PPO或第二次Runner迭代。
+
+官方Rollout传给Actor的`PolicyOutput`只含`prev_logprobs / prev_values / forward_inputs / versions`，动作另外发给Env；训练包会由collector加入reward和边界等字段，顶层`actions`不属于本路径的数据契约。新版[official_runner_probe.py](../model_probes/official_runner_probe.py)改为检查实际policy metadata有限性、递归检查`forward_inputs`中的张量，并对`forward_inputs + prev_logprobs`计算policy数据哈希，同时记录顶层keys和`actions_field_present`。修正已在v4通过；新探针与失败v3脚本不同，旧轮次按其原始哈希追溯。
+
+当前`MUSAGPUManager.get_torch_platform()`仅在缺少顶层`is_initialized`时，alias到已有的`torch_musa.core._lazy_init.is_initialized`真实查询函数。[musa-initialized-alias-v1](../evidence/multi-gpu/musa-initialized-alias-v1.json)验证函数身份相同，分配MUSA张量前返回false、分配后返回true，张量值为1；顶层导入的`_initialized`拷贝boolean却始终为false，不能拿它判断设备初始化状态。真实查询函数SHA256为`633e2b62675d5001065e230d400aebd029c636f0aa8c4aec4575ba11f9bac8da`。
+
+当前`Worker.broadcast()`保留已有groups与本worker成员检查，再核对src属于group；对只含本worker的单成员广播直接返回原对象，不创建通信组。`async_op=True`使用原`AsyncFuncWork`封装已完成结果，保留调用方的异步接口。此改动避免本次Env单成员广播无须使用的process-group私有API；尚未证明所有多成员scheduler collective与Torch 2.2兼容。
+
+新增Ray通道后的四文件版本已冻结为[v2补丁](../evidence/multi-gpu/versions/two-rank-compat-v2.patch)与[v2锁](../evidence/multi-gpu/versions/two-rank-lock-v2.json)，补丁SHA256为`7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c`。含初始化query alias和单成员broadcast适配的[当前六文件补丁](../patches/two-rank-fsdp-compat.patch)SHA256为`5da7ecf0ce3965cd154bdc1ffcf3e3816352772f85115040fe2a5658294d21f0`；[源码锁](../model_probes/two-rank-source-lock.json)记录六文件指纹，[重建v3](../evidence/multi-gpu/two-rank-patch-reconstruction-v3.json)确认在适配基线`82505b27d4d27f8e9af1d7e52524d524dc0f0d50`上叠加既有combined补丁后6/6文件重建精确一致。重建是CPU源码可复现检查；真实执行覆盖由Runner-v4的固定配置提供，独立API验证范围如下。
+
+[singleton-broadcast-v2](../evidence/multi-gpu/singleton-broadcast-v2.json)与[rank0明细](../evidence/multi-gpu/singleton-broadcast-v2.rank0.json)均为pass，48个case全部通过：同步bool/None/object/CPU张量及容器、默认/显式src、整数rank group、异步wait/async_wait/then，以及非法groups/self/src的sync/async错误检查。真实NodePlacement Worker为单rank、`has_accelerator=True`，可见MUSA卡，但payload只用CPU；MUSA runtime query和default process group前后均为false。单成员case共0次通信组创建请求；两地址control恰好触发1次guarded创建请求，证明多成员仍进入原路径，但guard阻止真正建组，因此不证明多rank或GPU通信。探针总耗时17.358628秒，SHA256为`bab745a8553e813be10188fcca1381ce9b4d7b27ce96abb7d11fe53298a8981e`。
+
+该API探针的[v1失败](../evidence/multi-gpu/singleton-broadcast-v1.failure.txt)是脚本错误要求NodePlacement Worker必须无GPU，在case执行前断言退出；不是框架broadcast失败。[原v1脚本](../evidence/multi-gpu/versions/singleton-broadcast-v1-probe.py)冻结保留；修正后的[singleton_broadcast_probe.py](../model_probes/singleton_broadcast_probe.py)与v2结果哈希一致。
 
 ## Ray 隔离设备下的通信问题与已验证配置
 
@@ -156,7 +239,7 @@ FSDP标准恢复实际删除了warmup预建的空本地分片Adam状态：
 
 因此全部optimizer状态的原始哈希和条目数不同；非空Adam状态与参数组的active哈希在恢复及续跑两个边界均完全一致。此差异已记录，没有补造空状态来强求原始哈希相同。
 
-默认Torch包、默认Python环境、`/usr/local/musa`和宿主驱动均未修改。**完整GR00T两rank DCP保存、新driver/Worker恢复，以及下一次更新与未中断分支的等价性已通过**。范围限于相同两rank拓扑、既有8步fixture、冻结BF16 Eagle与FP32 action/value head；没有验证world size变化、新on-policy轨迹、长期稳定性或任务学习。分片Actor→单Rollout的版本0同步另已通过，后续仍需fresh轨迹更新后的版本1同步，以及官方Runner的新轨迹闭环。
+默认Torch包、默认Python环境、`/usr/local/musa`和宿主驱动均未修改。**完整GR00T两rank DCP保存、新driver/Worker恢复，以及下一次更新与未中断分支的等价性已通过**。检查点对照范围限于相同两rank拓扑、既有8步fixture、冻结BF16 Eagle与FP32 action/value head；没有验证world size变化、长期稳定性或任务学习。分片Actor→单Rollout的版本0/1同步、新轨迹官方PPO更新及官方Runner两轮闭环已分别通过；较长稳定性与学习评估仍需继续。
 
 ## 复现配置与命令
 
@@ -288,4 +371,40 @@ env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
   --output "$lab_result_dir/two-rank-sync.json"
 ```
 
-以上train/recover与已通过的保存和新进程恢复使用同一探针及兼容选项。小探针、分卡单rank更新、大模型分片PPO更新、完整DCP保存与恢复续跑、分片Actor→Rollout版本0同步已分别通过。后续仍需fresh轨迹训练及版本1同步、完整官方Runner的新on-policy闭环，以及独立多任务/多seed学习评估。进入顺序见[多卡计划](multi-gpu-entry.md)。
+同一探针的独立train-phase入口，fixture仅用于固定输入输出对照，训练轨迹由当前版本0策略新采集。源码与support指纹使用train-sync-v1记录；新轨迹与结果路径必须不存在：
+
+```bash
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/route2/model_probes/two_rank_rollout_probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --fixture "$lab_root/route2/results/official-actor-continuation-v1.pt" \
+  --trajectory-output "$lab_result_dir/two-rank-fresh.pt" \
+  --phase train --diagnostic --norm-mode legacy \
+  --output "$lab_result_dir/two-rank-train-sync.json"
+```
+
+官方Runner-v4实际参数对应的复现入口。先将冻结的`versions/official-runner-v4-probe.py`部署到`route2/model_probes/official_runner_probe.py`，保留结果JSON中五份support文件的准确版本，生产源码使用已核对的六文件补丁；输出使用新的repro路径：
+
+```bash
+env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
+  MCCL_P2P_DISABLE=1 MCCL_DEBUG=WARN \
+  "$lab_python" "$lab_root/route2/model_probes/official_runner_probe.py" \
+  --rlinf-source "$lab_root/route2/RLinf-official-actor" \
+  --gr00t-source "$lab_root/route2/Isaac-GR00T-official-actor" \
+  --model-path "$lab_root/route2/weights/Spatial-73f710e" \
+  --iterations 2 --steps-per-env 4 --diagnostic \
+  --output "$lab_result_dir/two-rank-runner-v4.json"
+```
+
+独立单成员broadcast API的CPU payload验证入口，使用singleton-v2记录的脚本哈希；Worker仍处于真实GPU可见NodePlacement环境，命令不进行分布式/GPU通信：
+
+```bash
+"$lab_python" "$lab_root/route2/model_probes/singleton_broadcast_probe.py" \
+  --source "$lab_root/route2/RLinf-official-actor" \
+  --output "$lab_result_dir/singleton-broadcast-v2.json"
+```
+
+小探针、分卡单rank更新、大模型分片PPO更新、完整DCP保存与恢复续跑、分片Actor→Rollout版本0/1同步、新轨迹更新及官方Runner两轮闭环已分别通过。下一步是已启动的Runner-v5较长稳定性检查，随后仍需独立多任务/多seed学习评估。进入顺序见[多卡计划](multi-gpu-entry.md)。

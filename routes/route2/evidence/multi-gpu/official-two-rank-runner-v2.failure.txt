@@ -1,0 +1,37 @@
+Exception occurred while running AuditEnv's function init_worker: exception is ray::AuditEnv.init_worker() (pid=88698, ip=172.17.0.2, actor_id=ca6d565206f827ffd56e40ca01000000, repr=EnvGroup(rank=0))
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 82, in sync_func
+    return func(*args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/workers/env/env_worker.py", line 212, in init_worker
+    self.broadcast(
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 82, in sync_func
+    return func(*args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 800, in broadcast
+    return group.broadcast(
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/collective_group.py", line 704, in broadcast
+    broadcast_work(None)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/async_work.py", line 118, in __call__
+    self._result = self._func(self, *self._args, **self._kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/collective_group.py", line 720, in _atomic_broadcast
+    self._init_process_group(options=options)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/collective_group.py", line 1345, in _init_process_group
+    self._mc_group.init(
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/multi_channel_pg.py", line 181, in init
+    base_group = MultiChannelProcessGroup._create_process_group(
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/multi_channel_pg.py", line 582, in _create_process_group
+    pg, _ = MultiChannelProcessGroup._new_process_group_helper(
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/collective/multi_channel_pg.py", line 696, in _new_process_group_helper
+    from torch.distributed.distributed_c10d import (
+ImportError: cannot import name '_register_process_group' from 'torch.distributed.distributed_c10d' (/root/miniconda3/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py)
+Exception occurred while running AuditRollout's function init_worker: exception is The actor died unexpectedly before finishing this task.
+	class_name: main.<locals>.AuditRollout
+	actor_id: fbb4998539b0412be59a966501000000
+	pid: 88695
+	name: RolloutGroup:0
+	namespace: RLinf
+	ip: 172.17.0.2
+The actor is dead because it was killed by `ray.kill`.
+Exiting main process due to a failure upon worker execution.

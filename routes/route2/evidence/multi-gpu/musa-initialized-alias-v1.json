@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "torch": "2.2.0",
+  "torch_musa": "1.3.0+81caf0a",
+  "canonical_query_sha256": "633e2b62675d5001065e230d400aebd029c636f0aa8c4aec4575ba11f9bac8da",
+  "same_function": true,
+  "before": false,
+  "top_level_imported_flag_before": false,
+  "after": true,
+  "top_level_imported_flag_after": false,
+  "allocation_value": 1.0,
+  "same_function_after": true,
+  "status": "pass"
+}

@@ -1,0 +1,458 @@
+{
+  "rank": 0,
+  "world_size": 1,
+  "has_accelerator": true,
+  "accelerator_type": "AcceleratorType.MUSA_GPU",
+  "placement_environment": {
+    "ACCELERATOR_TYPE": "MUSA_GPU",
+    "LOCAL_ACCELERATOR_RANK": "0",
+    "LOCAL_HARDWARE_RANKS": "",
+    "VISIBLE_DEVICES": "0,1",
+    "MUSA_VISIBLE_DEVICES": "0,1",
+    "CUDA_VISIBLE_DEVICES": null
+  },
+  "musa_initialized_before": false,
+  "default_group_initialized_before": false,
+  "rows": [
+    {
+      "case": "sync_bool_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_bool_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_none_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_none_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_object_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_object_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true,
+        "same_storage": true,
+        "same_shape_dtype": true,
+        "same_tensor_content": true,
+        "still_cpu": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true,
+        "same_storage": true,
+        "same_shape_dtype": true,
+        "same_tensor_content": true,
+        "still_cpu": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_list_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_list_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_dict_default_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "sync_tensor_dict_explicit_source",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "integer_rank_group",
+      "pass": true,
+      "checks": {
+        "same_object_identity": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_wait_object",
+      "pass": true,
+      "checks": {
+        "real_async_func_work": true,
+        "done_immediately": true,
+        "wait_same_object": true,
+        "repeat_wait_same_object": true,
+        "no_chain_initially": true,
+        "last_work_is_self": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_async_wait_object",
+      "pass": true,
+      "checks": {
+        "real_async_func_work": true,
+        "done_immediately": true,
+        "async_wait_same_object": true,
+        "repeat_async_wait_same_object": true,
+        "sync_wait_after_async_same_object": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_then_object",
+      "pass": true,
+      "checks": {
+        "real_async_tail": true,
+        "callback_once_with_explicit_argument": true,
+        "callback_returns_none": true,
+        "tail_done": true,
+        "source_done": true,
+        "source_still_same_object": true,
+        "chain_linked": true,
+        "last_work_is_tail": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_wait_tensor",
+      "pass": true,
+      "checks": {
+        "real_async_func_work": true,
+        "done_immediately": true,
+        "wait_same_object": true,
+        "repeat_wait_same_object": true,
+        "no_chain_initially": true,
+        "last_work_is_self": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_async_wait_tensor",
+      "pass": true,
+      "checks": {
+        "real_async_func_work": true,
+        "done_immediately": true,
+        "async_wait_same_object": true,
+        "repeat_async_wait_same_object": true,
+        "sync_wait_after_async_same_object": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "async_then_tensor",
+      "pass": true,
+      "checks": {
+        "real_async_tail": true,
+        "callback_once_with_explicit_argument": true,
+        "callback_returns_none": true,
+        "tail_done": true,
+        "source_done": true,
+        "source_still_same_object": true,
+        "chain_linked": true,
+        "last_work_is_tail": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_missing_groups_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_missing_groups_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_groups_not_list_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_groups_not_list_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_empty_groups_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_empty_groups_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_group_entry_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_group_entry_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_group_name_type_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_group_name_type_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_empty_rank_list_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_empty_rank_list_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_rank_list_entry_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_rank_list_entry_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_rank_type_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_rank_type_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_caller_nonmember_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_caller_nonmember_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_source_name_type_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_source_name_type_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_source_rank_type_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_invalid_source_rank_type_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_malformed_source_tuple_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_malformed_source_tuple_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_source_nonmember_rank_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_source_nonmember_rank_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_source_nonmember_group_sync",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "reject_source_nonmember_group_async",
+      "pass": true,
+      "checks": {
+        "rejected_with_expected_exception": true
+      },
+      "group_construction_attempts": 0
+    },
+    {
+      "case": "two_address_dispatch_guard_control",
+      "pass": true,
+      "group_construction_attempts": 1
+    }
+  ],
+  "status": "pass",
+  "singleton_group_construction_attempts": 0,
+  "construction_guard_calls": [
+    [
+      "SingletonBroadcastProbe:0",
+      "SingletonBroadcastProbe:1"
+    ]
+  ],
+  "native_groups_constructed": 0,
+  "musa_initialized_after": false,
+  "default_group_initialized_after": false,
+  "checks": {
+    "all_api_cases_pass": true,
+    "singleton_never_requests_group": true,
+    "two_address_path_preserved": true,
+    "cpu_payload_tensor": true,
+    "musa_remains_uninitialized": true,
+    "default_group_remains_uninitialized": true
+  }
+}

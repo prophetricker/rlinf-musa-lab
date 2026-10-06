@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Audit actual EmbodiedRunner iterations and stability on two S4000 GPUs.
+"""Audit two actual EmbodiedRunner iterations on two S4000 GPUs.
 
 Use the official Env/Rollout collector and dispatcher: two environments each
-produce the configured number of action chunks, and each FULL_SHARD Actor rank
-receives one complete temporal trajectory with its bootstrap row. Diagnostic subclasses observe
+produce four action chunks, and each FULL_SHARD Actor rank receives one complete
+four-step trajectory with its bootstrap row. Diagnostic subclasses observe
 inherited initialization, GAE, PPO, synchronization, and Runner.run. They do not
 manually construct, duplicate, or partition trajectories. No learning claim is
 made by this execution test.
@@ -65,35 +65,16 @@ def nested_tensor_shapes(value, path=()):
     return {}
 
 
-def nested_tensor_finite(value):
-    """Inspect model input tensors without requiring a separate action field."""
-    import torch
-
-    if isinstance(value, dict):
-        return all(nested_tensor_finite(nested) for nested in value.values())
-    if isinstance(value, (list, tuple)):
-        return all(nested_tensor_finite(nested) for nested in value)
-    if isinstance(value, torch.Tensor):
-        return bool(torch.isfinite(value).all())
-    return True
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rlinf-source", type=Path, required=True)
     parser.add_argument("--gr00t-source", type=Path, required=True)
     parser.add_argument("--model-path", type=Path, required=True)
-    parser.add_argument("--iterations", type=int, default=2,
-                        help="number of official Runner iterations; at least two")
-    parser.add_argument("--steps-per-env", type=int, default=4,
-                        help="action chunks per environment and iteration; a positive integer")
     parser.add_argument("--expected-state-count", type=int, default=907)
     parser.add_argument("--expected-selected-count", type=int, default=322)
     parser.add_argument("--diagnostic", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    if args.iterations < 2 or args.steps_per_env < 1:
-        parser.error("iterations must be at least two and steps-per-env must be positive")
     if args.output.exists() or args.output.with_suffix(".partial.json").exists():
         parser.error("output and partial output must be new")
     if os.environ.get("RLINF_MUSA_FSDP_INDEPENDENT_INIT", "0") != "0":
@@ -112,9 +93,8 @@ def main() -> int:
     result = {"schema_version": 1, "status": "fail",
               "probe_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               "scope": "official EmbodiedRunner.run; two FULL_SHARD Actor ranks; one Rollout; two LIBERO envs",
-              "iterations": args.iterations, "steps_per_environment": args.steps_per_env, "total_envs": 2,
-              "expected_global_samples_per_iteration": 2 * args.steps_per_env,
-              "scope_note": "functional and runtime stability verification at lr=1e-8; no learning or benchmark-performance claim",
+              "iterations": 2, "steps_per_environment": 4, "total_envs": 2,
+              "expected_global_samples_per_iteration": 8,
               "trajectory_routing": "official TrajectoryCollector and least_loaded dispatcher; no manual partition",
               "memory_scope": "per-process RSS high-water marks and PyTorch MUSA allocator peaks; simulator child processes and Ray shared object storage are excluded",
               "synchronizations": [], "initialization": "sync_module_states=True",
@@ -206,34 +186,19 @@ def main() -> int:
                 batch = self.rollout_batch
                 shapes = nested_tensor_shapes(batch)
                 version_values = sorted(set(batch["versions"].reshape(-1).tolist()))
-                checks = {"complete_temporal_sequence": tuple(batch["prev_logprobs"].shape[:2]) == (args.steps_per_env, 1),
-                          "final_value_bootstrap": tuple(batch["prev_values"].shape[:2]) == (args.steps_per_env + 1, 1),
-                          "initial_done_boundary": tuple(batch["dones"].shape[:2]) == (args.steps_per_env + 1, 1),
+                checks = {"complete_four_step_sequence": tuple(batch["prev_logprobs"].shape[:2]) == (4, 1),
+                          "five_row_value_bootstrap": tuple(batch["prev_values"].shape[:2]) == (5, 1),
+                          "five_row_done_boundary": tuple(batch["dones"].shape[:2]) == (5, 1),
                           "on_policy_version": version_values == [float(self.version)],
                           "finite_policy_statistics": all(bool(torch.isfinite(batch[key]).all())
-                              for key in ("prev_logprobs", "prev_values", "rewards")),
-                          "finite_forward_inputs": nested_tensor_finite(batch["forward_inputs"])}
+                              for key in ("prev_logprobs", "prev_values", "rewards", "actions"))}
                 row = {"iteration": len(self.probe_records), "rank": self._rank,
                        "actor_version": self.version, "stored_versions": version_values,
                        "received_sample_count": int(batch["prev_logprobs"].shape[0]
                                                     * batch["prev_logprobs"].shape[1]),
                        "received_shapes": shapes, "receive_checks": checks,
-                       "received_top_level_keys": sorted(batch),
-                       "actions_field_present": "actions" in batch,
-                       "action_contract": "actions are sent separately from Rollout to Env; Actor uses official forward_inputs",
                        "received_batch_sha256": tree_sha(batch),
-                       "policy_data_sha256": tree_sha({key: batch[key] for key in ("forward_inputs", "prev_logprobs")}),
-                       "rewards": {"sum": float(batch["rewards"].sum()),
-                                   "max": float(batch["rewards"].max()),
-                                   "nonzero_count": int(torch.count_nonzero(batch["rewards"])),
-                                   "element_count": int(batch["rewards"].numel())},
-                       # Omit the initial pre-action boundary from transition
-                       # counts; retain its shape separately in receive checks.
-                       "boundary_counts": {key: int(torch.count_nonzero(batch[key][1:]))
-                                           for key in ("dones", "terminations", "truncations")},
-                       "loss_mask": {"true_count": int(torch.count_nonzero(batch["loss_mask"])),
-                                     "element_count": int(batch["loss_mask"].numel())}
-                           if batch.get("loss_mask") is not None else None,
+                       "policy_data_sha256": tree_sha({key: batch[key] for key in ("actions", "prev_logprobs")}),
                        "memory_after_receive": memory_snapshot()}
                 self.probe_records.append(row)
                 event("actor", self._rank, "official_trajectory_received", row)
@@ -333,23 +298,23 @@ def main() -> int:
                 if not all(checks.values()):
                     raise AssertionError(f"official Runner synchronization audit failed: {checks}")
 
-        cfg = make_config(args.rlinf_source, args.model_path, steps=args.steps_per_env)
+        cfg = make_config(args.rlinf_source, args.model_path, steps=4)
         cfg.cluster.component_placement = {"actor": "0-1", "rollout": "1", "env": "0"}
         cfg.actor.fsdp_config.sharding_strategy = "full_shard"
         cfg.actor.fsdp_config.use_orig_params = True
         cfg.actor.fsdp_config.torch22_state_dict_backend = "sharded_tensor"
-        cfg.actor.global_batch_size = 2 * args.steps_per_env
+        cfg.actor.global_batch_size = 8
         cfg.actor.micro_batch_size = 1
         cfg.algorithm.update_epoch = 1
         cfg.env.train.total_num_envs = 2
         cfg.env.train.rollout_epoch = 1
-        cfg.env.train.max_steps_per_rollout_epoch = args.steps_per_env
+        cfg.env.train.max_steps_per_rollout_epoch = 4
         cfg.env.eval.total_num_envs = 2
         cfg.rollout.enable_offload = True
         cfg.weight_syncer.actor_state_mode = "full_cpu_rank0"
         cfg.runner.data_channel_transport = "ray"
-        cfg.runner.max_epochs = args.iterations
-        cfg.runner.max_steps = args.iterations
+        cfg.runner.max_epochs = 2
+        cfg.runner.max_steps = 2
         cfg.runner.save_interval = -1
         cfg.runner.val_check_interval = -1
         cfg.runner.weight_sync_interval = 1
@@ -394,7 +359,7 @@ def main() -> int:
         progress("official_runner_init_workers")
         runner.init_workers()
         result["environment"] = env.probe_report().wait()
-        progress(f"official_runner_run_{args.iterations}_iterations")
+        progress("official_runner_run_two_iterations")
         runner.run()
         progress("final_worker_audit")
         actors = actor.probe_report().wait()
@@ -403,22 +368,22 @@ def main() -> int:
         result["rollout_final"] = rollout_final
         result["env_final"] = env.probe_report().wait()
         result["runner_global_step"] = runner.global_step
-        checks = {"runner_completed_requested_steps": runner.global_step == args.iterations,
-                  "syncs_at_all_iteration_versions": [row["runner_global_step"] for row in result["synchronizations"]] == list(range(args.iterations)),
+        checks = {"runner_completed_two_steps": runner.global_step == 2,
+                  "exactly_two_syncs_at_versions_zero_one": [row["runner_global_step"] for row in result["synchronizations"]] == [0, 1],
                   "two_actor_rank_reports": [row["rank"] for row in actors] == [0, 1],
-                  "requested_trajectories_per_rank": all(len(row["iterations"]) == args.iterations for row in actors),
-                  "requested_optimizer_updates_per_rank": all(row["final"]["optimizer_steps"] == args.iterations
-                      and row["final"]["active_adam_steps"] == [float(args.iterations)] for row in actors),
-                  "final_rollout_version": rollout_final["version"] == args.iterations - 1,
-                  "final_actor_version": all(row["final"]["version"] == args.iterations - 1 for row in actors)}
+                  "two_received_trajectories_per_rank": all(len(row["iterations"]) == 2 for row in actors),
+                  "two_optimizer_updates_per_rank": all(row["final"]["optimizer_steps"] == 2
+                      and row["final"]["active_adam_steps"] == [2.0] for row in actors),
+                  "final_rollout_version_one": rollout_final["version"] == 1,
+                  "final_actor_version_one": all(row["final"]["version"] == 1 for row in actors)}
         result["final_checks"] = checks
         if not all(checks.values()):
             raise AssertionError(f"official Runner final audit failed: {checks}")
         per_iteration_checks = []
-        for iteration in range(args.iterations):
+        for iteration in range(2):
             ranks = [row["iterations"][iteration] for row in actors]
             per_iteration_checks.append({"iteration": iteration,
-                "global_sample_count": sum(row["received_sample_count"] for row in ranks) == 2 * args.steps_per_env,
+                "global_sample_count_eight": sum(row["received_sample_count"] for row in ranks) == 8,
                 "version_equals_iteration": all(row["stored_versions"] == [float(iteration)] for row in ranks),
                 "different_received_batches": len({row["policy_data_sha256"] for row in ranks}) == 2,
                 "both_receives_pass": all(all(row["receive_checks"].values()) for row in ranks),
@@ -431,12 +396,10 @@ def main() -> int:
             raise AssertionError("official Runner per-iteration audit failed")
         result["global_received_samples_per_iteration"] = [
             sum(row["iterations"][iteration]["received_sample_count"] for row in actors)
-            for iteration in range(args.iterations)]
-        result["total_received_transition_count"] = sum(result["global_received_samples_per_iteration"])
+            for iteration in range(2)]
         result["final_weight_scope"] = (
-            f"Runner global_step is {args.iterations}; Actor and Rollout versions remain {args.iterations - 1}. "
-            f"Rollout has weights after {args.iterations - 1} PPO updates, used to collect iteration {args.iterations - 1}. "
-            f"Actor has completed {args.iterations} updates. No extra final sync was run.")
+            "Runner global_step is 2; Actor and Rollout versions remain 1. Rollout has weights after the first "
+            "PPO update, used to collect iteration one. Actor has completed two updates. No extra final sync was run.")
         result["driver_memory"] = memory_snapshot(include_gpu=False)
         result["status"] = "pass"
     except Exception as error:
