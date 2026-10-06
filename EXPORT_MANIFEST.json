@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "0e467cb1d445b4bf435d57e311df04c6b7d30101",
+  "research_commit": "93cebe950e59bf65bd4add8b3ed8edde1165d6cd",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,8 +21,8 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 7122,
-      "sha256": "8f49d4f5beee76efac037a156cecda475694a334a83b571d45edda04965ff6ef"
+      "bytes": 7266,
+      "sha256": "88a23844124b439f0ab39736063db2cea8f1448c4d35cbf727319db60bbfa110"
     },
     {
       "path": "REPRODUCE.md",
@@ -33,8 +33,8 @@
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 5225,
-      "sha256": "24b8b56f51b06c5300349237f012e675f75dea3c418a76127e76daa22e08cc71"
+      "bytes": 5305,
+      "sha256": "63e66e2eb11e8db9652dffc9e0400b1e9f3a0a1fff90e1b9eb8aa4df91d95765"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 8250,
-      "sha256": "50e1631e93f7efaa7cd3cf41d82fec39c61417aefd58ce0d928c54c9234ca37a"
+      "bytes": 9386,
+      "sha256": "2a9bf5f26ed3261101f2a9a4bca2720dbf640846fe0c46c1349bf4c00cc9b10a"
     },
     {
       "path": "reports/route2-learning.md",
@@ -571,6 +571,24 @@
       "sha256": "bdb17cb5e3d2afc95fed7e3f57ca3108eefda53191a688e144130485f6bc3a01"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/chunk-boundaries-cpu-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/chunk-boundaries-cpu-v1.json",
+      "bytes": 4187,
+      "sha256": "2c2c375c3ca8da168ad51322b75bc19379c4be12bb0e4d9b0f6ebff1104cccc4"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/chunk5-preparation-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/chunk5-preparation-v1.json",
+      "bytes": 1045,
+      "sha256": "381ccfcce4334589a88d9573a50de1a6cc7689637ba6f7a3a96db8c3919ecb04"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json",
+      "bytes": 602,
+      "sha256": "b47d2507d04007eb7f51d7a0668806292f500bb85faf70f9149c2f80f900dc56"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/fsdp-multirank-v2.rank0.json",
       "research_source": "routes/route2/evidence/multi-gpu/fsdp-multirank-v2.rank0.json",
       "bytes": 755,
@@ -805,6 +823,30 @@
       "sha256": "2d1d22d68aee46ebca81d3bd05fac6780b5de71be0ae3fe3ffaaf70e9ec736a2"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.actor.rank0.events.jsonl",
+      "bytes": 16960,
+      "sha256": "7dbc9cc38220e1fde08a92dcdda0313a5852cead854494f0c360c2434f50b1a5"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.actor.rank1.events.jsonl",
+      "bytes": 16941,
+      "sha256": "e68ce0b4da9f48ec75ae849ca098f3cfbe200bded3e74135ccb1a6f154d0d7da"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.audit.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.audit.json",
+      "bytes": 3448,
+      "sha256": "ace9273ef152002352adfddde4599ae919ade8b116b33073fbd0f61e79ac7ed1"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v5.json",
+      "bytes": 2295399,
+      "sha256": "bc639e31b5343f5024652cd1510289b410531fa48d3fc4f16c0e13382778e8f9"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/official-two-rank-sync-v1.json",
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-sync-v1.json",
       "bytes": 802785,
@@ -925,6 +967,18 @@
       "sha256": "352609cf12d53a712298e603868fd629147b07065c3f310a88192609bdb3d1be"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-eval-pilot-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-eval-pilot-v1-probe.py",
+      "bytes": 13319,
+      "sha256": "abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py",
+      "bytes": 30735,
+      "sha256": "a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/versions/official-runner-v1-probe.py",
       "research_source": "routes/route2/evidence/multi-gpu/versions/official-runner-v1-probe.py",
       "bytes": 24733,
@@ -983,6 +1037,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-compat-v2.patch",
       "bytes": 8044,
       "sha256": "7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-before-runner-v5.json",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-before-runner-v5.json",
+      "bytes": 1748,
+      "sha256": "af8afa7ec312d050d865062d016641e441e8978e2c50fa96d2901932e4b57fad"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-v1.json",
@@ -1891,10 +1951,22 @@
       "sha256": "db580ebeea14b7f7b174927e2d589ddb720f4f31a1991f4ddecc512d12be7cf1"
     },
     {
+      "path": "routes/route2/model_probes/embodied-eval-README.md",
+      "research_source": "routes/route2/model_probes/embodied-eval-README.md",
+      "bytes": 4623,
+      "sha256": "7cc63c505d40853a9a9a1bcd466a9f5763a4a607d84c0b19c5bd73e4448b59e3"
+    },
+    {
       "path": "routes/route2/model_probes/embodied_actor_torch22_probe.py",
       "research_source": "routes/route2/model_probes/embodied_actor_torch22_probe.py",
       "bytes": 2518,
       "sha256": "80b3665d2b76fc856440fa3e9b92f80778e7a3a1c9d88a223bcd6b27dc04dc5e"
+    },
+    {
+      "path": "routes/route2/model_probes/eval-source-lock.json",
+      "research_source": "routes/route2/model_probes/eval-source-lock.json",
+      "bytes": 571,
+      "sha256": "f3d23da5193f63fcc876d6fa9a73283b372e8b7500773a19b029dc902bf9e37f"
     },
     {
       "path": "routes/route2/model_probes/fp32_attention_processor.py",
@@ -1995,8 +2067,8 @@
     {
       "path": "routes/route2/model_probes/official-actor-README.md",
       "research_source": "routes/route2/model_probes/official-actor-README.md",
-      "bytes": 6468,
-      "sha256": "0beda0d6c9e7f95dcb1ed656f94d30cbfa3aff8357ba082a1bbaa49af60e293a"
+      "bytes": 6563,
+      "sha256": "6ddaa2ef513866e9993036644238feabb4f6d1603c6147ce7b829534c9dcf140"
     },
     {
       "path": "routes/route2/model_probes/official-actor-source-lock.json",
@@ -2023,16 +2095,28 @@
       "sha256": "29ab8d33d6ddc8783417de0eb3dac71e678b47d7825f24b9a5601ec8caf114ad"
     },
     {
+      "path": "routes/route2/model_probes/official_eval_probe.py",
+      "research_source": "routes/route2/model_probes/official_eval_probe.py",
+      "bytes": 13319,
+      "sha256": "abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569"
+    },
+    {
       "path": "routes/route2/model_probes/official_runner_probe.py",
       "research_source": "routes/route2/model_probes/official_runner_probe.py",
-      "bytes": 27652,
-      "sha256": "8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc"
+      "bytes": 30735,
+      "sha256": "a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
       "research_source": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
       "bytes": 2713,
       "sha256": "e3bb8ee46536d00b770fb844a10d2af0cb6d916a2d105bfcbf83b72fc70d5aec"
+    },
+    {
+      "path": "routes/route2/model_probes/runner_progress.py",
+      "research_source": "routes/route2/model_probes/runner_progress.py",
+      "bytes": 2961,
+      "sha256": "c10b90f6ec4dc04232c7b00ba2820f6c2b34e8a85e4357971cd11be682316b92"
     },
     {
       "path": "routes/route2/model_probes/singleton_broadcast_probe.py",
@@ -2127,8 +2211,8 @@
     {
       "path": "routes/route2/model_probes/two-rank-source-lock.json",
       "research_source": "routes/route2/model_probes/two-rank-source-lock.json",
-      "bytes": 1748,
-      "sha256": "af8afa7ec312d050d865062d016641e441e8978e2c50fa96d2901932e4b57fad"
+      "bytes": 1774,
+      "sha256": "9ee33483f9178cf2a6b449047225120b13d382dae0fe6a6f96319d6d3baadce0"
     },
     {
       "path": "routes/route2/model_probes/two_rank_rollout_probe.py",
@@ -2215,6 +2299,12 @@
       "sha256": "58be67a342ede79f3a639a0e7ffec49ec0443cacc979fbf3f4384672707d847a"
     },
     {
+      "path": "routes/route2/patches/eval-ray-transport.patch",
+      "research_source": "routes/route2/patches/eval-ray-transport.patch",
+      "bytes": 901,
+      "sha256": "a13b1ef3eac592d4062af6b153f612226d8308450d479b529753451db99cbee8"
+    },
+    {
       "path": "routes/route2/patches/fsdp1-actor-dtensor.patch",
       "research_source": "routes/route2/patches/fsdp1-actor-dtensor.patch",
       "bytes": 3525,
@@ -2275,6 +2365,12 @@
       "sha256": "7cdda8a4ae9595f7d0b0e11d2316050d34a5469adf969adfb93bdb8f68d66fd0"
     },
     {
+      "path": "routes/route2/planning/embodied-learning-entry.md",
+      "research_source": "routes/route2/planning/embodied-learning-entry.md",
+      "bytes": 26993,
+      "sha256": "eaf9c5068d5d3992fd02f399fda373f36aeaa997af595718037f9bfb75486d8b"
+    },
+    {
       "path": "routes/route2/planning/fsdp1-audit.md",
       "research_source": "routes/route2/planning/fsdp1-audit.md",
       "bytes": 20003,
@@ -2307,8 +2403,8 @@
     {
       "path": "routes/route2/planning/two-gpu-results.md",
       "research_source": "routes/route2/planning/two-gpu-results.md",
-      "bytes": 50885,
-      "sha256": "5dd31ddbd6aff3b04f2e29910bb763bf8763cba4a82be9b70c157d0a923fdc1b"
+      "bytes": 54162,
+      "sha256": "9b8419bcc5b2443fb6086fd720a5be7eefc2e0cd792d911cfe5a4ff1b376d778"
     },
     {
       "path": "routes/route2/probes/cpu_compat_checks.py",
@@ -2335,6 +2431,12 @@
       "sha256": "47c75431f8d17b2e2202db0c3010fe004425c755da9ad3f3594d9226fbac1d74"
     },
     {
+      "path": "scripts/audit_route2_runner_result.py",
+      "research_source": "scripts/audit_route2_runner_result.py",
+      "bytes": 5582,
+      "sha256": "f9bc80b9df523be4eba1ce730952e3646dae396c6c360b364b03d61822836d95"
+    },
+    {
       "path": "scripts/prepare_route2_backbone_env.sh",
       "research_source": "scripts/prepare_route2_backbone_env.sh",
       "bytes": 1313,
@@ -2357,6 +2459,12 @@
       "research_source": "scripts/probe_route2_adam_shards.py",
       "bytes": 2290,
       "sha256": "29778b14bc11d5f386b14c8f494da615b39a1ce2741031de28122c9c21a966a4"
+    },
+    {
+      "path": "scripts/probe_route2_chunk_boundaries.py",
+      "research_source": "scripts/probe_route2_chunk_boundaries.py",
+      "bytes": 3080,
+      "sha256": "f18c71e511b0c6129d22d2e48de6f4d7bf6c795d50b6324ad33577c0bcb8ca19"
     },
     {
       "path": "scripts/probe_route2_dcp_small.py",
@@ -2447,6 +2555,12 @@
       "research_source": "routes/route2/publishing/run_probes.sh",
       "bytes": 2554,
       "sha256": "90ac2395449166932c49dceaf4c720e062d82ffc184225f7d01072fcf1be31e5"
+    },
+    {
+      "path": "scripts/run_route2_embodied_validation.sh",
+      "research_source": "scripts/run_route2_embodied_validation.sh",
+      "bytes": 2160,
+      "sha256": "ac433c4a163f4d47dc7d90c1d7575c181bfe2464d18b723d6c8079a85524d141"
     },
     {
       "path": "scripts/summarize_log.py",

@@ -1,0 +1,18 @@
+diff --git a/rlinf/runners/embodied_eval_runner.py b/rlinf/runners/embodied_eval_runner.py
+index e335c955..e49213bc 100644
+--- a/rlinf/runners/embodied_eval_runner.py
++++ b/rlinf/runners/embodied_eval_runner.py
+@@ -42,8 +42,11 @@ class EmbodiedEvalRunner:
+         self.env = env
+ 
+         # Data channels
+-        self.env_channel = Channel.create("Env")
+-        self.rollout_channel = Channel.create("Rollout")
++        data_transport = cfg.runner.get("data_channel_transport", "collective")
++        if data_transport not in {"collective", "ray"}:
++            raise ValueError(f"Unsupported Runner data channel transport: {data_transport}")
++        self.env_channel = Channel.create("Env", transport=data_transport)
++        self.rollout_channel = Channel.create("Rollout", transport=data_transport)
+ 
+         # this timer checks if we should stop training
+         self.run_timer = run_timer

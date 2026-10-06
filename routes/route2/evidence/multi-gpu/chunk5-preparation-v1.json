@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-07",
+  "status": "prepared; GPU execution pending",
+  "probes": [
+    {
+      "path": "routes/route2/model_probes/official_runner_probe.py",
+      "sha256": "a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451",
+      "frozen_path": "routes/route2/evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py"
+    },
+    {
+      "path": "routes/route2/model_probes/official_eval_probe.py",
+      "sha256": "abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569",
+      "frozen_path": "routes/route2/evidence/multi-gpu/versions/official-eval-pilot-v1-probe.py"
+    }
+  ],
+  "cpu_evidence": [
+    "routes/route2/evidence/multi-gpu/chunk-boundaries-cpu-v1.json",
+    "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json"
+  ],
+  "production_locks": [
+    "routes/route2/model_probes/two-rank-source-lock.json",
+    "routes/route2/model_probes/eval-source-lock.json"
+  ],
+  "scope": "new chunk5 full-horizon Runner and initial ten-task pilot; current Runner-v5 still uses frozen v4 bytes"
+}

@@ -1,6 +1,6 @@
 # 两张 S4000：本轮验证记录
 
-日期：2026-10-07。**完整官方Runner两轮闭环已通过**：Runner-v4用官方collector/dispatcher采集并分发2环境×4步×2轮，共16个环境transition；两个FULL_SHARD Actor各完成两次官方GAE/PPO更新，非空Adam step到2，版本0/1同步的907项状态与Rollout精确一致。此前完整GR00T DCP保存、新driver/Worker恢复及下一次更新对照也已通过，每rank恢复与续跑各11项检查精确一致。v15和检查点对照使用既有fixture；train-sync-v1是手工新轨迹更新验证；Runner-v4则实际运行`EmbodiedRunner.run()`。当前仍为`lr=1e-8`，奖励为0，结果证明固定配置功能闭环，尚不证明任务学习。Runner-v5已启动3轮、每环境80步的较长稳定性验证，尚未计为通过。
+日期：2026-10-07。**完整官方Runner三轮80步闭环已通过**：Runner-v5用官方collector/dispatcher分发2环境×80步×3轮，共480个环境数据槽，其中454个mask有效动作；两个FULL_SHARD Actor各完成3次官方GAE/PPO更新，非空Adam step到3，版本0/1/2同步的907项状态与Rollout精确一致，采样覆盖真实termination和post-terminal mask。此前完整GR00T DCP保存、新driver/Worker恢复及下一次更新精确对照已通过；Runner-v4的16步短闭环与失败历史均保留。当前仍为`lr=1e-8`，结果证明固定配置功能与三轮稳定性，尚不证明任务学习。新chunk5/240步完整回合与独立十任务pilot已开始串行验证，尚未计为通过。
 
 ## 环境、源码与证据范围
 
@@ -100,7 +100,30 @@ Runner-v4已通过官方`EmbodiedRunner.run()`、`TrajectoryCollector`和`least_
 
 GPU值为每Worker allocator峰值，不能相加为物理卡瞬时峰值；宿主RSS不包含LIBERO simulator子进程及Ray共享object storage。Rollout最终已offload，记录allocated为0，reserved约0.001953 GiB。这证明本次双环境4步配置能完成两轮，尚不能推导80步或更大batch的显存/内存余量。全部16个reward为0，dones/terminations/truncations计数为0，loss mask全有效；学习率仍为`1e-8`，未证明任务成功、学习收益或benchmark性能。
 
-[冻结Runner-v4探针](../evidence/multi-gpu/versions/official-runner-v4-probe.py)SHA256为`8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc`。本轮六份生产源码指纹逐项与[当前源码锁](../model_probes/two-rank-source-lock.json)核对一致，增量补丁SHA256仍为`5da7ecf0ce3965cd154bdc1ffcf3e3816352772f85115040fe2a5658294d21f0`；support指纹与配置以结果JSON为准。Runner-v5已用同一探针和六文件生产源码启动`--iterations 3 --steps-per-env 80`，正在做更长稳定性验证，尚未计为通过。
+[冻结Runner-v4/v5探针](../evidence/multi-gpu/versions/official-runner-v4-probe.py)SHA256为`8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc`。本轮六份生产源码指纹逐项与[当前源码锁](../model_probes/two-rank-source-lock.json)核对一致，增量补丁SHA256仍为`5da7ecf0ce3965cd154bdc1ffcf3e3816352772f85115040fe2a5658294d21f0`；support指纹与配置以结果JSON为准。后续当前CLI已增加chunk选项与新审计，旧结果按冻结脚本解释。
+
+### Runner-v5：三轮80步、真实终止与mask
+
+[v5原始结果](../evidence/multi-gpu/official-two-rank-runner-v5.json)为pass，耗时2709.071960秒，包含加载、采样、更新、完整同步和哈希审计，不是纯训练吞吐。配置仍为动作chunk1、任务0/trial0、2环境、每rank microbatch1、全局batch160、update epoch1、actor/value LR均`1e-8`。两个rank各完成3次真实Adam更新，参数和optimizer哈希变化且状态有限；每轮官方receive、GAE、PPO、版本与完整状态同步检查通过。[独立结果核对](../evidence/multi-gpu/official-two-rank-runner-v5.audit.json)18项通过，关联原始结果、探针和[运行前源码锁快照](../evidence/multi-gpu/versions/two-rank-lock-before-runner-v5.json)的精确SHA256。
+
+| v5实际数据 | 第0轮 | 第1轮 | 第2轮 |
+|---|---:|---:|---:|
+| 环境数据槽 | 160 | 160 | 160 |
+| rank0 / rank1 mask有效动作 | 80 / 80 | 65 / 80 | 80 / 69 |
+| rank0 / rank1 reward sum | 0 / 0 | 1 / 0 | 0 / 0 |
+| rank0 / rank1 termination true标记数 | 0 / 0 | 7 / 0 | 0 / 6 |
+| 两rank共同的裁剪前全局梯度范数 | 52.18792724609375 | 52.485992431640625 | 45.53128433227539 |
+| 官方聚合ratio | 1.0 | 0.9062501192092896 | 0.9312501549720764 |
+
+总计480个槽、454个有效动作、26个终止后补齐槽。termination标记7/6可在同一回合后续动作上重复，不是7/6个成功episode。第2轮rank1出现非零正负相对reward但sum为0，不能据reward sum推断任务从未成功；完整评测使用`success_once`。本轮没有truncation，80步也不覆盖240步时间上限；该边界由后续完整horizon另验收。
+
+**上述ratio小于1来自当前官方微批次指标聚合口径，不能直接解释为策略偏离。** 固定`losses.py`对全mask掉的micro batch返回ratio0；Actor先对每rank所有80个micro batch的指标取普通均值，再跨rankAVG。因此第1/2轮的有效微批次比例分别为145/160=0.90625、149/160=0.93125。将原ratio除以该比例，派生有效微批次平均约1.000000132/1.000000166；保留原指标，不替换原始证据，也不把此公式推广到更大microbatch或其他PPO epoch。约`-1e-7`的原有符号approx KL同样保留，不放宽数值gate。
+
+末态Runner step3、Actor各Adam step3，Actor/Rollout版本字段仍为2。Rollout用于第三轮采样，持有第二次PPO更新后的权重；Actor已完成第三次更新。没有额外最终同步，不能声称第三次更新后的策略已与Rollout一致。版本0/1/2每次同步各核对907项完整状态；固定输入输出等价仍引用此前train-sync探针，不混为v5新增验收。
+
+Actor0/1最终GPU allocator peak allocated分别23.456852/23.453743 GiB，reserved分别26.353516/26.062500 GiB；进程RSS高水位16.330467/12.445137 GiB。各进程峰值不能相加为整卡瞬时占用，宿主数值不含simulator子进程与Ray共享object storage。驱动退出后两卡均4 MiB、0%利用率，随后在同次开机周期串行启动chunk5/240步与十任务pilot；未关机或重启。
+
+新增CLI/评估源码与精确命令见[完整回合和评估入口](../model_probes/embodied-eval-README.md)，后续学习率、全套状态覆盖、Runner恢复与学习收益计划见[学习入口计划](embodied-learning-entry.md)。这些新入口尚待GPU结果，不能用v5扩大其验收范围。
 
 成功前的v1/v2都在`official_runner_init_workers`阶段失败，结果中的`synchronizations`为空；v3已通过初始化和版本0同步，再在Actor审计代码失败。这三轮均未完成Runner的GAE/PPO训练验收：
 

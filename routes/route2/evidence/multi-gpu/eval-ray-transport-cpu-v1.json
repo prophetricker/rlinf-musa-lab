@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "scope": "CPU-only constructor/transport contract and exact patch reconstruction; no Cluster, Ray, GPU or evaluation episode executed",
+  "checks": {
+    "default_both_channels": true,
+    "collective_both_channels": true,
+    "ray_both_channels": true,
+    "invalid_transport_rejected": true,
+    "patch_exact_reconstruction": true
+  },
+  "production_file": "rlinf/runners/embodied_eval_runner.py",
+  "production_sha256": "c18fbf50680973dbf36035fe20ecc72081fe4834a2b96fa8083f1280aa1c7085",
+  "patch_sha256": "a13b1ef3eac592d4062af6b153f612226d8308450d479b529753451db99cbee8"
+}

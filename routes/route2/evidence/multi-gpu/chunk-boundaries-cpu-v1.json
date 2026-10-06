@@ -1,0 +1,210 @@
+{
+  "status": "pass",
+  "scope": "AST-extracted actual upstream compute_loss_mask on CPU; no environment, Ray, policy, GPU, GAE or PPO execution",
+  "source_sha256": "7bbe695a35068f90e9cb18037918b49c2504aaf8a5f71857a406d8028089834d",
+  "probe_sha256": "f18c71e511b0c6129d22d2e48de6f4d7bf6c795d50b6324ad33577c0bcb8ca19",
+  "torch_version": "2.2.0",
+  "case_count": 10,
+  "cases": [
+    {
+      "actions_per_chunk": 1,
+      "first_terminal_slots_zero_based": [
+        null,
+        null
+      ],
+      "valid_action_counts": [
+        240,
+        240
+      ],
+      "valid_chunk_counts": [
+        240,
+        240
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 1,
+      "first_terminal_slots_zero_based": [
+        0,
+        1
+      ],
+      "valid_action_counts": [
+        1,
+        2
+      ],
+      "valid_chunk_counts": [
+        1,
+        2
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 1,
+      "first_terminal_slots_zero_based": [
+        3,
+        4
+      ],
+      "valid_action_counts": [
+        4,
+        5
+      ],
+      "valid_chunk_counts": [
+        4,
+        5
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 1,
+      "first_terminal_slots_zero_based": [
+        5,
+        239
+      ],
+      "valid_action_counts": [
+        6,
+        240
+      ],
+      "valid_chunk_counts": [
+        6,
+        240
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 1,
+      "first_terminal_slots_zero_based": [
+        239,
+        null
+      ],
+      "valid_action_counts": [
+        240,
+        240
+      ],
+      "valid_chunk_counts": [
+        240,
+        240
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 5,
+      "first_terminal_slots_zero_based": [
+        null,
+        null
+      ],
+      "valid_action_counts": [
+        240,
+        240
+      ],
+      "valid_chunk_counts": [
+        48,
+        48
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 5,
+      "first_terminal_slots_zero_based": [
+        0,
+        1
+      ],
+      "valid_action_counts": [
+        1,
+        2
+      ],
+      "valid_chunk_counts": [
+        1,
+        1
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 5,
+      "first_terminal_slots_zero_based": [
+        3,
+        4
+      ],
+      "valid_action_counts": [
+        4,
+        5
+      ],
+      "valid_chunk_counts": [
+        1,
+        1
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 5,
+      "first_terminal_slots_zero_based": [
+        5,
+        239
+      ],
+      "valid_action_counts": [
+        6,
+        240
+      ],
+      "valid_chunk_counts": [
+        2,
+        48
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    },
+    {
+      "actions_per_chunk": 5,
+      "first_terminal_slots_zero_based": [
+        239,
+        null
+      ],
+      "valid_action_counts": [
+        240,
+        240
+      ],
+      "valid_chunk_counts": [
+        48,
+        48
+      ],
+      "checks": {
+        "exact_action_prefix": true,
+        "valid_action_counts": true,
+        "chunk_level_any_mask": true
+      }
+    }
+  ]
+}

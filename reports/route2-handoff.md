@@ -55,3 +55,9 @@
 研究提交 `37941bacbe4a269f86ff4396dc63604b7c549634` 已导出为成果仓库 [`97962fadac536b51b1fe33f18a1645f04b1ff718`](https://github.com/prophetricker/rlinf-musa-lab/commit/97962fadac536b51b1fe33f18a1645f04b1ff718)，正常push后已核对远端main。该发布节点包含两rank完整GR00T FULL_SHARD官方PPO fixture更新、完整DCP保存/新driver与Worker恢复/同批下一步精确一致，以及版本0的907项完整Actor/Rollout状态与固定输出精确一致。导出388个文件、94个Python AST、5个Bash语法、216个相对链接通过。源commit与哈希见EXPORT_MANIFEST。
 
 随后独立fresh8步LIBERO双卡官方PPO及版本0/1同步也已通过；完整Runner仍在后续节点验收。这段后续记录不扩大前述发布提交的实验范围。当前研究盘100GiB，保留约15.08GiB的两rank checkpoint；重启实例后实际PCI总线为12:00.0/13:00.0。宿主驱动、Toolkit及默认Python未修改，实例保持运行。
+
+## 完整官方Runner节点（2026-10-07）
+
+研究提交 `0e467cb1d445b4bf435d57e311df04c6b7d30101` 已导出为成果仓库 [`cb320492f65e6b3f74f9cc84c75522ed3ebe0dc2`](https://github.com/prophetricker/rlinf-musa-lab/commit/cb320492f65e6b3f74f9cc84c75522ed3ebe0dc2)，正常push后核对远端main一致。Runner-v4真正运行官方`EmbodiedRunner.run()`，2环境×4步×2轮共16 transitions；两个FULL_SHARD Actor各完成两次官方GAE/PPO更新，非空Adam step为2；版本0/1的907项完整状态与Rollout一致。末次PPO更新未再同步，奖励均为0，不证明学习收益。导出409个文件、98个Python AST、5个Bash语法、240个相对链接通过。
+
+当前6文件增量补丁及源码锁覆盖Runner Ray数据通道、Torch-MUSA真实初始化查询与单成员广播适配；完整状态同步仍使用CPU Bucket/Ray，两rank训练归约使用MCCL。Runner-v1/v2初始化失败、v3探针误读训练包`actions`失败均保留；v4通过不抹去历史失败。Runner-v5已启动3轮、2环境各80步的稳定性验证，后续结果另行记录，不能扩大此前发布提交的验收范围。

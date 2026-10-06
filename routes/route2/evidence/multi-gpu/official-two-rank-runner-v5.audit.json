@@ -1,0 +1,124 @@
+{
+  "status": "pass",
+  "checks": {
+    "raw_status_pass": true,
+    "probe_bytes_match": true,
+    "locked_production_files_match": true,
+    "expected_two_ranks": true,
+    "global_step_and_versions": true,
+    "all_raw_final_checks": true,
+    "all_raw_iteration_checks": true,
+    "complete_iteration_versions": true,
+    "all_full_state_synchronizations": true,
+    "all_rank_updates": true,
+    "correct_global_decision_counts": true,
+    "iteration_0_rank_data_and_updates": true,
+    "iteration_0_distinct_data_and_reduced_norm": true,
+    "iteration_1_rank_data_and_updates": true,
+    "iteration_1_distinct_data_and_reduced_norm": true,
+    "iteration_2_rank_data_and_updates": true,
+    "iteration_2_distinct_data_and_reduced_norm": true,
+    "single_action_transition_count": true
+  },
+  "raw_result_sha256": "bc639e31b5343f5024652cd1510289b410531fa48d3fc4f16c0e13382778e8f9",
+  "probe_sha256": "8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc",
+  "source_lock_sha256": "af8afa7ec312d050d865062d016641e441e8978e2c50fa96d2901932e4b57fad",
+  "actions_per_policy_decision": 1,
+  "total_received_policy_decisions": 480,
+  "total_simulator_step_slots": 480,
+  "iterations": [
+    {
+      "iteration": 0,
+      "received_policy_decisions": 160,
+      "simulator_step_slots": 160,
+      "valid_simulator_action_slots_per_rank": [
+        80,
+        80
+      ],
+      "valid_chunk_samples_per_rank": [
+        80,
+        80
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        },
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        }
+      ],
+      "global_grad_norm": 52.18792724609375
+    },
+    {
+      "iteration": 1,
+      "received_policy_decisions": 160,
+      "simulator_step_slots": 160,
+      "valid_simulator_action_slots_per_rank": [
+        65,
+        80
+      ],
+      "valid_chunk_samples_per_rank": [
+        65,
+        80
+      ],
+      "reward_sum_per_rank": [
+        1.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 7,
+          "terminations": 7,
+          "truncations": 0
+        },
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        }
+      ],
+      "global_grad_norm": 52.485992431640625
+    },
+    {
+      "iteration": 2,
+      "received_policy_decisions": 160,
+      "simulator_step_slots": 160,
+      "valid_simulator_action_slots_per_rank": [
+        80,
+        69
+      ],
+      "valid_chunk_samples_per_rank": [
+        80,
+        69
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 0,
+          "terminations": 0,
+          "truncations": 0
+        },
+        {
+          "dones": 6,
+          "terminations": 6,
+          "truncations": 0
+        }
+      ],
+      "global_grad_norm": 45.53128433227539
+    }
+  ],
+  "elapsed_seconds": 2709.0719596222043,
+  "final_weight_scope": "Runner global_step is 3; Actor and Rollout versions remain 2. Rollout has weights after 2 PPO updates, used to collect iteration 2. Actor has completed 3 updates. No extra final sync was run.",
+  "scope": "independent cross-check of recorded execution evidence; no rerun or learning claim; boundary flags are not unique episode counts"
+}

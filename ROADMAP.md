@@ -2,7 +2,7 @@
 
 记录日期：2026-10-05。路线二作为主开发路线，固定上游 commit 后递增适配补丁；路线一只承担回归对照，路线四在具体 backend 缺口阻塞主线时再投入。已完成部分标明，剩余项按独立验收继续推进。
 
-2026-10-06续跑：基础通信、小模型FULL_SHARD更新、Actor/Rollout分卡真实轨迹更新和版本0/1同步通过；GR00T两rank FULL_SHARD官方PPO更新v15通过，范数兼容15行数值检查通过。2026-10-07两rank完整DCP新进程恢复与同批下一步精确对照通过；fresh8步双卡官方PPO与版本0/1精确同步也已通过；完整官方Runner两轮闭环也已通过；当前扩大稳定性验证，见 [两卡证据](routes/route2/planning/two-gpu-results.md)。
+2026-10-06续跑：基础通信、小模型FULL_SHARD更新、Actor/Rollout分卡真实轨迹更新和版本0/1同步通过；GR00T两rank FULL_SHARD官方PPO更新v15通过，范数兼容15行数值检查通过。2026-10-07两rank完整DCP新进程恢复与同批下一步精确对照通过；fresh8步双卡官方PPO与版本0/1精确同步也已通过；完整官方Runner两轮闭环也已通过；三轮80步稳定性亦已通过（480槽、454有效动作），当前验证chunk5/240步与十任务pilot，见 [两卡证据](routes/route2/planning/two-gpu-results.md)。
 
 | 节点 | 工作内容 | 验收材料 |
 |---|---|---|

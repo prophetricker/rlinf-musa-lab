@@ -2,7 +2,7 @@
 
 日期：2026-10-06。限定单卡 S4000，Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0；BF16 Eagle + FP32 action/value head，FSDP1 NO_SHARD，AMP 关闭，critic warmup 为 0。宿主与默认环境不改动。
 
-新增两卡记录：Actor卡0/Rollout卡1的真实LIBERO更新与版本0/1同步已通过；隔离Worker设置`MCCL_P2P_DISABLE=1`后通信可用；官方GR00T两rank FULL_SHARD v15已通过默认同步初始化、完整GAE、四微批次与真正参数更新。显式`legacy`范数兼容解决当前梯度范数耗时造成的rank等待；两rank完整DCP保存/新进程恢复及同批下一次更新精确对照亦已通过；fresh8步双卡官方PPO及版本0/1分片同步亦已通过；完整官方Runner两轮闭环亦已通过；长轨迹稳定性和学习收益仍分别验收。详细证据和复现命令见 [两卡验证](../planning/two-gpu-results.md)。以下单卡结果仍按原范围解释。
+新增两卡记录：Actor卡0/Rollout卡1的真实LIBERO更新与版本0/1同步已通过；隔离Worker设置`MCCL_P2P_DISABLE=1`后通信可用；官方GR00T两rank FULL_SHARD v15已通过默认同步初始化、完整GAE、四微批次与真正参数更新。显式`legacy`范数兼容解决当前梯度范数耗时造成的rank等待；两rank完整DCP保存/新进程恢复及同批下一次更新精确对照亦已通过；fresh8步双卡官方PPO及版本0/1分片同步亦已通过；完整官方Runner两轮闭环亦已通过；新增三轮80步Runner稳定性亦已通过（480槽、454有效动作）；chunk5/240步、完整suite评估和学习收益继续独立验收。详细证据和复现命令见 [两卡验证](../planning/two-gpu-results.md)。以下单卡结果仍按原范围解释。
 
 `official_actor_lifecycle_probe.py` 继承真实 `EmbodiedFSDPActor` 构造和 `init_worker`；初始化已通过。`official_actor_rollout_probe.py` 的两个诊断子类继承官方初始化、预测、trajectory receive、GAE、PPO training、Bucket 同步和 checkpoint，只添加 CPU RPC 边界、哈希和固定输入检查。
 
