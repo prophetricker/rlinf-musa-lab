@@ -6,7 +6,7 @@
 
 两张同节点 48 GiB S4000 已完成完整 GR00T 的两 rank FULL_SHARD PPO 更新、Actor 分片 DCP 保存/新进程恢复/同批下一步对照、分片 Actor 向单 Rollout 的完整 CPU 权重同步。Runner-v4 实际运行官方 `EmbodiedRunner.run()`、collector 和 dispatcher，完成 2 环境 × 4 步 × 2 轮的 16 个 transitions；每个 Actor 非空 Adam step 到 2，版本 0/1 的 907 项完整状态与 Rollout 一致。
 
-Runner-v5 的 3 轮 × 2 环境 × 80 步验证已通过：480个数据槽、454个mask有效动作、每rank3次Adam更新，版本0/1/2完整同步一致。采样出现真实termination并完成post-terminal mask训练；尚未覆盖240步truncation，也不是完整suite评测或学习结果。现有 Runner 使用任务 0 / trial 0、actor/value 学习率 `1e-8`、critic warmup 0；Runner-v4 奖励为 0。先前少量 task 0 / trial 0、1 的预训练策略成功结果也不是完整 LIBERO-Spatial benchmark。
+Runner-v5 的 3 轮 × 2 环境 × 80 步验证已通过：480个数据槽、454个mask有效动作、每rank3次Adam更新，版本0/1/2完整同步一致。采样出现真实termination并完成post-terminal mask训练；后续chunk5/240步两轮已通过，覆盖truncation与下一轮reset，合计192动作块/960有效模拟动作槽；不是完整suite评测或学习结果。现有 Runner 使用任务 0 / trial 0、actor/value 学习率 `1e-8`、critic warmup 0；Runner-v4 奖励为 0。先前少量 task 0 / trial 0、1 的预训练策略成功结果也不是完整 LIBERO-Spatial benchmark。
 
 冻结研究条件：Driver 2.7.0、Toolkit 3.1.0、Torch 2.2.0、Torch-MUSA `1.3.0+81caf0a`、MCCL 2.11.4；冻结 BF16 Eagle、FP32 action/value head、AMP 关闭。宿主驱动、`/usr/local/musa`、默认 Python 保持原状，继续使用 `/root/autodl-tmp/s4000-research` 的隔离环境。逐次保留配置、补丁、源码/探针哈希和版本，而非仅写“基于某 commit”。
 
@@ -77,7 +77,7 @@ Runner-v5 的 3 轮 × 2 环境 × 80 步验证已通过：480个数据槽、454
 
 Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chunks=5、2 轮 × 2 环境 × 240 simulator steps**、仍用 `lr=1e-8` 的完整 horizon 验证：计划 **192 个 chunk 样本槽 / 960 个 simulator transition 槽**，每 rank 每轮 48 microbatches。准确环境/源码/启动条件参照[已验证入口](two-gpu-results.md)，新增CLI和断言说明见[完整回合入口](../model_probes/embodied-eval-README.md)；这不是学习实验，也不是 chunk5 工具已验证的承诺。
 
-此前v4/v5使用[冻结Runner脚本](../evidence/multi-gpu/versions/official-runner-v4-probe.py)，只支持chunks=1。当前[Runner探针](../model_probes/official_runner_probe.py)已增加`--action-chunks 5`，明确区分`simulator_horizon=240`、`chunk_decisions_per_env=48`、global batch 96，审计`T=48`、`T+1=49`以及包含首个终止动作的mask；此增量GPU验收仍待执行。只传`--steps-per-env 240`仍使用默认chunks=1。dones/terminations/truncations的action维为5，values维度按官方value-head口径核对；原脚本与历史证据按其哈希解释。
+此前v4/v5使用[冻结Runner脚本](../evidence/multi-gpu/versions/official-runner-v4-probe.py)，只支持chunks=1。当前[Runner探针](../model_probes/official_runner_probe.py)已增加`--action-chunks 5`，明确区分`simulator_horizon=240`、`chunk_decisions_per_env=48`、global batch 96，审计`T=48`、`T+1=49`以及包含首个终止动作的mask；该增量GPU两轮240步已通过，原始结果与独立核对见[两卡报告](two-gpu-results.md)。只传`--steps-per-env 240`仍使用默认chunks=1。dones/terminations/truncations的action维为5，values维度按官方value-head口径核对；原脚本与历史证据按其哈希解释。
 
 验收必须覆盖以下实际边界，缺一项便明确标为未覆盖：
 
@@ -144,7 +144,7 @@ Runner-v5 的 chunks=1 / 80 步稳定性通过之后，下一轮优先做 **chun
 
 1. 协调者完成 Runner-v5 并冻结证据；若通过，新增CLI执行 chunks=5 / 2 × 240 的完整 horizon 工程轮（每 rank 48 chunk decisions、global batch 96），补 terminal/truncation/mask 证据。
 2. 已准备独立[评估探针](../model_probes/official_eval_probe.py)，复用官方evaluate、逐pair记录并核对覆盖，GPU执行待验收。先10-state pilot；完整init-state manifest、独立pair seed hook与全套10-task / 通常500-state基线继续分阶段实施。当前单episode历史结果不能冒充这个入口。
-3. 新建可配置的学习 Runner 入口，支持 LR/value LR、horizon、训练 seed、更新 epoch、保存/恢复、最终同步；**当前 `official_runner_probe.py` 硬编码 `lr=1e-8`、save/eval 关闭、resume=null，不能只加 CLI 参数就当正式学习工具。** 保留原探针及历史证据。
+3. 新建可配置的学习 Runner 入口，支持 LR/value LR、horizon、训练 seed、更新 epoch、保存/恢复、最终同步；独立[official_training_probe.py](../model_probes/official_training_probe.py)已准备可配置LR/seed、Runner恢复和显式末次同步，GPU生命周期验收排在pilot之后；训练仍固定task0/trial0、eval关闭，不能当正式学习收益工具。原`official_runner_probe.py`保持工程测试范围。 保留原探针及历史证据。
 4. 验证一次 Runner 保存 → 新进程恢复 → 新轨迹下一轮 → 再保存；按实际能力标明是否只恢复 Actor、是否从新 episode 开始。
 5. 确定状态划分/采样协议；若用严格 held-out，先验收 trial allowlist。执行官方 LR 的 3 轮短验收，再按 24k 单 seed、96k × 3 seeds 的预算推进。
 6. 每次阶段结束保存配置/来源/紧凑证据，由协调者做 Git milestone。暂不需要继续加卡：先获得实际吞吐与两卡长期内存数据，再判断独立 Rollout 第三卡或更大环境并发的价值。

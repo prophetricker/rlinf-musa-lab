@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "93cebe950e59bf65bd4add8b3ed8edde1165d6cd",
+  "research_commit": "85629dcf44634814615b448cfe5903c2830c436e",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,8 +21,8 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 7266,
-      "sha256": "88a23844124b439f0ab39736063db2cea8f1448c4d35cbf727319db60bbfa110"
+      "bytes": 7390,
+      "sha256": "641b5268425b064ac10297a26a4e77f621a71389152b5aa6c421bc176f6b7f65"
     },
     {
       "path": "REPRODUCE.md",
@@ -33,8 +33,8 @@
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 5305,
-      "sha256": "63e66e2eb11e8db9652dffc9e0400b1e9f3a0a1fff90e1b9eb8aa4df91d95765"
+      "bytes": 5433,
+      "sha256": "a05f1d25143bd0b2eeb033fb24da9972aa37acdb546347b38f58a5a5e71351f2"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 9386,
-      "sha256": "2a9bf5f26ed3261101f2a9a4bca2720dbf640846fe0c46c1349bf4c00cc9b10a"
+      "bytes": 10515,
+      "sha256": "6313a22e5bdb4b9ecc5434fc0cca11e5c5a42fde99c2cb9d648705004041f045"
     },
     {
       "path": "reports/route2-learning.md",
@@ -769,6 +769,60 @@
       "sha256": "f2d9e4b45b09bd65cba9813701b930e97e6533dbf2ca78ebc07fe22332b48b73"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.env.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.env.events.jsonl",
+      "bytes": 3233,
+      "sha256": "9023a05c07c1a523e814695efe186a3f93ec3aa56ff1a4e270ac586a17a27719"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.failure.txt",
+      "research_source": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.failure.txt",
+      "bytes": 493,
+      "sha256": "445c9e229f8ca873058b4315a2c813a1fe510041cfbbbebb706d36e0df2dcafc"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.json",
+      "bytes": 214811,
+      "sha256": "2508ff2821da78d406173864cfd1a5211786234d6f6c8a5d2000f7658acfb9e0"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.partial.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.partial.json",
+      "bytes": 204617,
+      "sha256": "f8f95313a9339f0aea0361b3a4965937a92e48be31e241a48c9c9da631044e25"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.rollout.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-spatial-ten-task-pilot-v1.rollout.events.jsonl",
+      "bytes": 438,
+      "sha256": "008fb73d5bca938fb3f32b2807f2def132d4c8851ea36c1d561e4932168c07fb"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.actor.rank0.events.jsonl",
+      "bytes": 13499,
+      "sha256": "c858a2cbcb77f31e65462b3aa4f6e3970266a8916092ecbb330addf8dfdc54da"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.actor.rank1.events.jsonl",
+      "bytes": 13482,
+      "sha256": "c9fbf03574bc9f713896442422c974105943cfed7d33358d69fb1aabd14b261d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.audit.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.audit.json",
+      "bytes": 2737,
+      "sha256": "f61d7385638223e6fb3ab24a3203e977a0f368b02ead7ae447a85acaee7d0ded"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-chunk5-v1.json",
+      "bytes": 1681600,
+      "sha256": "1454333c8c90e13fca1df0adccf02f21d1be97aa5dd428a9b177182d09422c2a"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v1.failure.txt",
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-runner-v1.failure.txt",
       "bytes": 1757,
@@ -857,6 +911,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-train-sync-v1.json",
       "bytes": 1434901,
       "sha256": "1f6b6741476a5f26c7761db59c7b9d25e073bbede6424aafb1ff52d3caa8c53d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/runner-lifecycle-preparation-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/runner-lifecycle-preparation-v1.json",
+      "bytes": 614,
+      "sha256": "b6a66002cebdc7d42958e78c86a47572478cac962a65dbd41a85660078f84185"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/singleton-broadcast-v1.failure.txt",
@@ -973,6 +1033,12 @@
       "sha256": "abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-eval-pilot-v2-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-eval-pilot-v2-probe.py",
+      "bytes": 13482,
+      "sha256": "72b32a3bee427dd0ab6d7faebec6d4c4414d280869f671122a327048a0fd6206"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py",
       "research_source": "routes/route2/evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py",
       "bytes": 30735,
@@ -989,6 +1055,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/versions/official-runner-v4-probe.py",
       "bytes": 27652,
       "sha256": "8361ab1f0b2e15efcf9934e5fd631eabdd7afb99c0d9862635bb6805898f4bcc"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-training-lifecycle-v1-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-training-lifecycle-v1-probe.py",
+      "bytes": 39384,
+      "sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v1.py",
@@ -1037,6 +1109,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-compat-v2.patch",
       "bytes": 8044,
       "sha256": "7d96b3341800c2b651c0aef5f2338fcef1d521997a2253a449d8dc9c5ab8f47c"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-before-chunk5-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-before-chunk5-v1.json",
+      "bytes": 1774,
+      "sha256": "9ee33483f9178cf2a6b449047225120b13d382dae0fe6a6f96319d6d3baadce0"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/two-rank-lock-before-runner-v5.json",
@@ -1953,8 +2031,8 @@
     {
       "path": "routes/route2/model_probes/embodied-eval-README.md",
       "research_source": "routes/route2/model_probes/embodied-eval-README.md",
-      "bytes": 4623,
-      "sha256": "7cc63c505d40853a9a9a1bcd466a9f5763a4a607d84c0b19c5bd73e4448b59e3"
+      "bytes": 5223,
+      "sha256": "35ed16a774f4fbbeb8397f1bbb299a593a5cbd29e92a8e54580239e88b35b680"
     },
     {
       "path": "routes/route2/model_probes/embodied_actor_torch22_probe.py",
@@ -2097,8 +2175,8 @@
     {
       "path": "routes/route2/model_probes/official_eval_probe.py",
       "research_source": "routes/route2/model_probes/official_eval_probe.py",
-      "bytes": 13319,
-      "sha256": "abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569"
+      "bytes": 13482,
+      "sha256": "72b32a3bee427dd0ab6d7faebec6d4c4414d280869f671122a327048a0fd6206"
     },
     {
       "path": "routes/route2/model_probes/official_runner_probe.py",
@@ -2107,10 +2185,22 @@
       "sha256": "a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451"
     },
     {
+      "path": "routes/route2/model_probes/official_training_probe.py",
+      "research_source": "routes/route2/model_probes/official_training_probe.py",
+      "bytes": 39384,
+      "sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194"
+    },
+    {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
       "research_source": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
       "bytes": 2713,
       "sha256": "e3bb8ee46536d00b770fb844a10d2af0cb6d916a2d105bfcbf83b72fc70d5aec"
+    },
+    {
+      "path": "routes/route2/model_probes/runner-lifecycle-README.md",
+      "research_source": "routes/route2/model_probes/runner-lifecycle-README.md",
+      "bytes": 3022,
+      "sha256": "8945ad9170db762bdaa59d7f2ebc9ff13d03a27b4713964ca31732345ff71036"
     },
     {
       "path": "routes/route2/model_probes/runner_progress.py",
@@ -2211,8 +2301,8 @@
     {
       "path": "routes/route2/model_probes/two-rank-source-lock.json",
       "research_source": "routes/route2/model_probes/two-rank-source-lock.json",
-      "bytes": 1774,
-      "sha256": "9ee33483f9178cf2a6b449047225120b13d382dae0fe6a6f96319d6d3baadce0"
+      "bytes": 1761,
+      "sha256": "6c2c56387796e4b0858262208c8e5df4bb757815da5418b91d59a70458c39c9f"
     },
     {
       "path": "routes/route2/model_probes/two_rank_rollout_probe.py",
@@ -2367,8 +2457,8 @@
     {
       "path": "routes/route2/planning/embodied-learning-entry.md",
       "research_source": "routes/route2/planning/embodied-learning-entry.md",
-      "bytes": 26993,
-      "sha256": "eaf9c5068d5d3992fd02f399fda373f36aeaa997af595718037f9bfb75486d8b"
+      "bytes": 27323,
+      "sha256": "cb20829fa270e06bf6a131b737fcba3c7cbb1d464669110db69ddc8844c791fa"
     },
     {
       "path": "routes/route2/planning/fsdp1-audit.md",
@@ -2403,8 +2493,8 @@
     {
       "path": "routes/route2/planning/two-gpu-results.md",
       "research_source": "routes/route2/planning/two-gpu-results.md",
-      "bytes": 54162,
-      "sha256": "9b8419bcc5b2443fb6086fd720a5be7eefc2e0cd792d911cfe5a4ff1b376d778"
+      "bytes": 58082,
+      "sha256": "bc159702616a1d0a6f176b14e46fe01190b850e1bb82ef841a024a9ca06a8a05"
     },
     {
       "path": "routes/route2/probes/cpu_compat_checks.py",
@@ -2431,10 +2521,16 @@
       "sha256": "47c75431f8d17b2e2202db0c3010fe004425c755da9ad3f3594d9226fbac1d74"
     },
     {
+      "path": "scripts/audit_route2_eval_result.py",
+      "research_source": "scripts/audit_route2_eval_result.py",
+      "bytes": 7175,
+      "sha256": "a6b49056b503df56a4619b67a2dc96b8a798e7285c7145237a02e668a75793d7"
+    },
+    {
       "path": "scripts/audit_route2_runner_result.py",
       "research_source": "scripts/audit_route2_runner_result.py",
-      "bytes": 5582,
-      "sha256": "f9bc80b9df523be4eba1ce730952e3646dae396c6c360b364b03d61822836d95"
+      "bytes": 7654,
+      "sha256": "7f3e8e3b83f097690b836761a5cf94b79e5ec4cc838232265248d03d6f42c872"
     },
     {
       "path": "scripts/prepare_route2_backbone_env.sh",
@@ -2561,6 +2657,12 @@
       "research_source": "scripts/run_route2_embodied_validation.sh",
       "bytes": 2160,
       "sha256": "ac433c4a163f4d47dc7d90c1d7575c181bfe2464d18b723d6c8079a85524d141"
+    },
+    {
+      "path": "scripts/run_route2_runner_lifecycle.sh",
+      "research_source": "scripts/run_route2_runner_lifecycle.sh",
+      "bytes": 2031,
+      "sha256": "8f4fa2dda4d04aaa2f35a0a07973841b41fcd8fabd898b2eac453574d78098c3"
     },
     {
       "path": "scripts/summarize_log.py",

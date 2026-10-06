@@ -1,6 +1,6 @@
 # 两张 S4000：本轮验证记录
 
-日期：2026-10-07。**完整官方Runner三轮80步闭环已通过**：Runner-v5用官方collector/dispatcher分发2环境×80步×3轮，共480个环境数据槽，其中454个mask有效动作；两个FULL_SHARD Actor各完成3次官方GAE/PPO更新，非空Adam step到3，版本0/1/2同步的907项状态与Rollout精确一致，采样覆盖真实termination和post-terminal mask。此前完整GR00T DCP保存、新driver/Worker恢复及下一次更新精确对照已通过；Runner-v4的16步短闭环与失败历史均保留。当前仍为`lr=1e-8`，结果证明固定配置功能与三轮稳定性，尚不证明任务学习。新chunk5/240步完整回合与独立十任务pilot已开始串行验证，尚未计为通过。
+日期：2026-10-07。**官方chunk5/240步Runner两轮已通过**：192个动作块、960个mask有效模拟动作槽，两rank各两次PPO更新，完整权重同步和240步truncation/下一轮reset通过。此前Runner-v5三轮80步覆盖真实termination及post-terminal mask，480槽中454个有效；完整Actor DCP新进程恢复及同批下一步精确对照也已通过。学习率仍为`1e-8`，这些结果证明功能与固定配置稳定性，尚不证明任务学习。独立十任务初始策略pilot正在执行；新的Runner保存/恢复和末次同步入口已准备，GPU尚待验收。
 
 ## 环境、源码与证据范围
 
@@ -121,9 +121,36 @@ GPU值为每Worker allocator峰值，不能相加为物理卡瞬时峰值；宿�
 
 末态Runner step3、Actor各Adam step3，Actor/Rollout版本字段仍为2。Rollout用于第三轮采样，持有第二次PPO更新后的权重；Actor已完成第三次更新。没有额外最终同步，不能声称第三次更新后的策略已与Rollout一致。版本0/1/2每次同步各核对907项完整状态；固定输入输出等价仍引用此前train-sync探针，不混为v5新增验收。
 
-Actor0/1最终GPU allocator peak allocated分别23.456852/23.453743 GiB，reserved分别26.353516/26.062500 GiB；进程RSS高水位16.330467/12.445137 GiB。各进程峰值不能相加为整卡瞬时占用，宿主数值不含simulator子进程与Ray共享object storage。驱动退出后两卡均4 MiB、0%利用率，随后在同次开机周期串行启动chunk5/240步与十任务pilot；未关机或重启。
+Actor0/1最终GPU allocator peak allocated分别23.456852/23.453743 GiB，reserved分别26.353516/26.062500 GiB；进程RSS高水位16.330467/12.445137 GiB。各进程峰值不能相加为整卡瞬时占用，宿主数值不含simulator子进程与Ray共享object storage。驱动退出后两卡均4 MiB、0%利用率，随后在同次开机周期启动chunk5/240步，十任务pilot在其通过后串行执行；未关机或重启。
 
-新增CLI/评估源码与精确命令见[完整回合和评估入口](../model_probes/embodied-eval-README.md)，后续学习率、全套状态覆盖、Runner恢复与学习收益计划见[学习入口计划](embodied-learning-entry.md)。这些新入口尚待GPU结果，不能用v5扩大其验收范围。
+新增CLI/评估源码与精确命令见[完整回合和评估入口](../model_probes/embodied-eval-README.md)，后续学习率、全套状态覆盖、Runner恢复与学习收益计划见[学习入口计划](embodied-learning-entry.md)。chunk5的新增结果见下一节；十任务评估尚待完成，不用v5扩大其验收范围。
+
+### chunk5-v1：完整240步与超时截断
+
+[原始结果](../evidence/multi-gpu/official-two-rank-chunk5-v1.json)和[独立核对](../evidence/multi-gpu/official-two-rank-chunk5-v1.audit.json)均为pass，独立核对16项通过；两个rank各14条JSONL事件与最终receive/GAE/training记录逐字段一致。探针字节见[冻结chunk5脚本](../evidence/multi-gpu/versions/official-runner-chunk5-v1-probe.py)，SHA256为`a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451`，六份生产文件与[运行前锁快照](../evidence/multi-gpu/versions/two-rank-lock-before-chunk5-v1.json)一致。完整耗时1235.217697秒，包括初始化、采样、训练、同步和哈希审计，不是纯训练吞吐。
+
+固定任务0/trial0，两环境、每环境240模拟步、每次策略决策执行5动作；global batch96、microbatch1、update epoch1、actor/value LR均1e-8。每rank每轮收到48个chunk决策，policy时间维T=48、value/done边界T+1=49；每rank48个microbatches后共同完成一次分布式optimizer更新。两轮合计192个chunk样本、960个模拟动作槽，全部mask有效。不能把192个chunk或4步denoising链当独立环境transition。
+
+| 完整horizon检查 | 第0轮 | 第1轮 |
+|---|---:|---:|
+| 两rank有效动作槽 / 有效chunk | 480 / 96 | 480 / 96 |
+| 各rank truncation true标记 | 1 / 1 | 1 / 1 |
+| 各rank termination / reward sum | 0 / 0 | 0 / 0 |
+| 非空Adam step / manager计数 | 1 / 1 | 2 / 2 |
+| 全局裁剪前梯度范数 | 34.53612518310547 | 33.59235382080078 |
+| 官方训练ratio | 0.9999997615814209 | 1.0000001192092896 |
+
+四条真实240步轨迹均以时间上限truncation结束，下一Runner轮次的pre-action done重新为false，bootstrap与独立first-ending-action mask检查通过。没有成功termination；chunk5中间成功的真实路径尚未覆盖，CPU边界case及chunk1-v5的真实termination证据分别保留。两个Actor训练分片/optimizer都变化，metrics、参数、optimizer及GAE有限，版本0/1各907项完整状态与Rollout一致，selected322项完整覆盖。
+
+末态Runner step2、Actor各Adam step2，Actor/Rollout元数据version1；Rollout只有首次更新后的权重，第二次更新后没有追加同步。后续[生命周期入口](../model_probes/runner-lifecycle-README.md)显式验收最终同步，不能将其计划当本轮已通过项。
+
+Actor0/1 allocator peak allocated为23.456853/23.453744GiB，reserved为26.353516/26.062500GiB，进程RSS高水位16.073986/12.477627GiB。峰值为各进程累计值，不相加为整卡瞬时占用。随后同次开机周期串行启动十任务初始策略pilot，没有关机或重启。
+
+### 十任务pilot-v1：执行完成，汇总探针失败
+
+[原始v1结果](../evidence/multi-gpu/official-spatial-ten-task-pilot-v1.json)为fail，原因见[失败说明](../evidence/multi-gpu/official-spatial-ten-task-pilot-v1.failure.txt)。官方eval已完成10个唯一task/trial0和240次双环境预测，官方metrics报告10 trajectories、`success_once≈0.4`、`success_at_end≈0.3`、episode_len240；Env统计成功task为0/5/6/9，其余失败。每task实际有50个init states，此处仅评trial0，不是全500-state基线。耗时409.582088秒包括加载、权重哈希、评估和审计。
+
+失败发生在评估结束后`result["rollout"]["prediction_batches"]`：`rollout.probe_report().wait()`返回单元素列表，v1未解包便按字典读取。它是探针结果契约错误，不能作为MUSA、模型或模拟器执行失败的证据；也不将失败结果改成通过。冻结v1 SHA为`abb80db445de6f1b81f00b84a4bdd42dd320c890b4cd87dbf65e0203ea752569`；[v2冻结脚本](../evidence/multi-gpu/versions/official-eval-pilot-v2-probe.py)只核对返回一个Rollout并取首项，SHA为`72b32a3bee427dd0ab6d7faebec6d4c4414d280869f671122a327048a0fd6206`，已按相同配置独立重跑，结果待验收。
 
 成功前的v1/v2都在`official_runner_init_workers`阶段失败，结果中的`synchronizations`为空；v3已通过初始化和版本0同步，再在Actor审计代码失败。这三轮均未完成Runner的GAE/PPO训练验收：
 
@@ -430,4 +457,4 @@ env -u MCCL_SHM_DISABLE RLINF_MUSA_FSDP_INDEPENDENT_INIT=0 \
   --output "$lab_result_dir/singleton-broadcast-v2.json"
 ```
 
-小探针、分卡单rank更新、大模型分片PPO更新、完整DCP保存与恢复续跑、分片Actor→Rollout版本0/1同步、新轨迹更新及官方Runner两轮闭环已分别通过。下一步是已启动的Runner-v5较长稳定性检查，随后仍需独立多任务/多seed学习评估。进入顺序见[多卡计划](multi-gpu-entry.md)。
+小探针、分卡单rank更新、大模型分片PPO更新、完整DCP保存与恢复续跑、分片Actor→Rollout版本0/1同步、新轨迹更新、官方Runner三轮80步及chunk5/240步两轮闭环已分别通过。当前正在运行十任务初始策略pilot，随后验收Runner保存/恢复及末次同步；后续仍需完整suite基线与独立多seed学习评估。进入顺序见[多卡计划](multi-gpu-entry.md)。

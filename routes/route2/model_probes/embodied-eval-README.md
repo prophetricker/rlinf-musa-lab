@@ -1,6 +1,6 @@
 # 完整回合与十任务评估入口
 
-2026-10-07：Runner chunk5入口正在首次GPU执行，十任务评估排在其后串行启动；两者尚未计为通过。已通过的Runner-v4/v5字节是[冻结脚本](../evidence/multi-gpu/versions/official-runner-v4-probe.py)；当前Runner脚本增加了可配置动作分块、微批次进度和独立终止mask审计，不能把旧结果当新脚本验收。后续阶段协议见[学习计划](../planning/embodied-learning-entry.md)。
+2026-10-07：Runner chunk5/240步两轮GPU已通过（192动作块、960有效模拟动作槽、两次更新/rank与超时截断）；十任务评估正在串行执行，尚待验收。已通过的Runner-v4/v5字节是[冻结脚本](../evidence/multi-gpu/versions/official-runner-v4-probe.py)；当前Runner脚本增加了可配置动作分块、微批次进度和独立终止mask审计，不能把旧结果当新脚本验收。后续阶段协议见[学习计划](../planning/embodied-learning-entry.md)。
 
 ## 官方5动作分块与完整回合
 
@@ -43,5 +43,7 @@ envs/route2/bin/python route2/model_probes/official_eval_probe.py \
 每lane固定1200模拟步，覆盖5个240步回合；整个pilot预期10个唯一task/trial0、240次两环境策略预测。JSONL记录实际完成pair与episode指标，最终核对集合恰为task0–9的trial0。任务覆盖和动作有限性通过不代表成功率高或学习收益；即使十个任务全部成功，也不是全部init-state的完整benchmark。
 
 第一版只固定整次Rollout的Python/NumPy/Torch/MUSA seed1234；eval仍有初始latent随机采样，没有实现独立per-episode seed hook。前后对照须使用相同batch、顺序和随机数协议。当前原始权重锁及baseline适配仍适用；完整suite须先核对实际每task init-state数量，再设置trials数并核对真实覆盖，不能盲假设50。
+
+首轮pilot-v1执行完10个task/trial0、240次双环境预测、2400个模拟动作槽，官方`success_once=4/10`，但最终读取Rollout报告时把WorkerGroup返回列表当字典，结果标为fail。原始JSON/events和[冻结v1脚本](../evidence/multi-gpu/versions/official-eval-pilot-v1-probe.py)保留；当前v2仅检查单Rollout并取列表首项，正在相同配置下独立重跑，不将v1改写为pass。任务曾成功与最后状态成功是不同指标：v1分别4/10和3/10，主口径保留官方`success_once`。
 
 GPU实验顺序执行，CPU的Cluster/Ray配置验证也须等当前作业退出。`runner_progress.py`只读证据且不加载Torch，允许用于正在运行的Runner；partial中初始化的`status=fail`不会被误报为最终失败。

@@ -61,3 +61,9 @@
 研究提交 `0e467cb1d445b4bf435d57e311df04c6b7d30101` 已导出为成果仓库 [`cb320492f65e6b3f74f9cc84c75522ed3ebe0dc2`](https://github.com/prophetricker/rlinf-musa-lab/commit/cb320492f65e6b3f74f9cc84c75522ed3ebe0dc2)，正常push后核对远端main一致。Runner-v4真正运行官方`EmbodiedRunner.run()`，2环境×4步×2轮共16 transitions；两个FULL_SHARD Actor各完成两次官方GAE/PPO更新，非空Adam step为2；版本0/1的907项完整状态与Rollout一致。末次PPO更新未再同步，奖励均为0，不证明学习收益。导出409个文件、98个Python AST、5个Bash语法、240个相对链接通过。
 
 当前6文件增量补丁及源码锁覆盖Runner Ray数据通道、Torch-MUSA真实初始化查询与单成员广播适配；完整状态同步仍使用CPU Bucket/Ray，两rank训练归约使用MCCL。Runner-v1/v2初始化失败、v3探针误读训练包`actions`失败均保留；v4通过不抹去历史失败。Runner-v5已启动3轮、2环境各80步的稳定性验证，后续结果另行记录，不能扩大此前发布提交的验收范围。
+
+## 三轮80步Runner稳定性节点（2026-10-07）
+
+研究提交`93cebe950e59bf65bd4add8b3ed8edde1165d6cd`已导出并正常push为成果仓库[`9b28edabb614fb7ed93a331f1a7164a9e8a53c15`](https://github.com/prophetricker/rlinf-musa-lab/commit/9b28edabb614fb7ed93a331f1a7164a9e8a53c15)，远端main与本地HEAD已核对。Runner-v5完成3轮×2环境×80步，480数据槽、454 mask有效动作，两个Actor各3次Adam更新，版本0/1/2各907项完整状态同步一致。真实termination与post-terminal mask后训练通过，尚无240步truncation、完整suite评估或学习收益；末次PPO更新未额外同步。原始ratio受全mask微批次的普通均值影响，原值与解释都保留。
+
+该发布节点包含新chunk5与十任务评估代码、5项CPU eval通道/精确补丁重建、10case真实loss-mask CPU检查及后续学习计划；新入口当时仍未验收GPU结果。导出428文件、104 Python AST、6 Bash语法和261相对链接通过。实例保持运行，chunk5/240步Runner和初始十任务pilot已由协调者顺序启动；这段运行中状态不扩大本次发布的通过范围。

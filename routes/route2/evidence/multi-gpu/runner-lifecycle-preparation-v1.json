@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-07",
+  "status": "prepared",
+  "gpu_execution": "pending",
+  "probe_sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194",
+  "static_checks": {
+    "AST": true,
+    "CLI_help": true,
+    "bash_syntax": true,
+    "read_only_agent_review": true
+  },
+  "recipe": {
+    "iterations_per_process": 1,
+    "total_envs": 2,
+    "simulator_horizon": 10,
+    "action_chunks": 5,
+    "first_process_save": true,
+    "resume_process_save": false,
+    "lr": 1e-08,
+    "value_lr": 1e-08
+  },
+  "scope": "preparation and static verification only; no Runner lifecycle GPU result yet"
+}

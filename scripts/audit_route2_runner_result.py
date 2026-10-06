@@ -11,6 +11,7 @@ def main():
     parser.add_argument("result", type=Path)
     parser.add_argument("--probe", type=Path, required=True)
     parser.add_argument("--source-lock", type=Path, required=True)
+    parser.add_argument("--resume-reference", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -21,6 +22,10 @@ def main():
     chunks = cfg["actor"]["model"]["num_action_chunks"]
     horizon = cfg["env"]["train"]["max_steps_per_rollout_epoch"]
     iterations = data["iterations"]
+    start_step = data.get("start_global_step", 0)
+    target_step = start_step + iterations
+    explicit_final_sync = "target_global_step" in data
+    final_version = target_step if explicit_final_sync else target_step - 1
     decisions = horizon // chunks
     actors = data["actor_reports"]
     syncs = data["synchronizations"]
@@ -29,24 +34,48 @@ def main():
               "locked_production_files_match": all(data["source_fingerprints"].get(row["path"]) == row["sha256"]
                                                     for row in lock["production_files"]),
               "expected_two_ranks": [row["rank"] for row in actors] == [0, 1],
-              "global_step_and_versions": data["runner_global_step"] == iterations
-                  and data["rollout_final"]["version"] == iterations - 1
-                  and all(row["final"]["version"] == iterations - 1 for row in actors),
+              "global_step_and_versions": data["runner_global_step"] == target_step
+                  and data["rollout_final"]["version"] == final_version
+                  and all(row["final"]["version"] == final_version for row in actors),
               "all_raw_final_checks": all(data["final_checks"].values()),
               "all_raw_iteration_checks": all(all(value for key, value in row.items() if key != "iteration")
                                                for row in data["per_iteration_checks"]),
-              "complete_iteration_versions": [row["runner_global_step"] for row in syncs] == list(range(iterations)),
+              "complete_iteration_versions": [row["runner_global_step"] for row in syncs]
+                  == list(range(start_step, target_step + int(explicit_final_sync))),
               "all_full_state_synchronizations": all(all(row["checks"].values())
                   and row["actor_states"][0]["manifest"] == row["rollout_state"]["manifest"] for row in syncs),
-              "all_rank_updates": all(row["final"]["optimizer_steps"] == iterations
-                  and row["final"]["active_adam_steps"] == [float(iterations)] for row in actors),
+              "all_rank_updates": all(row["final"]["optimizer_steps"] == target_step
+                  and row["final"]["active_adam_steps"] == [float(target_step)] for row in actors),
               "correct_global_decision_counts": data["global_received_samples_per_iteration"] == [2 * decisions] * iterations}
+    if explicit_final_sync:
+        checks["final_policy_matches_last_actor_sync"] = (
+            syncs[-1]["actor_states"][0]["manifest"] == data["rollout_final"]["manifest"])
+        checks["checkpoint_device_adapter_enabled"] = (
+            data["transport_environment"].get("RLINF_MUSA_FSDP_OPTIM_DEVICE_HANDLE") == "1")
+        checks["checkpoint_state_matches_update_and_version"] = all(
+            row["optimizer_steps"] == target_step and row["nonempty_adam_steps"] == [float(target_step)]
+            and row["version"] == target_step for row in data["checkpoint_state"])
+        if data["save_final_requested"]:
+            checks["save_preserved_training_state"] = data["checkpoint_state"] == data["post_save_actor_state"]
+            checks["recorded_checkpoint_files"] = data["checkpoint_bytes"] == sum(
+                row["bytes"] for row in data["checkpoint_files"]) > 0
+        if start_step:
+            if args.resume_reference is None:
+                parser.error("resumed Runner audit requires --resume-reference")
+            reference = json.loads(args.resume_reference.read_text())
+            checks["restore_reference_hash"] = data["resume_reference_sha256"] == hashlib.sha256(
+                args.resume_reference.read_bytes()).hexdigest()
+            checks["restored_rank_training_states_exact"] = (
+                data["initial_actor_state"] == reference["checkpoint_state"]
+                and len(data["restore_checks"]) == 22 and all(data["restore_checks"].values()))
+            checks["resume_probe_helpers_sources_equal"] = all(data[key] == reference[key] for key in (
+                "probe_sha256", "source_fingerprints", "gr00t_source_fingerprints", "support_fingerprints"))
     summaries = []
     for index in range(iterations):
         rows = [actor["iterations"][index] for actor in actors]
         checks[f"iteration_{index}_rank_data_and_updates"] = all(
             row["received_sample_count"] == decisions
-            and row["stored_versions"] == [float(index)]
+            and row["stored_versions"] == [float(start_step + index)]
             and all(row["receive_checks"].values()) and row["gae"]["finite"]
             and all(row["training"]["checks"].values()) for row in rows)
         checks[f"iteration_{index}_distinct_data_and_reduced_norm"] = (
