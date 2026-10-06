@@ -1,0 +1,21 @@
+{
+  "schema": "platform_shutdown_confirmation_v1",
+  "recorded_at_utc": "2026-10-06T18:21:19Z",
+  "timezone": "Asia/Shanghai",
+  "platform": "AutoDL",
+  "instance_id": "77de47b334-d32e95e0",
+  "gpu_configuration": "MTT S4000 x 2",
+  "authorization": "User explicitly requested shutting down S4000 after this work finished.",
+  "method": "Native Edge UI: instance list shutdown button and confirmation; refreshed list after shutdown.",
+  "observed_transition": ["运行中", "关机中", "已关机"],
+  "final_status": "已关机",
+  "start_button_visible": true,
+  "instance_retained": true,
+  "released_or_destroyed": false,
+  "gpu_experiments_finished": true,
+  "server_sync_completed_before_shutdown": true,
+  "experiment_research_commit": "4237de1e65162d1810732b9e327f016897025d92",
+  "verified_experiment_publish_commit": "0758ebd2745611fac61ff0d63640d6e988319cff",
+  "verification": "Local publish HEAD exactly matched git ls-remote origin refs/heads/main before shutdown.",
+  "scope": "Coordinator observation of platform UI, not a platform API receipt or screenshot archive. No further GPU runs after this confirmation."
+}

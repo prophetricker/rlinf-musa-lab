@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "4237de1e65162d1810732b9e327f016897025d92",
+  "research_commit": "ad15de7f5afbe0dd2a93786d063e261f2e57ab14",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 13348,
-      "sha256": "e6fcc55de36881688ff15f1aa1e4120f0e546097b66a7597522f8db205bb5361"
+      "bytes": 14531,
+      "sha256": "496bb3a670ba77ea6ca395ff37c4724d69f770ccb6da7108bca0710f1d794e30"
     },
     {
       "path": "reports/route2-learning.md",
@@ -995,6 +995,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-train-sync-v1.json",
       "bytes": 1434901,
       "sha256": "1f6b6741476a5f26c7761db59c7b9d25e073bbede6424aafb1ff52d3caa8c53d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json",
+      "bytes": 1132,
+      "sha256": "f2622a595379501851ee7b2618c1d3e8542b67101794109a9dd44bc6ed33f3f2"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/runner-lifecycle-preparation-v1.json",

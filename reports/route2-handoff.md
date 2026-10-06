@@ -85,3 +85,9 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 旧Actor DCP与新Runner checkpoint1都保留，研究盘可用15107616768字节（约14.07GiB）。恢复范围是Actor训练状态后重新采样，新Env/Rollout现场未恢复，十步入口不覆盖周期自动保存或完整回合边界恢复。后续优先官方LR短验收、完整500-state初始基线和配对学习评估，下一次学习从固定预训练权重/全新optimizer开始，不能把本轮1e-8工程更新当学习成果。
 
 本轮GPU全部退出，两卡各4MiB、0%，无运行GPU进程。用户明确追加实验完成后关机；协调者完成最终记录及GitHub同步后从平台关闭唯一两卡S4000实例，不用guest poweroff代替平台操作。实际关机状态另记。
+
+## 2026-10-07最终同步与平台关机确认
+
+研究提交`4237de1e65162d1810732b9e327f016897025d92`已导出并正常push为成果仓库[`0758ebd2745611fac61ff0d63640d6e988319cff`](https://github.com/prophetricker/rlinf-musa-lab/commit/0758ebd2745611fac61ff0d63640d6e988319cff)，`git ls-remote origin refs/heads/main`与本地HEAD精确一致。该节点包含chunk5/240步、十任务pilot-v2和Runner保存/新进程恢复/新轨迹更新/最终同步的原始证据及独立审计。导出461文件、108 Python AST、7 Bash语法和288相对Markdown链接通过。
+
+2026-10-07约02:21（Asia/Shanghai），协调者通过已登录的AutoDL实例列表，对唯一实例`77de47b334-d32e95e0`（MTT S4000×2）执行平台“关机”并确认。页面先显示“关机中”，刷新后明确显示“已关机”、可用“开机”按钮；实例仍保留，没有释放或销毁。关机前已完成服务器`sync`，全部GPU实验已退出。紧凑确认记录见[平台关机证据](../routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json)。本段及确认记录是关机后的本地补充，将作为单独收尾提交同步，无需再次开机。
