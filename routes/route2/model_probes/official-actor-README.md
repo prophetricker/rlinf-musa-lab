@@ -2,6 +2,8 @@
 
 日期：2026-10-06。限定单卡 S4000，Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0；BF16 Eagle + FP32 action/value head，FSDP1 NO_SHARD，AMP 关闭，critic warmup 为 0。宿主与默认环境不改动。
 
+新增两卡记录：Actor卡0/Rollout卡1的真实LIBERO更新与版本0/1同步已通过；隔离Worker设置`MCCL_P2P_DISABLE=1`后通信可用；官方GR00T两rank FULL_SHARD已通过同步初始化、GAE与四微批次同步前反向，尚未通过参数更新。2026-10-06按用户要求暂停，全部GPU进程停止。详细证据和恢复顺序见 [两卡验证](../planning/two-gpu-results.md)。以下单卡结果仍按原范围解释。
+
 `official_actor_lifecycle_probe.py` 继承真实 `EmbodiedFSDPActor` 构造和 `init_worker`；初始化已通过。`official_actor_rollout_probe.py` 的两个诊断子类继承官方初始化、预测、trajectory receive、GAE、PPO training、Bucket 同步和 checkpoint，只添加 CPU RPC 边界、哈希和固定输入检查。
 
 连续官方PPO v1和fresh-process recovery v1已通过：三轮8步真实LIBERO GAE/PPO，版本0/1/2/3同步的907个状态哈希和固定输出精确一致。Adam steps1/2/3与309/309/310个参数变化，梯度有限非零。新进程的权重、Adam、scheduler、四类RNG、计数与version，以及同批下一步全部精确一致。全部reward=0，未建立学习收益。Actor reserved峰值33.10 GiB，整卡采样峰值35.43 GiB。

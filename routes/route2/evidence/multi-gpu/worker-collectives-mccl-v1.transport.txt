@@ -1,0 +1,31 @@
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 00/14 :    0   1
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 00 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 01 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 02 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 03 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 00 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 01 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 02 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 03 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 04 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 05 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 06 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 07 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 04 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 05 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 06 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 07 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 08 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 09 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 10 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 11 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 12 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] MCCL INFO Channel 13 : 0[13000] -> 1[16000] via P2P/IPC
+(CollectiveProbe(rank=0) pid=171776) autodl-container-77de47b334-d32e95e0:171776:172964 [0] transport/p2p.cc:184 MCCL WARN Musa failure 'invalid argument'
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 08 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 09 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 10 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 11 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 12 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] MCCL INFO Channel 13 : 1[16000] -> 0[13000] via P2P/IPC
+(CollectiveProbe(rank=1) pid=171779) autodl-container-77de47b334-d32e95e0:171779:173031 [0] transport/p2p.cc:184 MCCL WARN Musa failure 'invalid argument'

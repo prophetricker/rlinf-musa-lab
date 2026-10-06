@@ -2,6 +2,8 @@
 
 记录日期：2026-10-05。路线二作为主开发路线，固定上游 commit 后递增适配补丁；路线一只承担回归对照，路线四在具体 backend 缺口阻塞主线时再投入。已完成部分标明，剩余项按独立验收继续推进。
 
+2026-10-06两卡进展：基础通信、小模型FULL_SHARD更新、Actor/Rollout分卡的真实轨迹更新和版本0/1同步通过；GR00T分片前反向通过，optimizer尚未通过。当前按用户要求暂停；恢复先解决梯度范数与通信等待，再进入两rank checkpoint、多rank同步和Runner，见 [两卡证据](routes/route2/planning/two-gpu-results.md)。
+
 | 节点 | 工作内容 | 验收材料 |
 |---|---|---|
 | R2-0 已完成 | 当前主线的 MUSA MLP/PPO、MuJoCo/Worker/Channel 小闭环、同批恢复与原生 FSDP1 探针 | 首轮 JSON/JSONL、固定源码与补丁、环境记录 |

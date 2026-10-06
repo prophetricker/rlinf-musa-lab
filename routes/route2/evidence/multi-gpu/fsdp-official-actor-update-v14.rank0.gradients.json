@@ -1,0 +1,10217 @@
+[
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.timestep_encoder._fsdp_wrapped_module.timestep_embedder._fsdp_wrapped_module.linear_1.weight",
+    "shape": [
+      393216
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 0,
+    "grad_shape": [
+      393216
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 0,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          393216
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          393216
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.timestep_encoder._fsdp_wrapped_module.timestep_embedder._fsdp_wrapped_module.linear_1.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 393216,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 393216,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.timestep_encoder._fsdp_wrapped_module.timestep_embedder._fsdp_wrapped_module.linear_2.weight",
+    "shape": [
+      983040
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 394752,
+    "grad_shape": [
+      983040
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 394752,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          983040
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          983040
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 0,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 0,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 4718592,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 4718592,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 4721664,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 4721664,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 7080960,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 7080960,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 7082496,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 7082496,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 10228224,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 10228224,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 10229760,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 10229760,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 13375488,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 13375488,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 13377024,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 13377024,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 15736320,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 15736320,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 15737856,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 15737856,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 25175040,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 25175040,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 25181184,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 25181184,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.0.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 34618368,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 34618368,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 34619904,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 34619904,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 39338496,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 39338496,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 39341568,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 39341568,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 41700864,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 41700864,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 41702400,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 41702400,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 44061696,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 44061696,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 44063232,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 44063232,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 46422528,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 46422528,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 46424064,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 46424064,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 48783360,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 48783360,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 48784896,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 48784896,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 58222080,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 58222080,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 58228224,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 58228224,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.1.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 67665408,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 67665408,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 67666944,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 67666944,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 72385536,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 72385536,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 72388608,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 72388608,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 74747904,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 74747904,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 74749440,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 74749440,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 77895168,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 77895168,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 77896704,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 77896704,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 81042432,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 81042432,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 81043968,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 81043968,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 83403264,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 83403264,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 83404800,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 83404800,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 92841984,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 92841984,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 92848128,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 92848128,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.2.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 102285312,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 102285312,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 102286848,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 102286848,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 107005440,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 107005440,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 107008512,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 107008512,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 109367808,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 109367808,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 109369344,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 109369344,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 111728640,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 111728640,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 111730176,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 111730176,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 114089472,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 114089472,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 114091008,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 114091008,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 116450304,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 116450304,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 116451840,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 116451840,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 125889024,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 125889024,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 125895168,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 125895168,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.3.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 135332352,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 135332352,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 135333888,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 135333888,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 140052480,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 140052480,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 140055552,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 140055552,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 142414848,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 142414848,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 142416384,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 142416384,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 145562112,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 145562112,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 145563648,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 145563648,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 148709376,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 148709376,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 148710912,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 148710912,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 151070208,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 151070208,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 151071744,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 151071744,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 160508928,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 160508928,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 160515072,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 160515072,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.4.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 169952256,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 169952256,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 169953792,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 169953792,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 174672384,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 174672384,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 174675456,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 174675456,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 177034752,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 177034752,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 177036288,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 177036288,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 179395584,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 179395584,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 179397120,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 179397120,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 181756416,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 181756416,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 181757952,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 181757952,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 184117248,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 184117248,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 184118784,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 184118784,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 193555968,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 193555968,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 193562112,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 193562112,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.5.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 202999296,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 202999296,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 203000832,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 203000832,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 207719424,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 207719424,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 207722496,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 207722496,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 210081792,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 210081792,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 210083328,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 210083328,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 213229056,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 213229056,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 213230592,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 213230592,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 216376320,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 216376320,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 216377856,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 216377856,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 218737152,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 218737152,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 218738688,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 218738688,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 228175872,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 228175872,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 228182016,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 228182016,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.6.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 237619200,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 237619200,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 237620736,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 237620736,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 242339328,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 242339328,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 242342400,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 242342400,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 244701696,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 244701696,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 244703232,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 244703232,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 247062528,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 247062528,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 247064064,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 247064064,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 249423360,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 249423360,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 249424896,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 249424896,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 251784192,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 251784192,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 251785728,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 251785728,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 261222912,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 261222912,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 261229056,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 261229056,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.7.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 270666240,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 270666240,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 270667776,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 270667776,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 275386368,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 275386368,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 275389440,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 275389440,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 277748736,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 277748736,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 277750272,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 277750272,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 280896000,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 280896000,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 280897536,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 280897536,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 284043264,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 284043264,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 284044800,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 284044800,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 286404096,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 286404096,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 286405632,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 286405632,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 295842816,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 295842816,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 295848960,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 295848960,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.8.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 305286144,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 305286144,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 305287680,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 305287680,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 310006272,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 310006272,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 310009344,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 310009344,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 312368640,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 312368640,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 312370176,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 312370176,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 314729472,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 314729472,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 314731008,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 314731008,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 317090304,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 317090304,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 317091840,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 317091840,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 319451136,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 319451136,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 319452672,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 319452672,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 328889856,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 328889856,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 328896000,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 328896000,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.9.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 338333184,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 338333184,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 338334720,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 338334720,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 343053312,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 343053312,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 343056384,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 343056384,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 345415680,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 345415680,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 345417216,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 345417216,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 348562944,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 348562944,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 348564480,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 348564480,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 351710208,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 351710208,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 351711744,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 351711744,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 354071040,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 354071040,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 354072576,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 354072576,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 363509760,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 363509760,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 363515904,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 363515904,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.10.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 372953088,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 372953088,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 372954624,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 372954624,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 377673216,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 377673216,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 377676288,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 377676288,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 380035584,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 380035584,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 380037120,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 380037120,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 382396416,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 382396416,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 382397952,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 382397952,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 384757248,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 384757248,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 384758784,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 384758784,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 387118080,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 387118080,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 387119616,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 387119616,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 396556800,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 396556800,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 396562944,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 396562944,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.11.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 406000128,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 406000128,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 406001664,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 406001664,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 410720256,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 410720256,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 410723328,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 410723328,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 413082624,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 413082624,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 413084160,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 413084160,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 416229888,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 416229888,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 416231424,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 416231424,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 419377152,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 419377152,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 419378688,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 419378688,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 421737984,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 421737984,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 421739520,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 421739520,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 431176704,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 431176704,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 431182848,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 431182848,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.12.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 440620032,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 440620032,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 440621568,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 440621568,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 445340160,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 445340160,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 445343232,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 445343232,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 447702528,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 447702528,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 447704064,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 447704064,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 450063360,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 450063360,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 450064896,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 450064896,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 452424192,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 452424192,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 452425728,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 452425728,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 454785024,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 454785024,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 454786560,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 454786560,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 464223744,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 464223744,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 464229888,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 464229888,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.13.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 473667072,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 473667072,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 473668608,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 473668608,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 478387200,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 478387200,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 478390272,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 478390272,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 480749568,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 480749568,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_k.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 480751104,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 480751104,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 483896832,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 483896832,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_v.weight",
+    "shape": [
+      3145728
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 483898368,
+    "grad_shape": [
+      3145728
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 483898368,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3145728
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 487044096,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 487044096,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 487045632,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 487045632,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 489404928,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 489404928,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 489406464,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 489406464,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 498843648,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 498843648,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.ff.net.2.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 498849792,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 498849792,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.14.ff.net.2.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 508286976,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 508286976,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.norm1.linear.weight",
+    "shape": [
+      4718592
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 508288512,
+    "grad_shape": [
+      4718592
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 508288512,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          4718592
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.norm1.linear.bias",
+    "shape": [
+      3072
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 513007104,
+    "grad_shape": [
+      3072
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 513007104,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          3072
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_q.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 513010176,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 513010176,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_q.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 515369472,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 515369472,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_k.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 515371008,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 515371008,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_k.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 517730304,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 517730304,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_v.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 517731840,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 517731840,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_v.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 520091136,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 520091136,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_out.0.weight",
+    "shape": [
+      2359296
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 520092672,
+    "grad_shape": [
+      2359296
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 520092672,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2359296
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.attn1.to_out.0.bias",
+    "shape": [
+      1536
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 522451968,
+    "grad_shape": [
+      1536
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 522451968,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1536
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.ff.net.0.proj.weight",
+    "shape": [
+      9437184
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 522453504,
+    "grad_shape": [
+      9437184
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 522453504,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          9437184
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.ff.net.0.proj.bias",
+    "shape": [
+      6144
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 531890688,
+    "grad_shape": [
+      6144
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 531890688,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          6144
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.model.transformer_blocks.15.ff.net.2.weight",
+    "shape": [
+      1128448
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 531896832,
+    "grad_shape": [
+      1128448
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 531896832,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          1128448
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          1128448
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  },
+  {
+    "name": "_fsdp_wrapped_module.action_head._fsdp_wrapped_module.value_head._fsdp_wrapped_module.mlp.0.weight",
+    "shape": [
+      2163713
+    ],
+    "stride": [
+      1
+    ],
+    "offset": 0,
+    "grad_shape": [
+      2163713
+    ],
+    "grad_stride": [
+      1
+    ],
+    "grad_offset": 0,
+    "states": {
+      "step": {
+        "shape": [],
+        "stride": [],
+        "offset": 0,
+        "device": "cpu"
+      },
+      "exp_avg": {
+        "shape": [
+          2163713
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      },
+      "exp_avg_sq": {
+        "shape": [
+          2163713
+        ],
+        "stride": [
+          1
+        ],
+        "offset": 0,
+        "device": "musa:0"
+      }
+    }
+  }
+]

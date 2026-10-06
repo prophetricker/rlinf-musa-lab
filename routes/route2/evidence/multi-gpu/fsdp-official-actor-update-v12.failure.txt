@@ -1,0 +1,27 @@
+Exception occurred while running AuditActor's function run_training: exception is ray::AuditActor.run_training() (pid=184389, ip=172.17.0.3, actor_id=d857ad82792926449fa882c201000000, repr=ActorGroup(rank=1))
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/root/miniconda3/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 82, in sync_func
+    return func(*args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/scheduler/worker/worker.py", line 1383, in wrapper
+    return func(self, *args, **kwargs)
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/workers/actor/embodied_fsdp_actor_worker.py", line 677, in run_training
+    grad_norm, lr_list = self.optimizer_step()
+  File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/fsdp_model_manager.py", line 511, in optimizer_step
+    self.grad_scaler.step(optimizer=self.optimizer)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch_musa/core/amp/grad_scaler.py", line 336, in step
+    return optimizer.step(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 75, in wrapper
+    return wrapped(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/optim/optimizer.py", line 76, in _use_grad
+    ret = func(self, *args, **kwargs)
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/optim/adamw.py", line 187, in step
+    adamw(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/optim/adamw.py", line 339, in adamw
+    func(
+  File "/root/miniconda3/lib/python3.10/site-packages/torch/optim/adamw.py", line 418, in _single_tensor_adamw
+    exp_avg.lerp_(grad, 1 - beta1)
+RuntimeError: MUSA error: unknown error
+Exiting main process due to a failure upon worker execution.

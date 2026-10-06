@@ -1,0 +1,139 @@
+{
+  "scope": "RLinf two Ray Workers, isolated devices, small MUSA collectives only",
+  "probe_sha256": "c028c1e5ca75ce66ae9b77a203f2df9b46f834630b49dcdf98d920e5ffd79993",
+  "status": "pass",
+  "ranks": [
+    {
+      "rank": 0,
+      "pid": 178309,
+      "mode": "mesh",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "0",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "0",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "42499",
+        "RANK": "0",
+        "WORLD_SIZE": "2",
+        "MCCL_P2P_DISABLE": "1",
+        "MCCL_SHM_DISABLE": null,
+        "MCCL_DEBUG": "INFO"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "sum",
+          "pass": true,
+          "seconds": 1.2237078845500946
+        },
+        {
+          "op": "max",
+          "pass": true,
+          "seconds": 0.0026172474026679993
+        },
+        {
+          "op": "avg",
+          "pass": true,
+          "seconds": 0.00076332688331604
+        },
+        {
+          "op": "list_fp32",
+          "pass": true,
+          "seconds": 0.0012003108859062195
+        },
+        {
+          "op": "base_fp32",
+          "pass": true,
+          "seconds": 0.0011650994420051575
+        },
+        {
+          "op": "list_bf16",
+          "pass": true,
+          "seconds": 0.0010098367929458618
+        },
+        {
+          "op": "base_bf16",
+          "pass": true,
+          "seconds": 0.0008365809917449951
+        },
+        {
+          "op": "reduce_scatter",
+          "pass": true,
+          "seconds": 0.0006865262985229492
+        }
+      ],
+      "status": "pass",
+      "backend": "undefined",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0"
+    },
+    {
+      "rank": 1,
+      "pid": 178312,
+      "mode": "mesh",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "1",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "1",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "42499",
+        "RANK": "1",
+        "WORLD_SIZE": "2",
+        "MCCL_P2P_DISABLE": "1",
+        "MCCL_SHM_DISABLE": null,
+        "MCCL_DEBUG": "INFO"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "sum",
+          "pass": true,
+          "seconds": 1.2448198422789574
+        },
+        {
+          "op": "max",
+          "pass": true,
+          "seconds": 0.0012355819344520569
+        },
+        {
+          "op": "avg",
+          "pass": true,
+          "seconds": 0.0007318183779716492
+        },
+        {
+          "op": "list_fp32",
+          "pass": true,
+          "seconds": 0.0012173280119895935
+        },
+        {
+          "op": "base_fp32",
+          "pass": true,
+          "seconds": 0.0011719241738319397
+        },
+        {
+          "op": "list_bf16",
+          "pass": true,
+          "seconds": 0.0010193511843681335
+        },
+        {
+          "op": "base_bf16",
+          "pass": true,
+          "seconds": 0.0008492022752761841
+        },
+        {
+          "op": "reduce_scatter",
+          "pass": true,
+          "seconds": 0.000703759491443634
+        }
+      ],
+      "status": "pass",
+      "backend": "undefined",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0"
+    }
+  ]
+}

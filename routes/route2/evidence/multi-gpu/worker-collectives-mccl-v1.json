@@ -1,0 +1,67 @@
+{
+  "scope": "RLinf two Ray Workers, isolated devices, small MUSA collectives only",
+  "probe_sha256": "b405df42e47335fa6147d3942601c3b1f50ee3c85b582c1729c831d6c6d5ac4e",
+  "status": "fail",
+  "ranks": [
+    {
+      "rank": 0,
+      "pid": 171776,
+      "mode": "mccl",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "0",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "0",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "50665",
+        "RANK": "0",
+        "WORLD_SIZE": "2"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "sum",
+          "pass": false
+        }
+      ],
+      "status": "fail",
+      "backend": "mccl",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0",
+      "error": "MCCL error in: /home/torch_musa/torch_musa/csrc/distributed/ProcessGroupMCCL.cpp:1129, unhandled musa error, MCCL version 2.11.4\nunhandled musa error, MCCL version 2.11.4",
+      "error_class": "RuntimeError",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/shared/probe_route2_worker_collectives.py\", line 75, in probe\n    dist.all_reduce(x, op=op, group=group)\n  File \"/root/miniconda3/lib/python3.10/site-packages/torch/distributed/c10d_logger.py\", line 72, in wrapper\n    return func(*args, **kwargs)\n  File \"/root/miniconda3/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py\", line 1999, in all_reduce\n    work = group.allreduce([tensor], opts)\nRuntimeError: MCCL error in: /home/torch_musa/torch_musa/csrc/distributed/ProcessGroupMCCL.cpp:1129, unhandled musa error, MCCL version 2.11.4\nunhandled musa error, MCCL version 2.11.4\n"
+    },
+    {
+      "rank": 1,
+      "pid": 171779,
+      "mode": "mccl",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "1",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "1",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "50665",
+        "RANK": "1",
+        "WORLD_SIZE": "2"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "sum",
+          "pass": false
+        }
+      ],
+      "status": "fail",
+      "backend": "mccl",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0",
+      "error": "MCCL error in: /home/torch_musa/torch_musa/csrc/distributed/ProcessGroupMCCL.cpp:1129, unhandled musa error, MCCL version 2.11.4\nunhandled musa error, MCCL version 2.11.4",
+      "error_class": "RuntimeError",
+      "traceback": "Traceback (most recent call last):\n  File \"/root/autodl-tmp/s4000-research/shared/probe_route2_worker_collectives.py\", line 75, in probe\n    dist.all_reduce(x, op=op, group=group)\n  File \"/root/miniconda3/lib/python3.10/site-packages/torch/distributed/c10d_logger.py\", line 72, in wrapper\n    return func(*args, **kwargs)\n  File \"/root/miniconda3/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py\", line 1999, in all_reduce\n    work = group.allreduce([tensor], opts)\nRuntimeError: MCCL error in: /home/torch_musa/torch_musa/csrc/distributed/ProcessGroupMCCL.cpp:1129, unhandled musa error, MCCL version 2.11.4\nunhandled musa error, MCCL version 2.11.4\n"
+    }
+  ]
+}

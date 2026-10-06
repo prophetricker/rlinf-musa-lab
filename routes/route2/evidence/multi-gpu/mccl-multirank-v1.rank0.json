@@ -1,0 +1,67 @@
+{
+  "scope": "two-rank MCCL small tensor collectives; no RLinf or model execution",
+  "rank": 0,
+  "local_rank": 0,
+  "world_size": 2,
+  "device_count": 2,
+  "device_name": "MTT S4000",
+  "torch": "2.2.0",
+  "torch_musa": "1.3.0+81caf0a",
+  "backend": "mccl",
+  "probe_sha256": "dbc44944a7c9450b06b4c69658e8147e7692e3824fc3ef8b0a87e55d46bed777",
+  "rows": [
+    {
+      "op": "barrier",
+      "pass": true,
+      "seconds": 0.669243298470974,
+      "observed": true
+    },
+    {
+      "op": "broadcast",
+      "pass": true,
+      "seconds": 0.026315145194530487,
+      "observed": [
+        17.0,
+        23.0
+      ]
+    },
+    {
+      "op": "all_reduce_sum",
+      "pass": true,
+      "seconds": 0.0005384311079978943,
+      "observed": [
+        3.0,
+        6.0
+      ]
+    },
+    {
+      "op": "all_gather",
+      "pass": true,
+      "seconds": 0.018681272864341736,
+      "observed": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          11.0
+        ]
+      ]
+    },
+    {
+      "op": "send_recv",
+      "pass": true,
+      "seconds": 0.0951443612575531,
+      "observed": true
+    },
+    {
+      "op": "final_barrier",
+      "pass": true,
+      "seconds": 0.00074787437915802,
+      "observed": true
+    }
+  ],
+  "status": "pass",
+  "elapsed_seconds": 0.8106703832745552
+}

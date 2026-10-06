@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "scope": "official GR00T Actor, two ranks, FSDP FULL_SHARD initialization only",
+  "probe_sha256": "1223edd078d36e75d65709338dc3a4cbcd193b90b2562017a0c5ecf6c71728b6",
+  "runtime": {
+    "torch": "2.2.0",
+    "torch_musa": "1.3.0+81caf0a",
+    "cluster_accelerators": 2,
+    "placement": {
+      "actor": "0-1",
+      "rollout": "0-1",
+      "env": "0"
+    }
+  },
+  "rank_snapshots": [
+    {
+      "rank": 0,
+      "world_size": 2,
+      "device": "0",
+      "backend": "undefined",
+      "backend_detail": "ProcessGroupMCCL",
+      "model_class": "FullyShardedDataParallel",
+      "sharding_strategy": "ShardingStrategy.FULL_SHARD",
+      "local_parameter_numel": 1364245473,
+      "global_parameter_numel_sum": null,
+      "optimizer_state_entries": 322,
+      "optimizer_groups": 2,
+      "version": 0,
+      "finite_local_parameters": true,
+      "peak_allocated": 12582604288,
+      "peak_reserved": 16926113792
+    },
+    {
+      "rank": 1,
+      "world_size": 2,
+      "device": "0",
+      "backend": "undefined",
+      "backend_detail": "ProcessGroupMCCL",
+      "model_class": "FullyShardedDataParallel",
+      "sharding_strategy": "ShardingStrategy.FULL_SHARD",
+      "local_parameter_numel": 1364245472,
+      "global_parameter_numel_sum": null,
+      "optimizer_state_entries": 322,
+      "optimizer_groups": 2,
+      "version": 0,
+      "finite_local_parameters": true,
+      "peak_allocated": 12582604288,
+      "peak_reserved": 16928210944
+    }
+  ],
+  "global_parameter_numel_sum": 2728490945,
+  "elapsed_seconds": 52.06911584734917
+}

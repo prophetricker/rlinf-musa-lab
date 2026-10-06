@@ -1,0 +1,7 @@
+(CollectiveProbe(rank=0) pid=178309) autodl-container-77de47b334-d32e95e0:178309:179462 [0] MCCL INFO MCCL_P2P_LEVEL set by environment to LOC
+(CollectiveProbe(rank=0) pid=178309) autodl-container-77de47b334-d32e95e0:178309:179462 [0] MCCL INFO Channel 00/04 :    0   1
+(CollectiveProbe(rank=0) pid=178309) autodl-container-77de47b334-d32e95e0:178309:179462 [0] MCCL INFO Channel 00 : 0[13000] -> 1[16000] via direct shared memory
+(CollectiveProbe(rank=1) pid=178312) autodl-container-77de47b334-d32e95e0:178312:179569 [0] MCCL INFO MCCL_P2P_LEVEL set by environment to LOC
+(CollectiveProbe(rank=1) pid=178312) autodl-container-77de47b334-d32e95e0:178312:179569 [0] MCCL INFO Channel 00 : 1[16000] -> 0[13000] via direct shared memory
+(CollectiveProbe(rank=0) pid=178309) autodl-container-77de47b334-d32e95e0:178309:179462 [0] MCCL INFO comm 0x7fabe8001280 rank 0 nranks 2 musaDev 0 busId 13000 - Init COMPLETE
+(CollectiveProbe(rank=1) pid=178312) autodl-container-77de47b334-d32e95e0:178312:179569 [0] MCCL INFO comm 0x7fd434001280 rank 1 nranks 2 musaDev 0 busId 16000 - Init COMPLETE

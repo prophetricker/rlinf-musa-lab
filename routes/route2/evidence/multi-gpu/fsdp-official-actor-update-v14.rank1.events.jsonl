@@ -1,0 +1,9 @@
+{"rank": 1, "event": "microbatch_enter", "time": 1791287320.6858604, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791287332.0622492}
+{"rank": 1, "event": "microbatch_enter", "time": 1791287332.0626004, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791287340.1707263}
+{"rank": 1, "event": "microbatch_enter", "time": 1791287340.1712074, "is_last": false}
+{"rank": 1, "event": "microbatch_exit", "time": 1791287348.2737494}
+{"rank": 1, "event": "microbatch_enter", "time": 1791287348.2742372, "is_last": true}
+{"rank": 1, "event": "microbatch_exit", "time": 1791287358.7729878}
+{"rank": 1, "event": "optimizer_enter", "time": 1791287358.8446267}

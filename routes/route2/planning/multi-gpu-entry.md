@@ -2,13 +2,15 @@
 
 日期：2026-10-06。前三个单卡进入条件已通过：官方Actor初始化；独立Rollout版本0–3完整权重与固定输入对照；真实LIBERO三轮GAE/PPO及fresh-process完整Actor状态恢复、同批下一步精确一致。完整episode基线另行记录。
 
+用户已提供两张同节点48 GiB S4000，研究盘已扩至100 GiB，核验时约45 GiB可用。已通过torchrun双rank MCCL、小模型FULL_SHARD更新，以及Actor卡0/Rollout卡1的真实LIBERO更新与版本0→1同步。RLinf隔离Worker的默认P2P/IPC通信失败；作业设置`MCCL_P2P_DISABLE=1`后，8项小通信每rank全部通过，实际使用shared-memory transport。官方GR00T默认同步初始化和GAE也已通过，完整分片更新仍在排查。证据和准确边界见 [两卡记录](two-gpu-results.md)。
+
 ## 是否需要加卡
 
 现在一张48 GiB S4000足够接口与小规模连续PPO验证。Actor peak allocated为27.02 GiB、peak reserved为33.10 GiB；每5秒整卡采样峰值35.43 GiB。外部采样可能漏掉短峰值，进程allocator统计不包含其他进程和驱动占用，两类数字不能直接相减当作精确上限。
 
 继续放大batch、增加并行环境或开展分片训练时，建议先增加到**两张同型号、同节点S4000**。先核对两卡可见性、PCIe拓扑、MCCL版本和通信，再决定是否需要更多卡。当前的单rank MCCL不证明两卡已通过。
 
-研究盘目前50 GiB，其中单个完整GR00T+Adam checkpoint约16 GB，保存后仅剩约9.4 GiB。长期实验建议至少100 GiB研究盘并设置checkpoint保留数量；两份完整checkpoint加模型、环境和源码会很快占满50 GiB。大模型、数据和checkpoint无需推入Git。
+研究盘原为50 GiB，其中单个完整GR00T+Adam checkpoint约16 GB。现已扩至100 GiB；仍需设置checkpoint保留数量，并在保存前检查空间。大模型、数据和checkpoint无需推入Git。
 
 ## 两卡按什么顺序验收
 

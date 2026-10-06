@@ -1,0 +1,29 @@
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 909 in <listcomp>
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 908 in get_grad_norm_for_mixed_precision
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/strategy/fsdp.py", line 409 in clip_grad_norm_
+(ActorGroup(rank=1) pid=201068)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 909 in <listcomp>
+(ActorGroup(rank=1) pid=201068)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 908 in get_grad_norm_for_mixed_precision
+(ActorGroup(rank=1) pid=201068)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/strategy/fsdp.py", line 409 in clip_grad_norm_
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 909 in <listcomp>
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/utils.py", line 908 in get_grad_norm_for_mixed_precision
+(ActorGroup(rank=0) pid=201065)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/strategy/fsdp.py", line 409 in clip_grad_norm_
+(ActorGroup(rank=1) pid=201068)   File "/root/autodl-tmp/s4000-research/route2/RLinf-official-actor/rlinf/hybrid_engines/fsdp/strategy/fsdp.py", line 451 in clip_grad_norm_
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_enter", "time": 1791287320.6855109, "is_last": false}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_enter", "time": 1791287320.6858604, "is_last": false}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_exit", "time": 1791287332.0567017}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_enter", "time": 1791287332.0571105, "is_last": false}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_exit", "time": 1791287332.0622492}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_enter", "time": 1791287332.0626004, "is_last": false}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_exit", "time": 1791287340.1759589}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_enter", "time": 1791287340.1763465, "is_last": false}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_exit", "time": 1791287340.1707263}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_enter", "time": 1791287340.1712074, "is_last": false}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_exit", "time": 1791287348.273904}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_enter", "time": 1791287348.2741737, "is_last": true}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_exit", "time": 1791287348.2737494}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_enter", "time": 1791287348.2742372, "is_last": true}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "microbatch_exit", "time": 1791287358.7737358}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "microbatch_exit", "time": 1791287358.7729878}
+(ActorGroup(rank=0) pid=201065) {"rank": 0, "event": "optimizer_enter", "time": 1791287358.8484697}
+(ActorGroup(rank=1) pid=201068) {"rank": 1, "event": "optimizer_enter", "time": 1791287358.8446267}
+(ActorGroup(rank=1) pid=201068) autodl-container-77de47b334-d32e95e0:201068:202125 [0] enqueue.cc:371 MCCL WARN Musa failure 'wait operation timed out'

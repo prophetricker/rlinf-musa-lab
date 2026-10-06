@@ -79,6 +79,7 @@ def main():
     parser.add_argument("--continuation-trajectory", type=Path)
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--episode-ids", type=int, nargs="+", default=[0, 1])
+    parser.add_argument("--placement-mode", choices=("collocated", "disaggregated"), default="collocated")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists() or args.steps < 2 or args.iterations < 1:
@@ -99,7 +100,9 @@ def main():
     os.environ["RLINF_EXPERIMENTAL_FSDP1_TORCH22"] = "1"
     result = {"schema_version": 1, "status": "fail", "phase": args.phase,
               "probe_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-              "iterations": [], "synchronizations": [], "scope": "one Actor and one Rollout; NO_SHARD"}
+              "iterations": [], "synchronizations": [],
+              "scope": f"one Actor and one Rollout; NO_SHARD; {args.placement_mode}",
+              "placement_mode": args.placement_mode}
     stage = "imports"
     started = time.monotonic()
     env = None
@@ -216,23 +219,30 @@ def main():
                     set_rng_state(rng)
 
         cfg = make_config(args.rlinf_source, args.model_path, steps=args.steps)
+        if args.placement_mode == "disaggregated":
+            # The default probe intentionally collocates both groups on all
+            # hardware. For the two-GPU transport check, make the component
+            # world sizes explicitly one and bind Actor/Rollout to 0/1.
+            cfg.cluster.component_placement = {"actor": "0", "rollout": "1", "env": "0"}
         result["config"] = OmegaConf.to_container(cfg, resolve=True)
         result["runtime"] = {"torch": torch.__version__, "torch_musa": torch_musa.__version__}
         progress("cluster")
         cluster = Cluster(cluster_cfg=cfg.cluster)
-        if cluster.num_accelerators != 1:
-            raise RuntimeError("probe requires exactly one accelerator")
-        placement = PackedPlacementStrategy(0, 0)
+        expected_accelerators = 2 if args.placement_mode == "disaggregated" else 1
+        if cluster.num_accelerators != expected_accelerators:
+            raise RuntimeError(f"probe requires exactly {expected_accelerators} accelerators")
+        actor_placement = PackedPlacementStrategy(0, 0)
+        rollout_placement = PackedPlacementStrategy(1, 1) if args.placement_mode == "disaggregated" else actor_placement
         rollout = None
         if args.phase != "recover":
             progress("official_rollout_initialization")
             rollout = AuditRollout.create_group(cfg).launch(
-                cluster=cluster, name=cfg.rollout.group_name, placement_strategy=placement)
+                cluster=cluster, name=cfg.rollout.group_name, placement_strategy=rollout_placement)
             rollout.seed_probe_sampling(cfg.actor.seed).wait()
             rollout.init_worker().wait()
         progress("official_actor_initialization")
         actor = AuditActor.create_group(cfg).launch(
-            cluster=cluster, name=cfg.actor.group_name, placement_strategy=placement)
+            cluster=cluster, name=cfg.actor.group_name, placement_strategy=actor_placement)
         actor.seed_probe_initialization(cfg.actor.seed).wait()
         actor.init_worker().wait()
         if args.phase == "eval" and args.checkpoint is not None:

@@ -44,3 +44,7 @@
 ## 官方持续PPO、恢复与完整episode（2026-10-06）
 
 连续3轮真实LIBERO8步GAE/PPO及版本0–3完整权重/固定输出对照通过；完整DCP与runtime状态保存后，新进程恢复及同批下一步全部精确一致。初始策略task0两个trial完整episode均成功79/69步，平均预测约0.80/0.82秒；不是PPO学习收益或完整suite benchmark。Actor reserved33.1 GiB，整卡采样约35.4 GiB。研究盘50 GiB保存约16GB checkpoint后剩9.4GiB；两卡前应扩盘与验证MCCL/分片。原始证据、命令、精确probe版本与checkpoint校验和都在official-actor evidence目录；大checkpoint仍保存在服务器隔离目录。
+
+最终研究提交 `fed34e0c111a0de6b65a1a6dd2792a52e7683070` 已导出并推送为成果仓库 [`72ce62830fbb676ed79120b3f738cf696208d3b2`](https://github.com/prophetricker/rlinf-musa-lab/commit/72ce62830fbb676ed79120b3f738cf696208d3b2)。导出核验309个文件、65个Python AST、5个Bash语法和150个相对Markdown链接通过；`git ls-remote origin refs/heads/main` 与本地成果仓库HEAD一致，成果仓库干净。该段是推送后的本地移交记录，不修改已发布导出的来源manifest。
+
+推送后SSH只读检查确认实例仍运行，驱动2.7.0，S4000显存4 MiB且无GPU进程；未关机或重启。下一阶段按 `routes/route2/planning/multi-gpu-entry.md` 验收同节点两卡通信、独立Actor/Rollout部署与真正分片；本节点没有验证完整Runner、多rank或PPO学习收益。

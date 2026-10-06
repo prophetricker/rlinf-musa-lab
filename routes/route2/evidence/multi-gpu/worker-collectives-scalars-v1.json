@@ -1,0 +1,159 @@
+{
+  "scope": "RLinf two Ray Workers, isolated devices, small MUSA collectives only",
+  "probe_sha256": "998bde5ef341917dc229afdeb3a26e55b37ef3388c8871fc3de581c21af92589",
+  "status": "pass",
+  "ranks": [
+    {
+      "rank": 0,
+      "pid": 211777,
+      "mode": "mesh",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "0",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "0",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "56817",
+        "RANK": "0",
+        "WORLD_SIZE": "2",
+        "MCCL_P2P_DISABLE": "1",
+        "MCCL_SHM_DISABLE": null,
+        "MCCL_DEBUG": "WARN"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "scalar_sum",
+          "pass": true,
+          "seconds": 0.9541005045175552
+        },
+        {
+          "op": "scalar_max",
+          "pass": true,
+          "seconds": 0.969587467610836
+        },
+        {
+          "op": "sum",
+          "pass": true,
+          "seconds": 0.4312934875488281
+        },
+        {
+          "op": "max",
+          "pass": true,
+          "seconds": 0.004557572305202484
+        },
+        {
+          "op": "avg",
+          "pass": true,
+          "seconds": 0.001131884753704071
+        },
+        {
+          "op": "list_fp32",
+          "pass": true,
+          "seconds": 0.002020604908466339
+        },
+        {
+          "op": "base_fp32",
+          "pass": true,
+          "seconds": 0.0011796951293945312
+        },
+        {
+          "op": "list_bf16",
+          "pass": true,
+          "seconds": 0.001325763761997223
+        },
+        {
+          "op": "base_bf16",
+          "pass": true,
+          "seconds": 0.001060299575328827
+        },
+        {
+          "op": "reduce_scatter",
+          "pass": true,
+          "seconds": 0.0011012181639671326
+        }
+      ],
+      "status": "pass",
+      "backend": "undefined",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0"
+    },
+    {
+      "rank": 1,
+      "pid": 211818,
+      "mode": "mesh",
+      "environment": {
+        "MUSA_VISIBLE_DEVICES": "1",
+        "LOCAL_RANK": "0",
+        "NODE_LOCAL_RANK": "1",
+        "MASTER_ADDR": "172.17.0.3",
+        "MASTER_PORT": "56817",
+        "RANK": "1",
+        "WORLD_SIZE": "2",
+        "MCCL_P2P_DISABLE": "1",
+        "MCCL_SHM_DISABLE": null,
+        "MCCL_DEBUG": "WARN"
+      },
+      "current_device_before": 0,
+      "visible_device_count": 1,
+      "properties": "_MusaDeviceProperties(name='MTT S4000', major='2, minor=2, total_memory=49061MB, multi_processor_count=56)",
+      "rows": [
+        {
+          "op": "scalar_sum",
+          "pass": true,
+          "seconds": 1.937769502401352
+        },
+        {
+          "op": "scalar_max",
+          "pass": true,
+          "seconds": 0.011863842606544495
+        },
+        {
+          "op": "sum",
+          "pass": true,
+          "seconds": 0.3725602626800537
+        },
+        {
+          "op": "max",
+          "pass": true,
+          "seconds": 0.0013816654682159424
+        },
+        {
+          "op": "avg",
+          "pass": true,
+          "seconds": 0.001131594181060791
+        },
+        {
+          "op": "list_fp32",
+          "pass": true,
+          "seconds": 0.001860097050666809
+        },
+        {
+          "op": "base_fp32",
+          "pass": true,
+          "seconds": 0.0013877376914024353
+        },
+        {
+          "op": "list_bf16",
+          "pass": true,
+          "seconds": 0.001226954162120819
+        },
+        {
+          "op": "base_bf16",
+          "pass": true,
+          "seconds": 0.001050695776939392
+        },
+        {
+          "op": "reduce_scatter",
+          "pass": true,
+          "seconds": 0.001058630645275116
+        }
+      ],
+      "status": "pass",
+      "backend": "undefined",
+      "device_backend": "ProcessGroupMCCL",
+      "device": "musa:0"
+    }
+  ]
+}

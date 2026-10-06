@@ -1,0 +1,61 @@
+{
+  "status": "fail",
+  "mode": "chunked",
+  "probe_sha256": "fea1732dd96a5c24f689a791f510bbb06c8e5ea6161fb955733e6ad283e3f707",
+  "helper_sha256": "ecca9f7fa7c74db97fc9473a97b54bad43124af7ab3b0bf856fb9d7c842f81f8",
+  "rows": [
+    {
+      "size": 1048577,
+      "offset": 3,
+      "status": "pass",
+      "actual": 128.00006103515625,
+      "expected": 128.0000610351417,
+      "relative_error": 1.1368678351154618e-13,
+      "seconds": 0.8310414478182793
+    },
+    {
+      "size": 9437184,
+      "offset": 3,
+      "status": "pass",
+      "actual": 384.0,
+      "expected": 384.0,
+      "relative_error": 0.0,
+      "seconds": 6.347744271159172
+    },
+    {
+      "size": 16777216,
+      "offset": 3,
+      "status": "pass",
+      "actual": 512.0,
+      "expected": 512.0,
+      "relative_error": 0.0,
+      "seconds": 12.383089430630207
+    },
+    {
+      "size": 50331648,
+      "offset": 3,
+      "status": "pass",
+      "actual": 886.8099975585938,
+      "expected": 886.8100134752651,
+      "relative_error": 1.794823144873112e-08,
+      "seconds": 37.75315274298191
+    },
+    {
+      "size": 75497472,
+      "offset": 3,
+      "status": "pass",
+      "actual": 1086.1160888671875,
+      "expected": 1086.116015902537,
+      "relative_error": 6.717942607463884e-08,
+      "seconds": 59.05322813987732
+    },
+    {
+      "size": 150994944,
+      "offset": 3,
+      "status": "running"
+    }
+  ],
+  "torch": "2.2.0",
+  "torch_musa": "1.3.0+81caf0a",
+  "launch_blocking": "1"
+}
