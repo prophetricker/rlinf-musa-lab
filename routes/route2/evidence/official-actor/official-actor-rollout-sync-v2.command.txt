@@ -1,0 +1,7 @@
+PYTHONPATH=/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages:/root/autodl-tmp/s4000-research/envs/route2-integration \
+/root/autodl-tmp/s4000-research/envs/route2/bin/python \
+/root/autodl-tmp/s4000-research/route2/model_probes/official_actor_rollout_probe.py \
+--rlinf-source /root/autodl-tmp/s4000-research/route2/RLinf-official-actor \
+--gr00t-source /root/autodl-tmp/s4000-research/route2/Isaac-GR00T-official-actor \
+--model-path /root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e \
+--phase sync --output /root/autodl-tmp/s4000-research/route2/results/official-actor-rollout-sync-v2.json

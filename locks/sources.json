@@ -145,7 +145,7 @@
       "restore_worktree": "worktrees/rlinf-official-actor-restored",
       "source_lock": "routes/route2/model_probes/official-actor-source-lock.json",
       "scope": "single S4000 official Actor and Rollout; NO_SHARD; AMP disabled; critic warmup=0",
-      "tested": "official initialization and version0 CPU Bucket sync; continuous PPO/recovery pending"
+      "tested": "official initialization; versions0-3 full weights/fixed-output sync; three real LIBERO GAE/PPO updates; full Actor DCP fresh-process restore and exact same-batch continuation; initial policy task0 trials0/1 complete episodes success79/69steps"
     }
   }
 }

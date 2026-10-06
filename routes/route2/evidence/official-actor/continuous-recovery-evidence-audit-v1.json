@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "checks": [
+    "three_real_gae_ppo_iterations",
+    "four_synchronized_versions",
+    "fresh_process_restore_comparison_exact",
+    "continuation_comparison_exact",
+    "probe_sha256_exact"
+  ],
+  "train_sha256": "cde0f25b2b436854ee6902ac23588882bb9dca521fadc78c22175423665fc741",
+  "restore_sha256": "1be2edca01755d1e1d01b6df09a8513a1d7a9873e3431923ea70299dc1129ab0",
+  "limitations": [
+    "single_rank",
+    "NO_SHARD",
+    "AMP_disabled",
+    "critic_warmup_0",
+    "all_train_rewards_0",
+    "Actor_state_only"
+  ]
+}

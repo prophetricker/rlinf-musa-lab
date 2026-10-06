@@ -34,3 +34,13 @@
 新增独立Transformers4.51.3环境no-deps安装，系统Torch/Torch-MUSA路径与source hashes核对；原驱动/Toolkit/默认Python不修改。公开Spatial配置与bundled Eagle实际构造路径单独审计，采用Qwen3Model/SiglipVisionModel，而不从仓库名称推断Siglip2实现。synthetic Linear仅为独立梯度基础能力检查；checkpoint projector是Identity，未进行完整Eagle/RADIO、预训练权重、Flow-SDE或LIBERO验证。
 
 最终导出在根Git提交后生成，准确research commit和文件哈希由EXPORT_MANIFEST.json关联，scripts/verify_route2_export.py核验字节、JSON/JSONL、Python/Bash语法与相对链接。远端同步采用已有成果仓库正常commit/push；二进制checkpoint/reference仅留本地忽略目录备份与服务器研究磁盘，不进入GitHub。
+
+## 官方 Actor 与 Rollout 初始同步（2026-10-06）
+
+本地研究提交 `030490e` 已导出并推送为成果仓库 `a8e86f5f19800e12200662d3f51ab21ad2b88223`，远端main已核对。真实官方Actor初始化、322个Adam状态、版本0独立Rollout的907个完整状态哈希与固定输入输出精确一致，初始PPO ratio=1。采用显式单rank CPU Bucket/Ray同步，完整Runner和多rank尚未验证。组合生产补丁、源码恢复入口、17文件重建核验和12个CPU transport guard检查一起交付。
+
+连续PPO/恢复测试正独立推进；本提交不提前声明通过。新源码与精确命令见 `routes/route2/model_probes/official-actor-README.md`，原始初始化、同步、失败修复与CPU检查见 `routes/route2/evidence/official-actor/`。
+
+## 官方持续PPO、恢复与完整episode（2026-10-06）
+
+连续3轮真实LIBERO8步GAE/PPO及版本0–3完整权重/固定输出对照通过；完整DCP与runtime状态保存后，新进程恢复及同批下一步全部精确一致。初始策略task0两个trial完整episode均成功79/69步，平均预测约0.80/0.82秒；不是PPO学习收益或完整suite benchmark。Actor reserved33.1 GiB，整卡采样约35.4 GiB。研究盘50 GiB保存约16GB checkpoint后剩9.4GiB；两卡前应扩盘与验证MCCL/分片。原始证据、命令、精确probe版本与checkpoint校验和都在official-actor evidence目录；大checkpoint仍保存在服务器隔离目录。

@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-06",
-  "research_commit": "030490e30fcb9a1808ffc78069d3e4d65dc3eede",
+  "research_commit": "fed34e0c111a0de6b65a1a6dd2792a52e7683070",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,8 +21,8 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 6176,
-      "sha256": "862e78808774ced258fb9fe43282bc23276ebcf7ca18a78e341e3a6ea7921ccb"
+      "bytes": 6500,
+      "sha256": "0a3e60c9e1a1234d6447e5c7bd230403915524e5212e5a1b6f55d393ceb7c293"
     },
     {
       "path": "REPRODUCE.md",
@@ -33,8 +33,8 @@
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 4248,
-      "sha256": "7acbd8bfcdfc354cbc477a7fbf04edcc34cf671920be38c2fc924f83e589b92f"
+      "bytes": 4451,
+      "sha256": "1b4aff15df8aebc98d34607c6815dac20e304b8e4e265049e1eb4ef869e165ee"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -81,8 +81,8 @@
     {
       "path": "locks/sources.json",
       "research_source": "generated from pinned source/lock",
-      "bytes": 11731,
-      "sha256": "9ecb463a6fd10522756dac1248bb3bc883c96acbefdc21e3a79302ac0b2d6b82"
+      "bytes": 11888,
+      "sha256": "1ee2d2bdee2a1aa89f0fa6357962ce913f4d49e5afc6fee6c56ef825e6b1dc3a"
     },
     {
       "path": "probes/mujoco_ppo_worker.py",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 4917,
-      "sha256": "7cd23a8f2f7c763bc0b7048a33f02cc79ddada465b09ea6d21855e89d1e412d9"
+      "bytes": 6381,
+      "sha256": "bbaf327580fbbbd63edae35726a1461bfd66d157ecd7d4d7842cea533a9a9825"
     },
     {
       "path": "reports/route2-learning.md",
@@ -105,8 +105,8 @@
     {
       "path": "reports/route2-libero-real.md",
       "research_source": "reports/route2-libero-real.md",
-      "bytes": 7215,
-      "sha256": "98c8b8697cc2beb50b3bc36ab533f61426d66cbbacc08d5da5ea2d6d3bc656bd"
+      "bytes": 10046,
+      "sha256": "307829565961ffb3c8231cb7614b837b1cadc60373ede7f585c411f9e7db292a"
     },
     {
       "path": "reports/route2-process-backbone.md",
@@ -571,10 +571,28 @@
       "sha256": "c516fc6544ab4c47b086b03c640dd7e51567eb137b170f45beb32568bdccf42d"
     },
     {
+      "path": "routes/route2/evidence/official-actor/checkpoint-artifacts-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/checkpoint-artifacts-v1.json",
+      "bytes": 882,
+      "sha256": "1eb8c9a601a6a3892341514e303f087a985d2e0e6a9e5b4fb055dd9bfc299853"
+    },
+    {
       "path": "routes/route2/evidence/official-actor/combined-patch-reconstruction-v1.json",
       "research_source": "routes/route2/evidence/official-actor/combined-patch-reconstruction-v1.json",
       "bytes": 285,
       "sha256": "d3c8e3604e37427676d2410f81685d072d0c91bf869df80d7a35067cf32f0179"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/continuous-recovery-evidence-audit-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/continuous-recovery-evidence-audit-v1.json",
+      "bytes": 547,
+      "sha256": "6c1d87b4ab0abda4b5a4d508d1e7ddcaff8128c000ca16b8cb2ef085079c7e3e"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/libero-egl-cleanup-observation-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/libero-egl-cleanup-observation-v1.json",
+      "bytes": 5726,
+      "sha256": "89324c15aecb0a0ba03240d98a3becbb5fe8eda51a8b5cbe6c4caa717e501782"
     },
     {
       "path": "routes/route2/evidence/official-actor/official-actor-config-v1.json",
@@ -583,10 +601,58 @@
       "sha256": "4875764e519a4bf015535378d5a6ccc2b1a19a0712ade66dae5406d6a5c5e150"
     },
     {
+      "path": "routes/route2/evidence/official-actor/official-actor-continuous-v1-memory.jsonl",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-continuous-v1-memory.jsonl",
+      "bytes": 28515,
+      "sha256": "efdc5f4bb55abd2305b34fa51f1d2a5764ff2835f6f7e824538f70e3b73e589c"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-continuous-v1.command.txt",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-continuous-v1.command.txt",
+      "bytes": 870,
+      "sha256": "18487be3bbdf19a8bab1231c0a92a40f4b8d95da4a267afbcd5039b5ae4d6940"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-continuous-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-continuous-v1.json",
+      "bytes": 1095297,
+      "sha256": "cde0f25b2b436854ee6902ac23588882bb9dca521fadc78c22175423665fc741"
+    },
+    {
       "path": "routes/route2/evidence/official-actor/official-actor-init-v1.json",
       "research_source": "routes/route2/evidence/official-actor/official-actor-init-v1.json",
       "bytes": 8960,
       "sha256": "f52c45cffa91ed7dd37c9ddb973770cc2050adca01a3d48c227dfd91471c2a72"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1-memory.jsonl",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1-memory.jsonl",
+      "bytes": 13599,
+      "sha256": "02ff7ced700416d9fdc0bac97970f5d57c80118fe9e9fca882edb4bd2f3ceea5"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1.command.txt",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1.command.txt",
+      "bytes": 665,
+      "sha256": "520bf5df3be192b5e054262ad5c33a14af9097d711f25aa052c64f7673a14bd0"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-libero-eval-v1.json",
+      "bytes": 384927,
+      "sha256": "539bd1e33f8b4ef9ab300f0b6b7d4f35d6e71269d41d6ef831904626f6e74aec"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-recovery-v1.command.txt",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-recovery-v1.command.txt",
+      "bytes": 940,
+      "sha256": "f4d87d0425800987dbbb5bfdbf6a68215f36aed6fce9377746148c5cf6f5599f"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/official-actor-recovery-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-recovery-v1.json",
+      "bytes": 192246,
+      "sha256": "1be2edca01755d1e1d01b6df09a8513a1d7a9873e3431923ea70299dc1129ab0"
     },
     {
       "path": "routes/route2/evidence/official-actor/official-actor-rollout-sync-v1-failure.json",
@@ -595,16 +661,40 @@
       "sha256": "01204f019edd81ca89f987d5bbd57535e300f8ddf25edbda8c2287d5776bff70"
     },
     {
+      "path": "routes/route2/evidence/official-actor/official-actor-rollout-sync-v2.command.txt",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-rollout-sync-v2.command.txt",
+      "bytes": 640,
+      "sha256": "57a5d8e1d1076bde2b89656a1dfff88715240b1189c125eeb9ac31e35072375e"
+    },
+    {
       "path": "routes/route2/evidence/official-actor/official-actor-rollout-sync-v2.json",
       "research_source": "routes/route2/evidence/official-actor/official-actor-rollout-sync-v2.json",
       "bytes": 164856,
       "sha256": "dfdeae618df5356e844b23e62ddcb71e0ae3714438d48e2f4f1c4240153a10e6"
     },
     {
+      "path": "routes/route2/evidence/official-actor/official-actor-summary-v1.json",
+      "research_source": "routes/route2/evidence/official-actor/official-actor-summary-v1.json",
+      "bytes": 1555,
+      "sha256": "dc681d547eb00690ec2772dc2b56656d67c0c6fc72bb8fadfd7ccb769fae54fa"
+    },
+    {
       "path": "routes/route2/evidence/official-actor/ray-cpu-sync-guards-v1.json",
       "research_source": "routes/route2/evidence/official-actor/ray-cpu-sync-guards-v1.json",
       "bytes": 502,
       "sha256": "f94bc1d3f55980969dd729141f519f9f508b56d9eb64743bd8038a0464be045f"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/versions/continuous-v1-probe.py",
+      "research_source": "routes/route2/evidence/official-actor/versions/continuous-v1-probe.py",
+      "bytes": 22542,
+      "sha256": "f961eebd15449377728a81b5f3d7302e74eb625989e9bb216b7550f567122025"
+    },
+    {
+      "path": "routes/route2/evidence/official-actor/versions/eval-v1-probe.py",
+      "research_source": "routes/route2/evidence/official-actor/versions/eval-v1-probe.py",
+      "bytes": 23864,
+      "sha256": "27578dc8e53456566573124486111401f8bc2e378db928eed414721853042db7"
     },
     {
       "path": "routes/route2/evidence/official-actor/versions/sync-v2-probe.py",
@@ -1395,14 +1485,14 @@
     {
       "path": "routes/route2/model_probes/official-actor-README.md",
       "research_source": "routes/route2/model_probes/official-actor-README.md",
-      "bytes": 4521,
-      "sha256": "2d918a564d2fb50424f055c345454acd6932739b278d16c4df7c31441dc53ed3"
+      "bytes": 5523,
+      "sha256": "a66737ff2233e0bc1847356b2377fd2723586dc2a86dc8025062916a659ca2a9"
     },
     {
       "path": "routes/route2/model_probes/official-actor-source-lock.json",
       "research_source": "routes/route2/model_probes/official-actor-source-lock.json",
-      "bytes": 3489,
-      "sha256": "5f5e1c64c073ef66a7455b4751a161579e05cd95d73b83ec946f09e8aa8b7806"
+      "bytes": 3641,
+      "sha256": "40f80556b85eb6bd4ae26ffb150189852877198d3e8a226394995dbf9f24c68a"
     },
     {
       "path": "routes/route2/model_probes/official_actor_config.py",
@@ -1419,8 +1509,8 @@
     {
       "path": "routes/route2/model_probes/official_actor_rollout_probe.py",
       "research_source": "routes/route2/model_probes/official_actor_rollout_probe.py",
-      "bytes": 22542,
-      "sha256": "f961eebd15449377728a81b5f3d7302e74eb625989e9bb216b7550f567122025"
+      "bytes": 23864,
+      "sha256": "27578dc8e53456566573124486111401f8bc2e378db928eed414721853042db7"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
@@ -1655,6 +1745,12 @@
       "research_source": "routes/route2/planning/learning-audit.md",
       "bytes": 17930,
       "sha256": "02f44fadcee072137f1045488d07e818f68cb10b9a268ede1fd49fbfe9469787"
+    },
+    {
+      "path": "routes/route2/planning/multi-gpu-entry.md",
+      "research_source": "routes/route2/planning/multi-gpu-entry.md",
+      "bytes": 3802,
+      "sha256": "417fb267f74a332a2971a4560c4de1e963e8f052982572523a8b257bf0a8fd64"
     },
     {
       "path": "routes/route2/planning/ppo-multistep-plan.md",

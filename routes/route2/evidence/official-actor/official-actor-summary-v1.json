@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "scope": "initial Spatial policy, task0 trials0/1; not full-suite benchmark or post-PPO learning",
+  "successes": 2,
+  "episodes": 2,
+  "sample_success_rate": 1.0,
+  "episode_rows": [
+    {
+      "reset_id": 0,
+      "task_ids": [
+        0
+      ],
+      "trial_ids": [
+        0
+      ],
+      "success": true,
+      "timeout": false,
+      "steps": 79,
+      "sampling_seed": 1234,
+      "elapsed_seconds": 66.7832738533616
+    },
+    {
+      "reset_id": 1,
+      "task_ids": [
+        0
+      ],
+      "trial_ids": [
+        1
+      ],
+      "success": true,
+      "timeout": false,
+      "steps": 69,
+      "sampling_seed": 1235,
+      "elapsed_seconds": 59.50749407708645
+    }
+  ],
+  "mean_predict_seconds": [
+    0.7992389098375658,
+    0.8172071140961371
+  ],
+  "rollout_peak_allocated_gib": 8.373156547546387,
+  "rollout_peak_reserved_gib": 8.4765625,
+  "device_sampled_peak_mib": 36291,
+  "device_sampled_peak_gib": 35.4404296875,
+  "cleanup_issue": "libero-egl-cleanup-observation-v1.json",
+  "official_actor_initialized": true,
+  "real_ppo_iterations": 3,
+  "synchronized_versions": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "fresh_process_actor_recovery_exact": true,
+  "same_batch_next_update_exact": true,
+  "learning_evidence": false,
+  "full_runner_verified": false,
+  "multi_rank_verified": false,
+  "training_actor_peak_allocated_gib": 27.023737907409668,
+  "training_actor_peak_reserved_gib": 33.103515625,
+  "training_device_sampled_peak_gib": 35.42578125,
+  "multi_gpu_plan": "../../planning/multi-gpu-entry.md"
+}

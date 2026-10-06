@@ -126,14 +126,6 @@ def main():
         from rlinf.utils.utils import get_rng_state, set_rng_state
 
         class AuditActor(EmbodiedFSDPActor):
-            def seed_probe_initialization(self, seed):
-                import random
-                import numpy as np
-                random.seed(seed)
-                np.random.seed(seed)
-                torch.manual_seed(seed)
-                torch.musa.manual_seed(seed)
-
             def snapshot(self):
                 state = self.get_rollout_state_dict()
                 hashes = model_hashes(state)
@@ -179,28 +171,15 @@ def main():
                         "returns": batch["returns"].tolist(), "batch_sha256": tree_sha(batch)}
 
         class AuditRollout(MultiStepRolloutWorker):
-            def seed_probe_sampling(self, seed):
-                import random
-                import numpy as np
-                random.seed(seed)
-                np.random.seed(seed)
-                torch.manual_seed(seed)
-                torch.musa.manual_seed(seed)
-
             def snapshot(self):
                 hashes = model_hashes(self.hf_model.state_dict())
                 return {"model_hashes": hashes, "model_sha256": tree_sha(hashes),
                         "version": self.version, "global_step": self.global_step,
-                        "fallback": self.hf_model.s4000_fallback_metadata,
-                        "peak_allocated": int(torch.musa.max_memory_allocated()),
-                        "peak_reserved": int(torch.musa.max_memory_reserved())}
+                        "fallback": self.hf_model.s4000_fallback_metadata}
 
             def predict_cpu(self, obs, mode):
-                inference_started = time.monotonic()
                 actions, details = self.predict(obs, mode=mode)
-                actions, details = actions.detach().cpu(), put_tensor_device(details, "cpu")
-                details["probe_inference_seconds"] = time.monotonic() - inference_started
-                return actions, details
+                return actions.detach().cpu(), put_tensor_device(details, "cpu")
 
             def score(self, details):
                 rng = get_rng_state()
@@ -228,12 +207,10 @@ def main():
             progress("official_rollout_initialization")
             rollout = AuditRollout.create_group(cfg).launch(
                 cluster=cluster, name=cfg.rollout.group_name, placement_strategy=placement)
-            rollout.seed_probe_sampling(cfg.actor.seed).wait()
             rollout.init_worker().wait()
         progress("official_actor_initialization")
         actor = AuditActor.create_group(cfg).launch(
             cluster=cluster, name=cfg.actor.group_name, placement_strategy=placement)
-        actor.seed_probe_initialization(cfg.actor.seed).wait()
         actor.init_worker().wait()
         if args.phase == "eval" and args.checkpoint is not None:
             actor.load_checkpoint(str(args.checkpoint)).wait()
@@ -386,7 +363,6 @@ def main():
                 result["episodes"] = []
                 rollout.reload_model().wait()
                 for reset_id in args.episode_ids:
-                    rollout.seed_probe_sampling(1234 + reset_id).wait()
                     env = new_env(reset_id)
                     obs, reset_info = env.reset()
                     identity = {"task_ids": env.task_ids.tolist(), "trial_ids": env.trial_ids.tolist(),
@@ -400,8 +376,7 @@ def main():
                             raise AssertionError("non-finite evaluation action")
                         obs, reward, terminated, truncated, info = env.step(action, auto_reset=False)
                         rows.append({"index": index, "action": action.tolist(), "reward": reward.tolist(),
-                                     "terminated": terminated.tolist(), "truncated": truncated.tolist(),
-                                     "inference_seconds": details["probe_inference_seconds"]})
+                                     "terminated": terminated.tolist(), "truncated": truncated.tolist()})
                         if index % 30 == 0:
                             progress(f"evaluation_{reset_id}/step_{index + 1}")
                         if bool((terminated | truncated).any()):
@@ -410,13 +385,11 @@ def main():
                         raise AssertionError("episode ended without success or timeout boundary")
                     result["episodes"].append({"reset_id": reset_id, "rows": rows,
                         **identity,
-                        "sampling_seed": 1234 + reset_id,
                         "success": bool(terminated.any()), "timeout": bool(truncated.any()),
                         "steps": len(rows), "elapsed_seconds": time.monotonic() - episode_started})
                     env.close()
                     env = None
                 rollout.offload_model().wait()
-            result["rollout_final"] = rollout.snapshot().wait()[0]
             result["actor_final"] = actor.snapshot().wait()[0]
         result["status"] = "pass"
     except Exception as error:

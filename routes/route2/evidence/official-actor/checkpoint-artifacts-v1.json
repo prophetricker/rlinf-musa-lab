@@ -1,0 +1,24 @@
+{
+  "record_date": "2026-10-06",
+  "checkpoint": "/root/autodl-tmp/s4000-research/route2/checkpoints/official-actor-continuous-v1",
+  "files": [
+    {
+      "path": "dcp_checkpoint/__0_0.distcp",
+      "sha256": "4e602f070020692681cd649dd1ccd05fc50e89f5a20e3b6577fdedd111870667",
+      "bytes": 16190564692
+    },
+    {
+      "path": "dcp_checkpoint/.metadata",
+      "sha256": "47266f326a467e885a00225c8ee7be6a97d399794096430f601d867a5ed8ac5b"
+    },
+    {
+      "path": "manager_runtime_rank_0.pt",
+      "sha256": "b87c3e71dc75ea392076ec865b756917be76a037645dc2464ba1d6c6dbb300af"
+    }
+  ],
+  "continuation_trajectory_sha256": "35d92973138157c1f1db57a7df2f86ed074d753ed657ae235532a27d1eaf84ad",
+  "large_files_in_git": false,
+  "fresh_process_recovery": "pass",
+  "runtime_scope": "AMP disabled; critic warmup=0; one rank NO_SHARD",
+  "continuation_trajectory_bytes": 4982618
+}

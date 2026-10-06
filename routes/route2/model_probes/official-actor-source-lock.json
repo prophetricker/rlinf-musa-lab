@@ -79,5 +79,7 @@
       "path": "rlinf/hybrid_engines/weight_syncer/ray_cpu.py",
       "sha256": "2a973d7652edf59282bfafdcef842c97943d06f368be12d617e11fad9a59b798"
     }
-  ]
+  ],
+  "rlinf_local_adapted_commit": "82505b27d4d27f8e9af1d7e52524d524dc0f0d50",
+  "gr00t_local_adapted_commit": "bdd6c7426ff62c1fc07153f4ae41769cac51289b"
 }

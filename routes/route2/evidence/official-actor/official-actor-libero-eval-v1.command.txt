@@ -1,0 +1,7 @@
+PYTHONPATH=/root/autodl-tmp/s4000-research/envs/route2-integration/lib/python3.10/site-packages:/root/autodl-tmp/s4000-research/envs/route2-integration \
+/root/autodl-tmp/s4000-research/envs/route2/bin/python \
+/root/autodl-tmp/s4000-research/route2/model_probes/official_actor_rollout_probe_eval_v2.py \
+--rlinf-source /root/autodl-tmp/s4000-research/route2/RLinf-official-actor \
+--gr00t-source /root/autodl-tmp/s4000-research/route2/Isaac-GR00T-official-actor \
+--model-path /root/autodl-tmp/s4000-research/route2/weights/Spatial-73f710e \
+--phase eval --episode-ids 0 1 --output /root/autodl-tmp/s4000-research/route2/results/official-actor-libero-eval-v1.json
