@@ -1,0 +1,127 @@
+{
+  "status": "pass",
+  "checks": {
+    "raw_status_pass": true,
+    "probe_bytes_match": true,
+    "locked_production_files_match": true,
+    "expected_two_ranks": true,
+    "global_step_and_versions": true,
+    "all_raw_final_checks": true,
+    "all_raw_iteration_checks": true,
+    "complete_iteration_versions": true,
+    "all_full_state_synchronizations": true,
+    "all_rank_updates": true,
+    "correct_global_decision_counts": true,
+    "final_policy_matches_last_actor_sync": true,
+    "checkpoint_device_adapter_enabled": true,
+    "checkpoint_state_matches_update_and_version": true,
+    "iteration_0_rank_data_and_updates": true,
+    "iteration_0_distinct_data_and_reduced_norm": true,
+    "iteration_1_rank_data_and_updates": true,
+    "iteration_1_distinct_data_and_reduced_norm": true,
+    "iteration_2_rank_data_and_updates": true,
+    "iteration_2_distinct_data_and_reduced_norm": true,
+    "separate_chunk_and_simulator_counts": true
+  },
+  "raw_result_sha256": "5aa22221d505b944b6e5b6a19208e036ac803e9a9a897de1fcdd8a48c18157e5",
+  "probe_sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194",
+  "source_lock_sha256": "e18f6639f8527664eee2f058899ee1c8e88c14c1ad5bb2f9f38e1dd0d2331c11",
+  "actions_per_policy_decision": 5,
+  "total_received_policy_decisions": 288,
+  "total_simulator_step_slots": 1440,
+  "iterations": [
+    {
+      "iteration": 0,
+      "received_policy_decisions": 96,
+      "simulator_step_slots": 480,
+      "valid_simulator_action_slots_per_rank": [
+        240,
+        240
+      ],
+      "valid_chunk_samples_per_rank": [
+        48,
+        48
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        }
+      ],
+      "global_grad_norm": 34.53612518310547
+    },
+    {
+      "iteration": 1,
+      "received_policy_decisions": 96,
+      "simulator_step_slots": 480,
+      "valid_simulator_action_slots_per_rank": [
+        240,
+        240
+      ],
+      "valid_chunk_samples_per_rank": [
+        48,
+        48
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        0.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        }
+      ],
+      "global_grad_norm": 27.80352210998535
+    },
+    {
+      "iteration": 2,
+      "received_policy_decisions": 96,
+      "simulator_step_slots": 480,
+      "valid_simulator_action_slots_per_rank": [
+        240,
+        218
+      ],
+      "valid_chunk_samples_per_rank": [
+        48,
+        44
+      ],
+      "reward_sum_per_rank": [
+        0.0,
+        1.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 22,
+          "terminations": 22,
+          "truncations": 1
+        }
+      ],
+      "global_grad_norm": 44.708778381347656
+    }
+  ],
+  "elapsed_seconds": 1911.6127045974135,
+  "final_weight_scope": "Runner global_step and Actor/Rollout versions are 3. Rollout has weights after all 3 cumulative PPO updates; an explicit final sync was audited.",
+  "scope": "independent cross-check of recorded execution evidence; no rerun or learning claim; boundary flags are not unique episode counts"
+}

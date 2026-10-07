@@ -91,3 +91,19 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 研究提交`4237de1e65162d1810732b9e327f016897025d92`已导出并正常push为成果仓库[`0758ebd2745611fac61ff0d63640d6e988319cff`](https://github.com/prophetricker/rlinf-musa-lab/commit/0758ebd2745611fac61ff0d63640d6e988319cff)，`git ls-remote origin refs/heads/main`与本地HEAD精确一致。该节点包含chunk5/240步、十任务pilot-v2和Runner保存/新进程恢复/新轨迹更新/最终同步的原始证据及独立审计。导出461文件、108 Python AST、7 Bash语法和288相对Markdown链接通过。
 
 2026-10-07约02:21（Asia/Shanghai），协调者通过已登录的AutoDL实例列表，对唯一实例`77de47b334-d32e95e0`（MTT S4000×2）执行平台“关机”并确认。页面先显示“关机中”，刷新后明确显示“已关机”、可用“开机”按钮；实例仍保留，没有释放或销毁。关机前已完成服务器`sync`，全部GPU实验已退出。紧凑确认记录见[平台关机证据](../routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json)。本段及确认记录是关机后的本地补充，将作为单独收尾提交同步，无需再次开机。
+
+## 2026-10-07正式学习率短验收
+
+实例重新运行后，使用同一套两卡适配、`chunk=5`、每环境240个模拟步、2环境和`update_epoch=1`，从固定Spatial预训练权重与全新optimizer开始，连续3轮切换到官方 actor/value 学习率`5e-6 / 1e-4`。每轮两rank各收到48个policy chunks，共288个chunk决策和1,440个模拟动作槽；每rank完成3次真实GAE/PPO/Adam更新，版本0–3的完整状态同步通过。三轮参数、Adam状态、梯度和loss统计均有限，独立21项审计通过。
+
+第三轮采样出现少量非零奖励（每rank聚合奖励约`0.00217`），但这只是短预算中的行为信号，不能作为学习收益结论。每轮真实更新约6.4分钟，3轮总耗时约31.9分钟；显存峰值仍低于两卡容量。GPU原始结果、两个rank事件和独立审计见[正式LR短验收](../routes/route2/evidence/multi-gpu/official-spatial-lr-check-v1.json)、[rank0事件](../routes/route2/evidence/multi-gpu/official-spatial-lr-check-v1.actor.rank0.events.jsonl)、[rank1事件](../routes/route2/evidence/multi-gpu/official-spatial-lr-check-v1.actor.rank1.events.jsonl)及[审计](../routes/route2/evidence/multi-gpu/official-spatial-lr-check-v1.audit.json)。服务器端收尾命令曾引用不存在的审计脚本路径，未影响训练结果；结果下载后用研究仓库审计脚本重新核对通过。
+
+完整500-state初始策略评测已在同一开机周期串行启动，使用固定预训练权重、10个task、每task实际50个trial、`success_once`口径，不更新模型；最终成功率与覆盖审计待评测完成后补录。
+
+## 2026-10-08完整500-state初始策略基线
+
+官方 `EmbodiedEvalRunner` 评测已完成并通过独立20项审计。固定Spatial预训练权重、2个Env lane、chunks=5、denoising=4、`auto_reset=True`、每回合240步；全程只启动Env/Rollout，不创建Actor、不更新参数。实际完成500个唯一`(task_id, trial_id)`，每个10个task各50个state，120,000个模拟动作槽，12,000次两lane策略调用，覆盖集合和worker seen-trials完全一致。
+
+初始策略结果：`success_once=234/500=46.8%`，`success_at_end=223/500=44.6%`，平均reward`0.0050519`，平均return`0.468`，所有episode长度240。按task分别为`18/50, 37/50, 21/50, 27/50, 1/50, 39/50, 21/50, 33/50, 20/50, 17/50`（task0–9）。评测耗时`16315.48s`，约4.53小时；whole-run policy seed为1234，当前仍是整次评测固定seed，不是per-episode reseed。这个结果是本适配配置的初始策略基线，不直接声称复现官方CUDA成绩，也不代表MUSA适配已产生学习收益。
+
+原始结果和事件见[500-state结果](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.json)、[Env事件](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.env.events.jsonl)、[Rollout事件](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.rollout.events.jsonl)及[独立审计](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.audit.json)。下一步应从同一固定权重和全新optimizer开始长期PPO，使用相同评测协议比较配对的训练前后成功率；不要把短LR验收中的少量非零奖励当作学习结果。

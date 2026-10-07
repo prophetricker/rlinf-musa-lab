@@ -1,0 +1,104 @@
+{
+  "status": "pass",
+  "checks": {
+    "raw_status_pass": true,
+    "raw_checks_pass": true,
+    "probe_bytes_match": true,
+    "locked_production_files_match": true,
+    "eval_runner_source_matches": true,
+    "original_spatial_shards_match": true,
+    "initial_policy_only_eval": true,
+    "pinned_eval_configuration": true,
+    "explicit_ray_channels": true,
+    "unique_episode_events_cover_request": true,
+    "events_match_worker_seen_trials": true,
+    "actual_init_state_manifest": true,
+    "event_reset_ids_and_languages": true,
+    "complete_episode_lengths": true,
+    "finite_episode_metrics": true,
+    "per_task_stats_match_episode_events": true,
+    "official_count_matches_events": true,
+    "official_success_matches_events": true,
+    "prediction_progress_complete": true,
+    "full_suite_scope_matches_manifest": true
+  },
+  "raw_result_sha256": "b8e68450724a73b08aeb94b9b049fc2778dcea1c9336bd2ab88981a2b62b0a80",
+  "probe_sha256": "72b32a3bee427dd0ab6d7faebec6d4c4414d280869f671122a327048a0fd6206",
+  "source_lock_sha256": "e18f6639f8527664eee2f058899ee1c8e88c14c1ad5bb2f9f38e1dd0d2331c11",
+  "eval_lock_sha256": "23b83651349fd3e538349ae69c1f0835d64b8119b8bbbc1035a9fe4f07afa9bf",
+  "event_sha256": {
+    "env": "7a86cf999aee1ff2034ebf84e41dac640e8e5cdf2d05dc0bd35a864a6a3d320c",
+    "rollout": "6d6918189623b08c2a2cf326cea3f6337cb38f472ef4d902b69551186589166b"
+  },
+  "unique_episodes": 500,
+  "successes": 234,
+  "success_rate": 0.468,
+  "per_task": [
+    {
+      "task_id": 0,
+      "language": "pick up the black bowl between the plate and the ramekin and place it on the plate",
+      "success": 18,
+      "total": 50
+    },
+    {
+      "task_id": 1,
+      "language": "pick up the black bowl next to the ramekin and place it on the plate",
+      "success": 37,
+      "total": 50
+    },
+    {
+      "task_id": 2,
+      "language": "pick up the black bowl from table center and place it on the plate",
+      "success": 21,
+      "total": 50
+    },
+    {
+      "task_id": 3,
+      "language": "pick up the black bowl on the cookie box and place it on the plate",
+      "success": 27,
+      "total": 50
+    },
+    {
+      "task_id": 4,
+      "language": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
+      "success": 1,
+      "total": 50
+    },
+    {
+      "task_id": 5,
+      "language": "pick up the black bowl on the ramekin and place it on the plate",
+      "success": 39,
+      "total": 50
+    },
+    {
+      "task_id": 6,
+      "language": "pick up the black bowl next to the cookie box and place it on the plate",
+      "success": 21,
+      "total": 50
+    },
+    {
+      "task_id": 7,
+      "language": "pick up the black bowl on the stove and place it on the plate",
+      "success": 33,
+      "total": 50
+    },
+    {
+      "task_id": 8,
+      "language": "pick up the black bowl next to the plate and place it on the plate",
+      "success": 20,
+      "total": 50
+    },
+    {
+      "task_id": 9,
+      "language": "pick up the black bowl on the wooden cabinet and place it on the plate",
+      "success": 17,
+      "total": 50
+    }
+  ],
+  "simulator_step_slots": 120000,
+  "policy_decision_batches": 12000,
+  "full_suite_coverage": true,
+  "policy_rng_scope": "single whole-run seed before model initialization; no per-episode reseeding",
+  "elapsed_seconds": 16315.47779545188,
+  "scope": "independent episode/worker/aggregate/hash cross-check; initial policy performance, no PPO learning claim"
+}
