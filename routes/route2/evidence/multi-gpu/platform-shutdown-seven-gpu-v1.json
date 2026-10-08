@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-08T15:12:00+08:00",
+  "observation_time_precision": "minute",
+  "source": "AutoDL instance list observed through Microsoft Edge native accessibility",
+  "instance_id": "77de47b334-d32e95e0",
+  "gpu_configuration": "MTT S4000 * 7",
+  "platform_state": "powered_off",
+  "platform_state_text": "已关机",
+  "start_button_enabled": true,
+  "instance_retained": true,
+  "exact_shutdown_completion_time": null,
+  "research_commit_before_closeout": "a14da50",
+  "published_commit_before_closeout": "bdf0be189c8d19f5817e31fe046190f284d824b7"
+}

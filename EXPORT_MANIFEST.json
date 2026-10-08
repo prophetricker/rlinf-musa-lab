@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "a14da502da476566fc9a0b34107aa831c2198a8c",
+  "research_commit": "580668afaa62034055f4bec4dee644bd83d79c92",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 21035,
-      "sha256": "31d57876b49c2b65a0c18e9109300545758e9c9760643beebc45863c4837b606"
+      "bytes": 22298,
+      "sha256": "752731ce494a9cc6c59b0953a6e15d1ed42aa76db850bf5fe61df87ae46c7e9f"
     },
     {
       "path": "reports/route2-learning.md",
@@ -1055,6 +1055,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json",
       "bytes": 1132,
       "sha256": "f2622a595379501851ee7b2618c1d3e8542b67101794109a9dd44bc6ed33f3f2"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/platform-shutdown-seven-gpu-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/platform-shutdown-seven-gpu-v1.json",
+      "bytes": 589,
+      "sha256": "8cedfe34a4fa9bd1f6cad61fbeb98f81f8e39d53db9154597af6a6eddd3c5ff7"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/runner-lifecycle-preparation-v1.json",

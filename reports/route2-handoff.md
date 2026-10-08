@@ -123,3 +123,11 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 随后用同一布局进行完整 horizon 验证：6 个环境、每环境240步、`chunk=5`、`global_batch_size=288`、`update_epoch=1`、两轮。每轮收集 288 个 chunk 样本，每个 Actor 每轮一次全局 PPO/Adam 更新；总计 576 个 chunk、2,880 个模拟动作槽。6 个 rank 均记录两次 trajectory receive、GAE 和 training complete，14项独立审计全部通过；两轮 MCCL 梯度归约后的 `actor/grad_norm` 分别在六个 rank 间精确一致（25.657573699951172、25.989818572998047），参数、优化器和指标保持有限。完整运行耗时约 40.9 分钟，GPU0–5显存约20–21GiB，未发生 OOM 或通信错误。
 
 原始结果、每 rank 事件和独立审计见 `routes/route2/evidence/multi-gpu/seven-gpu-full240/`；短验收见 `seven-gpu-smoke80/`。本节点证明 6-rank Actor + 独立 Rollout 的 RLinf/MUSA 功能闭环和完整 horizon 稳定性，不证明吞吐线性扩展，也不是学习收益或 benchmark 成绩。使用版本仍为 Driver 2.7.0、MUSA Toolkit 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0、MCCL 2.11.4。实验结果已下载并准备发布，随后清理训练进程并关闭 S4000 实例。
+
+## 2026-10-08七卡发布与关机收尾
+
+研究提交 `a14da50` 已导出并推送为成果仓库提交 [`bdf0be189c8d19f5817e31fe046190f284d824b7`](https://github.com/prophetricker/rlinf-musa-lab/commit/bdf0be189c8d19f5817e31fe046190f284d824b7)，本地成果 HEAD 与远端 main 已再次核对一致。导出487文件、109个Python AST、7个shell语法和301个Markdown相对链接通过。
+
+关机前七卡均为0%利用率、约4MiB显存，无训练、Ray或GPU进程，并已执行 `sync`。平台关机提交后曾显示“关机中”；2026-10-08约15:12（Asia/Shanghai），通过本机Edge的AutoDL实例列表独立确认同一七卡实例显示“已关机”且“开机”按钮可用。实例保留，未释放；实际完成关机的精确时间未知。见[关机确认](../routes/route2/evidence/multi-gpu/platform-shutdown-seven-gpu-v1.json)。
+
+本轮到此收尾。下一阶段先验证训练侧跨任务/初始状态调度，以及七卡布局下周期保存和完整回合边界恢复后重新采样，再从固定预训练权重与全新optimizer进行有预算的PPO学习实验。与冻结的500-state初始策略基线按同一协议比较；若评测batch、顺序或随机性协议发生变化，先建立对应的新基线。
