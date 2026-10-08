@@ -126,24 +126,6 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def interrupted_save_view(reference):
-    """Read a completed save from partial evidence without promoting run status."""
-    saves = reference.get("saved_checkpoints", [])
-    if reference.get("status") != "fail" or not saves:
-        raise AssertionError("interrupted reference must retain failed status and an audited save")
-    last = saves[-1]
-    step = last["global_step"]
-    if (reference.get("stage") != f"runner_step_{step}/checkpoint_save_audited"
-            or last["checkpoint_state"] != last["post_save_actor_state"]
-            or not last["checkpoint_files"]
-            or any(row["version"] != step or row["optimizer_steps"] != step
-                   or row["nonempty_adam_steps"] != [float(step)] for row in last["checkpoint_state"])):
-        raise AssertionError("interrupted reference does not prove a completed, state-preserving save")
-    return {**reference, **{key: last[key] for key in (
-        "checkpoint_state", "checkpoint_dir", "checkpoint_files", "checkpoint_bytes")},
-        "runner_global_step": step}
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rlinf-source", type=Path, required=True)
@@ -185,8 +167,6 @@ def main() -> int:
     parser.add_argument("--resume-dir", type=Path)
     parser.add_argument("--resume-reference", type=Path,
                         help="successful save result to compare Actor state immediately after restore")
-    parser.add_argument("--interrupted-save-probe", type=Path,
-                        help="frozen original probe required to recover an audited save from failed partial evidence")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.iterations < 1 or args.steps_per_env < 1 or args.action_chunks < 1:
@@ -195,8 +175,6 @@ def main() -> int:
         parser.error("learning rates must be finite and positive")
     if (args.resume_dir is None) != (args.resume_reference is None):
         parser.error("resume-dir and resume-reference must be provided together")
-    if args.interrupted_save_probe is not None and args.resume_reference is None:
-        parser.error("interrupted-save-probe requires a resume reference")
     if args.steps_per_env % args.action_chunks:
         parser.error("action-chunks must divide steps-per-env")
     chunk_steps = args.steps_per_env // args.action_chunks
@@ -208,7 +186,6 @@ def main() -> int:
     except ValueError as error:
         parser.error(str(error))
     actor_world_size = len(actor_ranks)
-    checkpoint_min_free_gib = 40 if actor_world_size > 2 else 18
     if len(rollout_ranks) != 1 or len(env_ranks) != 1:
         parser.error("this lifecycle probe requires one Rollout and one Env worker")
     if args.expected_accelerators < 1 or args.expected_accelerators <= max(actor_ranks + rollout_ranks + env_ranks):
@@ -266,7 +243,6 @@ def main() -> int:
               "save_final_requested": args.save_final,
               "save_interval": args.save_interval,
               "saved_checkpoints": [],
-              "checkpoint_min_free_gib": checkpoint_min_free_gib,
               "trajectory_routing": "official TrajectoryCollector and least_loaded dispatcher; no manual partition",
               "memory_scope": "per-process RSS high-water marks and PyTorch MUSA allocator peaks; simulator child processes and Ray shared object storage are excluded",
               "synchronizations": [], "initialization": "sync_module_states=True",
@@ -305,16 +281,7 @@ def main() -> int:
                       if args.resume_dir else 0)
         target_step = start_step + args.iterations
         reference = json.loads(args.resume_reference.read_text()) if args.resume_reference else None
-        if args.interrupted_save_probe is not None:
-            if file_sha256(args.interrupted_save_probe) != reference["probe_sha256"]:
-                raise AssertionError("frozen interrupted-save probe differs from original evidence")
-            reference = interrupted_save_view(reference)
-            result["interrupted_save_reference"] = {
-                "original_status": reference["status"], "original_stage": reference["stage"],
-                "original_probe_sha256": reference["probe_sha256"],
-                "scope": "resume completed audited checkpoint; source run remains incomplete, final sync unverified"}
-        if reference is not None and ((reference.get("status") != "pass" and args.interrupted_save_probe is None)
-                          or not reference.get("checkpoint_state")
+        if reference is not None and (reference.get("status") != "pass" or not reference.get("checkpoint_state")
                           or not (reference.get("save_final_requested") is True or reference.get("saved_checkpoints"))
                           or reference["runner_global_step"] != start_step
                           or [row["rank"] for row in reference["checkpoint_state"]] != list(range(actor_world_size))
@@ -586,8 +553,8 @@ def main() -> int:
                     / f"global_step_{self.global_step}")
                 if checkpoint_dir.exists():
                     raise FileExistsError("refusing to overwrite a Runner checkpoint")
-                if shutil.disk_usage(args.output.parent).free < checkpoint_min_free_gib * 1024 ** 3:
-                    raise RuntimeError(f"Runner DCP saving requires at least {checkpoint_min_free_gib} GiB free")
+                if shutil.disk_usage(args.output.parent).free < 18 * 1024 ** 3:
+                    raise RuntimeError("Runner DCP saving requires at least 18 GiB free")
                 # The inherited loop increments Runner progress after training;
                 # Actor version otherwise remains the version used for sampling.
                 # Save the completed-step version without adding a rollout sync.
@@ -708,12 +675,10 @@ def main() -> int:
                 raise AssertionError("resume production source differs from the saved run")
             if (result["gr00t_source_fingerprints"] != reference["gr00t_source_fingerprints"]
                     or result["support_fingerprints"] != reference["support_fingerprints"]
-                    or (args.interrupted_save_probe is None
-                        and result["probe_sha256"] != reference["probe_sha256"])):
+                    or result["probe_sha256"] != reference["probe_sha256"]):
                 raise AssertionError("resume probe, helpers or GR00T source differ from the saved run")
-        if ((args.save_final or args.save_interval > 0)
-                and shutil.disk_usage(args.output.parent).free < checkpoint_min_free_gib * 1024 ** 3):
-            raise RuntimeError(f"a full Runner DCP needs at least {checkpoint_min_free_gib} GiB free; existing checkpoints are preserved")
+        if (args.save_final or args.save_interval > 0) and shutil.disk_usage(args.output.parent).free < 18 * 1024 ** 3:
+            raise RuntimeError("a full Runner DCP needs at least 18 GiB free; existing checkpoints are preserved")
         result["runtime"] = {"torch": torch.__version__, "torch_musa": torch_musa.__version__}
         result["scheduler_collective_private_api_support"] = {
             name: hasattr(torch.distributed.distributed_c10d, name)

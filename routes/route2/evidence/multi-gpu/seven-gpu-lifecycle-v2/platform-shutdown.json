@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-10-08T17:51:32+08:00",
+  "instance_id": "77de47b334-d32e95e0",
+  "gpu": "MTT S4000 x 7",
+  "shutdown": {
+    "requested_by_coordinator": true,
+    "platform_confirmation_dialog_confirmed": true,
+    "observed_transition": "关机中",
+    "final_platform_state": "已关机",
+    "start_button_visible": true,
+    "instance_released": false
+  },
+  "experiment_processes": "Exited before platform shutdown",
+  "checkpoint": "Preserved on the instance research disk at route2/results/official-seven-gpu-save-v2.logs/official-seven-gpu-save-v2/checkpoints/global_step_2",
+  "note": "The instance was stopped from the AutoDL instance list after result and event evidence had been copied to the local repository. It was not deleted or released."
+}

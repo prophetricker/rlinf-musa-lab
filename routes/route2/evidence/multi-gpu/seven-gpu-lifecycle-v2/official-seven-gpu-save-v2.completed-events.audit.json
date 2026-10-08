@@ -1,0 +1,103 @@
+{
+  "status": "pass",
+  "source_run_status": "fail",
+  "checks": {
+    "source_run_remains_failed": true,
+    "completed_save_stage": true,
+    "probe_matches": true,
+    "locked_sources_match": true,
+    "save_preserves_actor_state": true,
+    "saved_rank_versions_and_steps": true,
+    "checkpoint_hash_manifest": true,
+    "sampling_events_alternate_and_cover_iterations": true,
+    "sampling_lane_counts": true,
+    "sampling_task_trial_identity_stable": true,
+    "sampling_description_counts": true,
+    "sampling_multiple_tasks": true,
+    "sampling_all_lanes_complete_horizon": true,
+    "sampling_reset_ids_advance": true,
+    "sampling_raw_checks_pass": true,
+    "rank_0_events_complete": true,
+    "rank_0_receive_gae_update_pass": true,
+    "rank_1_events_complete": true,
+    "rank_1_receive_gae_update_pass": true,
+    "rank_2_events_complete": true,
+    "rank_2_receive_gae_update_pass": true,
+    "rank_3_events_complete": true,
+    "rank_3_receive_gae_update_pass": true,
+    "rank_4_events_complete": true,
+    "rank_4_receive_gae_update_pass": true,
+    "rank_5_events_complete": true,
+    "rank_5_receive_gae_update_pass": true,
+    "iteration_0_distinct_data_reduced_gradient": true,
+    "iteration_1_distinct_data_reduced_gradient": true
+  },
+  "raw_partial_sha256": "3b97c2b7df0b1fe99ebb9dbd05bf82ff430ecd33a8160fac8d5b2515d4a5b3e1",
+  "actor_world_size": 6,
+  "checkpoint_bytes": 16202414772,
+  "task_batches": [
+    [
+      {
+        "task_ids": [
+          4,
+          8,
+          2,
+          6,
+          7,
+          1
+        ],
+        "trial_ids": [
+          21,
+          34,
+          9,
+          34,
+          25,
+          21
+        ],
+        "task_descriptions": [
+          "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
+          "pick up the black bowl next to the plate and place it on the plate",
+          "pick up the black bowl from table center and place it on the plate",
+          "pick up the black bowl next to the cookie box and place it on the plate",
+          "pick up the black bowl on the stove and place it on the plate",
+          "pick up the black bowl next to the ramekin and place it on the plate"
+        ]
+      }
+    ],
+    [
+      {
+        "task_ids": [
+          7,
+          4,
+          5,
+          3,
+          3,
+          4
+        ],
+        "trial_ids": [
+          28,
+          5,
+          40,
+          31,
+          32,
+          27
+        ],
+        "task_descriptions": [
+          "pick up the black bowl on the stove and place it on the plate",
+          "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate",
+          "pick up the black bowl on the ramekin and place it on the plate",
+          "pick up the black bowl on the cookie box and place it on the plate",
+          "pick up the black bowl on the cookie box and place it on the plate",
+          "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate"
+        ]
+      }
+    ]
+  ],
+  "total_policy_chunks": 576,
+  "total_simulator_action_slots": 2880,
+  "grad_norms": [
+    15.494064331054688,
+    20.84720802307129
+  ],
+  "scope": "completed training and state-preserving save events only; source Runner did not finish; final sync unverified; no learning claim"
+}

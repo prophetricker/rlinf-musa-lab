@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "3c2796dab238f7bfe2ce6855bcba770ae9c06162",
+  "research_commit": "bac15f87865ab132f3f79d2a7288f00e53a0b3cd",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 23529,
-      "sha256": "1b991f82b951cc7349280f52c40debb2b9eaead1a49357c79a16221078dcf778"
+      "bytes": 25738,
+      "sha256": "69c46cd00e121e47effde5a2193b37e10be6906a91af29cfba75612af4f36f0a"
     },
     {
       "path": "reports/route2-learning.md",
@@ -1117,6 +1117,120 @@
       "sha256": "6af6450abd3fa151df4735cd33595ad969b00b4baa7d85eb3f429e2b696320dd"
     },
     {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank0.events.jsonl",
+      "bytes": 6774,
+      "sha256": "c4563b194ee1bba7bacc2728042d14a57ac4fb2aa47f4fb0320af6904a0b4ee8"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank1.events.jsonl",
+      "bytes": 6772,
+      "sha256": "2925a01971054d36ae12d356eb65d69bede4f1b2af731b2eaf2f82976a62babc"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank2.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank2.events.jsonl",
+      "bytes": 6772,
+      "sha256": "4e8af68b2f08c5398aeb75f88eb0162a4a50f8f9bc15d33942714b7b98d0a4ee"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank3.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank3.events.jsonl",
+      "bytes": 6779,
+      "sha256": "c0014d13961029eea02f57493b10b8d6527ea84048f6c9ba25a6bad80bc5e54a"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank4.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank4.events.jsonl",
+      "bytes": 6769,
+      "sha256": "8d83747704752e3b102dd5b10733a228538053f1e20a11548ea68fae80c24566"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank5.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.actor.rank5.events.jsonl",
+      "bytes": 6776,
+      "sha256": "e568b04caea447661ca27365a4ac5e1a96e6804b476ffe018eba7f265626f1a1"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.audit-verified.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.audit-verified.json",
+      "bytes": 3392,
+      "sha256": "6bb9aaf07565b40ccb23b3f95e760c899d91bbafb1615436ea582d9153997a94"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.env.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.env.rank0.events.jsonl",
+      "bytes": 1306,
+      "sha256": "6276abb46124b66e51ef7d40850981318cebb4c6195de2c8504feae1a775c7de"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-resume-v3.json",
+      "bytes": 1913315,
+      "sha256": "d9d1decef0611de807d4da1b453b59b5136a61878cdbe2a5e128a5781c0064db"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank0.events.jsonl",
+      "bytes": 13552,
+      "sha256": "2d3744dc30c8db291c25a0d62cdd4f4633bf6453835b273bb9cd08a3616c2573"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank1.events.jsonl",
+      "bytes": 13555,
+      "sha256": "8d0e04b02de65767efb96bf75e3372211efb42f12f50069d3087196b0b200787"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank2.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank2.events.jsonl",
+      "bytes": 13551,
+      "sha256": "f51c0c5bd03ff08f65d4d4a4c53834c46262a40984c89a0ff53cb99e6e69471a"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank3.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank3.events.jsonl",
+      "bytes": 13558,
+      "sha256": "f51ad6874d55673ad2cea1a2289f4e9f10c69e01c07855ae48ebad9a737dd8d3"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank4.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank4.events.jsonl",
+      "bytes": 13554,
+      "sha256": "32af51630c3ccd936ebb763fddcebc796e9e73b519cfa96bc4aec1cc0a6b83e6"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank5.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.actor.rank5.events.jsonl",
+      "bytes": 13551,
+      "sha256": "8b8583f11cfaa845b6cd06875f21916b766d3662a2d97a75658ad27cadcec268"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.completed-events.audit.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.completed-events.audit.json",
+      "bytes": 3335,
+      "sha256": "bc26b4357a41cf49d87f95d8446ff71fe6cf35cd1e80332015daaf6cca1cc418"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.env.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.env.rank0.events.jsonl",
+      "bytes": 2610,
+      "sha256": "15fc367d715d087125f34dafb870f7399dd67686a69be4c3543427565aa76d16"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.partial.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/official-seven-gpu-save-v2.partial.json",
+      "bytes": 1616172,
+      "sha256": "3b97c2b7df0b1fe99ebb9dbd05bf82ff430ecd33a8160fac8d5b2515d4a5b3e1"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/platform-shutdown.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/platform-shutdown.json",
+      "bytes": 768,
+      "sha256": "1b8e695a153c6596cec150b4f5d98a0a76946875670b779f4fff02667b0e26be"
+    },
+    {
       "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank0.events.jsonl",
       "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank0.events.jsonl",
       "bytes": 12449,
@@ -1307,6 +1421,18 @@
       "research_source": "routes/route2/evidence/multi-gpu/versions/official-training-lifecycle-v1-probe.py",
       "bytes": 39384,
       "sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-training-seven-lifecycle-recovery-v3-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-training-seven-lifecycle-recovery-v3-probe.py",
+      "bytes": 54402,
+      "sha256": "b82e02191c5b184c14e9a41f714620a01f7add36521573e66c6203a8a9df10c5"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/versions/official-training-seven-lifecycle-v2-probe.py",
+      "research_source": "routes/route2/evidence/multi-gpu/versions/official-training-seven-lifecycle-v2-probe.py",
+      "bytes": 52017,
+      "sha256": "bac26449bd74bb5aca0ad6150d88ef00c46643a30a919b08e75e906829a64e70"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/versions/optim-device-v1.py",
@@ -2439,8 +2565,8 @@
     {
       "path": "routes/route2/model_probes/official_training_probe.py",
       "research_source": "routes/route2/model_probes/official_training_probe.py",
-      "bytes": 52017,
-      "sha256": "bac26449bd74bb5aca0ad6150d88ef00c46643a30a919b08e75e906829a64e70"
+      "bytes": 54402,
+      "sha256": "b82e02191c5b184c14e9a41f714620a01f7add36521573e66c6203a8a9df10c5"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
@@ -2739,8 +2865,8 @@
     {
       "path": "routes/route2/planning/seven-gpu-next-validation.md",
       "research_source": "routes/route2/planning/seven-gpu-next-validation.md",
-      "bytes": 2828,
-      "sha256": "1ae1ce4292fd09b9ec63af863eed7e5dd6fa3c25b3d50504d99d2ff9ecb477f6"
+      "bytes": 4942,
+      "sha256": "cf579d8af1a63840cbf5c00fab085fccf488fe2dc540539b2f50727c8e9b529f"
     },
     {
       "path": "routes/route2/planning/spatial-action-layout.md",
@@ -2785,10 +2911,16 @@
       "sha256": "a6b49056b503df56a4619b67a2dc96b8a798e7285c7145237a02e668a75793d7"
     },
     {
+      "path": "scripts/audit_route2_interrupted_save.py",
+      "research_source": "scripts/audit_route2_interrupted_save.py",
+      "bytes": 5238,
+      "sha256": "a8dfda91bdf85966030d2c8b8fe94c806efacf162fd546f955a9941294fb387c"
+    },
+    {
       "path": "scripts/audit_route2_runner_result.py",
       "research_source": "scripts/audit_route2_runner_result.py",
-      "bytes": 12149,
-      "sha256": "f06d434b381ff902d77a8781f0d581c8ae9faee09ff9ed3304e376ef22ebece0"
+      "bytes": 13581,
+      "sha256": "aa59bccb3114f0f2e705bfaa0bdffc87b275f26cde4b068e2567067d7426e1e2"
     },
     {
       "path": "scripts/audit_route2_seven_gpu_result.py",
@@ -2927,6 +3059,12 @@
       "research_source": "scripts/run_route2_runner_lifecycle.sh",
       "bytes": 2031,
       "sha256": "8f4fa2dda4d04aaa2f35a0a07973841b41fcd8fabd898b2eac453574d78098c3"
+    },
+    {
+      "path": "scripts/run_route2_seven_gpu_interrupted_recovery.sh",
+      "research_source": "scripts/run_route2_seven_gpu_interrupted_recovery.sh",
+      "bytes": 1575,
+      "sha256": "a3c6edaac8fa0fe51047dd5869efbec73569f992fed9cb4513d2d936d7a3fdbf"
     },
     {
       "path": "scripts/run_route2_seven_gpu_lifecycle.sh",

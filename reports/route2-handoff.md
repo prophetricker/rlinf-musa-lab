@@ -137,3 +137,11 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 本地新增七卡生命周期入口 [`seven-gpu-next-validation`](../routes/route2/planning/seven-gpu-next-validation.md) 和 [`run_route2_seven_gpu_lifecycle.sh`](../scripts/run_route2_seven_gpu_lifecycle.sh)。它把原两卡 Runner 保存/恢复探针参数化为任意连续 Actor world size，并保留默认两卡 task0 配置不变。七卡配方为 Actor 0–5、独立 Rollout 6、Env 0、6个环境、`chunk=5`、全局 batch 288、每个 Runner step 240个模拟动作；训练 reset 使用全 suite 有序池而非固定 task0，并要求初始环境报告至少覆盖两个 task id。
 
 当前入口先连续训练两轮，通过官方 `save_interval=2` 路径保存 `global_step_2`，再用新进程恢复并在采样前逐 rank 核对模型、Adam、scheduler、RNG、计数和版本，继续一个完整 horizon 后显式同步到版本3。新增审计观察实际 bootstrap/horizon 的 task、trial、描述和每 lane 步数，并对 checkpoint 文件逐一记录大小及 SHA-256，恢复前核对文件集合和内容。本轮正在七卡实例上执行，最终结果待下文补录。它仍是样本路由和生命周期验收，不是学习收益实验。
+
+七卡生命周期结果见[本轮原始证据](../routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/)。两轮保存进程完成 step1/step2 共576个策略chunk和2880个模拟动作槽，task reset 批次从 `[4,8,2,6,7,1]` 推进为 `[7,4,5,3,3,4]`，每轮六个lane覆盖至少四个task且各运行满240步。六rank每轮各收到48个chunk、完成有限的GAE/PPO/Adam更新，rank间梯度范数完全一致；step2 checkpoint约15.09 GiB、13个文件哈希齐全，保存前后Actor模型、optimizer、scheduler、RNG、计数和版本均未变化。保存进程因运行期间磁盘临时峰值不足而由协调者终止，因此原始partial保持`status=fail`，不能声称该driver正常退出；已完成的保存事件由29项独立审计核对通过，见`official-seven-gpu-save-v2.completed-events.audit.json`。
+
+未重跑前两轮，另启恢复driver验证此step2 checkpoint。恢复前全部文件大小和SHA-256通过，六个Actor的66项状态完全一致；从Adam step2/version2继续第三轮、收集48 chunks/rank、做PPO更新至step3并完整同步Rollout成功。32项独立恢复审计通过，见`official-seven-gpu-resume-v3.audit-verified.json`。全程共864个策略chunk、4320个模拟动作槽；冻结策略初始500-state基线仍为46.8% success_once，以上三轮工程验收不能解读成成功率提升或正式训练收益。
+
+七卡保存会同时使用约15.1 GiB最终checkpoint和约16 GiB量级临时空间。实测远端盘峰值曾从35 GiB可用降至约1 GiB；现将多rank保存前门槛提高为40 GiB，并保留现有checkpoint。`official-seven-gpu-resume-v3.json`及所有事件、step2保存partial、冻结保存/恢复探针、source lock和独立审计均随此节点一同归档。
+
+结果、日志和事件下载后，所有训练/Ray worker已退出。协调者在AutoDL列表对`77de47b334-d32e95e0`（S4000×7）确认关机；页面先显示“关机中”，随后显示“已关机”且“开机”按钮可用。实例未释放，step2 checkpoint仍保存在实例持久研究盘。平台状态证据见[本轮关机确认](../routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/platform-shutdown.json)。

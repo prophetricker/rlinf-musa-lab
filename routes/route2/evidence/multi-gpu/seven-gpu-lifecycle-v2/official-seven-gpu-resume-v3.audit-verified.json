@@ -1,0 +1,111 @@
+{
+  "status": "pass",
+  "checks": {
+    "raw_status_pass": true,
+    "probe_bytes_match": true,
+    "locked_production_files_match": true,
+    "expected_actor_ranks": true,
+    "one_environment_per_actor_rank": true,
+    "global_step_and_versions": true,
+    "all_raw_final_checks": true,
+    "all_raw_iteration_checks": true,
+    "complete_iteration_versions": true,
+    "all_full_state_synchronizations": true,
+    "all_rank_updates": true,
+    "correct_global_decision_counts": true,
+    "final_policy_matches_last_actor_sync": true,
+    "checkpoint_device_adapter_enabled": true,
+    "checkpoint_state_matches_update_and_version": true,
+    "interrupted_reference_remains_incomplete": true,
+    "interrupted_original_probe_verified": true,
+    "restore_reference_hash": true,
+    "restored_rank_training_states_exact": true,
+    "resume_helpers_sources_equal": true,
+    "checkpoint_bytes_verified_before_restore": true,
+    "sampling_events_alternate_and_cover_iterations": true,
+    "sampling_lane_counts": true,
+    "sampling_task_trial_identity_stable": true,
+    "sampling_description_counts": true,
+    "sampling_multiple_tasks": true,
+    "sampling_all_lanes_complete_horizon": true,
+    "sampling_reset_ids_advance": true,
+    "sampling_raw_checks_pass": true,
+    "iteration_0_rank_data_and_updates": true,
+    "iteration_0_distinct_data_and_reduced_norm": true,
+    "separate_chunk_and_simulator_counts": true
+  },
+  "raw_result_sha256": "d9d1decef0611de807d4da1b453b59b5136a61878cdbe2a5e128a5781c0064db",
+  "probe_sha256": "b82e02191c5b184c14e9a41f714620a01f7add36521573e66c6203a8a9df10c5",
+  "source_lock_sha256": "e18f6639f8527664eee2f058899ee1c8e88c14c1ad5bb2f9f38e1dd0d2331c11",
+  "actions_per_policy_decision": 5,
+  "total_received_policy_decisions": 288,
+  "total_simulator_step_slots": 1440,
+  "iterations": [
+    {
+      "iteration": 0,
+      "received_policy_decisions": 288,
+      "simulator_step_slots": 1440,
+      "valid_simulator_action_slots_per_rank": [
+        183,
+        240,
+        240,
+        101,
+        240,
+        92
+      ],
+      "valid_chunk_samples_per_rank": [
+        37,
+        48,
+        48,
+        21,
+        48,
+        19
+      ],
+      "reward_sum_per_rank": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "boundary_flags_per_rank": [
+        {
+          "dones": 57,
+          "terminations": 57,
+          "truncations": 1
+        },
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 134,
+          "terminations": 134,
+          "truncations": 1
+        },
+        {
+          "dones": 1,
+          "terminations": 0,
+          "truncations": 1
+        },
+        {
+          "dones": 142,
+          "terminations": 142,
+          "truncations": 1
+        }
+      ],
+      "global_grad_norm": 17.064876556396484
+    }
+  ],
+  "actor_world_size": 6,
+  "elapsed_seconds": 1343.9546251893044,
+  "final_weight_scope": "Runner global_step and Actor/Rollout versions are 3. Rollout has weights after all 3 cumulative PPO updates; an explicit final sync was audited.",
+  "scope": "independent cross-check of recorded execution evidence; no rerun or learning claim; boundary flags are not unique episode counts"
+}

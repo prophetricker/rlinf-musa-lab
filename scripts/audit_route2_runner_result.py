@@ -55,6 +55,10 @@ def main():
     parser.add_argument("--probe", type=Path, required=True)
     parser.add_argument("--source-lock", type=Path, required=True)
     parser.add_argument("--resume-reference", type=Path)
+    parser.add_argument("--reference-probe", type=Path,
+                        help="frozen original probe for an interrupted-save reference")
+    parser.add_argument("--resume-probe", type=Path,
+                        help="frozen recovery probe when resuming from an interrupted save")
     parser.add_argument("--min-distinct-task-ids", type=int, default=1)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -76,7 +80,8 @@ def main():
     world_size = len(placement_ranks(cfg["cluster"]["component_placement"]["actor"]))
     total_envs = cfg["env"]["train"]["total_num_envs"]
     checks = {"raw_status_pass": data["status"] == "pass",
-              "probe_bytes_match": data["probe_sha256"] == hashlib.sha256(args.probe.read_bytes()).hexdigest(),
+              "probe_bytes_match": data["probe_sha256"] == hashlib.sha256(
+                  (args.resume_probe or args.probe).read_bytes()).hexdigest(),
               "locked_production_files_match": all(data["source_fingerprints"].get(row["path"]) == row["sha256"]
                                                     for row in lock["production_files"]),
               "expected_actor_ranks": [row["rank"] for row in actors] == list(range(world_size)),
@@ -127,13 +132,30 @@ def main():
             if args.resume_reference is None:
                 parser.error("resumed Runner audit requires --resume-reference")
             reference = json.loads(args.resume_reference.read_text())
+            interrupted = data.get("interrupted_save_reference")
+            if interrupted:
+                if args.reference_probe is None:
+                    parser.error("interrupted save requires --reference-probe")
+                original = reference
+                saved = original["saved_checkpoints"][-1]
+                checks["interrupted_reference_remains_incomplete"] = (
+                    original["status"] == "fail"
+                    and original["stage"] == f"runner_step_{start_step}/checkpoint_save_audited"
+                    and saved["global_step"] == start_step
+                    and saved["checkpoint_state"] == saved["post_save_actor_state"])
+                checks["interrupted_original_probe_verified"] = (
+                    original["probe_sha256"] == interrupted["original_probe_sha256"]
+                    == hashlib.sha256(args.probe.read_bytes()).hexdigest())
+                reference = {**original, "checkpoint_state": saved["checkpoint_state"]}
             checks["restore_reference_hash"] = data["resume_reference_sha256"] == hashlib.sha256(
                 args.resume_reference.read_bytes()).hexdigest()
             checks["restored_rank_training_states_exact"] = (
                 data["initial_actor_state"] == reference["checkpoint_state"]
                 and len(data["restore_checks"]) == 11 * world_size and all(data["restore_checks"].values()))
-            checks["resume_probe_helpers_sources_equal"] = all(data[key] == reference[key] for key in (
-                "probe_sha256", "source_fingerprints", "gr00t_source_fingerprints", "support_fingerprints"))
+            checks["resume_helpers_sources_equal"] = all(data[key] == reference[key] for key in (
+                "source_fingerprints", "gr00t_source_fingerprints", "support_fingerprints"))
+            if not interrupted:
+                checks["resume_probe_equal"] = data["probe_sha256"] == reference["probe_sha256"]
             if "saved_checkpoints" in data:
                 checks["checkpoint_bytes_verified_before_restore"] = data.get("checkpoint_file_hashes_verified_before_load") is True
     if "training_sampling_reports" in data:
