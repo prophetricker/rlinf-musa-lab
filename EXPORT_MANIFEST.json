@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "37229195ea28914c60da5d19f4d936412da157ff",
+  "research_commit": "b4dc9163dc0ad599588b18bacab77537fda6d76a",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,8 +21,8 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 7488,
-      "sha256": "3c9579924b637c75c305d7dee422c47a88fc80c220643ea07c2317b360507c84"
+      "bytes": 8216,
+      "sha256": "d02879bdca2cfa1f8e7d2592bf9d6c9d98a1f7bc5d39cff06c990bb0ce5fd037"
     },
     {
       "path": "REPRODUCE.md",
@@ -33,8 +33,8 @@
     {
       "path": "ROADMAP.md",
       "research_source": "routes/route2/publishing/ROADMAP.md",
-      "bytes": 5521,
-      "sha256": "136769fe2fdf9118ff8181e8dec433c4b6d2bd564e4b2a48de580d4933190b33"
+      "bytes": 6292,
+      "sha256": "3cbebfb9776898c7611b54bb0f6bf883b153374a6b98f63197fcab60667338c2"
     },
     {
       "path": "UPSTREAM_GR00T_LICENSE.txt",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 17822,
-      "sha256": "20878a5d18a921138dd19b51aaac401d00d36e065e244b9b2264e735d288fa3d"
+      "bytes": 19355,
+      "sha256": "e18124e4191c61a636d706f080faa1c1084562ef64685caead169e732d56c563"
     },
     {
       "path": "reports/route2-learning.md",
@@ -123,8 +123,8 @@
     {
       "path": "routes/route2/README.md",
       "research_source": "routes/route2/README.md",
-      "bytes": 11939,
-      "sha256": "f71d50b9dbf215ac03886ea12948c2d86a0fcc2ce8a14c00005487c7574d216d"
+      "bytes": 12488,
+      "sha256": "396a6df016051bbe1d987e76530c7abfa0bf43e36f7f681bfe6370672eaaf394"
     },
     {
       "path": "routes/route2/evidence/action-interface/action-interface-cpu-first.json",
@@ -1043,6 +1043,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-train-sync-v1.json",
       "bytes": 1434901,
       "sha256": "1f6b6741476a5f26c7761db59c7b9d25e073bbede6424aafb1ff52d3caa8c53d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/platform-shutdown-full-baseline-user-report-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/platform-shutdown-full-baseline-user-report-v1.json",
+      "bytes": 894,
+      "sha256": "853a723b82521f59fa2196efe194c042dd8cb67dcceea5b01eb5f77e19028e3d"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/platform-shutdown-lifecycle-v1.json",

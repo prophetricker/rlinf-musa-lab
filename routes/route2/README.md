@@ -1,5 +1,7 @@
 # 路线 2：当前 RLinf 在 S4000 默认栈上的最小适配
 
+2026-10-08追加：两卡官方Runner完成正式actor/value学习率`5e-6 / 1e-4`、chunk5/240步/2环境的3轮更新，21项独立审计通过；完整10任务×50初始状态的初始策略评测完成，`success_once=46.8%`、`success_at_end=44.6%`，20项独立审计通过。完整suite初始基线已有证据，长期具身PPO学习收益仍待训练前后配对评测。用户已报告实例关机，未独立读取平台确认。详见[最新交接记录](../../reports/route2-handoff.md)。以下旧节点按其日期与范围解释。
+
 2026-10-07追加：两卡完整GR00T FULL_SHARD、Actor DCP新进程精确恢复、官方Runner三轮80步和chunk5/240步两轮已通过；后者192动作块、960有效模拟动作槽、超时截断与下一轮reset。十任务pilot及Runner保存/新进程恢复/续训和末次版本2同步也已独立通过，详见[两卡最新记录](planning/two-gpu-results.md)。以下旧节点按各自日期和范围解释。
 
 2026-10-05：在旧系统栈完成 Pendulum 与 MuJoCo HalfCheetah 三种子 PPO 学习基线，每种子 102,400 transitions，独立 test 回报均提升。HalfCheetah 从约 -0.33 提升到 694/885/678，见 [学习版说明](learning/README.md)、[Pendulum 证据](evidence/learning/pendulum-summary.json) 与 [HalfCheetah 证据](evidence/learning/halfcheetah-summary.json)。

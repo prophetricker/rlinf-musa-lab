@@ -1,0 +1,17 @@
+{
+  "schema": "platform_shutdown_user_report_v1",
+  "reported_date": "2026-10-08",
+  "timezone": "Asia/Shanghai",
+  "platform": "AutoDL",
+  "instance_id": "77de47b334-d32e95e0",
+  "gpu_configuration": "MTT S4000 x 2",
+  "reported_status": "powered_off",
+  "confirmation_source": "User explicitly stated: 我已经关了",
+  "actual_shutdown_time": null,
+  "agent_independently_verified_platform_state": false,
+  "agent_shutdown_attempt_completed": false,
+  "attempt_blocker": "Mac locked; Edge automation unavailable. No platform shutdown action completed by agent in this cycle.",
+  "experiment_research_commit": "37229195ea28914c60da5d19f4d936412da157ff",
+  "verified_experiment_publish_commit": "81febe5485d204cc80e61b97fec6d8b89affa614",
+  "scope": "Records the user's shutdown report after the full baseline cycle; does not reuse the prior cycle's agent-observed shutdown confirmation."
+}

@@ -1,6 +1,8 @@
 # RLinf on MTT S4000：路线二适配研究
 
-在单卡 MTT S4000、Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0 上，逐步适配固定版本的当前 RLinf 主线。Mac 管理开发与记录，GPU 实验在隔离 Linux 环境执行。
+在单卡及同节点两卡 MTT S4000、Driver 2.7.0、MUSA 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0 上，逐步适配固定版本的当前 RLinf 主线。Mac 管理开发与记录，GPU 实验在隔离 Linux 环境执行。
+
+2026-10-08：两卡官方Runner在chunk5、每环境240步、2环境下完成3轮正式actor/value学习率`5e-6 / 1e-4`验收，共288个chunk决策、1,440个模拟动作槽；每rank3次Adam更新，版本0–3完整同步、有限性及21项独立审计通过。固定初始Spatial策略的10任务×50初始状态评测全部完成，`success_once=234/500=46.8%`、`success_at_end=223/500=44.6%`，20项独立审计通过，耗时约4.53小时。46.8%是本适配配置的初始基线，不是PPO学习收益或官方CUDA成绩复现。用户已报告本轮实例关机；协调者未独立读取平台状态。详见[最新交接与原始证据](reports/route2-handoff.md)。以下保留历史节点。
 
 2026-10-07：同节点两张S4000已通过完整GR00T FULL_SHARD官方PPO更新、完整DCP新进程恢复/同批下一步精确对照、版本0/1的907项Actor/Rollout状态与固定输出精确同步，以及完整官方Runner两轮on-policy闭环（16条transition、每rank两次更新）。保留Driver2.7.0/MUSA3.1.0/Torch2.2.0/Torch-MUSA1.3.0；显式使用FP32 action/value head、MUSA legacy L2和SHM通信。新增三轮80步Runner稳定性已通过：480个数据槽、454个有效动作、每rank3次更新及版本0/1/2完整同步；官方chunk5/240步两轮已通过（192动作块、960有效模拟动作槽、超时截断和重置）；十任务pilot-v2也已通过（原始策略4/10 success_once，20项独立核对）；Runner保存/新进程新轨迹续训及末次版本2完整同步也已通过，具身学习收益尚未建立。详见[两卡证据与命令](routes/route2/planning/two-gpu-results.md)。
 

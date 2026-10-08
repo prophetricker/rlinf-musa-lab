@@ -107,3 +107,11 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 初始策略结果：`success_once=234/500=46.8%`，`success_at_end=223/500=44.6%`，平均reward`0.0050519`，平均return`0.468`，所有episode长度240。按task分别为`18/50, 37/50, 21/50, 27/50, 1/50, 39/50, 21/50, 33/50, 20/50, 17/50`（task0–9）。评测耗时`16315.48s`，约4.53小时；whole-run policy seed为1234，当前仍是整次评测固定seed，不是per-episode reseed。这个结果是本适配配置的初始策略基线，不直接声称复现官方CUDA成绩，也不代表MUSA适配已产生学习收益。
 
 原始结果和事件见[500-state结果](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.json)、[Env事件](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.env.events.jsonl)、[Rollout事件](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.rollout.events.jsonl)及[独立审计](../routes/route2/evidence/multi-gpu/official-spatial-full-baseline-v1.audit.json)。下一步应从同一固定权重和全新optimizer开始长期PPO，使用相同评测协议比较配对的训练前后成功率；不要把短LR验收中的少量非零奖励当作学习结果。
+
+## 2026-10-08发布核对与用户关机报告
+
+完整基线和正式学习率证据已正常push为成果仓库提交[`81febe5485d204cc80e61b97fec6d8b89affa614`](https://github.com/prophetricker/rlinf-musa-lab/commit/81febe5485d204cc80e61b97fec6d8b89affa614)，收尾时本地成果HEAD与远端main精确一致，对应研究提交`37229195ea28914c60da5d19f4d936412da157ff`。此前协调者的本轮平台关机操作因Mac锁屏及浏览器连接不可用而未完成；不能引用10月7日的旧关机证据作为本轮确认。
+
+10月8日用户明确回复“我已经关了”。本轮据此记为用户报告实例关机，实际操作时间未知，协调者没有独立读取平台状态；记录见[用户关机报告](../routes/route2/evidence/multi-gpu/platform-shutdown-full-baseline-user-report-v1.json)。本次仅整理本地文档和发布，不再连接或启动GPU作业。
+
+下一次学习需先补齐三项准备：短验收的训练配置固定为task0/trial0，需验证训练侧跨任务/初始状态调度；长实验需验证周期保存与完整回合边界的Actor状态恢复后重新采样；评测继续冻结500-state覆盖、batch、顺序和整次policy seed。当前基线没有per-episode reseed，若改成新的随机性协议，需另立配对基线。拟议50轮探索预算约24,000模拟动作槽；按本轮含审计的耗时约32分钟/3轮粗估为约9小时，另加完整评测约4.5小时，实际时长应由新配方重新测量。该预算用于探索，不承诺学习收益。
