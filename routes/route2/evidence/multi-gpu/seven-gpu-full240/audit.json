@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "scope": "independent audit of seven-GPU 6-Actor/1-Rollout full-horizon Runner evidence",
+  "result_sha256": "6af6450abd3fa151df4735cd33595ad969b00b4baa7d85eb3f429e2b696320dd",
+  "actor_events": [
+    {
+      "rank": 0,
+      "path": "full240.actor.rank0.events.jsonl",
+      "sha256": "dcc74726b2428d1dde2acdaa4ebd5013cd4b2ddfa3ea2c16f0929c6738b6f676",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    },
+    {
+      "rank": 1,
+      "path": "full240.actor.rank1.events.jsonl",
+      "sha256": "26d5fd026735bed4659cc3a9a63476d26b8240af235ba209f6dec59173ac4cee",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    },
+    {
+      "rank": 2,
+      "path": "full240.actor.rank2.events.jsonl",
+      "sha256": "a2879381c4cbac5f42a5eb809aacf5d3fd75a7725feac93d797e06c4d467847c",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    },
+    {
+      "rank": 3,
+      "path": "full240.actor.rank3.events.jsonl",
+      "sha256": "96c84706c6950847e4844a2292c04f61cabf02b650dbbb55fbbc9787a2631445",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    },
+    {
+      "rank": 4,
+      "path": "full240.actor.rank4.events.jsonl",
+      "sha256": "764802da702320a77055c64a41b1a9c5eeeb7db41c54902a0edf080a80db163d",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    },
+    {
+      "rank": 5,
+      "path": "full240.actor.rank5.events.jsonl",
+      "sha256": "f745d1ef2f7a8039bac8324ff10649f48cf3f455d9da46278050f209c49d0ae8",
+      "event_count": 14,
+      "received": 2,
+      "gae": 2,
+      "training": 2,
+      "all_training_checks_pass": true,
+      "grad_norms": [
+        25.657573699951172,
+        25.989818572998047
+      ]
+    }
+  ],
+  "checks": {
+    "raw_result_pass": true,
+    "six_actor_ranks": true,
+    "seven_gpu_layout": true,
+    "six_training_envs": true,
+    "global_batch_preserved": true,
+    "two_iterations": true,
+    "chunk_sample_counts": true,
+    "separate_simulator_count": true,
+    "all_final_checks_pass": true,
+    "all_iteration_checks_pass": true,
+    "all_actor_event_counts": true,
+    "all_actor_training_checks_pass": true,
+    "reduced_grad_norms_equal_per_iteration": true,
+    "all_recorded_metrics_finite": true
+  },
+  "raw_result_status": "pass",
+  "total_chunk_samples": 576,
+  "total_simulator_action_slots": 2880
+}

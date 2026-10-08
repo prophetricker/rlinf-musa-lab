@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Audit actual EmbodiedRunner iterations and stability on two S4000 GPUs.
+"""Audit actual EmbodiedRunner iterations and stability on S4000 GPUs.
 
-Use the official Env/Rollout collector and dispatcher: two environments each
-produce the configured number of action chunks, and each FULL_SHARD Actor rank
+Use the official Env/Rollout collector and dispatcher: the configured
+environments produce action chunks, and each FULL_SHARD Actor rank
 receives one complete temporal trajectory with its bootstrap row. Diagnostic subclasses observe
 inherited initialization, GAE, PPO, synchronization, and Runner.run. They do not
 manually construct, duplicate, or partition trajectories. No learning claim is
@@ -78,6 +78,26 @@ def nested_tensor_finite(value):
     return True
 
 
+def parse_contiguous_placement(value: str) -> list[int]:
+    """Parse the simple comma-separated placement form used by this probe."""
+    ranks = []
+    for part in str(value).split(","):
+        part = part.strip()
+        if not part:
+            continue
+        bounds = part.split("-")
+        if len(bounds) == 1:
+            ranks.append(int(bounds[0]))
+        elif len(bounds) == 2:
+            start, end = (int(item) for item in bounds)
+            if end < start:
+                raise ValueError(f"invalid descending placement range: {part}")
+            ranks.extend(range(start, end + 1))
+        else:
+            raise ValueError(f"invalid placement range: {part}")
+    return sorted(set(ranks))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rlinf-source", type=Path, required=True)
@@ -89,6 +109,18 @@ def main() -> int:
                         help="simulator step budget per environment and iteration")
     parser.add_argument("--action-chunks", type=int, default=1,
                         help="actions executed per policy decision; must divide steps-per-env")
+    parser.add_argument("--actor-placement", default="0-1",
+                        help="accelerator ranks for the FULL_SHARD Actor group")
+    parser.add_argument("--rollout-placement", default="1",
+                        help="accelerator ranks for the Rollout group")
+    parser.add_argument("--env-placement", default="0",
+                        help="accelerator ranks for the Env group")
+    parser.add_argument("--expected-accelerators", type=int, default=2)
+    parser.add_argument("--expected-actor-world-size", type=int, default=None)
+    parser.add_argument("--total-envs", type=int, default=2,
+                        help="number of training environments represented in one rollout")
+    parser.add_argument("--global-batch-size", type=int, default=None,
+                        help="actor global batch; defaults to total envs times chunk decisions")
     parser.add_argument("--expected-state-count", type=int, default=907)
     parser.add_argument("--expected-selected-count", type=int, default=322)
     parser.add_argument("--diagnostic", action="store_true")
@@ -114,13 +146,39 @@ def main() -> int:
     os.environ["RLINF_MUSA_FSDP_LEGACY_NORM"] = "1"
     os.environ["MCCL_P2P_DISABLE"] = "1"
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    actor_placement = str(args.actor_placement)
+    rollout_placement = str(args.rollout_placement)
+    env_placement = str(args.env_placement)
+    try:
+        actor_ranks = parse_contiguous_placement(actor_placement)
+    except ValueError as error:
+        parser.error(str(error))
+    # The placement grammar accepts comma-separated ranges. Keep validation
+    # local so the expected world size cannot silently disagree with config.
+    if not actor_ranks or actor_ranks != list(range(actor_ranks[0], actor_ranks[-1] + 1)):
+        parser.error("actor-placement must be a non-empty contiguous range")
+    actor_world_size = args.expected_actor_world_size or len(actor_ranks)
+    if actor_world_size != len(actor_ranks):
+        parser.error("expected-actor-world-size must match actor-placement")
+    if args.total_envs < 1 or args.total_envs % actor_world_size:
+        parser.error("total-envs must be positive and divisible by actor world size")
+    total_samples_per_iteration = args.total_envs * chunk_steps
+    global_batch_size = args.global_batch_size or total_samples_per_iteration
+    if global_batch_size < 1 or global_batch_size % actor_world_size:
+        parser.error("global-batch-size must be positive and divisible by actor world size")
+    if total_samples_per_iteration % global_batch_size:
+        parser.error("global-batch-size must divide the samples collected per iteration")
+    optimizer_updates_per_iteration = total_samples_per_iteration // global_batch_size
     result = {"schema_version": 1, "status": "fail",
               "probe_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-              "scope": "official EmbodiedRunner.run; two FULL_SHARD Actor ranks; one Rollout; two LIBERO envs",
-              "iterations": args.iterations, "steps_per_environment": args.steps_per_env, "total_envs": 2,
+              "scope": f"official EmbodiedRunner.run; {actor_world_size} FULL_SHARD Actor ranks; Rollout placement {rollout_placement}; {args.total_envs} LIBERO envs",
+              "iterations": args.iterations, "steps_per_environment": args.steps_per_env,
+              "total_envs": args.total_envs,
               "actions_per_policy_decision": args.action_chunks,
               "policy_decisions_per_environment": chunk_steps,
-              "expected_global_samples_per_iteration": 2 * chunk_steps,
+              "expected_global_samples_per_iteration": total_samples_per_iteration,
+              "global_batch_size": global_batch_size,
+              "expected_optimizer_updates_per_iteration": optimizer_updates_per_iteration,
               "sample_unit": "policy decisions / action chunks; simulator slots are reported separately",
               "scope_note": "functional and runtime stability verification at lr=1e-8; no learning or benchmark-performance claim",
               "trajectory_routing": "official TrajectoryCollector and least_loaded dispatcher; no manual partition",
@@ -288,9 +346,11 @@ def main() -> int:
                 after = self.snapshot_local()
                 checks = {"changed_trainable_shard": before["trainable_sha256"] != after["trainable_sha256"],
                           "changed_optimizer": before["optimizer_sha256"] != after["optimizer_sha256"],
-                          "one_optimizer_step": after["optimizer_steps"] == before["optimizer_steps"] + 1,
+                          "expected_optimizer_updates": after["optimizer_steps"]
+                              == before["optimizer_steps"] + optimizer_updates_per_iteration,
                           "active_adam_increment": bool(after["active_adam_state_count"])
-                              and after["active_adam_steps"] == [before["optimizer_steps"] + 1.0],
+                              and after["active_adam_steps"] == [
+                                  float(before["optimizer_steps"] + optimizer_updates_per_iteration)],
                           "finite_parameters_and_optimizer": after["parameters_finite"] and after["optimizer_finite"],
                           "finite_nonzero_grad_norm": math.isfinite(float(metrics["actor/grad_norm"]))
                               and float(metrics["actor/grad_norm"]) > 0,
@@ -351,7 +411,7 @@ def main() -> int:
                 rollout_state = self.rollout.snapshot_cpu().wait()[0]
                 leader = actor_states[0]
                 selected = leader["selected_sync_names"]
-                checks = {"two_actor_ranks_participated": [row["rank"] for row in actor_states] == [0, 1],
+                checks = {"actor_ranks_participated": [row["rank"] for row in actor_states] == list(range(actor_world_size)),
                           "complete_state_count": leader["state_count"] == args.expected_state_count,
                           "selected_count": len(selected) == args.expected_selected_count,
                           "selected_unique_and_covered": len(set(selected)) == len(selected)
@@ -372,17 +432,19 @@ def main() -> int:
 
         cfg = make_config(args.rlinf_source, args.model_path, steps=args.steps_per_env)
         cfg.actor.model.num_action_chunks = args.action_chunks
-        cfg.cluster.component_placement = {"actor": "0-1", "rollout": "1", "env": "0"}
+        cfg.cluster.component_placement = {"actor": actor_placement,
+                                           "rollout": rollout_placement,
+                                           "env": env_placement}
         cfg.actor.fsdp_config.sharding_strategy = "full_shard"
         cfg.actor.fsdp_config.use_orig_params = True
         cfg.actor.fsdp_config.torch22_state_dict_backend = "sharded_tensor"
-        cfg.actor.global_batch_size = 2 * chunk_steps
+        cfg.actor.global_batch_size = global_batch_size
         cfg.actor.micro_batch_size = 1
         cfg.algorithm.update_epoch = 1
-        cfg.env.train.total_num_envs = 2
+        cfg.env.train.total_num_envs = args.total_envs
         cfg.env.train.rollout_epoch = 1
         cfg.env.train.max_steps_per_rollout_epoch = args.steps_per_env
-        cfg.env.eval.total_num_envs = 2
+        cfg.env.eval.total_num_envs = args.total_envs
         cfg.rollout.enable_offload = True
         cfg.weight_syncer.actor_state_mode = "full_cpu_rank0"
         cfg.runner.data_channel_transport = "ray"
@@ -412,8 +474,8 @@ def main() -> int:
             name: hasattr(torch.distributed.distributed_c10d, name)
             for name in ("_process_group_color", "_register_process_group", "_DistributedBackendOptions")}
         cluster = Cluster(cluster_cfg=cfg.cluster, distributed_log_dir=cfg.runner.per_worker_log_path)
-        if cluster.num_accelerators != 2:
-            raise RuntimeError(f"expected two accelerators, got {cluster.num_accelerators}")
+        if cluster.num_accelerators != args.expected_accelerators:
+            raise RuntimeError(f"expected {args.expected_accelerators} accelerators, got {cluster.num_accelerators}")
         placement = HybridComponentPlacement(cfg, cluster)
         progress("launch_official_worker_groups")
         actor = AuditActor.create_group(cfg).launch(cluster=cluster, name=cfg.actor.group_name,
@@ -443,10 +505,13 @@ def main() -> int:
         result["runner_global_step"] = runner.global_step
         checks = {"runner_completed_requested_steps": runner.global_step == args.iterations,
                   "syncs_at_all_iteration_versions": [row["runner_global_step"] for row in result["synchronizations"]] == list(range(args.iterations)),
-                  "two_actor_rank_reports": [row["rank"] for row in actors] == [0, 1],
+                  "actor_rank_reports": [row["rank"] for row in actors] == list(range(actor_world_size)),
                   "requested_trajectories_per_rank": all(len(row["iterations"]) == args.iterations for row in actors),
-                  "requested_optimizer_updates_per_rank": all(row["final"]["optimizer_steps"] == args.iterations
-                      and row["final"]["active_adam_steps"] == [float(args.iterations)] for row in actors),
+                  "requested_optimizer_updates_per_rank": all(
+                      row["final"]["optimizer_steps"] == args.iterations * optimizer_updates_per_iteration
+                      and row["final"]["active_adam_steps"] == [
+                          float(args.iterations * optimizer_updates_per_iteration)]
+                      for row in actors),
                   "final_rollout_version": rollout_final["version"] == args.iterations - 1,
                   "final_actor_version": all(row["final"]["version"] == args.iterations - 1 for row in actors)}
         result["final_checks"] = checks
@@ -456,14 +521,15 @@ def main() -> int:
         for iteration in range(args.iterations):
             ranks = [row["iterations"][iteration] for row in actors]
             per_iteration_checks.append({"iteration": iteration,
-                "global_sample_count": sum(row["received_sample_count"] for row in ranks) == 2 * chunk_steps,
+                "global_sample_count": sum(row["received_sample_count"] for row in ranks)
+                    == total_samples_per_iteration,
                 "version_equals_iteration": all(row["stored_versions"] == [float(iteration)] for row in ranks),
-                "different_received_batches": len({row["policy_data_sha256"] for row in ranks}) == 2,
+                "different_received_batches": len({row["policy_data_sha256"] for row in ranks}) == actor_world_size,
                 "both_receives_pass": all(all(row["receive_checks"].values()) for row in ranks),
                 "both_gae_pass": all(row["gae"]["finite"] for row in ranks),
                 "both_ppo_updates_pass": all(all(row["training"]["checks"].values()) for row in ranks),
-                "same_reduced_grad_norm": ranks[0]["training"]["metrics"]["actor/grad_norm"]
-                    == ranks[1]["training"]["metrics"]["actor/grad_norm"]})
+                "same_reduced_grad_norm": len({row["training"]["metrics"]["actor/grad_norm"]
+                                                for row in ranks}) == 1})
         result["per_iteration_checks"] = per_iteration_checks
         if not all(all(value for key, value in row.items() if key != "iteration") for row in per_iteration_checks):
             raise AssertionError("official Runner per-iteration audit failed")

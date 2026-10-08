@@ -115,3 +115,11 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 10月8日用户明确回复“我已经关了”。本轮据此记为用户报告实例关机，实际操作时间未知，协调者没有独立读取平台状态；记录见[用户关机报告](../routes/route2/evidence/multi-gpu/platform-shutdown-full-baseline-user-report-v1.json)。本次仅整理本地文档和发布，不再连接或启动GPU作业。
 
 下一次学习需先补齐三项准备：短验收的训练配置固定为task0/trial0，需验证训练侧跨任务/初始状态调度；长实验需验证周期保存与完整回合边界的Actor状态恢复后重新采样；评测继续冻结500-state覆盖、batch、顺序和整次policy seed。当前基线没有per-episode reseed，若改成新的随机性协议，需另立配对基线。拟议50轮探索预算约24,000模拟动作槽；按本轮含审计的耗时约32分钟/3轮粗估为约9小时，另加完整评测约4.5小时，实际时长应由新配方重新测量。该预算用于探索，不承诺学习收益。
+
+## 2026-10-08七卡扩展验证
+
+用户启动了 7 张可见 S4000（GPU 0–6）；本轮保留 GPU 6 作为独立 Rollout，GPU 0–5 作为 6 个 FULL_SHARD Actor rank，Env 使用 GPU 0。由于 RLinf 轨迹路由要求训练环境数可被 Actor world size 整除，短验收使用 6 个 LIBERO 环境、`chunk=5`、每环境80步、`global_batch_size=96`，两轮共192个 action chunk、960个模拟动作槽；6个Actor均完成两次GAE/PPO/Adam更新和权重同步，主结果为 `pass`。
+
+随后用同一布局进行完整 horizon 验证：6 个环境、每环境240步、`chunk=5`、`global_batch_size=288`、`update_epoch=1`、两轮。每轮收集 288 个 chunk 样本，每个 Actor 每轮一次全局 PPO/Adam 更新；总计 576 个 chunk、2,880 个模拟动作槽。6 个 rank 均记录两次 trajectory receive、GAE 和 training complete，14项独立审计全部通过；两轮 MCCL 梯度归约后的 `actor/grad_norm` 分别在六个 rank 间精确一致（25.657573699951172、25.989818572998047），参数、优化器和指标保持有限。完整运行耗时约 40.9 分钟，GPU0–5显存约20–21GiB，未发生 OOM 或通信错误。
+
+原始结果、每 rank 事件和独立审计见 `routes/route2/evidence/multi-gpu/seven-gpu-full240/`；短验收见 `seven-gpu-smoke80/`。本节点证明 6-rank Actor + 独立 Rollout 的 RLinf/MUSA 功能闭环和完整 horizon 稳定性，不证明吞吐线性扩展，也不是学习收益或 benchmark 成绩。使用版本仍为 Driver 2.7.0、MUSA Toolkit 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0、MCCL 2.11.4。实验结果已下载并准备发布，随后清理训练进程并关闭 S4000 实例。

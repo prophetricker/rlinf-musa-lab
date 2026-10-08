@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "b4dc9163dc0ad599588b18bacab77537fda6d76a",
+  "research_commit": "a14da502da476566fc9a0b34107aa831c2198a8c",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -21,8 +21,8 @@
     {
       "path": "README.md",
       "research_source": "routes/route2/publishing/README.md",
-      "bytes": 8216,
-      "sha256": "d02879bdca2cfa1f8e7d2592bf9d6c9d98a1f7bc5d39cff06c990bb0ce5fd037"
+      "bytes": 8310,
+      "sha256": "ef66b469e0f305cb92d4591dff17a846b3c3d2f5eb6efa873b791d3e35f6f576"
     },
     {
       "path": "REPRODUCE.md",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 19355,
-      "sha256": "e18124e4191c61a636d706f080faa1c1084562ef64685caead169e732d56c563"
+      "bytes": 21035,
+      "sha256": "31d57876b49c2b65a0c18e9109300545758e9c9760643beebc45863c4837b606"
     },
     {
       "path": "reports/route2-learning.md",
@@ -1061,6 +1061,96 @@
       "research_source": "routes/route2/evidence/multi-gpu/runner-lifecycle-preparation-v1.json",
       "bytes": 614,
       "sha256": "b6a66002cebdc7d42958e78c86a47572478cac962a65dbd41a85660078f84185"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/audit.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/audit.json",
+      "bytes": 3101,
+      "sha256": "ec75d6cd5a4fa8a064064d76966073dcebfdb232906d70b03f862e240dbb1a38"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank0.events.jsonl",
+      "bytes": 13589,
+      "sha256": "dcc74726b2428d1dde2acdaa4ebd5013cd4b2ddfa3ea2c16f0929c6738b6f676"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank1.events.jsonl",
+      "bytes": 13581,
+      "sha256": "26d5fd026735bed4659cc3a9a63476d26b8240af235ba209f6dec59173ac4cee"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank2.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank2.events.jsonl",
+      "bytes": 13589,
+      "sha256": "a2879381c4cbac5f42a5eb809aacf5d3fd75a7725feac93d797e06c4d467847c"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank3.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank3.events.jsonl",
+      "bytes": 13594,
+      "sha256": "96c84706c6950847e4844a2292c04f61cabf02b650dbbb55fbbc9787a2631445"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank4.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank4.events.jsonl",
+      "bytes": 13584,
+      "sha256": "764802da702320a77055c64a41b1a9c5eeeb7db41c54902a0edf080a80db163d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank5.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.actor.rank5.events.jsonl",
+      "bytes": 13588,
+      "sha256": "f745d1ef2f7a8039bac8324ff10649f48cf3f455d9da46278050f209c49d0ae8"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-full240/full240.json",
+      "bytes": 1944243,
+      "sha256": "6af6450abd3fa151df4735cd33595ad969b00b4baa7d85eb3f429e2b696320dd"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank0.events.jsonl",
+      "bytes": 12449,
+      "sha256": "0e794b107556ba1975a308c0f6da181033c2d88a2747578950b0681cd7b34986"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank1.events.jsonl",
+      "bytes": 12448,
+      "sha256": "20c9045eaf2ba1db4b3d546db6e906d625d575012781a8118b30753ff33547db"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank2.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank2.events.jsonl",
+      "bytes": 12451,
+      "sha256": "08cd3ee16ab489461ab6d9ee2f73d9159c5706905abf4dad2e382c7139da1570"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank3.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank3.events.jsonl",
+      "bytes": 12449,
+      "sha256": "65f10814b631ff8651292caf0ca17925e84572f5fab668bae3a36490f2875545"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank4.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank4.events.jsonl",
+      "bytes": 12451,
+      "sha256": "95ea7363d2e93d9baa0a004bc8e9a191509df49bacf62d8db1a308d1df9ac85e"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank5.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.actor.rank5.events.jsonl",
+      "bytes": 12451,
+      "sha256": "dfbd4daa046b98e5830faaf36a6f08e98ccf095794f146193d15657af68c5b97"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.json",
+      "research_source": "routes/route2/evidence/multi-gpu/seven-gpu-smoke80/smoke80.json",
+      "bytes": 1944100,
+      "sha256": "56e5c95c320aa78ab29bbbd00648c336065bd5c95289c2dc375127e1636657f8"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/singleton-broadcast-v1.failure.txt",
@@ -2337,8 +2427,8 @@
     {
       "path": "routes/route2/model_probes/official_runner_probe.py",
       "research_source": "routes/route2/model_probes/official_runner_probe.py",
-      "bytes": 30735,
-      "sha256": "a5b59230ef4bc469d261a3c639a6a643b565506bb3fd45e0859777c2b8adf451"
+      "bytes": 34589,
+      "sha256": "7641663c4363bc2edab84320a31bddb760d87f603dde2a5330bb4fcfaa665744"
     },
     {
       "path": "routes/route2/model_probes/official_training_probe.py",
@@ -2687,6 +2777,12 @@
       "research_source": "scripts/audit_route2_runner_result.py",
       "bytes": 7654,
       "sha256": "7f3e8e3b83f097690b836761a5cf94b79e5ec4cc838232265248d03d6f42c872"
+    },
+    {
+      "path": "scripts/audit_route2_seven_gpu_result.py",
+      "research_source": "scripts/audit_route2_seven_gpu_result.py",
+      "bytes": 4444,
+      "sha256": "f3472e608d9df5d3af37aa6138d75d8908fd47e50e813baf64d553b6ea5ae612"
     },
     {
       "path": "scripts/prepare_route2_backbone_env.sh",
