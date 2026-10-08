@@ -131,3 +131,9 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 关机前七卡均为0%利用率、约4MiB显存，无训练、Ray或GPU进程，并已执行 `sync`。平台关机提交后曾显示“关机中”；2026-10-08约15:12（Asia/Shanghai），通过本机Edge的AutoDL实例列表独立确认同一七卡实例显示“已关机”且“开机”按钮可用。实例保留，未释放；实际完成关机的精确时间未知。见[关机确认](../routes/route2/evidence/multi-gpu/platform-shutdown-seven-gpu-v1.json)。
 
 本轮到此收尾。下一阶段先验证训练侧跨任务/初始状态调度，以及七卡布局下周期保存和完整回合边界恢复后重新采样，再从固定预训练权重与全新optimizer进行有预算的PPO学习实验。与冻结的500-state初始策略基线按同一协议比较；若评测batch、顺序或随机性协议发生变化，先建立对应的新基线。
+
+## 2026-10-08七卡跨任务与恢复入口准备
+
+本地新增七卡生命周期入口 [`seven-gpu-next-validation`](../routes/route2/planning/seven-gpu-next-validation.md) 和 [`run_route2_seven_gpu_lifecycle.sh`](../scripts/run_route2_seven_gpu_lifecycle.sh)。它把原两卡 Runner 保存/恢复探针参数化为任意连续 Actor world size，并保留默认两卡 task0 配置不变。七卡配方为 Actor 0–5、独立 Rollout 6、Env 0、6个环境、`chunk=5`、全局 batch 288、每个 Runner step 240个模拟动作；训练 reset 使用全 suite 有序池而非固定 task0，并要求初始环境报告至少覆盖两个 task id。
+
+脚本先保存 `global_step_1`，再用新进程恢复并在采样前逐 rank 核对模型、Adam、scheduler、RNG、计数和版本，继续一个完整 horizon 后显式同步到版本2。该入口目前只完成本地 Python AST、Bash语法和导出链接静态检查，尚未在七卡实例上运行；需要下一次开机后取得实机证据。它仍是样本路由和生命周期验收，不是学习收益实验。

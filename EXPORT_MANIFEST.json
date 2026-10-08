@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "580668afaa62034055f4bec4dee644bd83d79c92",
+  "research_commit": "63e128833ec1b452af78b1304d8f4ada37571c7a",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 22298,
-      "sha256": "752731ce494a9cc6c59b0953a6e15d1ed42aa76db850bf5fe61df87ae46c7e9f"
+      "bytes": 23377,
+      "sha256": "6e25600ce9daa3b307bb8fce054d57d438728af2e4e65e66ae94bc147ae601bf"
     },
     {
       "path": "reports/route2-learning.md",
@@ -2439,8 +2439,8 @@
     {
       "path": "routes/route2/model_probes/official_training_probe.py",
       "research_source": "routes/route2/model_probes/official_training_probe.py",
-      "bytes": 39384,
-      "sha256": "7dcd689df311e0b96c9ef9c63b67d3c398debea6b70d35189489beffa8cfe194"
+      "bytes": 44944,
+      "sha256": "50a87a3484447bc29ba54c37f96f335250d6f8caaf6249ce34f62b949ad63fed"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
@@ -2737,6 +2737,12 @@
       "sha256": "bdfd60a5938bd9ff012dae347b7ec7b013aa6bb8db9062137a00354af66d4cb1"
     },
     {
+      "path": "routes/route2/planning/seven-gpu-next-validation.md",
+      "research_source": "routes/route2/planning/seven-gpu-next-validation.md",
+      "bytes": 1841,
+      "sha256": "fd76cde89e18d894e07c3ecee0b79ac08dd2632cfef53d61b1d9ce9f420044b9"
+    },
+    {
       "path": "routes/route2/planning/spatial-action-layout.md",
       "research_source": "routes/route2/planning/spatial-action-layout.md",
       "bytes": 13871,
@@ -2921,6 +2927,12 @@
       "research_source": "scripts/run_route2_runner_lifecycle.sh",
       "bytes": 2031,
       "sha256": "8f4fa2dda4d04aaa2f35a0a07973841b41fcd8fabd898b2eac453574d78098c3"
+    },
+    {
+      "path": "scripts/run_route2_seven_gpu_lifecycle.sh",
+      "research_source": "scripts/run_route2_seven_gpu_lifecycle.sh",
+      "bytes": 2568,
+      "sha256": "4588d5fa1208c16d7a5a8968cd2e644ebf82a97b1cd303652ca885fc21cab73d"
     },
     {
       "path": "scripts/summarize_log.py",

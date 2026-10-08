@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Audit Runner checkpoint continuation and final policy synchronization.
 
-Use the official Env/Rollout collector and dispatcher: two environments each
-produce the configured number of action chunks, and each FULL_SHARD Actor rank
-receives one complete temporal trajectory with its bootstrap row. Diagnostic subclasses observe
+Use the official Env/Rollout collector and dispatcher: each environment produces
+the configured number of action chunks, and each FULL_SHARD Actor rank receives
+one complete temporal trajectory with its bootstrap row. Diagnostic subclasses observe
 inherited initialization, GAE, PPO, synchronization, and Runner.run. They do not
 manually construct, duplicate, or partition trajectories. No learning claim is
 made by this execution test. The final sync is explicit. A resume starts fresh
@@ -80,6 +80,41 @@ def nested_tensor_finite(value):
     return True
 
 
+def parse_placement(value: str) -> list[int]:
+    """Parse the contiguous accelerator placement form used by the probes."""
+    ranks = []
+    for part in str(value).split(","):
+        bounds = part.strip().split("-")
+        if len(bounds) == 1 and bounds[0]:
+            ranks.append(int(bounds[0]))
+        elif len(bounds) == 2:
+            start, end = (int(item) for item in bounds)
+            if end < start:
+                raise ValueError(f"invalid descending placement range: {part}")
+            ranks.extend(range(start, end + 1))
+        elif part.strip():
+            raise ValueError(f"invalid placement range: {part}")
+    result = sorted(set(ranks))
+    if not result or result != list(range(result[0], result[-1] + 1)):
+        raise ValueError("placement must contain one non-empty contiguous range")
+    return result
+
+
+def parse_optional_int(value: str) -> int | None:
+    if value.lower() in {"none", "null"}:
+        return None
+    return int(value)
+
+
+def parse_task_ids(value: str) -> list[int] | None:
+    if value.lower() in {"none", "null", "all"}:
+        return None
+    result = sorted({int(item.strip()) for item in value.split(",") if item.strip()})
+    if not result or any(item < 0 for item in result):
+        raise ValueError("task-id-filter must contain non-negative integer ids")
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rlinf-source", type=Path, required=True)
@@ -97,6 +132,24 @@ def main() -> int:
     parser.add_argument("--lr", type=float, default=1e-8)
     parser.add_argument("--value-lr", type=float, default=1e-8)
     parser.add_argument("--seed", type=int, default=1234)
+    parser.add_argument("--actor-placement", default="0-1",
+                        help="contiguous accelerator ranks for FULL_SHARD Actors")
+    parser.add_argument("--rollout-placement", default="1",
+                        help="accelerator ranks for the independent Rollout")
+    parser.add_argument("--env-placement", default="0",
+                        help="accelerator ranks for the Env worker")
+    parser.add_argument("--expected-accelerators", type=int, default=2)
+    parser.add_argument("--total-envs", type=int, default=2)
+    parser.add_argument("--global-batch-size", type=int, default=None,
+                        help="defaults to total envs times policy decisions")
+    parser.add_argument("--specific-reset-id", type=parse_optional_int, default=0,
+                        help="LIBERO reset id; use 'none' for the full training pool")
+    parser.add_argument("--task-id-filter", type=parse_task_ids, default=None,
+                        help="optional comma-separated LIBERO task ids or 'all'")
+    parser.add_argument("--ordered-training-resets", action="store_true",
+                        help="walk the seeded reset pool instead of random training resets")
+    parser.add_argument("--min-distinct-task-ids", type=int, default=1,
+                        help="minimum distinct task ids required in the initial env report")
     parser.add_argument("--save-final", action="store_true")
     parser.add_argument("--resume-dir", type=Path)
     parser.add_argument("--resume-reference", type=Path,
@@ -112,6 +165,24 @@ def main() -> int:
     if args.steps_per_env % args.action_chunks:
         parser.error("action-chunks must divide steps-per-env")
     chunk_steps = args.steps_per_env // args.action_chunks
+    try:
+        actor_ranks = parse_placement(args.actor_placement)
+        rollout_ranks = parse_placement(args.rollout_placement)
+        env_ranks = parse_placement(args.env_placement)
+        task_id_filter = parse_task_ids(args.task_id_filter) if isinstance(args.task_id_filter, str) else args.task_id_filter
+    except ValueError as error:
+        parser.error(str(error))
+    actor_world_size = len(actor_ranks)
+    if args.expected_accelerators < 1 or args.expected_accelerators <= max(actor_ranks + rollout_ranks + env_ranks):
+        parser.error("expected-accelerators must cover every placement rank")
+    if args.total_envs < 1 or args.total_envs % actor_world_size:
+        parser.error("total-envs must be positive and divisible by Actor world size")
+    expected_samples = args.total_envs * chunk_steps
+    global_batch_size = args.global_batch_size or expected_samples
+    if global_batch_size < 1 or global_batch_size % actor_world_size or expected_samples % global_batch_size:
+        parser.error("global-batch-size must divide collected samples and Actor world size")
+    if args.min_distinct_task_ids < 1 or args.min_distinct_task_ids > args.total_envs:
+        parser.error("min-distinct-task-ids must be between 1 and total-envs")
     if args.output.exists() or args.output.with_suffix(".partial.json").exists():
         parser.error("output and partial output must be new")
     if os.environ.get("RLINF_MUSA_FSDP_INDEPENDENT_INIT", "0") != "0":
@@ -130,11 +201,19 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result = {"schema_version": 1, "status": "fail",
               "probe_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-              "scope": "official EmbodiedRunner.run; two FULL_SHARD Actor ranks; one Rollout; two LIBERO envs",
-              "iterations": args.iterations, "steps_per_environment": args.steps_per_env, "total_envs": 2,
+              "scope": f"official EmbodiedRunner.run; {actor_world_size} FULL_SHARD Actor ranks; "
+                       f"Rollout placement {args.rollout_placement}; {args.total_envs} LIBERO envs",
+              "iterations": args.iterations, "steps_per_environment": args.steps_per_env, "total_envs": args.total_envs,
               "actions_per_policy_decision": args.action_chunks,
               "policy_decisions_per_environment": chunk_steps,
-              "expected_global_samples_per_iteration": 2 * chunk_steps,
+              "expected_global_samples_per_iteration": expected_samples,
+              "global_batch_size": global_batch_size,
+              "actor_placement": args.actor_placement,
+              "rollout_placement": args.rollout_placement,
+              "env_placement": args.env_placement,
+              "training_reset": {"specific_reset_id": args.specific_reset_id,
+                                  "task_id_filter": task_id_filter,
+                                  "ordered": args.ordered_training_resets},
               "sample_unit": "policy decisions / action chunks; simulator slots are reported separately",
               "scope_note": "Runner continuation/final-sync execution audit; no learning or benchmark-performance claim",
               "resume_scope": "Actor training state restored; Env/Rollout start new episodes, no simulator or rollout RNG restoration",
@@ -180,7 +259,7 @@ def main() -> int:
         if reference is not None and (reference.get("status") != "pass" or not reference.get("checkpoint_state")
                           or reference.get("save_final_requested") is not True
                           or reference["runner_global_step"] != start_step
-                          or [row["rank"] for row in reference["checkpoint_state"]] != [0, 1]
+                          or [row["rank"] for row in reference["checkpoint_state"]] != list(range(actor_world_size))
                           or Path(reference["checkpoint_dir"]).resolve() != args.resume_dir.resolve()):
             raise AssertionError("resume reference must be a successful saved Runner result at the requested step")
         result.update(start_global_step=start_step, target_global_step=target_step,
@@ -391,9 +470,12 @@ def main() -> int:
                 for env in self.env_list:
                     identities.append({name: as_json(get_env_attr(env, name))
                                        for name in ("task_ids", "trial_ids")})
+                distinct_task_ids = sorted({task for item in identities for task in item["task_ids"]})
                 return {"rank": self._rank, "trajectory_step": self._trajectory_step,
                         "envs_per_stage": self.train_num_envs_per_stage,
                         "stages": self.stage_num, "identities": identities,
+                        "distinct_task_ids": distinct_task_ids,
+                        "distinct_task_count": len(distinct_task_ids),
                         "memory": memory_snapshot(include_gpu=False)}
 
         class AuditRunner(EmbodiedRunner):
@@ -405,7 +487,7 @@ def main() -> int:
                 rollout_state = self.rollout.snapshot_cpu().wait()[0]
                 leader = actor_states[0]
                 selected = leader["selected_sync_names"]
-                checks = {"two_actor_ranks_participated": [row["rank"] for row in actor_states] == [0, 1],
+                checks = {"actor_ranks_participated": [row["rank"] for row in actor_states] == list(range(actor_world_size)),
                           "complete_state_count": leader["state_count"] == args.expected_state_count,
                           "selected_count": len(selected) == args.expected_selected_count,
                           "selected_unique_and_covered": len(set(selected)) == len(selected)
@@ -429,17 +511,22 @@ def main() -> int:
         cfg.actor.optim.value_lr = args.value_lr
         cfg.actor.seed = args.seed
         cfg.actor.model.num_action_chunks = args.action_chunks
-        cfg.cluster.component_placement = {"actor": "0-1", "rollout": "1", "env": "0"}
+        cfg.cluster.component_placement = {"actor": args.actor_placement,
+                                           "rollout": args.rollout_placement,
+                                           "env": args.env_placement}
         cfg.actor.fsdp_config.sharding_strategy = "full_shard"
         cfg.actor.fsdp_config.use_orig_params = True
         cfg.actor.fsdp_config.torch22_state_dict_backend = "sharded_tensor"
-        cfg.actor.global_batch_size = 2 * chunk_steps
+        cfg.actor.global_batch_size = global_batch_size
         cfg.actor.micro_batch_size = 1
         cfg.algorithm.update_epoch = 1
-        cfg.env.train.total_num_envs = 2
+        cfg.env.train.total_num_envs = args.total_envs
+        cfg.env.train.specific_reset_id = args.specific_reset_id
+        cfg.env.train.use_ordered_reset_state_ids = args.ordered_training_resets
+        cfg.env.train.task_id_filter = task_id_filter
         cfg.env.train.rollout_epoch = 1
         cfg.env.train.max_steps_per_rollout_epoch = args.steps_per_env
-        cfg.env.eval.total_num_envs = 2
+        cfg.env.eval.total_num_envs = args.total_envs
         cfg.rollout.enable_offload = True
         cfg.weight_syncer.actor_state_mode = "full_cpu_rank0"
         cfg.runner.data_channel_transport = "ray"
@@ -498,8 +585,8 @@ def main() -> int:
             name: hasattr(torch.distributed.distributed_c10d, name)
             for name in ("_process_group_color", "_register_process_group", "_DistributedBackendOptions")}
         cluster = Cluster(cluster_cfg=cfg.cluster, distributed_log_dir=cfg.runner.per_worker_log_path)
-        if cluster.num_accelerators != 2:
-            raise RuntimeError(f"expected two accelerators, got {cluster.num_accelerators}")
+        if cluster.num_accelerators != args.expected_accelerators:
+            raise RuntimeError(f"expected {args.expected_accelerators} accelerators, got {cluster.num_accelerators}")
         placement = HybridComponentPlacement(cfg, cluster)
         progress("launch_official_worker_groups")
         actor = AuditActor.create_group(cfg).launch(cluster=cluster, name=cfg.actor.group_name,
@@ -520,8 +607,8 @@ def main() -> int:
         result["initial_actor_state"] = actor.snapshot_resume_state().wait()
         if runner.global_step != start_step:
             raise AssertionError("official Runner restored the wrong global step")
-        if [row["rank"] for row in result["initial_actor_state"]] != [0, 1]:
-            raise AssertionError("expected both Actor ranks after initialization")
+        if [row["rank"] for row in result["initial_actor_state"]] != list(range(actor_world_size)):
+            raise AssertionError("Actor ranks did not initialize as expected")
         if reference is not None:
             expected_state = reference["checkpoint_state"]
             result["restore_checks"] = {
@@ -533,6 +620,11 @@ def main() -> int:
             if not all(result["restore_checks"].values()):
                 raise AssertionError("Actor state did not restore exactly before fresh sampling")
         result["environment"] = env.probe_report().wait()
+        if result["environment"][0]["distinct_task_count"] < args.min_distinct_task_ids:
+            raise AssertionError(
+                f"initial training reset pool covered only {result['environment'][0]['distinct_task_count']} "
+                f"task ids; expected at least {args.min_distinct_task_ids}"
+            )
         progress(f"official_runner_run_{args.iterations}_iterations")
         runner.run()
         progress("final_explicit_weight_sync")
@@ -564,7 +656,7 @@ def main() -> int:
         result["runner_global_step"] = runner.global_step
         checks = {"runner_completed_requested_steps": runner.global_step == target_step,
                   "syncs_at_all_iteration_versions_and_final": [row["runner_global_step"] for row in result["synchronizations"]] == list(range(start_step, target_step + 1)),
-                  "two_actor_rank_reports": [row["rank"] for row in actors] == [0, 1],
+                  "actor_rank_reports": [row["rank"] for row in actors] == list(range(actor_world_size)),
                   "requested_trajectories_per_rank": all(len(row["iterations"]) == args.iterations for row in actors),
                   "requested_optimizer_updates_per_rank": all(row["final"]["optimizer_steps"] == target_step
                       and row["final"]["active_adam_steps"] == [float(target_step)] for row in actors),
@@ -577,14 +669,14 @@ def main() -> int:
         for iteration in range(args.iterations):
             ranks = [row["iterations"][iteration] for row in actors]
             per_iteration_checks.append({"iteration": iteration,
-                "global_sample_count": sum(row["received_sample_count"] for row in ranks) == 2 * chunk_steps,
+                "global_sample_count": sum(row["received_sample_count"] for row in ranks) == expected_samples,
                 "version_equals_global_iteration": all(row["stored_versions"] == [float(start_step + iteration)] for row in ranks),
-                "different_received_batches": len({row["policy_data_sha256"] for row in ranks}) == 2,
+                "different_received_batches": len({row["policy_data_sha256"] for row in ranks}) == actor_world_size,
                 "both_receives_pass": all(all(row["receive_checks"].values()) for row in ranks),
                 "both_gae_pass": all(row["gae"]["finite"] for row in ranks),
                 "both_ppo_updates_pass": all(all(row["training"]["checks"].values()) for row in ranks),
-                "same_reduced_grad_norm": ranks[0]["training"]["metrics"]["actor/grad_norm"]
-                    == ranks[1]["training"]["metrics"]["actor/grad_norm"]})
+                "same_reduced_grad_norm": len({row["training"]["metrics"]["actor/grad_norm"]
+                                                for row in ranks}) == 1})
         result["per_iteration_checks"] = per_iteration_checks
         if not all(all(value for key, value in row.items() if key != "iteration") for row in per_iteration_checks):
             raise AssertionError("official Runner per-iteration audit failed")
