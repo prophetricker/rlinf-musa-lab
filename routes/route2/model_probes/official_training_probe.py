@@ -179,8 +179,9 @@ def main() -> int:
         parser.error("total-envs must be positive and divisible by Actor world size")
     expected_samples = args.total_envs * chunk_steps
     global_batch_size = args.global_batch_size or expected_samples
-    if global_batch_size < 1 or global_batch_size % actor_world_size or expected_samples % global_batch_size:
-        parser.error("global-batch-size must divide collected samples and Actor world size")
+    if (global_batch_size < 1 or global_batch_size % actor_world_size
+            or global_batch_size != expected_samples):
+        parser.error("global-batch-size must equal collected samples and divide Actor world size")
     if args.min_distinct_task_ids < 1 or args.min_distinct_task_ids > args.total_envs:
         parser.error("min-distinct-task-ids must be between 1 and total-envs")
     if args.output.exists() or args.output.with_suffix(".partial.json").exists():
