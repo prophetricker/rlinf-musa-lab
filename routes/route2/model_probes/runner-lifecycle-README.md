@@ -25,3 +25,5 @@ bash shared/run_route2_runner_lifecycle.sh
 该入口可显式设置`--lr 5e-6 --value-lr 1e-4`，但首次生命周期验收保留1e-8。官方LR、完整评估协议、trial划分和学习收益另按[学习计划](../planning/embodied-learning-entry.md)推进。
 
 实际证据：[保存结果](../evidence/multi-gpu/official-runner-save-v1.json)、[恢复结果](../evidence/multi-gpu/official-runner-resume-v1.json)、[恢复独立核对](../evidence/multi-gpu/official-runner-resume-v1.audit.json)。每rank累计Adam step达到2，版本0/1（保存进程）和1/2（恢复进程）各907项完整状态与Rollout一致。实际checkpoint为global_step_1，约15.081598GiB；恢复后的step2仅同步与审计，未再次保存。
+
+2026-10-08七卡扩展入口见[下一阶段验收](../planning/seven-gpu-next-validation.md)。探针现支持一个环境对应一个Actor rank、单Rollout和单Env worker；默认两rank配置仍保留。七卡为六rank Actor与独立Rollout，训练侧取消固定reset id，先运行两轮240步验证采样池推进，再通过官方周期保存路径保存step2，用新进程恢复后运行第三轮。新增逐文件checkpoint摘要和实际环境事件审计。当前实机结果待补录，历史v1证据应使用冻结的 `official-training-lifecycle-v1-probe.py` 核对，不能拿新的探针摘要替代旧摘要。

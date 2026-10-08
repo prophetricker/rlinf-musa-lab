@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "7b707354dfcaad749f8f28e0c4732fd3e0ed03e7",
+  "research_commit": "3c2796dab238f7bfe2ce6855bcba770ae9c06162",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 23377,
-      "sha256": "6e25600ce9daa3b307bb8fce054d57d438728af2e4e65e66ae94bc147ae601bf"
+      "bytes": 23529,
+      "sha256": "1b991f82b951cc7349280f52c40debb2b9eaead1a49357c79a16221078dcf778"
     },
     {
       "path": "reports/route2-learning.md",
@@ -2439,8 +2439,8 @@
     {
       "path": "routes/route2/model_probes/official_training_probe.py",
       "research_source": "routes/route2/model_probes/official_training_probe.py",
-      "bytes": 44965,
-      "sha256": "d5473b98d89f43fb8c976ac66892be21272347ca9f5fda69e225f1a6663777b9"
+      "bytes": 52017,
+      "sha256": "bac26449bd74bb5aca0ad6150d88ef00c46643a30a919b08e75e906829a64e70"
     },
     {
       "path": "routes/route2/model_probes/ray_cpu_sync_guard_probe.py",
@@ -2451,8 +2451,8 @@
     {
       "path": "routes/route2/model_probes/runner-lifecycle-README.md",
       "research_source": "routes/route2/model_probes/runner-lifecycle-README.md",
-      "bytes": 3598,
-      "sha256": "8dcac68b56326303d4c8f535534a96bc2fd2ec44af2091b5a65a87f7d4a7ee12"
+      "bytes": 4232,
+      "sha256": "1c46075f2ad368ae95e81320b9c7974872107acd1cb88323092fa3b0b199c05a"
     },
     {
       "path": "routes/route2/model_probes/runner_progress.py",
@@ -2739,8 +2739,8 @@
     {
       "path": "routes/route2/planning/seven-gpu-next-validation.md",
       "research_source": "routes/route2/planning/seven-gpu-next-validation.md",
-      "bytes": 1841,
-      "sha256": "fd76cde89e18d894e07c3ecee0b79ac08dd2632cfef53d61b1d9ce9f420044b9"
+      "bytes": 2828,
+      "sha256": "1ae1ce4292fd09b9ec63af863eed7e5dd6fa3c25b3d50504d99d2ff9ecb477f6"
     },
     {
       "path": "routes/route2/planning/spatial-action-layout.md",
@@ -2787,8 +2787,8 @@
     {
       "path": "scripts/audit_route2_runner_result.py",
       "research_source": "scripts/audit_route2_runner_result.py",
-      "bytes": 7654,
-      "sha256": "7f3e8e3b83f097690b836761a5cf94b79e5ec4cc838232265248d03d6f42c872"
+      "bytes": 12149,
+      "sha256": "f06d434b381ff902d77a8781f0d581c8ae9faee09ff9ed3304e376ef22ebece0"
     },
     {
       "path": "scripts/audit_route2_seven_gpu_result.py",
@@ -2931,14 +2931,20 @@
     {
       "path": "scripts/run_route2_seven_gpu_lifecycle.sh",
       "research_source": "scripts/run_route2_seven_gpu_lifecycle.sh",
-      "bytes": 2568,
-      "sha256": "4588d5fa1208c16d7a5a8968cd2e644ebf82a97b1cd303652ca885fc21cab73d"
+      "bytes": 2592,
+      "sha256": "66fd57f91b463f4156e029488632439efb40739b205f5c114c477e247e5dd0a6"
     },
     {
       "path": "scripts/summarize_log.py",
       "research_source": "scripts/summarize_log.py",
       "bytes": 758,
       "sha256": "2bebff162133c3f599b946f2664ad9124cb4ff535d6f412576624a839eb1b312"
+    },
+    {
+      "path": "scripts/test_route2_runner_audit.py",
+      "research_source": "scripts/test_route2_runner_audit.py",
+      "bytes": 4551,
+      "sha256": "089cbb060987d2d0f401c9048f65a7693cd4cec190621a124f7dbc4241b9f2dc"
     },
     {
       "path": "scripts/verify_route2_export.py",

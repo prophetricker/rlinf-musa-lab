@@ -24,16 +24,17 @@ done
 common=(--rlinf-source route2/RLinf-official-actor
         --gr00t-source route2/Isaac-GR00T-official-actor
         --model-path route2/weights/Spatial-73f710e
-        --iterations 1 --steps-per-env "$steps" --action-chunks 5
+        --steps-per-env "$steps" --action-chunks 5
         --actor-placement 0-5 --rollout-placement 6 --env-placement 0
         --expected-accelerators 7 --total-envs 6 --global-batch-size "$global_batch"
         --specific-reset-id none --ordered-training-resets
         --min-distinct-task-ids 2)
 
 "$python_bin" route2/model_probes/official_training_probe.py "${common[@]}" \
-  --save-final --output "$save_output" > "${save_output%.json}.log" 2>&1
+  --iterations 2 --save-interval 2 --output "$save_output" > "${save_output%.json}.log" 2>&1
 resume_dir=$("$python_bin" -c 'import json,sys; d=json.load(open(sys.argv[1])); assert d["status"]=="pass"; print(d["checkpoint_dir"])' "$save_output")
 "$python_bin" route2/model_probes/official_training_probe.py "${common[@]}" \
+  --iterations 1 \
   --resume-dir "$resume_dir" --resume-reference "$save_output" \
   --output "$resume_output" > "${resume_output%.json}.log" 2>&1
 "$python_bin" - "$save_output" "$resume_output" <<'PY'

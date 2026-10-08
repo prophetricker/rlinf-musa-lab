@@ -95,7 +95,7 @@ def parse_placement(value: str) -> list[int]:
         elif part.strip():
             raise ValueError(f"invalid placement range: {part}")
     result = sorted(set(ranks))
-    if not result or result != list(range(result[0], result[-1] + 1)):
+    if not result or result[0] < 0 or result != list(range(result[0], result[-1] + 1)):
         raise ValueError("placement must contain one non-empty contiguous range")
     return result
 
@@ -103,7 +103,10 @@ def parse_placement(value: str) -> list[int]:
 def parse_optional_int(value: str) -> int | None:
     if value.lower() in {"none", "null"}:
         return None
-    return int(value)
+    result = int(value)
+    if result < 0:
+        raise ValueError("reset id must be non-negative or none")
+    return result
 
 
 def parse_task_ids(value: str) -> list[int] | None:
@@ -113,6 +116,14 @@ def parse_task_ids(value: str) -> list[int] | None:
     if not result or any(item < 0 for item in result):
         raise ValueError("task-id-filter must contain non-negative integer ids")
     return result
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def main() -> int:
@@ -151,6 +162,8 @@ def main() -> int:
     parser.add_argument("--min-distinct-task-ids", type=int, default=1,
                         help="minimum distinct task ids required in the initial env report")
     parser.add_argument("--save-final", action="store_true")
+    parser.add_argument("--save-interval", type=int, default=-1,
+                        help="positive interval enables inherited periodic Runner saving")
     parser.add_argument("--resume-dir", type=Path)
     parser.add_argument("--resume-reference", type=Path,
                         help="successful save result to compare Actor state immediately after restore")
@@ -169,21 +182,30 @@ def main() -> int:
         actor_ranks = parse_placement(args.actor_placement)
         rollout_ranks = parse_placement(args.rollout_placement)
         env_ranks = parse_placement(args.env_placement)
-        task_id_filter = parse_task_ids(args.task_id_filter) if isinstance(args.task_id_filter, str) else args.task_id_filter
+        task_id_filter = args.task_id_filter
     except ValueError as error:
         parser.error(str(error))
     actor_world_size = len(actor_ranks)
+    if len(rollout_ranks) != 1 or len(env_ranks) != 1:
+        parser.error("this lifecycle probe requires one Rollout and one Env worker")
     if args.expected_accelerators < 1 or args.expected_accelerators <= max(actor_ranks + rollout_ranks + env_ranks):
         parser.error("expected-accelerators must cover every placement rank")
-    if args.total_envs < 1 or args.total_envs % actor_world_size:
-        parser.error("total-envs must be positive and divisible by Actor world size")
+    if args.total_envs != actor_world_size:
+        parser.error("this lifecycle probe requires exactly one environment per Actor rank")
     expected_samples = args.total_envs * chunk_steps
-    global_batch_size = args.global_batch_size or expected_samples
+    global_batch_size = (expected_samples if args.global_batch_size is None
+                         else args.global_batch_size)
     if (global_batch_size < 1 or global_batch_size % actor_world_size
             or global_batch_size != expected_samples):
-        parser.error("global-batch-size must equal collected samples and divide Actor world size")
+        parser.error("global-batch-size must equal collected samples and be divisible by Actor world size")
     if args.min_distinct_task_ids < 1 or args.min_distinct_task_ids > args.total_envs:
         parser.error("min-distinct-task-ids must be between 1 and total-envs")
+    if args.specific_reset_id is not None and args.min_distinct_task_ids != 1:
+        parser.error("a specific reset id cannot cover multiple tasks")
+    if args.save_interval == 0 or args.save_interval < -1:
+        parser.error("save-interval must be -1 or positive")
+    if args.save_final and args.save_interval > 0:
+        parser.error("use either periodic saving or save-final")
     if args.output.exists() or args.output.with_suffix(".partial.json").exists():
         parser.error("output and partial output must be new")
     if os.environ.get("RLINF_MUSA_FSDP_INDEPENDENT_INIT", "0") != "0":
@@ -219,6 +241,8 @@ def main() -> int:
               "scope_note": "Runner continuation/final-sync execution audit; no learning or benchmark-performance claim",
               "resume_scope": "Actor training state restored; Env/Rollout start new episodes, no simulator or rollout RNG restoration",
               "save_final_requested": args.save_final,
+              "save_interval": args.save_interval,
+              "saved_checkpoints": [],
               "trajectory_routing": "official TrajectoryCollector and least_loaded dispatcher; no manual partition",
               "memory_scope": "per-process RSS high-water marks and PyTorch MUSA allocator peaks; simulator child processes and Ray shared object storage are excluded",
               "synchronizations": [], "initialization": "sync_module_states=True",
@@ -258,11 +282,24 @@ def main() -> int:
         target_step = start_step + args.iterations
         reference = json.loads(args.resume_reference.read_text()) if args.resume_reference else None
         if reference is not None and (reference.get("status") != "pass" or not reference.get("checkpoint_state")
-                          or reference.get("save_final_requested") is not True
+                          or not (reference.get("save_final_requested") is True or reference.get("saved_checkpoints"))
                           or reference["runner_global_step"] != start_step
                           or [row["rank"] for row in reference["checkpoint_state"]] != list(range(actor_world_size))
                           or Path(reference["checkpoint_dir"]).resolve() != args.resume_dir.resolve()):
             raise AssertionError("resume reference must be a successful saved Runner result at the requested step")
+        if reference is not None:
+            recorded_files = reference["checkpoint_files"]
+            actual_files = {str(path.relative_to(args.resume_dir))
+                            for path in args.resume_dir.rglob("*") if path.is_file()}
+            if actual_files != {row["path"] for row in recorded_files}:
+                raise AssertionError("checkpoint file coverage differs from save reference")
+            for row in recorded_files:
+                path = (args.resume_dir / row["path"]).resolve()
+                if (not path.is_relative_to(args.resume_dir.resolve())
+                        or path.stat().st_size != row["bytes"]
+                        or file_sha256(path) != row["sha256"]):
+                    raise AssertionError("checkpoint file bytes differ from save reference")
+            result["checkpoint_file_hashes_verified_before_load"] = True
         result.update(start_global_step=start_step, target_global_step=target_step,
                       resume_reference_sha256=hashlib.sha256(args.resume_reference.read_bytes()).hexdigest()
                           if args.resume_reference else None)
@@ -466,6 +503,36 @@ def main() -> int:
                         "fallback": self.hf_model.s4000_fallback_metadata}
 
         class AuditEnv(EnvWorker):
+            def bootstrap_step(self):
+                outputs = super().bootstrap_step()
+                if not hasattr(self, "sampling_reports"):
+                    self.sampling_reports = []
+                report = self.probe_report()
+                for stage_id, item in enumerate(report["identities"]):
+                    descriptions = list(get_env_attr(self.env_list[stage_id], "task_descriptions"))
+                    if list(outputs[stage_id].obs["task_descriptions"]) != descriptions:
+                        raise AssertionError("policy observation task descriptions differ from active tasks")
+                    item["task_descriptions"] = descriptions
+                report["event"] = "training_bootstrap"
+                self.sampling_reports.append(report)
+                event("env", self._rank, "training_bootstrap", report)
+                return outputs
+
+            def finish_rollout(self, mode="train"):
+                if mode == "train":
+                    report = self.probe_report()
+                    report["elapsed_simulator_steps"] = [
+                        as_json(get_env_attr(env, "elapsed_steps")) for env in self.env_list]
+                    report["success_once"] = [
+                        as_json(get_env_attr(env, "success_once")) for env in self.env_list]
+                    report["event"] = "training_horizon_complete"
+                    self.sampling_reports.append(report)
+                    event("env", self._rank, "training_horizon_complete", report)
+                return super().finish_rollout(mode)
+
+            def sampling_report(self):
+                return getattr(self, "sampling_reports", [])
+
             def probe_report(self):
                 identities = []
                 for env in self.env_list:
@@ -480,6 +547,35 @@ def main() -> int:
                         "memory": memory_snapshot(include_gpu=False)}
 
         class AuditRunner(EmbodiedRunner):
+            def _save_checkpoint(self):
+                checkpoint_dir = (Path(self.cfg.runner.logger.log_path)
+                    / self.cfg.runner.logger.experiment_name / "checkpoints"
+                    / f"global_step_{self.global_step}")
+                if checkpoint_dir.exists():
+                    raise FileExistsError("refusing to overwrite a Runner checkpoint")
+                if shutil.disk_usage(args.output.parent).free < 18 * 1024 ** 3:
+                    raise RuntimeError("Runner DCP saving requires at least 18 GiB free")
+                # The inherited loop increments Runner progress after training;
+                # Actor version otherwise remains the version used for sampling.
+                # Save the completed-step version without adding a rollout sync.
+                self.actor.set_global_step(self.global_step).wait()
+                before = self.actor.snapshot_resume_state().wait()
+                progress(f"runner_step_{self.global_step}/official_checkpoint_save")
+                super()._save_checkpoint()
+                after = self.actor.snapshot_resume_state().wait()
+                if before != after:
+                    raise AssertionError("checkpoint save changed Actor training state")
+                files = [{"path": str(path.relative_to(checkpoint_dir)),
+                          "bytes": path.stat().st_size,
+                          "sha256": file_sha256(path)}
+                         for path in sorted(checkpoint_dir.rglob("*")) if path.is_file()]
+                result["saved_checkpoints"].append({"global_step": self.global_step,
+                    "checkpoint_dir": str(checkpoint_dir.resolve()),
+                    "checkpoint_state": before, "post_save_actor_state": after,
+                    "checkpoint_files": files,
+                    "checkpoint_bytes": sum(row["bytes"] for row in files)})
+                progress(f"runner_step_{self.global_step}/checkpoint_save_audited")
+
             def update_rollout_weights(self):
                 progress(f"runner_step_{self.global_step}/official_weight_sync")
                 super().update_rollout_weights()
@@ -533,7 +629,7 @@ def main() -> int:
         cfg.runner.data_channel_transport = "ray"
         cfg.runner.max_epochs = target_step
         cfg.runner.max_steps = target_step
-        cfg.runner.save_interval = -1
+        cfg.runner.save_interval = args.save_interval
         cfg.runner.val_check_interval = -1
         cfg.runner.weight_sync_interval = 1
         cfg.runner.use_training_pipeline = False
@@ -563,6 +659,7 @@ def main() -> int:
                 "actor_seed": plain_cfg["actor"]["seed"], "algorithm": plain_cfg["algorithm"],
                 "actor_fsdp": plain_cfg["actor"]["fsdp_config"], "global_batch": plain_cfg["actor"]["global_batch_size"],
                 "train_env": plain_cfg["env"]["train"],
+                "placement": plain_cfg["cluster"]["component_placement"],
             }
             old_cfg = reference["config"]
             previous_cfg = {
@@ -570,6 +667,7 @@ def main() -> int:
                 "actor_seed": old_cfg["actor"]["seed"], "algorithm": old_cfg["algorithm"],
                 "actor_fsdp": old_cfg["actor"]["fsdp_config"], "global_batch": old_cfg["actor"]["global_batch_size"],
                 "train_env": old_cfg["env"]["train"],
+                "placement": old_cfg["cluster"]["component_placement"],
             }
             if matching_cfg != previous_cfg:
                 raise AssertionError("resume configuration differs from the saved training configuration")
@@ -579,7 +677,7 @@ def main() -> int:
                     or result["support_fingerprints"] != reference["support_fingerprints"]
                     or result["probe_sha256"] != reference["probe_sha256"]):
                 raise AssertionError("resume probe, helpers or GR00T source differ from the saved run")
-        if args.save_final and shutil.disk_usage(args.output.parent).free < 18 * 1024 ** 3:
+        if (args.save_final or args.save_interval > 0) and shutil.disk_usage(args.output.parent).free < 18 * 1024 ** 3:
             raise RuntimeError("a full Runner DCP needs at least 18 GiB free; existing checkpoints are preserved")
         result["runtime"] = {"torch": torch.__version__, "torch_musa": torch_musa.__version__}
         result["scheduler_collective_private_api_support"] = {
@@ -635,25 +733,41 @@ def main() -> int:
         runner.update_rollout_weights()
         result["checkpoint_state"] = actor.snapshot_resume_state().wait()
         if args.save_final:
-            checkpoint_dir = Path(cfg.runner.logger.log_path) / cfg.runner.logger.experiment_name / "checkpoints" / f"global_step_{target_step}"
-            if checkpoint_dir.exists():
-                raise FileExistsError("refusing to overwrite a Runner checkpoint")
             progress("official_runner_save_checkpoint")
             runner._save_checkpoint()
-            result["checkpoint_dir"] = str(checkpoint_dir.resolve())
-            result["post_save_actor_state"] = actor.snapshot_resume_state().wait()
-            if result["checkpoint_state"] != result["post_save_actor_state"]:
-                raise AssertionError("checkpoint save changed Actor training state")
-            result["checkpoint_files"] = [
-                {"path": str(path.relative_to(checkpoint_dir)), "bytes": path.stat().st_size}
-                for path in sorted(checkpoint_dir.rglob("*")) if path.is_file()]
-            result["checkpoint_bytes"] = sum(row["bytes"] for row in result["checkpoint_files"])
+        if result["saved_checkpoints"]:
+            last_save = result["saved_checkpoints"][-1]
+            if last_save["global_step"] != target_step or last_save["checkpoint_state"] != result["checkpoint_state"]:
+                raise AssertionError("last saved checkpoint differs from completed training state")
+            for key in ("checkpoint_dir", "post_save_actor_state", "checkpoint_files", "checkpoint_bytes"):
+                result[key] = last_save[key]
         progress("final_worker_audit")
         actors = actor.probe_report().wait()
         rollout_final = rollout.snapshot_cpu().wait()[0]
         result["actor_reports"] = actors
         result["rollout_final"] = rollout_final
         result["env_final"] = env.probe_report().wait()
+        result["training_sampling_reports"] = env.sampling_report().wait()[0]
+        bootstraps = [row for row in result["training_sampling_reports"]
+                      if row["event"] == "training_bootstrap"]
+        completions = [row for row in result["training_sampling_reports"]
+                       if row["event"] == "training_horizon_complete"]
+        identity_batches = [row["identities"] for row in bootstraps]
+        result["training_sampling_checks"] = {
+            "one_bootstrap_and_completion_per_iteration": len(bootstraps) == len(completions) == args.iterations,
+            "completed_horizons_use_same_task_trial_as_bootstrap": all(
+                [{key: item[key] for key in ("task_ids", "trial_ids")} for item in start["identities"]]
+                == end["identities"] for start, end in zip(bootstraps, completions)),
+            "multiple_tasks_in_actual_sampling": all(
+                row["distinct_task_count"] >= args.min_distinct_task_ids for row in bootstraps),
+            "requested_horizon_elapsed_on_all_lanes": all(
+                all(value == args.steps_per_env for stage_values in row["elapsed_simulator_steps"] for value in stage_values)
+                for row in completions),
+            "reset_states_advance_between_iterations": (args.specific_reset_id is not None
+                or args.iterations == 1 or all(left != right for left, right in zip(identity_batches, identity_batches[1:]))),
+        }
+        if not all(result["training_sampling_checks"].values()):
+            raise AssertionError(f"training reset/trajectory checks failed: {result['training_sampling_checks']}")
         result["runner_global_step"] = runner.global_step
         checks = {"runner_completed_requested_steps": runner.global_step == target_step,
                   "syncs_at_all_iteration_versions_and_final": [row["runner_global_step"] for row in result["synchronizations"]] == list(range(start_step, target_step + 1)),

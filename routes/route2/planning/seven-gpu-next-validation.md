@@ -9,16 +9,20 @@
 - Actor GPU `0-5`，独立 Rollout GPU `6`，Env placement GPU `0`；
 - 6 个 LIBERO 环境、`chunk=5`、每环境 240 步、全局 batch `288`；
 - `specific_reset_id=null`，使用有序的全 suite reset pool，初始环境至少出现 2 个不同 task id；
-- 第一个进程完成 1 个完整 Runner step 后保存官方 Runner checkpoint；
-- 新进程从 `global_step_1` 恢复，在任何采样前核对模型、Adam、scheduler、RNG、计数和版本，再采集第二个完整 horizon 并显式同步到版本 2。
+- 第一个进程完成 2 个完整 Runner step，并通过官方 `save_interval=2` 路径保存 `global_step_2` checkpoint；
+- 新进程从 `global_step_2` 恢复，在任何采样前核对模型、Adam、scheduler、RNG、计数和版本，再采集第三个完整 horizon 并显式同步到版本 3。
 
 默认脚本会写入新的 `official-seven-gpu-save-v1` 和 `official-seven-gpu-resume-v1` 结果；已有路径会拒绝覆盖。`ROUTE2_SEVEN_STEPS` 可用于先做更短的 10 步 smoke，但正式验收应保持 240。
 
 ## 通过条件
 
 1. 初始环境报告包含多个 task id，且 Actor 每个 rank 收到一条完整的 48 chunk 轨迹；
-2. 6 个 Actor 的 GAE、PPO/Adam、MCCL 梯度归约和版本 0/1 同步通过；
-3. 保存后新进程的 6 个 Actor 状态逐 rank 精确恢复，恢复后完整 horizon 能继续更新并同步到版本 2；
+2. 6 个 Actor 的 GAE、PPO/Adam、MCCL 梯度归约和版本 0/1/2 同步通过；
+3. 保存后新进程的 6 个 Actor 状态逐 rank 精确恢复，恢复后完整 horizon 能继续更新并同步到版本 3；
 4. 结果记录 checkpoint 文件大小、显存、每个 task/trial 身份、有效 action mask 和 truncation/reset 边界。
+
+实际采样的 bootstrap 和完成事件必须交替，每轮每 lane 运行240步，任务描述与环境身份匹配；第1、2轮 reset 批次应不同。独立审计使用 [`audit_route2_runner_result.py`](../../../scripts/audit_route2_runner_result.py)，七卡调用时附加 `--min-distinct-task-ids 2`；本地回归入口为 [`test_route2_runner_audit.py`](../../../scripts/test_route2_runner_audit.py)。
+
+本配方的周期保存恰好与第一个进程的结束步重合，验证官方 `_maybe_eval_and_checkpoint`/`_save_checkpoint` 路径，不覆盖“非末轮保存后继续同一进程训练”。新 Env/Rollout 进程重启 reset 池，未恢复模拟器现场或其 RNG，不能声称不中断训练等价，也不能声称恢复后必然使用之前未见的 state。两轮同进程内的 reset 推进和新进程的 Actor 精确恢复分别检查。为保留现有 checkpoint，本轮只新增一个完整保存点。
 
 这一步仍然是适配和生命周期验收，不作为学习收益结论。通过后才使用官方学习率和固定 500-state 评测协议进行配对训练前后比较。
