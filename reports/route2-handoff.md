@@ -145,3 +145,10 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 七卡保存会同时使用约15.1 GiB最终checkpoint和约16 GiB量级临时空间。实测远端盘峰值曾从35 GiB可用降至约1 GiB；现将多rank保存前门槛提高为40 GiB，并保留现有checkpoint。`official-seven-gpu-resume-v3.json`及所有事件、step2保存partial、冻结保存/恢复探针、source lock和独立审计均随此节点一同归档。
 
 结果、日志和事件下载后，所有训练/Ray worker已退出。协调者在AutoDL列表对`77de47b334-d32e95e0`（S4000×7）确认关机；页面先显示“关机中”，随后显示“已关机”且“开机”按钮可用。实例未释放，step2 checkpoint仍保存在实例持久研究盘。平台状态证据见[本轮关机确认](../routes/route2/evidence/multi-gpu/seven-gpu-lifecycle-v2/platform-shutdown.json)。
+## 八卡第一轮验证入口（2026-10-10）
+
+用户现有八张 S4000 后，新增 [`eight-gpu-next-validation`](../routes/route2/planning/eight-gpu-next-validation.md)、[`run_route2_eight_gpu_validation.sh`](../scripts/run_route2_eight_gpu_validation.sh) 和独立审计 [`audit_route2_eight_gpu_result.py`](../scripts/audit_route2_eight_gpu_result.py)。第一轮暂不写 checkpoint：GPU 0–6 为 7 个 FULL_SHARD Actor，GPU 7 为独立 Rollout，Env placement 为 GPU 0；7 个 LIBERO 环境、`chunk=5`、每环境240步、全局 batch 336、两轮共672个 policy chunks和3360个 simulator action slots，训练 reset 要求至少覆盖两个 task id。
+
+入口保留 `MCCL_P2P_DISABLE=1`、隔离 route2 环境和已验证的 RLinf/MUSA 适配变量。独立审计会重新核对八卡 placement、每个 rank 的 trajectory/GAE/PPO 事件、跨轮 reset、有限参数与指标以及七个 rank 的归约梯度范数一致性；这一轮只证明八卡执行闭环，不证明吞吐线性扩展或学习收益。七卡 checkpoint 不复制、不覆盖；八卡保存/恢复待第一轮通过且研究盘至少有40 GiB可用后另行安排。
+
+本地静态验证：既有生命周期审计 `8/8` 通过；新脚本 Bash/Python 编译、`git diff --check` 和非法 batch 参数拒绝通过。开机后在远端研究目录执行 `scripts/run_route2_eight_gpu_validation.sh`，结果写入 `route2/results/official-eight-gpu-validation-v1.*`。

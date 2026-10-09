@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "bac15f87865ab132f3f79d2a7288f00e53a0b3cd",
+  "research_commit": "dd0738e1626085b22e8c433d06a28ce07d055b6c",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 25738,
-      "sha256": "69c46cd00e121e47effde5a2193b37e10be6906a91af29cfba75612af4f36f0a"
+      "bytes": 27198,
+      "sha256": "70a249abe435dbb6ad6337f15b9e1202ddc126573b53a104f966e6aea12ac2cb"
     },
     {
       "path": "reports/route2-learning.md",
@@ -2833,6 +2833,12 @@
       "sha256": "7cdda8a4ae9595f7d0b0e11d2316050d34a5469adf969adfb93bdb8f68d66fd0"
     },
     {
+      "path": "routes/route2/planning/eight-gpu-next-validation.md",
+      "research_source": "routes/route2/planning/eight-gpu-next-validation.md",
+      "bytes": 1801,
+      "sha256": "7704ad77304a47be50c9acb49fd79b849c56f7e8cce84cceaba031090b3a42c0"
+    },
+    {
       "path": "routes/route2/planning/embodied-learning-entry.md",
       "research_source": "routes/route2/planning/embodied-learning-entry.md",
       "bytes": 27797,
@@ -2903,6 +2909,12 @@
       "research_source": "scripts/acquire_route2_weights_parallel.py",
       "bytes": 7165,
       "sha256": "47c75431f8d17b2e2202db0c3010fe004425c755da9ad3f3594d9226fbac1d74"
+    },
+    {
+      "path": "scripts/audit_route2_eight_gpu_result.py",
+      "research_source": "scripts/audit_route2_eight_gpu_result.py",
+      "bytes": 4365,
+      "sha256": "e4f698a0436fb393a20b906133886e5dc1a1c1954d3ff159a36ea2a67e769884"
     },
     {
       "path": "scripts/audit_route2_eval_result.py",
@@ -3047,6 +3059,12 @@
       "research_source": "routes/route2/publishing/run_probes.sh",
       "bytes": 2554,
       "sha256": "90ac2395449166932c49dceaf4c720e062d82ffc184225f7d01072fcf1be31e5"
+    },
+    {
+      "path": "scripts/run_route2_eight_gpu_validation.sh",
+      "research_source": "scripts/run_route2_eight_gpu_validation.sh",
+      "bytes": 2192,
+      "sha256": "49cf08fd94fc50214659cff9a59efb448c08b02863243dbeb3f0f5435ea1398e"
     },
     {
       "path": "scripts/run_route2_embodied_validation.sh",
