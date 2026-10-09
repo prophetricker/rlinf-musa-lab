@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "92d58071641484c4783a99a4917a83dfe1cf4788",
+  "research_commit": "accfe60896c3d3ca379f821a705cd127a713fc73",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 28314,
-      "sha256": "23e1f6ce6f935a640dd16d7a4768710d7e74395fb7c802ea22cc759c67ef3b4f"
+      "bytes": 28627,
+      "sha256": "b341b7b086ac456a3899dedc6cd817bd3a66cb4f03a533ea6d570a324e23bcc6"
     },
     {
       "path": "reports/route2-learning.md",
@@ -1109,6 +1109,12 @@
       "research_source": "routes/route2/evidence/multi-gpu/official-two-rank-train-sync-v1.json",
       "bytes": 1434901,
       "sha256": "1f6b6741476a5f26c7761db59c7b9d25e073bbede6424aafb1ff52d3caa8c53d"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/platform-shutdown-eight-gpu-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/platform-shutdown-eight-gpu-v1.json",
+      "bytes": 746,
+      "sha256": "6433f6d5661b26a78f347c10d9fc8f3232c774e640a43b4411f303c8ff07d259"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/platform-shutdown-full-baseline-user-report-v1.json",

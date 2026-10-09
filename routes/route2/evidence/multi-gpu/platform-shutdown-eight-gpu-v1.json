@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-10T03:52:00+08:00",
+  "instance_id": "77de47b334-d32e95e0",
+  "specification": "MTT S4000 * 8卡",
+  "scope": "八卡第一轮 RLinf/MUSA 官方 Runner 验证完成后的平台关机确认",
+  "pre_shutdown_checks": {
+    "training_processes_exited": true,
+    "ray_processes_exited": true,
+    "musa_allocator_bytes_each_gpu": [0, 0, 0, 0, 0, 0, 0, 0],
+    "checkpoint_written_by_this_run": false
+  },
+  "platform_action": "AutoDL instance list: click 关机, confirm dialog",
+  "platform_status": "已关机",
+  "reopen_control_visible": true,
+  "instance_released": false,
+  "note": "The platform UI showed 关机中 and then 已关机; the instance remains retained with persistent data."
+}

@@ -158,3 +158,5 @@ Runner save-v1调用官方保存接口后保存global_step_1/actor（15.081598Gi
 用户启动八卡实例后，按上述配方完成两轮真实官方 `EmbodiedRunner.run()`。主结果和事件已下载到 [`eight-gpu-validation`](../routes/route2/evidence/multi-gpu/eight-gpu-validation/)；远端脚本审计和本地重新审计均为 `pass`。7 个 Actor rank 每轮各完成一次 trajectory、GAE 和 PPO/Adam 更新，7-way MCCL 归约后的梯度范数逐轮精确一致；两轮各 336 个全局 policy chunks，合计 672 chunks、3360 simulator action slots。任务批次从 `[4,8,2,6,7,1,7]` 变为 `[4,5,3,3,4,7,0]`，7 条 lane 每轮均完整运行240步，跨任务 reset 和 horizon 边界检查通过。
 
 运行时仍是 Driver 2.7.0、MUSA Toolkit 3.1.0、Torch 2.2.0、Torch-MUSA 1.3.0、MCCL 2.11.4；本轮没有写 checkpoint，研究盘约49 GiB可用。运行约40.7分钟，不能据此宣称八卡吞吐提升；两轮奖励均为零，因此不能作为学习收益或 LIBERO benchmark 结果。所有训练/Ray进程已退出，下一步才考虑在空间门槛满足时单独验证八卡 checkpoint 保存/恢复。
+
+本轮收尾时 MUSA 八卡 allocator 均为0，AutoDL 页面确认实例 `77de47b334-d32e95e0` 显示“已关机”且“开机”按钮可用；实例保留、未释放。平台状态记录见 [`platform-shutdown-eight-gpu-v1.json`](../routes/route2/evidence/multi-gpu/platform-shutdown-eight-gpu-v1.json)。
