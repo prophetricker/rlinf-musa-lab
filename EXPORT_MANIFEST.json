@@ -1,6 +1,6 @@
 {
   "record_date": "2026-10-07",
-  "research_commit": "dd0738e1626085b22e8c433d06a28ce07d055b6c",
+  "research_commit": "92d58071641484c4783a99a4917a83dfe1cf4788",
   "research_worktree_has_tracked_changes": false,
   "upstream_commit": "c70606f08cdca259b8dec03d4430926b5b8fac9d",
   "adaptation_commit": "3e7329c629293f1b0f9c331b5bb24eccc3e3f142",
@@ -93,8 +93,8 @@
     {
       "path": "reports/route2-handoff.md",
       "research_source": "reports/route2-handoff.md",
-      "bytes": 27198,
-      "sha256": "70a249abe435dbb6ad6337f15b9e1202ddc126573b53a104f966e6aea12ac2cb"
+      "bytes": 28314,
+      "sha256": "23e1f6ce6f935a640dd16d7a4768710d7e74395fb7c802ea22cc759c67ef3b4f"
     },
     {
       "path": "reports/route2-learning.md",
@@ -581,6 +581,72 @@
       "research_source": "routes/route2/evidence/multi-gpu/chunk5-preparation-v1.json",
       "bytes": 1045,
       "sha256": "381ccfcce4334589a88d9573a50de1a6cc7689637ba6f7a3a96db8c3919ecb04"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank0.events.jsonl",
+      "bytes": 13569,
+      "sha256": "fb0bad19f610ecae930817af5ca799edb61b57bff5d0baba97c470585f47bf05"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank1.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank1.events.jsonl",
+      "bytes": 13570,
+      "sha256": "ddbff8a72fb632643309167207c0500f2770112a5d146dc93f372c5dcb491451"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank2.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank2.events.jsonl",
+      "bytes": 13570,
+      "sha256": "54eb0e76f40825f5b89f62f0b29de39b49eb7e0c7ff7fc95d053604d44924b86"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank3.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank3.events.jsonl",
+      "bytes": 13578,
+      "sha256": "e2beb0569d8d728d53d21c8ffccefd066afd8cf376893f811c16c3c2536fd473"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank4.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank4.events.jsonl",
+      "bytes": 13564,
+      "sha256": "803eb80920a8f7f8d6688d6a9c60b116ede637295d6518d62ae89f6d1d31aefd"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank5.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank5.events.jsonl",
+      "bytes": 13576,
+      "sha256": "e33b7195292eb6a5fb58966f5f97758db638552883b3377560098a70e50a7fea"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank6.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.actor.rank6.events.jsonl",
+      "bytes": 13578,
+      "sha256": "81182f0efa0a2b7ef294cbea4c00fdad80486e980739765c36c1422839a9f610"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.audit-recheck.json",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.audit-recheck.json",
+      "bytes": 3689,
+      "sha256": "283aef78a1ea64dfda8cb72234d2163ab1dbef38bbd873a5c8c43d9ecc7c0723"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.audit.json",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.audit.json",
+      "bytes": 3689,
+      "sha256": "283aef78a1ea64dfda8cb72234d2163ab1dbef38bbd873a5c8c43d9ecc7c0723"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.env.rank0.events.jsonl",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.env.rank0.events.jsonl",
+      "bytes": 2821,
+      "sha256": "2b539926fe2382925ee51db5e3fc493941bfbadfa53b532290ce5c58f36cabe1"
+    },
+    {
+      "path": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.json",
+      "research_source": "routes/route2/evidence/multi-gpu/eight-gpu-validation/official-eight-gpu-validation-v1.json",
+      "bytes": 2749394,
+      "sha256": "6e811f3d4fb20911af4785bafa20275ac34fa4cfd0cac18f6fce35239f65edd1"
     },
     {
       "path": "routes/route2/evidence/multi-gpu/eval-ray-transport-cpu-v1.json",
@@ -2835,8 +2901,8 @@
     {
       "path": "routes/route2/planning/eight-gpu-next-validation.md",
       "research_source": "routes/route2/planning/eight-gpu-next-validation.md",
-      "bytes": 1801,
-      "sha256": "7704ad77304a47be50c9acb49fd79b849c56f7e8cce84cceaba031090b3a42c0"
+      "bytes": 3122,
+      "sha256": "3b144e93bc4b35f8be389017dba143090eb6427b103ce36f058ef6ac894915e4"
     },
     {
       "path": "routes/route2/planning/embodied-learning-entry.md",

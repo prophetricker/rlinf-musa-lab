@@ -18,3 +18,14 @@
 独立审计必须同时确认：8 卡 placement、7 个 Actor rank、每轮每 rank 两次 trajectory/GAE/PPO、每轮 336 个全局 chunk、每环境 240 步、task/trial 在 horizon 内稳定且轮次间 reset 推进、MCCL 归约后的 7 个 grad norm 每轮一致、参数/Adam/loss 全部有限，并且没有请求 checkpoint。
 
 这一轮仍然是适配和执行闭环证据，不是吞吐线性扩展、500-state benchmark 或学习收益。通过后再单独规划八卡保存/恢复；多 rank checkpoint 只有在研究盘至少 40 GiB 可用时才允许尝试。
+
+## 实测结果（2026-10-10）
+
+八卡实例实际运行通过。主结果、7 个 Actor 事件、Env 事件、日志和远端审计见 [`eight-gpu-validation`](../evidence/multi-gpu/eight-gpu-validation/)，主运行状态为 `pass`，独立审计为 `pass`，本地重新审计也为 `pass`。
+
+- 7 个 Actor 每轮各收到 48 个 policy chunks；两轮全局分别为 336、336，共 672 个 chunks 和 3360 个 simulator action slots。
+- 两轮每个 rank 都完成 trajectory receive、GAE 和 PPO/Adam，最终 Runner step 为2；7 个 rank 的归约 `actor/grad_norm` 逐轮精确一致：`12.937379837036133`、`16.034832000732422`。
+- 两轮 bootstrap 的 task id 分别为 `[4,8,2,6,7,1,7]`、`[4,5,3,3,4,7,0]`，每条 lane 都完成 240 个模拟步，task/trial 在 horizon 内保持一致。
+- 运行时为 Torch `2.2.0`、Torch-MUSA `1.3.0+81caf0a`；没有请求或写入 checkpoint。完整运行约 40.7 分钟，不能由此推出吞吐线性扩展。
+
+这次训练奖励两轮均为0，因此结果只证明八卡拓扑、MCCL/FSDP 同步、跨任务 reset、轨迹路由和 PPO 执行没有失败，不是学习效果或 LIBERO benchmark 成绩。下一步可以在保持该拓扑的前提下单独评估八卡 checkpoint 保存/恢复；开始前需要再次确认至少 40 GiB 可用空间。
